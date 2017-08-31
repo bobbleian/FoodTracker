@@ -11,22 +11,23 @@ import UIKit
 @IBDesignable class EntryControl: UIStackView {
 
     //MARK: Properties
+    let backGroundView = UIControl()
     let entryTitle = UILabel()
     let entryValue = UILabel()
     
     @IBInspectable var title: String = " " {
         didSet {
-            entryTitle.text = title
+            refreshControl()
         }
     }
     @IBInspectable var value: String = " " {
         didSet {
-            entryValue.text = value
+            refreshControl()
         }
     }
-    @IBInspectable var propertyID: Int = 0 {
+    @IBInspectable var mandatory: Bool = false {
         didSet {
-            
+            refreshControl()
         }
     }
     @IBInspectable var name: String = "Name" {
@@ -61,27 +62,28 @@ import UIKit
         axis = .vertical
         
         // set up the background
-        let backGroundView = UIControl()
-        backGroundView.backgroundColor = .white
+        backGroundView.backgroundColor = .blue
+        backGroundView.alpha = 0.2
         backGroundView.translatesAutoresizingMaskIntoConstraints = false
-        //backGroundView.layer.cornerRadius = 3
-        //backGroundView.layer.masksToBounds = true
+        backGroundView.layer.cornerRadius = 5
+        backGroundView.layer.masksToBounds = true
+        backGroundView.layer.borderWidth = 1.0
         addSubview(backGroundView)
         backGroundView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         backGroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         backGroundView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         backGroundView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         
-        entryTitle.text = title
         entryTitle.textAlignment = .center
-        entryTitle.backgroundColor = .green
+        //entryTitle.adjustsFontSizeToFitWidth = true
+        //entryTitle.layer.borderWidth = 1.0
         //entryTitle.heightAnchor.constraint(equalToConstant: 20).isActive = true
         //entryTitle.widthAnchor.constraint(equalToConstant: 20).isActive = true
         addArrangedSubview(entryTitle)
         
-        entryValue.text = value
         entryValue.textAlignment = .center
-        entryValue.backgroundColor = .white
+        //entryValue.backgroundColor = .white
+        //entryValue.layer.borderWidth = 1.0
         //entryValue.heightAnchor.constraint(equalToConstant: 20).isActive = true
         //entryValue.widthAnchor.constraint(equalToConstant: 20).isActive = true
         addArrangedSubview(entryValue)
@@ -89,6 +91,24 @@ import UIKit
         // Setup the Tap action
         backGroundView.addTarget(self, action: #selector(EntryControl.ecTapped(entryControl:)), for: .touchUpInside)
         
+        refreshControl()
+        
+    }
+    
+    private func refreshControl() {
+        entryTitle.text = title
+        entryValue.text = value
+        if mandatory {
+            if entryValue.text != nil && !(entryValue.text?.isEmpty)!  && entryValue.text != " " {
+                backGroundView.backgroundColor = .green
+            }
+            else {
+                backGroundView.backgroundColor = .orange
+            }
+        }
+        else {
+            backGroundView.backgroundColor = .lightGray
+        }
     }
     
     func ecTapped(entryControl: EntryControl) {

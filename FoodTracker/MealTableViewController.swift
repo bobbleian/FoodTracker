@@ -28,11 +28,13 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         super.viewDidLoad()
         
         // Use table view controller edit button
-        navigationItem.leftBarButtonItem = editButtonItem
+        //navigationItem.leftBarButtonItem = editButtonItem
         
         // Load meal data from SQLLite
+        
         do {
-            try loadMealsFromDB()
+            //try loadMealsFromDB()
+            loadSampleMeals()
         }
         catch {
             os_log("Unable to load meals from database", log: OSLog.default, type: .error)
@@ -133,7 +135,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         // Table view cells are reused and should be dequeued using a cell identifier
         let cellIdentifier = "MealTableViewCell"
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MealTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? OperationalFormCell else {
             fatalError("The dequeued cell is not an instance of MealTableViewCell.")
         }
 
@@ -147,22 +149,32 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         }
         
         cell.nameLabel.text = meal.name
+        cell.typeLabel.text = meal.type
+        cell.dueDateLabel.text = meal.dueDate
+        cell.key1Label.text = meal.key1
+        cell.key2Label.text = meal.key2
+        cell.key3Label.text = meal.key3
+        
+        /*
         cell.photoImageView.image = meal.photo
         cell.ratingControl.rating = meal.rating
+ */
         
         return cell
     }
     
 
+    /*
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        return false
     }
+    */
     
 
-    
+    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -182,6 +194,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
+    */
     
 
     /*
@@ -212,7 +225,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
             guard let mealDetailViewController = segue.destination as? MealViewController else {
                 fatalError("Unexpected destination \(segue.destination)")
             }
-            guard let selectedMealCell = sender as? MealTableViewCell else {
+            guard let selectedMealCell = sender as? OperationalFormCell else {
                 fatalError("Unexpected sender \(sender ?? "")")
             }
             guard let indexPath = tableView.indexPath(for: selectedMealCell) else {
@@ -283,13 +296,13 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         let photo2 = UIImage(named: "meal2")
         let photo3 = UIImage(named: "meal3")
         
-        guard let meal1 = Meal(name: "Caprese Salad", photo: photo1, rating: 4) else {
+        guard let meal1 = Meal(name: "Caprese Salad", photo: photo1, rating: 4, type: "D13", dueDate: "1/1/2000", key1: "Surface Location", key2: "Location Name", key3: "UWI") else {
             fatalError("Unable to instantiate meal1")
         }
-        guard let meal2 = Meal(name: "Chicken and Potatoes", photo: photo2, rating: 5) else {
+        guard let meal2 = Meal(name: "Chicken and Potatoes", photo: photo2, rating: 5, type: "D13", dueDate: "1/1/2000", key1: "Surface Location", key2: "Location Name", key3: "UWI") else {
             fatalError("Unable to instantiate meal1")
         }
-        guard let meal3 = Meal(name: "Pasta with Meatballs", photo: photo3, rating: 2) else {
+        guard let meal3 = Meal(name: "Pasta with Meatballs", photo: photo3, rating: 2, type: "D13", dueDate: "1/1/2000", key1: "Surface Location", key2: "Location Name", key3: "UWI") else {
             fatalError("Unable to instantiate meal1")
         }
         
@@ -318,7 +331,12 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
             guard let tmpMeal = Meal(
                     name: meal[name],
                     photo: meal[photo] != nil ? UIImage(data: Data.fromDatatypeValue(meal[photo]!)) : nil,
-                    rating: Int(exactly: meal[rating]) ?? 0) else {
+                    rating: Int(exactly: meal[rating]) ?? 0,
+                    type: "D13",
+                    dueDate: "1/1/2000",
+                    key1: "Surface Location",
+                    key2: "Location Name",
+                    key3: "UWI") else {
                 fatalError("Unable to load meal from database")
             }
             self.meals += [tmpMeal]
@@ -341,7 +359,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         let imageData = UIImagePNGRepresentation(newMeal.photo!)!
         let imageBase64 = imageData.base64EncodedString()
         
-        let json: [String: Any] = ["Contents": imageBase64]
+        let json: [String: Any] = ["Contents": imageBase64, "MediaNumber": "QK2AHSAAC"]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
         let headers = ["content-type": "application/json", "Authorization": "Bearer [token]"]
@@ -353,6 +371,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         request.httpBody = jsonData
         request.allHTTPHeaderFields = headers
         
+        /*
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {
                 os_log(error as! StaticString, log: OSLog.default, type: .error)
@@ -371,6 +390,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
                 }
             }
             }.resume()
+        */
         
         
     }

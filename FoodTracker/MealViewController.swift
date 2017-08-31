@@ -9,12 +9,9 @@
 import UIKit
 import os.log
 
-class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MealViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //MARK: Properties
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var photoImageView: UIImageView!
-    @IBOutlet weak var ratingControl: RatingControl!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
@@ -27,15 +24,13 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Handle the text fields user input through delegate callbacks
-        nameTextField.delegate = self
         
         // Set up views if editing an existing Meal
         if let meal = meal {
             navigationItem.title = meal.name
-            nameTextField.text = meal.name
-            photoImageView.image = meal.photo
-            ratingControl.rating = meal.rating
+            //nameTextField.text = meal.name
+            //photoImageView.image = meal.photo
+            //ratingControl.rating = meal.rating
         }
         
         // Enable Save button only if the Meal has a valid name
@@ -73,7 +68,7 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         }
         
         // Set the photoImageView to display the selected image
-        photoImageView.image = selectedImage
+        //photoImageView.image = selectedImage
         
         // Dismiss the picker
         dismiss(animated: true, completion: nil)
@@ -106,18 +101,18 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
             return
         }
         
-        let name = nameTextField.text ?? ""
-        let photo = photoImageView.image
-        let rating = ratingControl.rating
+        //let name = nameTextField.text ?? ""
+        //let photo = photoImageView.image
+        //let rating = ratingControl.rating
         
         // Set the meal to be passed to the MealTableViewController after the unwind seque
-        meal = Meal(name: name, photo: photo, rating: rating)
+        meal = Meal(name: "name", photo: nil, rating: 0, type: "", dueDate: "", key1: "", key2: "", key3: "")
     }
     
     //MARK: Actions
     @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
         // Hide keyboard
-        nameTextField.resignFirstResponder()
+        //nameTextField.resignFirstResponder()
         
         // UIImagePickerController is a view controller that lets a user pick media from their photo library
         let imagePickerController = UIImagePickerController()
@@ -159,8 +154,8 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     //MARK: Private
     private func updateSaveButtonState() {
         // Disable the Save button if the text field is empty
-        let text = nameTextField.text ?? ""
-        saveButton.isEnabled = !text.isEmpty
+        //let text = nameTextField.text ?? ""
+        //saveButton.isEnabled = !text.isEmpty
     }
     
 }

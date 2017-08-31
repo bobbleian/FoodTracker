@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Titles</key>
+			<array>
+				<string>100 Metres</string>
+				<string>200 Metres</string>
+				<string>500 Metres</string>
+				<string>Infinity and Beyond</string>
+			</array>
+			<key>Title</key>
+			<string>GPS Range</string>
+			<key>Values</key>
+			<array>
+				<integer>100</integer>
+				<integer>200</integer>
+				<integer>500</integer>
+				<integer>100000</integer>
+			</array>
+			<key>Key</key>
+			<string>gpsRange</string>
+			<key>DefaultValue</key>
+			<integer>100</integer>
+		</dict>
+	</array>
+</dict>
+</plist>
