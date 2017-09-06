@@ -14,6 +14,8 @@ class MealViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     //MARK: Properties
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var containerViewA: UIView!
+    @IBOutlet weak var containerViewB: UIView!
     
     /*
      This value is either passed by MealTableViewController in prepare(for:sender:)
@@ -149,7 +151,26 @@ class MealViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         //Present the AlertController
         self.present(actionSheetController, animated: true, completion: nil)
     }
-
+    
+    @IBAction func showContainerView(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            UIView.animate(withDuration: 0.5, animations: {
+                self.containerViewA.alpha = 1
+                self.containerViewB.alpha = 0
+            })
+        case 1:
+            UIView.animate(withDuration: 0.5, animations: {
+                self.containerViewA.alpha = 0
+                self.containerViewB.alpha = 1
+            })
+        default:
+            UIView.animate(withDuration: 0.5, animations: {
+                self.containerViewA.alpha = 1
+                self.containerViewB.alpha = 0
+            })
+        }
+    }
     
     //MARK: Private
     private func updateSaveButtonState() {

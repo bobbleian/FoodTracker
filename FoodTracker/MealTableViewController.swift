@@ -14,6 +14,7 @@ import Foundation
 class MealTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
     
     //MARK: Properties
+    let mercury = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
     var meals = [Meal]()
     var mealSearchResults = [Meal]()
     enum FilterMode: String {
@@ -119,16 +120,19 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
     //MARK: Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering() {
             return mealSearchResults.count
         }
         return meals.count
     }
 
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -142,10 +146,10 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         // Fetch the meal for the data source layout
         let meal: Meal
         if isFiltering() {
-            meal = mealSearchResults[indexPath.row]
+            meal = mealSearchResults[indexPath.section]
         }
         else {
-            meal = meals[indexPath.row]
+            meal = meals[indexPath.section]
         }
         
         cell.nameLabel.text = meal.name
@@ -158,7 +162,14 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         /*
         cell.photoImageView.image = meal.photo
         cell.ratingControl.rating = meal.rating
- */
+        */
+        
+        /*
+        cell.backgroundColor = mercury
+        cell.layer.cornerRadius = 10
+        cell.layer.borderWidth = 1
+        cell.clipsToBounds = true
+         */
         
         return cell
     }
@@ -258,7 +269,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
                 do {
                     // Add a new meal
                     try addMealToDB(newMeal: meal)
-                    let newIndexPath = IndexPath(row: meals.count, section: 0)
+                    let newIndexPath = IndexPath(row: 0, section: meals.count)
                     meals.append(meal)
                     tableView.insertRows(at: [newIndexPath], with: .automatic)
                 }

@@ -8,12 +8,24 @@
 
 import UIKit
 
-@IBDesignable class EntryControl: UIStackView {
+@IBDesignable class EntryControl: UIStackView, UIPickerViewDataSource, UIPickerViewDelegate {
 
     //MARK: Properties
+    let mercury = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
     let backGroundView = UIControl()
     let entryTitle = UILabel()
     let entryValue = UILabel()
+    
+    var pickerData:[String] = []
+    @IBInspectable var pickerDataString: String = "" {
+        didSet {
+            pickerData = pickerDataString.components(separatedBy: ";")
+        }
+    }
+    
+    
+    // Picker View Testing
+    var pickerView: UIPickerView?
     
     @IBInspectable var title: String = " " {
         didSet {
@@ -63,7 +75,6 @@ import UIKit
         
         // set up the background
         backGroundView.backgroundColor = .blue
-        backGroundView.alpha = 0.2
         backGroundView.translatesAutoresizingMaskIntoConstraints = false
         backGroundView.layer.cornerRadius = 5
         backGroundView.layer.masksToBounds = true
@@ -107,11 +118,41 @@ import UIKit
             }
         }
         else {
-            backGroundView.backgroundColor = .lightGray
+            backGroundView.backgroundColor = mercury
         }
     }
     
     func ecTapped(entryControl: EntryControl) {
+        //Create the AlertController
+        /*
+        let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        
+        pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: 250, height: 60))
+        
+        pickerView?.dataSource = self
+        pickerView?.delegate = self
+        alertController.view.addSubview(pickerView!)
+        
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(action)
+        
+        let vc = ECDataEntryViewController()
+        vc.modalPresentationStyle = .popover
+        
+        viewController?.present(vc, animated: true, completion: nil)
+        vc.popoverPresentationController?.sourceView = viewController?.view
+        vc.popoverPresentationController?.sourceRect = entryControl.frame
+        */
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let myAlert = storyboard.instantiateViewController(withIdentifier: "alert") as? ECDataEntryViewController
+        myAlert?.entryControl = self
+        myAlert?.modalPresentationStyle = .overCurrentContext
+        myAlert?.modalTransitionStyle = .coverVertical
+        viewController?.present(myAlert!, animated: true, completion: nil)
+    }
+    
+    
+    func ecTapped2(entryControl: EntryControl) {
         //Create the AlertController
         let actionSheetController: UIAlertController = UIAlertController(title: "Inspected?", message: nil, preferredStyle: .actionSheet)
         
@@ -138,6 +179,23 @@ import UIKit
         viewController?.present(actionSheetController, animated: true, completion: nil)
     }
     
+    //MARK: UIPickerViewDelegate, UIPickerViewDataSource
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    
+    // returns the # of rows in each component..
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        guard row < pickerData.count else {
+            return ""
+        }
+        return pickerData[row]
+    }
 
     
 }
