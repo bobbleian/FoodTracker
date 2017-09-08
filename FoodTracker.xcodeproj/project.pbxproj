@@ -13,6 +13,8 @@
 		482BFD3D1F5706320075B758 /* OperationalFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD3C1F5706320075B758 /* OperationalFormCell.swift */; };
 		482BFD451F5743DE0075B758 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD441F5743DE0075B758 /* LoginViewController.swift */; };
 		482BFD471F575C0E0075B758 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 482BFD461F575C0E0075B758 /* Settings.bundle */; };
+		482C096A1F61E2B000E64A5A /* ECDataEntryNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C09691F61E2B000E64A5A /* ECDataEntryNavigationController.swift */; };
+		482C09721F61E5C900E64A5A /* ECGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482C09711F61E5C900E64A5A /* ECGridViewController.swift */; };
 		4830CAEB1F5F102A008DDDDA /* ECDataEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4830CAEA1F5F102A008DDDDA /* ECDataEntryViewController.swift */; };
 		4830D2D61F4DD00E00FF7EF6 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4830D2C81F4DCFC000FF7EF6 /* SQLite.framework */; };
 		4830D2D71F4DD00E00FF7EF6 /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4830D2C81F4DCFC000FF7EF6 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -116,6 +118,8 @@
 		482BFD3C1F5706320075B758 /* OperationalFormCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationalFormCell.swift; sourceTree = "<group>"; };
 		482BFD441F5743DE0075B758 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		482BFD461F575C0E0075B758 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		482C09691F61E2B000E64A5A /* ECDataEntryNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECDataEntryNavigationController.swift; sourceTree = "<group>"; };
+		482C09711F61E5C900E64A5A /* ECGridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECGridViewController.swift; sourceTree = "<group>"; };
 		4830CAEA1F5F102A008DDDDA /* ECDataEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECDataEntryViewController.swift; sourceTree = "<group>"; };
 		4830D2BD1F4DCFBF00FF7EF6 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../SQLite.swift-master/SQLite.xcodeproj"; sourceTree = "<group>"; };
 		485C9A8C1F3E0E0400BA6CBD /* FoodTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,6 +202,8 @@
 				481769401F4B472300D69326 /* Meal.swift */,
 				481769421F4B646300D69326 /* MealTableViewCell.swift */,
 				485C9A931F3E0E0400BA6CBD /* Main.storyboard */,
+				482C09711F61E5C900E64A5A /* ECGridViewController.swift */,
+				482C09691F61E2B000E64A5A /* ECDataEntryNavigationController.swift */,
 				489D08BD1F54A18500A93A56 /* EntryControl.swift */,
 				4830CAEA1F5F102A008DDDDA /* ECDataEntryViewController.swift */,
 				489D08B51F54729800A93A56 /* CustomHorizontalStackView.swift */,
@@ -390,6 +396,7 @@
 				489D08B61F54729800A93A56 /* CustomHorizontalStackView.swift in Sources */,
 				488A09CC1F4F8CAB00ADD2D1 /* CustomSearchBar.swift in Sources */,
 				481769411F4B472300D69326 /* Meal.swift in Sources */,
+				482C096A1F61E2B000E64A5A /* ECDataEntryNavigationController.swift in Sources */,
 				485C9A921F3E0E0400BA6CBD /* MealViewController.swift in Sources */,
 				4800DEC01F473CA6009241B1 /* RatingControl.swift in Sources */,
 				489D08BE1F54A18500A93A56 /* EntryControl.swift in Sources */,
@@ -398,6 +405,7 @@
 				482BFD3D1F5706320075B758 /* OperationalFormCell.swift in Sources */,
 				4830CAEB1F5F102A008DDDDA /* ECDataEntryViewController.swift in Sources */,
 				481769431F4B646300D69326 /* MealTableViewCell.swift in Sources */,
+				482C09721F61E5C900E64A5A /* ECGridViewController.swift in Sources */,
 				482BFD451F5743DE0075B758 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

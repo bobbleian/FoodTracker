@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ECDataEntryViewController: UIViewController {
+class ECDataEntryViewController: UIViewController, UITextViewDelegate {
     
     //MARK: Properties
     @IBOutlet weak var pickerView: UIPickerView!
@@ -16,15 +16,52 @@ class ECDataEntryViewController: UIViewController {
         didSet {
             pickerView?.dataSource = entryControl
             pickerView?.delegate = entryControl
+            title = entryControl?.name
         }
     }
 
+    @IBOutlet weak var textView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         if (entryControl != nil) {
-            pickerView?.dataSource = entryControl
-            pickerView?.delegate = entryControl
+            // Set the title of the Navigation Bar
+            title = entryControl?.title
+            
+            // Set up the view, depending on the Entry Control's data entry type
+            switch (entryControl?.dataEntryTypeName) {
+            case "OptionList"?:
+                pickerView.isHidden = false
+                textView.isHidden = true
+                
+                // Configure the Picker View
+                pickerView.dataSource = entryControl
+                pickerView.delegate = entryControl
+                if let index = entryControl?.globalList.index(of: (entryControl?.value)!) {
+                    pickerView.selectRow(index, inComponent: 0, animated: false)
+                }
+            case "Text"?, "Numeric"?:
+                fallthrough
+            default:
+                pickerView.isHidden = true
+                textView.isHidden = false
+                
+                // Configure the Text View
+                textView.delegate = self
+                textView.text = entryControl?.value
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // Set up the view, depending on the Entry Control's data entry type
+        switch (entryControl?.dataEntryTypeName) {
+        case "OptionList"?: ()
+        case "Text"?, "Numeric"?:
+            fallthrough
+        default:
+            textView.becomeFirstResponder()
         }
     }
 
@@ -34,9 +71,9 @@ class ECDataEntryViewController: UIViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
-
+    /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -45,13 +82,28 @@ class ECDataEntryViewController: UIViewController {
     */
     
     //MARK: Action Handlers
-    @IBAction func dismissButtonTapped(sender: UIButton) {
-        // Set the text on the entry control
+    @IBAction func doneNavButtonTapped(_ sender: UIBarButtonItem) {
         if (entryControl != nil) {
-            let row = pickerView.selectedRow(inComponent: 0)
-            entryControl?.value = (entryControl?.pickerView(pickerView, titleForRow: row, forComponent: 0))!
+            // Save value to the Entry Control, based on the Data Entry Type
+            switch (entryControl?.dataEntryTypeName) {
+            case "OptionList"?:
+                let row = pickerView.selectedRow(inComponent: 0)
+                entryControl?.value = (entryControl?.pickerView(pickerView, titleForRow: row, forComponent: 0))!
+            case "Text"?, "Numeric"?:
+                fallthrough
+            default:
+                entryControl?.value = textView.text
+            }
         }
         dismiss(animated: true, completion: nil)
     }
-
+    
+    //MARK: UITextViewDelegate
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
 }

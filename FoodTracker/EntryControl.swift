@@ -16,10 +16,10 @@ import UIKit
     let entryTitle = UILabel()
     let entryValue = UILabel()
     
-    var pickerData:[String] = []
+    var globalList:[String] = []
     @IBInspectable var pickerDataString: String = "" {
         didSet {
-            pickerData = pickerDataString.components(separatedBy: ";")
+            globalList = pickerDataString.components(separatedBy: ";")
         }
     }
     
@@ -43,6 +43,11 @@ import UIKit
         }
     }
     @IBInspectable var name: String = "Name" {
+        didSet {
+            
+        }
+    }
+    @IBInspectable var dataEntryTypeName: String = "Text" {
         didSet {
             
         }
@@ -86,7 +91,8 @@ import UIKit
         backGroundView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         
         entryTitle.textAlignment = .center
-        //entryTitle.adjustsFontSizeToFitWidth = true
+        entryTitle.adjustsFontSizeToFitWidth = true
+        entryTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
         //entryTitle.layer.borderWidth = 1.0
         //entryTitle.heightAnchor.constraint(equalToConstant: 20).isActive = true
         //entryTitle.widthAnchor.constraint(equalToConstant: 20).isActive = true
@@ -143,12 +149,16 @@ import UIKit
         vc.popoverPresentationController?.sourceView = viewController?.view
         vc.popoverPresentationController?.sourceRect = entryControl.frame
         */
+        
+        /*
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let myAlert = storyboard.instantiateViewController(withIdentifier: "alert") as? ECDataEntryViewController
         myAlert?.entryControl = self
         myAlert?.modalPresentationStyle = .overCurrentContext
         myAlert?.modalTransitionStyle = .coverVertical
         viewController?.present(myAlert!, animated: true, completion: nil)
+        */
+        viewController?.performSegue(withIdentifier: "editData", sender: self)
     }
     
     
@@ -187,14 +197,14 @@ import UIKit
     
     // returns the # of rows in each component..
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
+        return globalList.count
     }
     
     public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        guard row < pickerData.count else {
+        guard row < globalList.count else {
             return ""
         }
-        return pickerData[row]
+        return globalList[row]
     }
 
     

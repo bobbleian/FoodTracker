@@ -16,6 +16,9 @@ class MealViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var containerViewA: UIView!
     @IBOutlet weak var containerViewB: UIView!
+    @IBOutlet weak var containerViewC: UIView!
+    @IBOutlet weak var containerViewD: UIView!
+    @IBOutlet weak var containerViewE: UIView!
     
     /*
      This value is either passed by MealTableViewController in prepare(for:sender:)
@@ -158,16 +161,49 @@ class MealViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             UIView.animate(withDuration: 0.5, animations: {
                 self.containerViewA.alpha = 1
                 self.containerViewB.alpha = 0
+                self.containerViewC.alpha = 0
+                self.containerViewD.alpha = 0
+                self.containerViewE.alpha = 0
             })
         case 1:
             UIView.animate(withDuration: 0.5, animations: {
                 self.containerViewA.alpha = 0
                 self.containerViewB.alpha = 1
+                self.containerViewC.alpha = 0
+                self.containerViewD.alpha = 0
+                self.containerViewE.alpha = 0
+            })
+        case 2:
+            UIView.animate(withDuration: 0.5, animations: {
+                self.containerViewA.alpha = 0
+                self.containerViewB.alpha = 0
+                self.containerViewC.alpha = 1
+                self.containerViewD.alpha = 0
+                self.containerViewE.alpha = 0
+            })
+        case 3:
+            UIView.animate(withDuration: 0.5, animations: {
+                self.containerViewA.alpha = 0
+                self.containerViewB.alpha = 0
+                self.containerViewC.alpha = 0
+                self.containerViewD.alpha = 1
+                self.containerViewE.alpha = 0
+            })
+        case 4:
+            UIView.animate(withDuration: 0.5, animations: {
+                self.containerViewA.alpha = 0
+                self.containerViewB.alpha = 0
+                self.containerViewC.alpha = 0
+                self.containerViewD.alpha = 0
+                self.containerViewE.alpha = 1
             })
         default:
             UIView.animate(withDuration: 0.5, animations: {
                 self.containerViewA.alpha = 1
                 self.containerViewB.alpha = 0
+                self.containerViewC.alpha = 0
+                self.containerViewD.alpha = 0
+                self.containerViewE.alpha = 0
             })
         }
     }

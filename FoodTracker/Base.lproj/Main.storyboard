@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Data Entry View Controller-->
+        <!--Enter Data-->
         <scene sceneID="NoV-aB-dm1">
             <objects>
                 <viewController storyboardIdentifier="alert" id="flT-HJ-hlG" customClass="ECDataEntryViewController" customModule="FoodTracker" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,43 +18,56 @@
                         <viewControllerLayoutGuide type="top" id="XPV-sP-ae1"/>
                         <viewControllerLayoutGuide type="bottom" id="OIa-9W-4YB"/>
                     </layoutGuides>
-                    <view key="view" opaque="NO" contentMode="scaleToFill" id="3TQ-Bs-Vpp">
+                    <view key="view" contentMode="scaleToFill" id="3TQ-Bs-Vpp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hjf-UC-mA7">
-                                <rect key="frame" x="0.0" y="331" width="375" height="336"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hjf-UC-mA7">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
-                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Gs-nI-4qo">
-                                        <rect key="frame" x="8" y="8" width="359" height="273"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    </pickerView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPW-hF-CQK">
-                                        <rect key="frame" x="16" y="289" width="343" height="39"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dQq-VG-lo4">
+                                        <rect key="frame" x="8" y="8" width="359" height="158"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Done"/>
-                                        <connections>
-                                            <action selector="dismissButtonTappedWithSender:" destination="flT-HJ-hlG" eventType="touchUpInside" id="BHx-Lz-gOG"/>
-                                        </connections>
-                                    </button>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textView>
+                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Gs-nI-4qo">
+                                        <rect key="frame" x="8" y="174" width="359" height="254"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </pickerView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view alpha="0.69999999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wq0-qd-x4D">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="332"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
+                        <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Hjf-UC-mA7" firstAttribute="width" secondItem="3TQ-Bs-Vpp" secondAttribute="width" id="2cP-1O-kLg"/>
+                            <constraint firstItem="Hjf-UC-mA7" firstAttribute="centerX" secondItem="3TQ-Bs-Vpp" secondAttribute="centerX" id="7Sg-Tr-mUo"/>
+                            <constraint firstItem="Hjf-UC-mA7" firstAttribute="top" secondItem="XPV-sP-ae1" secondAttribute="bottom" id="8BP-3p-Nad"/>
+                            <constraint firstItem="OIa-9W-4YB" firstAttribute="top" secondItem="Hjf-UC-mA7" secondAttribute="bottom" id="fIX-Le-tlU"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Enter Data" id="c84-K2-dhX">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="scn-AT-xva">
+                            <connections>
+                                <action selector="doneNavButtonTapped:" destination="flT-HJ-hlG" id="N5L-IZ-YtN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="pickerView" destination="2Gs-nI-4qo" id="OTF-cu-ju3"/>
+                        <outlet property="textView" destination="dQq-VG-lo4" id="TxH-zF-wvE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Iq-Kq-pBt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="104.8" y="-287.40629685157421"/>
+            <point key="canvasLocation" x="4709.6000000000004" y="-81.409295352323838"/>
         </scene>
         <!--Operational Forms-->
         <scene sceneID="ZGI-g4-Sea">
@@ -209,322 +222,62 @@
                                     <action selector="showContainerView:" destination="BYZ-38-t0r" eventType="valueChanged" id="H27-XW-6sM"/>
                                 </connections>
                             </segmentedControl>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rKl-C0-hS6">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cl-gO-fz1">
                                 <rect key="frame" x="10" y="112" width="355" height="555"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZoA-CE-7bf">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="398"/>
-                                        <subviews>
-                                            <stackView opaque="NO" alpha="0.94999999999999996" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gan-1s-TX3" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NAl-mW-7Ds" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Surface Location"/>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="propertyID">
-                                                                <integer key="value" value="1"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="value" value="11-10-062-09W4"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <outletCollection property="gestureRecognizers" destination="RaN-7Q-ZDl" appends="YES" id="ISr-bI-WWO"/>
-                                                        </connections>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cEO-m1-kJe" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="GPS Location"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="value" value="54.351;-111.267"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" red="1" green="0.52318971158604977" blue="0.91118036891214294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="TI2-N8-nSi" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="58" width="355" height="50"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fKA-ql-YQK" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Location Name"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="value" value="11-10 Pad"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZbC-mr-GOd" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Frequency"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="value" value="Annual"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="At3-l5-13j" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="116" width="355" height="50"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="46C-qT-yId" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="UWI"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="obv-Wj-aCJ" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="License #"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sTp-YW-1GN" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="SI Date"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="value" value="4/11/2009"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jKa-NZ-IpT" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="174" width="355" height="50"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MiT-hB-jtz" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Last Gas Rate (m3)"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Kz-d8-itB" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Last Oil Rate (m3)"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qyg-EE-Evr" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Last H2O Rate (m3)"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="O0Z-V9-wff" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="232" width="355" height="50"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pT2-OY-ScA" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Connections"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="value" value="Flanged"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DnK-MN-iAW" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Zone"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="Red;Green;Blue"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJW-8e-M69" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Fluid"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="QZe-cg-Prf" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="290" width="355" height="50"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h1z-Ui-KD3" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Risk Class"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="Low;Medium;High;N/A"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kHD-FL-ZPO" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Insp. Reason"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="value" value="Scheduled"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jue-yi-3tX" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Insp. Outcome"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="value" value="Satisfactory"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4Ml-hh-y7C" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="348" width="355" height="50"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MiV-kF-5bW" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
-                                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <gestureRecognizers/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.CornerRadius">
-                                                                <integer key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Comments"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </stackView>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstItem="O0Z-V9-wff" firstAttribute="width" secondItem="ZoA-CE-7bf" secondAttribute="width" id="1xI-LT-vGU"/>
-                                            <constraint firstItem="gan-1s-TX3" firstAttribute="width" secondItem="ZoA-CE-7bf" secondAttribute="width" id="Ode-m2-qJc"/>
-                                            <constraint firstItem="QZe-cg-Prf" firstAttribute="width" secondItem="ZoA-CE-7bf" secondAttribute="width" id="Vvy-Rk-g2P"/>
-                                            <constraint firstItem="At3-l5-13j" firstAttribute="width" secondItem="ZoA-CE-7bf" secondAttribute="width" id="de1-IW-EeX"/>
-                                            <constraint firstItem="4Ml-hh-y7C" firstAttribute="width" secondItem="ZoA-CE-7bf" secondAttribute="width" id="ine-gb-7Rr"/>
-                                            <constraint firstItem="jKa-NZ-IpT" firstAttribute="width" secondItem="ZoA-CE-7bf" secondAttribute="width" id="jwd-Mu-XvS"/>
-                                            <constraint firstItem="TI2-N8-nSi" firstAttribute="width" secondItem="ZoA-CE-7bf" secondAttribute="width" id="kDk-YG-QcO"/>
-                                        </constraints>
-                                    </stackView>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cl-gO-fz1">
-                                        <rect key="frame" x="0.0" y="406" width="355" height="141"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="141" id="pMc-aK-Y6K"/>
-                                        </constraints>
-                                        <connections>
-                                            <segue destination="fRK-EK-CNl" kind="embed" id="EMQ-aW-xDW"/>
-                                        </connections>
-                                    </containerView>
-                                    <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vje-L4-DnI">
-                                        <rect key="frame" x="-0.5" y="406" width="355" height="141"/>
-                                        <connections>
-                                            <segue destination="3Mu-0d-rEo" kind="embed" id="ZmT-Ol-SBf"/>
-                                        </connections>
-                                    </containerView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="ZoA-CE-7bf" firstAttribute="bottom" secondItem="rKl-C0-hS6" secondAttribute="bottom" id="23R-1l-4Z6"/>
-                                    <constraint firstItem="9cl-gO-fz1" firstAttribute="leading" secondItem="ZoA-CE-7bf" secondAttribute="leading" id="36H-ei-fnx"/>
-                                    <constraint firstItem="Vje-L4-DnI" firstAttribute="width" secondItem="9cl-gO-fz1" secondAttribute="width" id="KK9-lc-l0P"/>
-                                    <constraint firstItem="ZoA-CE-7bf" firstAttribute="leading" secondItem="rKl-C0-hS6" secondAttribute="leading" id="PF1-7o-hQ0"/>
-                                    <constraint firstItem="9cl-gO-fz1" firstAttribute="top" secondItem="ZoA-CE-7bf" secondAttribute="bottom" constant="8" id="QTl-MC-qiX"/>
-                                    <constraint firstItem="Vje-L4-DnI" firstAttribute="centerY" secondItem="9cl-gO-fz1" secondAttribute="centerY" id="aDM-Nc-Cqo"/>
-                                    <constraint firstItem="ZoA-CE-7bf" firstAttribute="trailing" secondItem="rKl-C0-hS6" secondAttribute="trailing" id="bfQ-G7-RV9"/>
-                                    <constraint firstItem="Vje-L4-DnI" firstAttribute="centerX" secondItem="9cl-gO-fz1" secondAttribute="centerX" id="bgF-Hk-46j"/>
-                                    <constraint firstItem="ZoA-CE-7bf" firstAttribute="width" secondItem="rKl-C0-hS6" secondAttribute="width" id="kAL-TO-DAt"/>
-                                    <constraint firstItem="9cl-gO-fz1" firstAttribute="width" secondItem="ZoA-CE-7bf" secondAttribute="width" id="kaj-cN-Md7"/>
-                                    <constraint firstItem="Vje-L4-DnI" firstAttribute="height" secondItem="9cl-gO-fz1" secondAttribute="height" id="lpS-o9-wVS"/>
-                                    <constraint firstItem="ZoA-CE-7bf" firstAttribute="top" secondItem="rKl-C0-hS6" secondAttribute="top" id="ut1-3W-mxo"/>
-                                </constraints>
-                            </scrollView>
+                                <connections>
+                                    <segue destination="fRK-EK-CNl" kind="embed" id="EMQ-aW-xDW"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vje-L4-DnI">
+                                <rect key="frame" x="10" y="112" width="355" height="555"/>
+                                <connections>
+                                    <segue destination="3Mu-0d-rEo" kind="embed" id="ZmT-Ol-SBf"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lzc-5x-6sw">
+                                <rect key="frame" x="10" y="112" width="355" height="555"/>
+                                <connections>
+                                    <segue destination="NDv-EH-W8L" kind="embed" id="FWH-82-0z4"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kyi-XU-2g2">
+                                <rect key="frame" x="10" y="112" width="355" height="555"/>
+                                <connections>
+                                    <segue destination="6jF-jx-Rup" kind="embed" id="OiE-f3-Ppj"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1l3-QW-N29">
+                                <rect key="frame" x="10" y="112" width="355" height="555"/>
+                                <connections>
+                                    <segue destination="saQ-pv-PRm" kind="embed" id="yBy-12-19n"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="Vje-L4-DnI" firstAttribute="centerY" secondItem="9cl-gO-fz1" secondAttribute="centerY" id="0MZ-xP-FHf"/>
+                            <constraint firstItem="kyi-XU-2g2" firstAttribute="centerY" secondItem="9cl-gO-fz1" secondAttribute="centerY" id="13U-hh-8lC"/>
+                            <constraint firstItem="Lzc-5x-6sw" firstAttribute="centerY" secondItem="9cl-gO-fz1" secondAttribute="centerY" id="6Lh-MS-4u4"/>
+                            <constraint firstItem="Vje-L4-DnI" firstAttribute="height" secondItem="9cl-gO-fz1" secondAttribute="height" id="82H-0T-8aa"/>
+                            <constraint firstItem="kyi-XU-2g2" firstAttribute="height" secondItem="9cl-gO-fz1" secondAttribute="height" id="8Jx-31-285"/>
+                            <constraint firstItem="1l3-QW-N29" firstAttribute="centerX" secondItem="9cl-gO-fz1" secondAttribute="centerX" id="8zK-sg-EZ8"/>
+                            <constraint firstItem="9cl-gO-fz1" firstAttribute="top" secondItem="ZeD-kR-8Cg" secondAttribute="bottom" constant="10" id="CHu-tW-7wO"/>
                             <constraint firstItem="ZeD-kR-8Cg" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="GlS-yz-N5Z"/>
-                            <constraint firstItem="rKl-C0-hS6" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" constant="-10" id="Jbf-Cl-Slj"/>
-                            <constraint firstItem="rKl-C0-hS6" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="UaJ-Ug-8Yp"/>
+                            <constraint firstItem="Lzc-5x-6sw" firstAttribute="width" secondItem="9cl-gO-fz1" secondAttribute="width" id="KdH-wQ-B3E"/>
+                            <constraint firstItem="1l3-QW-N29" firstAttribute="centerY" secondItem="9cl-gO-fz1" secondAttribute="centerY" id="Krv-TE-yce"/>
+                            <constraint firstItem="Vje-L4-DnI" firstAttribute="width" secondItem="9cl-gO-fz1" secondAttribute="width" id="Puj-bV-pfV"/>
+                            <constraint firstItem="9cl-gO-fz1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="PwN-E8-gwC"/>
+                            <constraint firstItem="1l3-QW-N29" firstAttribute="height" secondItem="9cl-gO-fz1" secondAttribute="height" id="SbV-62-fdi"/>
+                            <constraint firstItem="Vje-L4-DnI" firstAttribute="centerX" secondItem="9cl-gO-fz1" secondAttribute="centerX" id="YEW-FE-6Kh"/>
                             <constraint firstItem="ZeD-kR-8Cg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Zij-rQ-JWg"/>
-                            <constraint firstItem="rKl-C0-hS6" firstAttribute="top" secondItem="ZeD-kR-8Cg" secondAttribute="bottom" constant="10" id="omR-ya-YOU"/>
-                            <constraint firstItem="rKl-C0-hS6" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="sML-zR-IZ2"/>
-                            <constraint firstItem="rKl-C0-hS6" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" constant="-20" id="thh-sS-kiE"/>
+                            <constraint firstItem="Lzc-5x-6sw" firstAttribute="centerX" secondItem="9cl-gO-fz1" secondAttribute="centerX" id="agU-WF-1BF"/>
+                            <constraint firstItem="9cl-gO-fz1" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" constant="-20" id="dA7-VG-Qcm"/>
+                            <constraint firstItem="kyi-XU-2g2" firstAttribute="width" secondItem="9cl-gO-fz1" secondAttribute="width" id="dD7-W4-eYZ"/>
+                            <constraint firstItem="9cl-gO-fz1" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" constant="-10" id="fix-0m-2pY"/>
+                            <constraint firstItem="1l3-QW-N29" firstAttribute="width" secondItem="9cl-gO-fz1" secondAttribute="width" id="oGI-eU-6Qs"/>
+                            <constraint firstItem="9cl-gO-fz1" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="v7x-ld-sdf"/>
+                            <constraint firstItem="Lzc-5x-6sw" firstAttribute="height" secondItem="9cl-gO-fz1" secondAttribute="height" id="wqN-B9-qR5"/>
+                            <constraint firstItem="kyi-XU-2g2" firstAttribute="centerX" secondItem="9cl-gO-fz1" secondAttribute="centerX" id="yYm-ZJ-rTd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="D13 Form" id="orb-et-VT6">
@@ -543,6 +296,9 @@
                         <outlet property="cancelButton" destination="1hO-ZQ-qyy" id="9uN-PP-2kf"/>
                         <outlet property="containerViewA" destination="9cl-gO-fz1" id="uGI-2V-2sr"/>
                         <outlet property="containerViewB" destination="Vje-L4-DnI" id="x5A-R5-mwj"/>
+                        <outlet property="containerViewC" destination="Lzc-5x-6sw" id="gsm-EN-Bxi"/>
+                        <outlet property="containerViewD" destination="kyi-XU-2g2" id="wH1-XF-HpP"/>
+                        <outlet property="containerViewE" destination="1l3-QW-N29" id="aN9-2a-YYg"/>
                         <outlet property="saveButton" destination="dMd-tH-gAN" id="3Gg-7e-UEJ"/>
                     </connections>
                 </viewController>
@@ -723,16 +479,20 @@
             </objects>
             <point key="canvasLocation" x="-1754.4000000000001" y="129.98500749625188"/>
         </scene>
-        <!--View Controller-->
+        <!--Grid View Controller-->
         <scene sceneID="LFX-7u-sgg">
             <objects>
-                <viewController id="fRK-EK-CNl" sceneMemberID="viewController">
+                <viewController id="fRK-EK-CNl" customClass="ECGridViewController" customModule="FoodTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a0K-Mq-cyB"/>
+                        <viewControllerLayoutGuide type="bottom" id="mXp-8D-s64"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="fTf-8Z-4Bh">
-                        <rect key="frame" x="0.0" y="0.0" width="355" height="141"/>
+                        <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3n-uF-xpN">
-                                <rect key="frame" x="0.0" y="0.0" width="355" height="141"/>
+                                <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mqE-1F-Cvb">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="398"/>
@@ -914,6 +674,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Zone"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="Red;Green;Blue"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="OptionList"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ssd-ku-zjb" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
@@ -943,6 +704,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Risk Class"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="Low;Medium;High;N/A"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="OptionList"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JaO-d7-UHu" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
@@ -1004,7 +766,7 @@
                                         </constraints>
                                     </stackView>
                                     <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HUm-7G-zcT">
-                                        <rect key="frame" x="8" y="-8" width="339" height="141"/>
+                                        <rect key="frame" x="8" y="406" width="339" height="141"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     </containerView>
                                 </subviews>
@@ -1025,21 +787,28 @@
                             <constraint firstAttribute="bottom" secondItem="O3n-uF-xpN" secondAttribute="bottom" id="sM8-xf-33I"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="l2R-SG-xQj" kind="presentation" identifier="editData" id="AWD-Ac-GZE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MYN-Kb-AFf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3638" y="270"/>
+            <point key="canvasLocation" x="3711" y="-1222"/>
         </scene>
-        <!--View Controller-->
+        <!--Grid View Controller-->
         <scene sceneID="UR6-Av-Xe7">
             <objects>
-                <viewController id="3Mu-0d-rEo" sceneMemberID="viewController">
+                <viewController id="3Mu-0d-rEo" customClass="ECGridViewController" customModule="FoodTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Sig-bg-czk"/>
+                        <viewControllerLayoutGuide type="bottom" id="47H-io-AXN"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="XzE-bw-x3Q">
-                        <rect key="frame" x="0.0" y="0.0" width="355" height="141"/>
+                        <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QkH-hK-vlf">
-                                <rect key="frame" x="0.0" y="0.0" width="355" height="141"/>
+                                <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FeK-wO-hV0">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="108"/>
@@ -1061,6 +830,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="Yes;No"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="OptionList"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LLo-7c-YVl" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
@@ -1074,6 +844,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Sign Present"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="Yes;No"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="OptionList"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awV-eT-apn" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
@@ -1087,6 +858,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Sign Updated"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="Yes;No"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="OptionList"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
@@ -1130,6 +902,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Flammable Sign"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="Yes;No"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="OptionList"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
@@ -1142,7 +915,7 @@
                                         </constraints>
                                     </stackView>
                                     <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DgV-2U-v9j">
-                                        <rect key="frame" x="8" y="-8" width="339" height="141"/>
+                                        <rect key="frame" x="8" y="406" width="339" height="141"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     </containerView>
                                 </subviews>
@@ -1163,10 +936,85 @@
                             <constraint firstAttribute="bottom" secondItem="QkH-hK-vlf" secondAttribute="bottom" id="mDN-2i-bfd"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="l2R-SG-xQj" kind="presentation" identifier="editData" id="K6l-Dr-W23"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YUA-Th-rfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3638" y="527"/>
+            <point key="canvasLocation" x="3710" y="-669"/>
+        </scene>
+        <!--Grid View Controller-->
+        <scene sceneID="ewa-1w-IS3">
+            <objects>
+                <viewController id="NDv-EH-W8L" customClass="ECGridViewController" customModule="FoodTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cah-Ek-eZb"/>
+                        <viewControllerLayoutGuide type="bottom" id="cjp-rA-LtV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TfT-ew-uBL">
+                        <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1kw-o2-9oX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3710" y="-81"/>
+        </scene>
+        <!--Grid View Controller-->
+        <scene sceneID="o9J-3y-tzZ">
+            <objects>
+                <viewController id="6jF-jx-Rup" customClass="ECGridViewController" customModule="FoodTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="grM-Gy-rP3"/>
+                        <viewControllerLayoutGuide type="bottom" id="PlT-LB-9mV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tSU-nB-Dwt">
+                        <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fIg-sB-lq4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3710" y="534"/>
+        </scene>
+        <!--Grid View Controller-->
+        <scene sceneID="qxh-CP-btl">
+            <objects>
+                <viewController id="saQ-pv-PRm" customClass="ECGridViewController" customModule="FoodTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="iR6-xO-vay"/>
+                        <viewControllerLayoutGuide type="bottom" id="YSS-v5-kjZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KUb-Ob-fxs">
+                        <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jHS-5Y-kHH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3710" y="1130"/>
+        </scene>
+        <!--Data Entry Navigation Controller-->
+        <scene sceneID="X6c-6E-bhu">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="l2R-SG-xQj" customClass="ECDataEntryNavigationController" customModule="FoodTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HJ5-6a-DVR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="flT-HJ-hlG" kind="relationship" relationship="rootViewController" id="6Nr-RT-PlI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i9l-iY-O3x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4710" y="-829"/>
         </scene>
     </scenes>
     <resources>
@@ -1175,5 +1023,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="Hh7-Cj-O3Q"/>
         <segue reference="5Lk-8V-dW5"/>
+        <segue reference="K6l-Dr-W23"/>
     </inferredMetricsTieBreakers>
 </document>
