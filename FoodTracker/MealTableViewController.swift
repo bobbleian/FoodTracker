@@ -15,8 +15,8 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
     
     //MARK: Properties
     let mercury = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
-    var meals = [Meal]()
-    var mealSearchResults = [Meal]()
+    var meals = [OperationalForm]()
+    var mealSearchResults = [OperationalForm]()
     enum FilterMode: String {
         case All, Nearby
     }
@@ -34,8 +34,8 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         // Load meal data from SQLLite
         
         do {
-            //try loadMealsFromDB()
-            loadSampleMeals()
+            try loadMealsFromDB()
+            //loadSampleMeals()
         }
         catch {
             os_log("Unable to load meals from database", log: OSLog.default, type: .error)
@@ -144,7 +144,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         }
 
         // Fetch the meal for the data source layout
-        let meal: Meal
+        let meal: OperationalForm
         if isFiltering() {
             meal = mealSearchResults[indexPath.section]
         }
@@ -152,8 +152,8 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
             meal = meals[indexPath.section]
         }
         
-        cell.nameLabel.text = meal.name
-        cell.typeLabel.text = meal.type
+        cell.ofNumberLabel.text = meal.name
+        cell.typeLabel.text = String(meal.rating)
         cell.dueDateLabel.text = meal.dueDate
         cell.key1Label.text = meal.key1
         cell.key2Label.text = meal.key2
@@ -307,13 +307,13 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         let photo2 = UIImage(named: "meal2")
         let photo3 = UIImage(named: "meal3")
         
-        guard let meal1 = Meal(name: "Caprese Salad", photo: photo1, rating: 4, type: "D13", dueDate: "1/1/2000", key1: "Surface Location", key2: "Location Name", key3: "UWI") else {
+        guard let meal1 = OperationalForm(name: "11-10-062-09W4", photo: photo1, rating: 4, type: "D13", dueDate: "1/1/2000", key1: "11-10-062-09W4", key2: "Location Name", key3: "UWI") else {
             fatalError("Unable to instantiate meal1")
         }
-        guard let meal2 = Meal(name: "Chicken and Potatoes", photo: photo2, rating: 5, type: "D13", dueDate: "1/1/2000", key1: "Surface Location", key2: "Location Name", key3: "UWI") else {
+        guard let meal2 = OperationalForm(name: "11-10-062-09W4", photo: photo2, rating: 5, type: "D13", dueDate: "1/1/2000", key1: "11-10-062-09W4", key2: "Location Name", key3: "UWI") else {
             fatalError("Unable to instantiate meal1")
         }
-        guard let meal3 = Meal(name: "Pasta with Meatballs", photo: photo3, rating: 2, type: "D13", dueDate: "1/1/2000", key1: "Surface Location", key2: "Location Name", key3: "UWI") else {
+        guard let meal3 = OperationalForm(name: "11-10-062-09W4", photo: photo3, rating: 2, type: "D13", dueDate: "1/1/2000", key1: "11-10-062-09W4", key2: "Location Name", key3: "UWI") else {
             fatalError("Unable to instantiate meal1")
         }
         
@@ -327,34 +327,31 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         let dbFile = try makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
         let db = try Connection(dbFile.path)
         
-        let meals = Table("meals")
-        let name = Expression<String>("name")
-        let photo = Expression<SQLite.Blob?>("photo")
-        let rating = Expression<Int64>("rating")
+        let operationalFormTable = Table("OperationalForm")
+        let OFNumber = Expression<String>("OFNumber")
+        //let photo = Expression<SQLite.Blob?>("photo")
+        let OFType_ID = Expression<Int64>("OFType_ID")
         
-        try db.run(meals.create(ifNotExists: true) { t in
-            t.column(name)
-            t.column(photo)
-            t.column(rating)
-        })
-        
-        for meal in try db.prepare(meals) {
-            guard let tmpMeal = Meal(
-                    name: meal[name],
-                    photo: meal[photo] != nil ? UIImage(data: Data.fromDatatypeValue(meal[photo]!)) : nil,
-                    rating: Int(exactly: meal[rating]) ?? 0,
-                    type: "D13",
-                    dueDate: "1/1/2000",
-                    key1: "Surface Location",
-                    key2: "Location Name",
-                    key3: "UWI") else {
+        for operationalFormRecord in try db.prepare(operationalFormTable) {
+            guard let operationalForm = OperationalForm(
+                name: operationalFormRecord[OFNumber],
+                //photo: meal[photo] != nil ? UIImage(data: Data.fromDatatypeValue(meal[photo]!)) : nil,
+                photo: nil,
+                rating: Int(exactly: operationalFormRecord[OFType_ID]) ?? 0,
+                type: "D13",
+                dueDate: "1/1/2000",
+                key1: "Surface Location",
+                key2: "Location Name",
+                key3: "UWI")
+            else {
                 fatalError("Unable to load meal from database")
             }
-            self.meals += [tmpMeal]
+            operationalForm.type = String(operationalForm.rating)
+            self.meals += [operationalForm]
         }
     }
     
-    private func addMealToDB(newMeal: Meal) throws {
+    private func addMealToDB(newMeal: OperationalForm) throws {
         //let documentURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         //let dbFile = documentURL.appendingPathComponent("oplynx.sqlite3")
         let dbFile = try makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
@@ -406,7 +403,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         
     }
     
-    private func updateMealToDB(modifiedMeal: Meal) throws {
+    private func updateMealToDB(modifiedMeal: OperationalForm) throws {
         //let documentURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         //let dbFile = documentURL.appendingPathComponent("oplynx.sqlite3")
         let dbFile = try makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
@@ -423,7 +420,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
                                      rating <- Int64(modifiedMeal.rating)))
         
     }
-    private func removeMealFromDB(mealToDelete: Meal) throws {
+    private func removeMealFromDB(mealToDelete: OperationalForm) throws {
         let dbFile = try makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
         let db = try Connection(dbFile.path)
         
@@ -474,7 +471,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
             mealSearchResults.removeAll()
         }
         else {
-            mealSearchResults = meals.filter({( aMeal: Meal) -> Bool in
+            mealSearchResults = meals.filter({( aMeal: OperationalForm) -> Bool in
                 return aMeal.name.lowercased().contains(searchText.lowercased())
             })
         }

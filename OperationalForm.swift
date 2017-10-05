@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Meal {
+class OperationalForm {
     //MARK: Properties
     var name: String
     var photo: UIImage?
@@ -19,6 +19,23 @@ class Meal {
     var key2: String = "key 2"
     var key3: String = "key 3"
     
+    //MARK: Official opLYNX Properties
+    var OFNumber: String
+    var Operational_Date: Date
+    var Asset_ID: Int
+    var UniqueOFNumber: Int
+    var OFType_ID: Int
+    var OFStatus_ID: Int
+    var Due_Date: Date
+    var Create_Date: Date
+    var Complete_Date: Date
+    var CreateUser_ID: Int
+    var CompleteUser_ID: Int
+    var Comments: String
+    var LastUpdate: Date
+    var Dirty: Bool
+    
+    
     //MARK: Initialization
     init?(name: String, photo: UIImage?, rating: Int, type: String, dueDate: String, key1: String, key2: String, key3: String) {
         
@@ -28,7 +45,7 @@ class Meal {
         }
         
         // Initialization fails if rating is out of range
-        guard rating >= 0 && rating <= 5 else {
+        guard rating >= 0 else {
             return nil
         }
         
@@ -40,5 +57,21 @@ class Meal {
         self.key1 = key1
         self.key2 = key2
         self.key3 = key3
+        
+        self.OFNumber = ""
+        self.Operational_Date = Date()
+        self.Asset_ID = 0
+        self.UniqueOFNumber = 0
+        self.OFType_ID = 0
+        self.OFStatus_ID = 0
+        self.Due_Date = Date()
+        self.Create_Date = Date()
+        self.Complete_Date = Date()
+        self.CreateUser_ID = 0
+        self.CompleteUser_ID = 0
+        self.Comments = ""
+        self.LastUpdate = Date()
+        self.Dirty = false
+        
     }
 }

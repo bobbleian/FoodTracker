@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -54,11 +55,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Enter Data" id="c84-K2-dhX">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="scn-AT-xva">
-                            <connections>
-                                <action selector="doneNavButtonTapped:" destination="flT-HJ-hlG" id="N5L-IZ-YtN"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="done" id="scn-AT-xva">
+                                <connections>
+                                    <action selector="doneNavButtonTapped:" destination="flT-HJ-hlG" id="N5L-IZ-YtN"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="camera" id="YbI-iN-hSY">
+                                <connections>
+                                    <segue destination="VJ6-po-Ab3" kind="presentation" id="Z8Z-Ac-QMP"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="pickerView" destination="2Gs-nI-4qo" id="OTF-cu-ju3"/>
@@ -68,6 +76,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Iq-Kq-pBt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4709.6000000000004" y="-81.409295352323838"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="yZg-eM-n3B">
+            <objects>
+                <tableViewController id="AKX-ad-tv3" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Mx7-zu-0Fn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ksA-pS-Fzh">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ksA-pS-Fzh" id="CBk-KP-vWS">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="AKX-ad-tv3" id="cL0-24-2cM"/>
+                            <outlet property="delegate" destination="AKX-ad-tv3" id="kYG-iT-qQ3"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="hFz-xZ-y2h"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zgN-yI-ceL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5713" y="-81"/>
         </scene>
         <!--Operational Forms-->
         <scene sceneID="ZGI-g4-Sea">
@@ -89,16 +126,22 @@
                                             <rect key="frame" x="10" y="0.0" width="355" height="103.5"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="1y7-c1-fw9" userLabel="General Stack View">
-                                                    <rect key="frame" x="20" y="31.5" width="120" height="41"/>
+                                                    <rect key="frame" x="20" y="21" width="120" height="61.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryg-Zt-eUE">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OFNumber" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0u-cu-Jq6">
                                                             <rect key="frame" x="0.0" y="0.0" width="120" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V6V-x7-VUc">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryg-Zt-eUE">
                                                             <rect key="frame" x="0.0" y="20.5" width="120" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V6V-x7-VUc">
+                                                            <rect key="frame" x="0.0" y="41" width="120" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -179,6 +222,7 @@
                                     <outlet property="key2Label" destination="eb2-tb-h3y" id="rmd-cq-pyX"/>
                                     <outlet property="key3Label" destination="vns-DB-aeE" id="FOA-rK-K6h"/>
                                     <outlet property="nameLabel" destination="EIh-Zw-7of" id="ZYs-Tv-ba4"/>
+                                    <outlet property="ofNumberLabel" destination="d0u-cu-Jq6" id="R6c-ro-TfT"/>
                                     <outlet property="typeLabel" destination="ryg-Zt-eUE" id="69Y-I6-t3d"/>
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="ShowDetail" id="5Lk-8V-dW5"/>
                                 </connections>
@@ -495,13 +539,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mqE-1F-Cvb">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="398"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="678"/>
                                         <subviews>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HSz-pk-Jvk" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TC4-TA-7Ml" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -514,10 +558,13 @@
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="value" value="11-10-062-09W4"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="elementID">
+                                                                <integer key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qHr-8p-zPJ" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -527,16 +574,18 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="GPS Location"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="value" value="54.351;-111.267"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="readOnly" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="readonly" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Lxd-Ni-qeO" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="58" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="98" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JXJ-BK-Qif" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -549,7 +598,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XrK-gw-xmS" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -565,10 +614,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rcv-06-jQa" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="116" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="196" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pyB-mS-a5o" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -580,7 +629,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nTQ-HG-pc6" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="50"/>
+                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -592,7 +641,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i47-P0-9ys" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -608,10 +657,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="v2m-OK-Fqt" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="174" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="294" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0vs-8Y-Nb4" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -623,7 +672,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MQ0-Ef-eSl" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="50"/>
+                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -635,7 +684,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8S3-bu-umX" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -650,10 +699,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="As5-4M-yme" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="232" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="392" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4J-kt-ZyB" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -665,7 +714,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jNT-pc-laX" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="50"/>
+                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -678,7 +727,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ssd-ku-zjb" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -692,10 +741,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aEW-YM-yCQ" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="290" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="490" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPN-wg-gvS" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -708,7 +757,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JaO-d7-UHu" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="50"/>
+                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -721,7 +770,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okO-ul-Akp" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -737,10 +786,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yEh-Hx-0Vy" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="348" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="588" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v7b-vu-qR4" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -765,10 +814,6 @@
                                             <constraint firstItem="As5-4M-yme" firstAttribute="width" secondItem="mqE-1F-Cvb" secondAttribute="width" id="pZY-em-BNS"/>
                                         </constraints>
                                     </stackView>
-                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HUm-7G-zcT">
-                                        <rect key="frame" x="8" y="406" width="339" height="141"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                    </containerView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="mqE-1F-Cvb" firstAttribute="bottom" secondItem="O3n-uF-xpN" secondAttribute="bottom" id="0zB-FS-n7O"/>
@@ -793,7 +838,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MYN-Kb-AFf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3711" y="-1222"/>
+            <point key="canvasLocation" x="3710" y="-1471"/>
         </scene>
         <!--Grid View Controller-->
         <scene sceneID="UR6-Av-Xe7">
@@ -811,13 +856,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FeK-wO-hV0">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="282"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="482"/>
                                         <subviews>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="XLk-9y-i8m" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Meh-fV-rAf" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -834,7 +879,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LLo-7c-YVl" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="50"/>
+                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -848,7 +893,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awV-eT-apn" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -865,10 +910,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lrC-Ez-OYK" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="58" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="98" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ety-1e-fcm" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -880,7 +925,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byf-7p-JoP" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="50"/>
+                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -892,7 +937,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hjB-SN-gM3" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -909,10 +954,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jTC-a1-YVf" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="116" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="196" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sjh-M1-tCH" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -924,7 +969,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jtx-md-K2d" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="50"/>
+                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -936,7 +981,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="532-7U-nQX" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -953,10 +998,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1lZ-uw-Cqv" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="174" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="294" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEH-7o-IBm" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -968,7 +1013,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P4E-L4-Cy4" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="50"/>
+                                                        <rect key="frame" x="121.5" y="0.0" width="112" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -980,7 +1025,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zad-um-3Yv" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="50"/>
+                                                        <rect key="frame" x="243.5" y="0.0" width="111.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -997,10 +1042,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="new-gP-tkO" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="232" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="392" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Pr-y0-kAf" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1069,13 +1114,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2OZ-Ku-JD1">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="282"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="482"/>
                                         <subviews>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="U0X-st-jBY" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zwl-oU-Mks" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1092,7 +1137,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Es-et-Wk5" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1109,10 +1154,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aZW-DY-EPO" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="58" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="98" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Kq-vc-AMg" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1124,7 +1169,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOe-XO-5e7" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1139,10 +1184,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Hju-Nh-XEh" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="116" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="196" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vJw-vf-I2o" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1154,7 +1199,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qOz-P6-Wlp" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1169,10 +1214,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="M85-eT-ycR" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="174" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="294" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2mv-St-bN3" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1184,7 +1229,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxO-hm-9Ew" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1199,10 +1244,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Kv8-5m-uz1" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="232" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="392" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1c7-MS-lql" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1214,7 +1259,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IO1-Qx-cL3" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1280,13 +1325,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vWS-CJ-ayA">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="282"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="482"/>
                                         <subviews>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zzE-5h-U3T" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tUV-xo-tob" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1306,10 +1351,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oP8-fJ-dss" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="58" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="98" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vn2-Z4-K5U" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1326,10 +1371,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wwI-JG-hIz" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="116" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="196" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zTM-HX-usu" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1344,10 +1389,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="d7e-5h-vbb" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="174" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="294" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="38P-GJ-2jY" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1362,10 +1407,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WZ7-xZ-eZg" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="232" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="392" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="weC-3E-BBu" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1431,13 +1476,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ceg-gu-HyE">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="282"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="482"/>
                                         <subviews>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wh0-9x-iJ5" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XOV-Dg-TMy" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1453,7 +1498,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0S-8u-1Fy" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1472,10 +1517,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yRl-Op-ir2" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="58" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="98" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xNl-9M-J1K" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1491,10 +1536,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Rxv-Dh-src" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="116" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="196" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bfA-kK-cgy" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1509,10 +1554,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ILg-7z-ZVk" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="174" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="294" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6P5-SU-zTh" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1524,7 +1569,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ewn-wx-WeZ" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1539,10 +1584,10 @@
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qCb-b8-MaV" customClass="CustomHorizontalStackView" customModule="FoodTracker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="232" width="355" height="50"/>
+                                                <rect key="frame" x="0.0" y="392" width="355" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gxb-ac-yla" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1554,7 +1599,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gv7-Ue-9Na" customClass="EntryControl" customModule="FoodTracker" customModuleProvider="target">
-                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="50"/>
+                                                        <rect key="frame" x="182.5" y="0.0" width="172.5" height="90"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
@@ -1622,6 +1667,24 @@
             </objects>
             <point key="canvasLocation" x="4710" y="-829"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Soh-o0-3TY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VJ6-po-Ab3" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="QXR-0K-WEU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="AKX-ad-tv3" kind="relationship" relationship="rootViewController" id="juk-KN-9fH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ISk-zT-u4e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5714" y="-830"/>
+        </scene>
     </scenes>
     <resources>
         <image name="opLYNX" width="201" height="201"/>
@@ -1629,6 +1692,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="5Lk-8V-dW5"/>
         <segue reference="Hh7-Cj-O3Q"/>
-        <segue reference="AWD-Ac-GZE"/>
+        <segue reference="K6l-Dr-W23"/>
     </inferredMetricsTieBreakers>
 </document>

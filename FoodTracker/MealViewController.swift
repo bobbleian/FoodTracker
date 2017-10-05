@@ -24,7 +24,7 @@ class MealViewController: UIViewController, UIImagePickerControllerDelegate, UIN
      This value is either passed by MealTableViewController in prepare(for:sender:)
      or constructed as part of adding a new meal
      */
-    var meal: Meal?
+    var meal: OperationalForm?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +111,7 @@ class MealViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         //let rating = ratingControl.rating
         
         // Set the meal to be passed to the MealTableViewController after the unwind seque
-        meal = Meal(name: "name", photo: nil, rating: 0, type: "", dueDate: "", key1: "", key2: "", key3: "")
+        meal = OperationalForm(name: "name", photo: nil, rating: 0, type: "", dueDate: "", key1: "", key2: "", key3: "")
     }
     
     //MARK: Actions

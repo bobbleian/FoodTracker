@@ -42,7 +42,17 @@ import UIKit
             refreshControl()
         }
     }
+    @IBInspectable var readonly: Bool = false {
+        didSet {
+            refreshControl()
+        }
+    }
     @IBInspectable var name: String = "Name" {
+        didSet {
+            
+        }
+    }
+    @IBInspectable var elementID: Int = 0 {
         didSet {
             
         }
@@ -77,6 +87,13 @@ import UIKit
         
         // set the orientation to veritcal
         axis = .vertical
+        
+        // Set the insets
+        layoutMargins = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        isLayoutMarginsRelativeArrangement = true
+        
+        // Set the spacing between labels
+        spacing = 5.0
         
         // set up the background
         backGroundView.backgroundColor = .blue
@@ -123,6 +140,9 @@ import UIKit
                 backGroundView.backgroundColor = .orange
             }
         }
+        else if readonly {
+            backGroundView.backgroundColor = UIColor.darkGray
+        }
         else {
             backGroundView.backgroundColor = mercury
         }
@@ -158,7 +178,9 @@ import UIKit
         myAlert?.modalTransitionStyle = .coverVertical
         viewController?.present(myAlert!, animated: true, completion: nil)
         */
-        viewController?.performSegue(withIdentifier: "editData", sender: self)
+        if !readonly {
+            viewController?.performSegue(withIdentifier: "editData", sender: self)
+        }
     }
     
     
