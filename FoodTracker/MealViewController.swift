@@ -32,7 +32,7 @@ class MealViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         // Set up views if editing an existing Meal
         if let meal = meal {
-            navigationItem.title = meal.name
+            navigationItem.title = meal.OFNumber
             //nameTextField.text = meal.name
             //photoImageView.image = meal.photo
             //ratingControl.rating = meal.rating
@@ -111,7 +111,7 @@ class MealViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         //let rating = ratingControl.rating
         
         // Set the meal to be passed to the MealTableViewController after the unwind seque
-        meal = OperationalForm(name: "name", photo: nil, rating: 0, type: "", dueDate: "", key1: "", key2: "", key3: "")
+        meal = OperationalForm(OFNumber: "An OF Number", photo: nil, OFType_ID: 0, type: "", Due_Date: Date(), key1: "", key2: "", key3: "")
     }
     
     //MARK: Actions

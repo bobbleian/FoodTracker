@@ -48,7 +48,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
-        searchController.searchBar.scopeButtonTitles = [FilterMode.All.rawValue, FilterMode.Nearby.rawValue]
+        //searchController.searchBar.scopeButtonTitles = [FilterMode.All.rawValue, FilterMode.Nearby.rawValue]
         searchController.searchBar.delegate = self
         searchController.searchBar.setValue("Done", forKey: "_cancelButtonText")
         
@@ -152,13 +152,37 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
             meal = meals[indexPath.section]
         }
         
-        cell.ofNumberLabel.text = meal.name
-        cell.typeLabel.text = String(meal.rating)
-        cell.dueDateLabel.text = meal.dueDate
-        cell.key1Label.text = meal.key1
-        cell.key2Label.text = meal.key2
-        cell.key3Label.text = meal.key3
+        do {
+            try loadMealsFromDB()
+            //loadSampleMeals()
+        }
+        catch {
+            os_log("Unable to load meals from database", log: OSLog.default, type: .error)
+            // Load sample data
+            loadSampleMeals()
+        }
         
+        do {
+            let dbFile = try makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
+            let db = try Connection(dbFile.path)
+            let key1Value = try OFElementData.loadOFElementValue(db: db, OFNumber: meal.OFNumber, OFElement_ID: 148)
+            cell.key1Label.text = key1Value
+            let key2Value = try OFElementData.loadOFElementValue(db: db, OFNumber: meal.OFNumber, OFElement_ID: 149)
+            cell.key2Label.text = key2Value
+            let key3Value = try OFElementData.loadOFElementValue(db: db, OFNumber: meal.OFNumber, OFElement_ID: 150)
+            cell.key3Label.text = key3Value
+        }
+        catch {
+            os_log("Unable to load OFDataValues from database", log: OSLog.default, type: .error)
+        }
+        
+        cell.ofNumberLabel.text = meal.OFNumber
+        cell.typeLabel.text = OFType.GetDisplayNameFromID(OLType_ID: meal.OFType_ID)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        cell.dueDateLabel.text = dateFormatter.string(from: meal.Due_Date)
+                
         /*
         cell.photoImageView.image = meal.photo
         cell.ratingControl.rating = meal.rating
@@ -242,8 +266,8 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
             guard let indexPath = tableView.indexPath(for: selectedMealCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
-            
-            let selectedMeal = meals[indexPath.row]
+            let mealIndex = indexPath.section
+            let selectedMeal = meals[indexPath.section]
             mealDetailViewController.meal = selectedMeal
         default:
             fatalError("Unexpected segue identifier; \(segue.identifier ?? "")")
@@ -258,7 +282,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
                 do {
                     // Update an existing meal
                     try updateMealToDB(modifiedMeal: meal)
-                    meals[selectedIndexPath.row] = meal
+                    meals[selectedIndexPath.section] = meal
                     tableView.reloadRows(at: [selectedIndexPath], with: .none)
                 }
                 catch {
@@ -307,13 +331,13 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         let photo2 = UIImage(named: "meal2")
         let photo3 = UIImage(named: "meal3")
         
-        guard let meal1 = OperationalForm(name: "11-10-062-09W4", photo: photo1, rating: 4, type: "D13", dueDate: "1/1/2000", key1: "11-10-062-09W4", key2: "Location Name", key3: "UWI") else {
+        guard let meal1 = OperationalForm(OFNumber: "OFABCDEF", photo: photo1, OFType_ID: 4, type: "D13", Due_Date: Date(), key1: "11-10-062-09W4", key2: "Location Name", key3: "UWI") else {
             fatalError("Unable to instantiate meal1")
         }
-        guard let meal2 = OperationalForm(name: "11-10-062-09W4", photo: photo2, rating: 5, type: "D13", dueDate: "1/1/2000", key1: "11-10-062-09W4", key2: "Location Name", key3: "UWI") else {
+        guard let meal2 = OperationalForm(OFNumber: "OFABCDEG", photo: photo2, OFType_ID: 5, type: "D13", Due_Date: Date(), key1: "11-10-062-09W4", key2: "Location Name", key3: "UWI") else {
             fatalError("Unable to instantiate meal1")
         }
-        guard let meal3 = OperationalForm(name: "11-10-062-09W4", photo: photo3, rating: 2, type: "D13", dueDate: "1/1/2000", key1: "11-10-062-09W4", key2: "Location Name", key3: "UWI") else {
+        guard let meal3 = OperationalForm(OFNumber: "OFABCDEH", photo: photo3, OFType_ID: 2, type: "D13", Due_Date: Date(), key1: "11-10-062-09W4", key2: "Location Name", key3: "UWI") else {
             fatalError("Unable to instantiate meal1")
         }
         
@@ -322,33 +346,9 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
     }
     
     private func loadMealsFromDB() throws {
-        //let documentURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        //let dbFile = documentURL.appendingPathComponent("oplynx.sqlite3")
         let dbFile = try makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
         let db = try Connection(dbFile.path)
-        
-        let operationalFormTable = Table("OperationalForm")
-        let OFNumber = Expression<String>("OFNumber")
-        //let photo = Expression<SQLite.Blob?>("photo")
-        let OFType_ID = Expression<Int64>("OFType_ID")
-        
-        for operationalFormRecord in try db.prepare(operationalFormTable) {
-            guard let operationalForm = OperationalForm(
-                name: operationalFormRecord[OFNumber],
-                //photo: meal[photo] != nil ? UIImage(data: Data.fromDatatypeValue(meal[photo]!)) : nil,
-                photo: nil,
-                rating: Int(exactly: operationalFormRecord[OFType_ID]) ?? 0,
-                type: "D13",
-                dueDate: "1/1/2000",
-                key1: "Surface Location",
-                key2: "Location Name",
-                key3: "UWI")
-            else {
-                fatalError("Unable to load meal from database")
-            }
-            operationalForm.type = String(operationalForm.rating)
-            self.meals += [operationalForm]
-        }
+        self.meals = try OperationalForm.loadOperationalFormsFromDB(db: db)
     }
     
     private func addMealToDB(newMeal: OperationalForm) throws {
@@ -362,7 +362,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         let photo = Expression<SQLite.Blob?>("photo")
         let rating = Expression<Int64>("rating")
         
-        try db.run(meals.insert(name <- newMeal.name, photo <- newMeal.photo != nil ? UIImagePNGRepresentation(newMeal.photo!)!.datatypeValue : nil, rating <- Int64(newMeal.rating)))
+        try db.run(meals.insert(name <- newMeal.OFNumber, photo <- newMeal.photo != nil ? UIImagePNGRepresentation(newMeal.photo!)!.datatypeValue : nil, rating <- Int64(newMeal.OFType_ID)))
         
         let imageData = UIImagePNGRepresentation(newMeal.photo!)!
         let imageBase64 = imageData.base64EncodedString()
@@ -414,10 +414,10 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         let photo = Expression<SQLite.Blob?>("photo")
         let rating = Expression<Int64>("rating")
         
-        let filterMeal = meals.filter(name == modifiedMeal.name)
+        let filterMeal = meals.filter(name == modifiedMeal.OFNumber)
         
         try db.run(filterMeal.update(photo <- modifiedMeal.photo != nil ? UIImagePNGRepresentation(modifiedMeal.photo!)!.datatypeValue : nil,
-                                     rating <- Int64(modifiedMeal.rating)))
+                                     rating <- Int64(modifiedMeal.OFType_ID)))
         
     }
     private func removeMealFromDB(mealToDelete: OperationalForm) throws {
@@ -429,7 +429,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         let photo = Expression<SQLite.Blob?>("photo")
         let rating = Expression<Int64>("rating")
         
-        let filterMeal = meals.filter(name == mealToDelete.name)
+        let filterMeal = meals.filter(name == mealToDelete.OFNumber)
         
         try db.run(filterMeal.delete())
         
@@ -472,7 +472,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         }
         else {
             mealSearchResults = meals.filter({( aMeal: OperationalForm) -> Bool in
-                return aMeal.name.lowercased().contains(searchText.lowercased())
+                return aMeal.OFNumber.lowercased().contains(searchText.lowercased())
             })
         }
         tableView.reloadData()

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SQLite
 
 class OFElementData {
     
@@ -31,5 +32,20 @@ class OFElementData {
         self.OFNumber = OFNumber
         self.OFElement_ID = OFElement_ID
         self.Value = Value
+    }
+    
+    
+    //MARK: Database interface
+    
+    public static func loadOFElementValue(db: Connection, OFNumber: String, OFElement_ID: Int) throws -> String {
+        let OFElementDataTable = Table("OFElementData")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let OFElement_IDExp = Expression<Int64>("OFElement_ID")
+        let ValueExp = Expression<String>("Value")
+        
+        for ofElementValue in try db.prepare(OFElementDataTable.select(ValueExp).filter(OFNumberExp == OFNumber).filter(OFElement_IDExp == Int64(OFElement_ID))) {
+            return ofElementValue[ValueExp]
+        }
+        return ""
     }
 }
