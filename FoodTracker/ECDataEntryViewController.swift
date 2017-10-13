@@ -41,17 +41,28 @@ class ECDataEntryViewController: UIViewController, UITextViewDelegate {
                 if let index = entryControl?.globalList.index(of: (entryControl?.value)!) {
                     pickerView.selectRow(index, inComponent: 0, animated: false)
                 }
-            case "Text"?, "Numeric"?:
+            case "Numeric"?:
+                textView.keyboardType = .numberPad
+                setGenericTextEntry()
+            case "Decimal"?:
+                textView.keyboardType = .decimalPad
+                setGenericTextEntry()
+            case "Text"?:
                 fallthrough
             default:
-                pickerView.isHidden = true
-                textView.isHidden = false
-                
-                // Configure the Text View
-                textView.delegate = self
-                textView.text = entryControl?.value
+                setGenericTextEntry()
             }
+            
         }
+    }
+    
+    private func setGenericTextEntry() {
+        pickerView.isHidden = true
+        textView.isHidden = false
+        
+        // Configure the Text View
+        textView.delegate = self
+        textView.text = entryControl?.value
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SQLite
 import os.log
 
 class MealViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -36,6 +37,19 @@ class MealViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             //nameTextField.text = meal.name
             //photoImageView.image = meal.photo
             //ratingControl.rating = meal.rating
+        }
+        
+        // Load Entry Control values from the database
+        let entryControls = getEntryControlSubviews(v: view)
+        for entryControl in entryControls {
+            do {
+                let dbFile = try MealTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
+                let db = try Connection(dbFile.path)
+                entryControl.value = try OFElementData.loadOFElementValue(db: db, OFNumber: (meal?.OFNumber)!, OFElement_ID: entryControl.elementID)
+            }
+            catch {
+                os_log("Unable to load OFDataValues from database", log: OSLog.default, type: .error)
+            }
         }
         
         // Enable Save button only if the Meal has a valid name
@@ -100,18 +114,26 @@ class MealViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        // Configure the destination view controller only when the save button is pressed
-        guard let button = sender as? UIBarButtonItem, button === saveButton else {
-            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
-            return
+        switch (segue.identifier ?? "") {
+        case "editData":
+            guard let entryControl = sender as? EntryControl else {
+                os_log("No EntryControl object passed as sender", log: OSLog.default, type: .debug)
+                return
+            }
+            guard let ecDataEntryNavigationController = segue.destination as? ECDataEntryNavigationController else {
+                os_log("No ECDataEntryNavigationController found", log: OSLog.default, type: .debug)
+                return
+            }
+            guard let ecDataEntryViewController = ecDataEntryNavigationController.viewControllers[0] as? ECDataEntryViewController else {
+                os_log("No ECDataEntryViewController found", log: OSLog.default, type: .debug)
+                return
+            }
+            ecDataEntryViewController.entryControl = entryControl
+        default:
+            //os_log("Unexpected segue identifier; \(segue.identifier ?? "")", log: OSLog.default, type: .error)
+            os_log("Unexpected segue identifier", log: OSLog.default, type: .error)
         }
         
-        //let name = nameTextField.text ?? ""
-        //let photo = photoImageView.image
-        //let rating = ratingControl.rating
-        
-        // Set the meal to be passed to the MealTableViewController after the unwind seque
-        meal = OperationalForm(OFNumber: "An OF Number", photo: nil, OFType_ID: 0, type: "", Due_Date: Date(), key1: "", key2: "", key3: "")
     }
     
     //MARK: Actions
@@ -213,6 +235,21 @@ class MealViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // Disable the Save button if the text field is empty
         //let text = nameTextField.text ?? ""
         //saveButton.isEnabled = !text.isEmpty
+    }
+    
+    private func getEntryControlSubviews(v: UIView) -> [EntryControl] {
+        var entryControls = [EntryControl]()
+        for subview in v.subviews {
+            entryControls += getEntryControlSubviews(v: subview)
+            if (subview is EntryControl) {
+                entryControls.append(subview as! EntryControl)
+            }
+        }
+        return entryControls
+    }
+    
+    public func getEntryControlSubviews() -> [EntryControl] {
+        return getEntryControlSubviews(v: self.view)
     }
     
 }

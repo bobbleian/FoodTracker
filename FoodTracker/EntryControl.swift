@@ -11,10 +11,11 @@ import UIKit
 @IBDesignable class EntryControl: UIStackView, UIPickerViewDataSource, UIPickerViewDelegate {
 
     //MARK: Properties
-    let mercury = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
-    let backGroundView = UIControl()
-    let entryTitle = UILabel()
-    let entryValue = UILabel()
+    private let nonmandatoryColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+    private let readonlyColor = UIColor(red: 175/255, green: 175/255, blue: 175/255, alpha: 1.0)
+    private let backGroundView = UIControl()
+    private let entryTitle = UILabel()
+    private let entryValue = UILabel()
     
     var globalList:[String] = []
     @IBInspectable var pickerDataString: String = "" {
@@ -27,12 +28,12 @@ import UIKit
     // Picker View Testing
     var pickerView: UIPickerView?
     
-    @IBInspectable var title: String = " " {
+    @IBInspectable var title: String = "Title" {
         didSet {
             refreshControl()
         }
     }
-    @IBInspectable var value: String = " " {
+    @IBInspectable var value: String = "empty" {
         didSet {
             refreshControl()
         }
@@ -131,20 +132,21 @@ import UIKit
     
     private func refreshControl() {
         entryTitle.text = title
-        entryValue.text = value
+        entryValue.text = value.isEmpty ? "empty" : value
+        entryValue.alpha = value.isEmpty ? 0.5 : 1.0
         if mandatory {
-            if entryValue.text != nil && !(entryValue.text?.isEmpty)!  && entryValue.text != " " {
-                backGroundView.backgroundColor = .green
+            if value.isEmpty {
+                backGroundView.backgroundColor = .orange
             }
             else {
-                backGroundView.backgroundColor = .orange
+                backGroundView.backgroundColor = .green
             }
         }
         else if readonly {
-            backGroundView.backgroundColor = UIColor.darkGray
+            backGroundView.backgroundColor = readonlyColor
         }
         else {
-            backGroundView.backgroundColor = mercury
+            backGroundView.backgroundColor = nonmandatoryColor
         }
     }
     
@@ -233,10 +235,10 @@ import UIKit
 }
 
 extension EntryControl {
-    var viewController : UIViewController? {
+    var viewController : MealViewController? {
         var responder: UIResponder? = self
         while (responder != nil) {
-            if let responder = responder as? UIViewController {
+            if let responder = responder as? MealViewController {
                 return responder
             }
             responder = responder?.next

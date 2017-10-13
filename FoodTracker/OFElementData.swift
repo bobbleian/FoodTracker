@@ -36,7 +36,6 @@ class OFElementData {
     
     
     //MARK: Database interface
-    
     public static func loadOFElementValue(db: Connection, OFNumber: String, OFElement_ID: Int) throws -> String {
         let OFElementDataTable = Table("OFElementData")
         let OFNumberExp = Expression<String>("OFNumber")
@@ -48,4 +47,14 @@ class OFElementData {
         }
         return ""
     }
+    
+    public static func updateOFElementValue(db: Connection, OFNumber: String, OFElement_ID: Int, Value: String) throws {
+        let OFElementDataTable = Table("OFElementData")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let OFElement_IDExp = Expression<Int64>("OFElement_ID")
+        let ValueExp = Expression<String>("Value")
+        
+        try db.run(OFElementDataTable.filter(OFNumberExp == OFNumber && OFElement_IDExp == Int64(OFElement_ID)).update(ValueExp <- Value))
+    }
+    
 }

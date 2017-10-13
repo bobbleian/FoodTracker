@@ -152,31 +152,11 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
             meal = meals[indexPath.section]
         }
         
-        do {
-            try loadMealsFromDB()
-            //loadSampleMeals()
-        }
-        catch {
-            os_log("Unable to load meals from database", log: OSLog.default, type: .error)
-            // Load sample data
-            loadSampleMeals()
-        }
+        // Set Key labels
+        cell.key1Label.text = meal.key1
+        cell.key2Label.text = meal.key2
+        cell.key3Label.text = meal.key3
         
-        do {
-            let dbFile = try makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
-            let db = try Connection(dbFile.path)
-            let key1Value = try OFElementData.loadOFElementValue(db: db, OFNumber: meal.OFNumber, OFElement_ID: 148)
-            cell.key1Label.text = key1Value
-            let key2Value = try OFElementData.loadOFElementValue(db: db, OFNumber: meal.OFNumber, OFElement_ID: 149)
-            cell.key2Label.text = key2Value
-            let key3Value = try OFElementData.loadOFElementValue(db: db, OFNumber: meal.OFNumber, OFElement_ID: 150)
-            cell.key3Label.text = key3Value
-        }
-        catch {
-            os_log("Unable to load OFDataValues from database", log: OSLog.default, type: .error)
-        }
-        
-        cell.ofNumberLabel.text = meal.OFNumber
         cell.typeLabel.text = OFType.GetDisplayNameFromID(OLType_ID: meal.OFType_ID)
         
         let dateFormatter = DateFormatter()
@@ -189,7 +169,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         */
         
         /*
-        cell.backgroundColor = mercury
+        cell.backgroundColor = nonmandatoryColor
         cell.layer.cornerRadius = 10
         cell.layer.borderWidth = 1
         cell.clipsToBounds = true
@@ -276,13 +256,23 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
     
     //MARK: Actions
     @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? MealViewController, let meal = sourceViewController.meal {
+        if let sourceViewController = sender.source as? MealViewController {
+            
+            let meal = sourceViewController.meal
+            let entryControls = sourceViewController.getEntryControlSubviews()
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 do {
                     // Update an existing meal
-                    try updateMealToDB(modifiedMeal: meal)
-                    meals[selectedIndexPath.section] = meal
+                    //try updateMealToDB(modifiedMeal: meal!)
+                    //meals[selectedIndexPath.section] = meal!
+                    
+                    let dbFile = try MealTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
+                    let db = try Connection(dbFile.path)
+                    for entryControl in entryControls {
+                        try OFElementData.updateOFElementValue(db: db, OFNumber: (meal?.OFNumber)!, OFElement_ID: entryControl.elementID, Value: entryControl.value)
+                    }
+                    
                     tableView.reloadRows(at: [selectedIndexPath], with: .none)
                 }
                 catch {
@@ -292,9 +282,9 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
             else {
                 do {
                     // Add a new meal
-                    try addMealToDB(newMeal: meal)
+                    try addMealToDB(newMeal: meal!)
                     let newIndexPath = IndexPath(row: 0, section: meals.count)
-                    meals.append(meal)
+                    meals.append(meal!)
                     tableView.insertRows(at: [newIndexPath], with: .automatic)
                 }
                 catch {
@@ -346,15 +336,25 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
     }
     
     private func loadMealsFromDB() throws {
-        let dbFile = try makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
+        let dbFile = try MealTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
         let db = try Connection(dbFile.path)
         self.meals = try OperationalForm.loadOperationalFormsFromDB(db: db)
+        
+        // Load key values from OFElementData table
+        for meal in meals {
+            let key1Value = try OFElementData.loadOFElementValue(db: db, OFNumber: meal.OFNumber, OFElement_ID: 148)
+            meal.key1 = key1Value
+            let key2Value = try OFElementData.loadOFElementValue(db: db, OFNumber: meal.OFNumber, OFElement_ID: 149)
+            meal.key2 = key2Value
+            let key3Value = try OFElementData.loadOFElementValue(db: db, OFNumber: meal.OFNumber, OFElement_ID: 150)
+            meal.key3 = key3Value
+        }
     }
     
     private func addMealToDB(newMeal: OperationalForm) throws {
         //let documentURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         //let dbFile = documentURL.appendingPathComponent("oplynx.sqlite3")
-        let dbFile = try makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
+        let dbFile = try MealTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
         let db = try Connection(dbFile.path)
         
         let meals = Table("meals")
@@ -406,7 +406,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
     private func updateMealToDB(modifiedMeal: OperationalForm) throws {
         //let documentURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         //let dbFile = documentURL.appendingPathComponent("oplynx.sqlite3")
-        let dbFile = try makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
+        let dbFile = try MealTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
         let db = try Connection(dbFile.path)
         
         let meals = Table("meals")
@@ -421,7 +421,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         
     }
     private func removeMealFromDB(mealToDelete: OperationalForm) throws {
-        let dbFile = try makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
+        let dbFile = try MealTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
         let db = try Connection(dbFile.path)
         
         let meals = Table("meals")
@@ -435,7 +435,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         
     }
     
-    private func makeWritableCopy(named destFileName: String, ofResourceFile originalFileName: String) throws -> URL {
+    public class func makeWritableCopy(named destFileName: String, ofResourceFile originalFileName: String) throws -> URL {
         // Get Documents directory in app bundle
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
             fatalError("No document directory found in application bundle.")
@@ -471,8 +471,15 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
             mealSearchResults.removeAll()
         }
         else {
-            mealSearchResults = meals.filter({( aMeal: OperationalForm) -> Bool in
-                return aMeal.OFNumber.lowercased().contains(searchText.lowercased())
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM dd, yyyy"
+            mealSearchResults = meals.filter({( operationalForm: OperationalForm) -> Bool in
+                return OFType.GetDisplayNameFromID(OLType_ID: operationalForm.OFType_ID).lowercased().contains(searchText.lowercased()) ||
+                    operationalForm.key1.lowercased().contains(searchText.lowercased()) ||
+                    operationalForm.key2.lowercased().contains(searchText.lowercased()) ||
+                    operationalForm.key3.lowercased().contains(searchText.lowercased()) ||
+                    dateFormatter.string(from: operationalForm.Due_Date).lowercased().contains(searchText.lowercased())
             })
         }
         tableView.reloadData()

@@ -12,7 +12,6 @@ class OperationalFormCell: UITableViewCell {
     
     //MARK: Properties
     
-    @IBOutlet weak var ofNumberLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var dueDateLabel: UILabel!

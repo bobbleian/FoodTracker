@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4800DEC01F473CA6009241B1 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4800DEBF1F473CA6009241B1 /* RatingControl.swift */; };
 		481769411F4B472300D69326 /* OperationalForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481769401F4B472300D69326 /* OperationalForm.swift */; };
-		481769431F4B646300D69326 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481769421F4B646300D69326 /* MealTableViewCell.swift */; };
 		482BFD3D1F5706320075B758 /* OperationalFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD3C1F5706320075B758 /* OperationalFormCell.swift */; };
 		482BFD451F5743DE0075B758 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD441F5743DE0075B758 /* LoginViewController.swift */; };
 		482BFD471F575C0E0075B758 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 482BFD461F575C0E0075B758 /* Settings.bundle */; };
@@ -37,6 +36,10 @@
 		488A09CC1F4F8CAB00ADD2D1 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488A09CB1F4F8CAB00ADD2D1 /* CustomSearchBar.swift */; };
 		489D08B61F54729800A93A56 /* CustomHorizontalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D08B51F54729800A93A56 /* CustomHorizontalStackView.swift */; };
 		489D08BE1F54A18500A93A56 /* EntryControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D08BD1F54A18500A93A56 /* EntryControl.swift */; };
+		48A870FE1F8FF54400896352 /* MediaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A870FD1F8FF54400896352 /* MediaTableViewController.swift */; };
+		48A871061F8FFD4300896352 /* MediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A871051F8FFD4300896352 /* MediaTableViewCell.swift */; };
+		48A871081F900DE400896352 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A871071F900DE400896352 /* Media.swift */; };
+		48A8710A1F9122A700896352 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A871091F9122A700896352 /* MediaViewController.swift */; };
 		48B457A01F4B69B4006D9DBF /* MealTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B4579F1F4B69B4006D9DBF /* MealTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -123,7 +126,6 @@
 /* Begin PBXFileReference section */
 		4800DEBF1F473CA6009241B1 /* RatingControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		481769401F4B472300D69326 /* OperationalForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OperationalForm.swift; path = ../OperationalForm.swift; sourceTree = "<group>"; };
-		481769421F4B646300D69326 /* MealTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 		482BFD3C1F5706320075B758 /* OperationalFormCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationalFormCell.swift; sourceTree = "<group>"; };
 		482BFD441F5743DE0075B758 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		482BFD461F575C0E0075B758 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -154,6 +156,10 @@
 		488A09CB1F4F8CAB00ADD2D1 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		489D08B51F54729800A93A56 /* CustomHorizontalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHorizontalStackView.swift; sourceTree = "<group>"; };
 		489D08BD1F54A18500A93A56 /* EntryControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryControl.swift; sourceTree = "<group>"; };
+		48A870FD1F8FF54400896352 /* MediaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableViewController.swift; sourceTree = "<group>"; };
+		48A871051F8FFD4300896352 /* MediaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableViewCell.swift; sourceTree = "<group>"; };
+		48A871071F900DE400896352 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		48A871091F9122A700896352 /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
 		48B4579F1F4B69B4006D9DBF /* MealTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,11 +220,8 @@
 			children = (
 				486186701F8542D9001C8E4F /* DataElements */,
 				485C9A8F1F3E0E0400BA6CBD /* AppDelegate.swift */,
-				485C9A911F3E0E0400BA6CBD /* MealViewController.swift */,
 				482BFD441F5743DE0075B758 /* LoginViewController.swift */,
 				4800DEBF1F473CA6009241B1 /* RatingControl.swift */,
-				482BFD3C1F5706320075B758 /* OperationalFormCell.swift */,
-				481769421F4B646300D69326 /* MealTableViewCell.swift */,
 				485C9A931F3E0E0400BA6CBD /* Main.storyboard */,
 				482C09711F61E5C900E64A5A /* ECGridViewController.swift */,
 				482C09691F61E2B000E64A5A /* ECDataEntryNavigationController.swift */,
@@ -226,7 +229,12 @@
 				4830CAEA1F5F102A008DDDDA /* ECDataEntryViewController.swift */,
 				489D08B51F54729800A93A56 /* CustomHorizontalStackView.swift */,
 				488A09CB1F4F8CAB00ADD2D1 /* CustomSearchBar.swift */,
+				485C9A911F3E0E0400BA6CBD /* MealViewController.swift */,
 				48B4579F1F4B69B4006D9DBF /* MealTableViewController.swift */,
+				482BFD3C1F5706320075B758 /* OperationalFormCell.swift */,
+				48A871091F9122A700896352 /* MediaViewController.swift */,
+				48A870FD1F8FF54400896352 /* MediaTableViewController.swift */,
+				48A871051F8FFD4300896352 /* MediaTableViewCell.swift */,
 				485C9A961F3E0E0400BA6CBD /* Assets.xcassets */,
 				482BFD461F575C0E0075B758 /* Settings.bundle */,
 				485C9A981F3E0E0400BA6CBD /* LaunchScreen.storyboard */,
@@ -249,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				486186771F855772001C8E4F /* Asset.swift */,
+				48A871071F900DE400896352 /* Media.swift */,
 				486186751F8556A2001C8E4F /* AssetSoftwareInfo.swift */,
 				486186791F855A2A001C8E4F /* OFElementData.swift */,
 				4861867B1F855F6E001C8E4F /* OFLinkMedia.swift */,
@@ -428,19 +437,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48A870FE1F8FF54400896352 /* MediaTableViewController.swift in Sources */,
 				489D08B61F54729800A93A56 /* CustomHorizontalStackView.swift in Sources */,
 				488A09CC1F4F8CAB00ADD2D1 /* CustomSearchBar.swift in Sources */,
 				486186801F856D57001C8E4F /* OFLinkRun.swift in Sources */,
 				481769411F4B472300D69326 /* OperationalForm.swift in Sources */,
+				48A8710A1F9122A700896352 /* MediaViewController.swift in Sources */,
 				486186821F857275001C8E4F /* OFLinkUser.swift in Sources */,
 				482C096A1F61E2B000E64A5A /* ECDataEntryNavigationController.swift in Sources */,
 				485C9A921F3E0E0400BA6CBD /* MealViewController.swift in Sources */,
 				4861867E1F856B3A001C8E4F /* OFLinkOperationalForm.swift in Sources */,
 				4800DEC01F473CA6009241B1 /* RatingControl.swift in Sources */,
+				48A871081F900DE400896352 /* Media.swift in Sources */,
 				489D08BE1F54A18500A93A56 /* EntryControl.swift in Sources */,
 				485C9A901F3E0E0400BA6CBD /* AppDelegate.swift in Sources */,
 				48B457A01F4B69B4006D9DBF /* MealTableViewController.swift in Sources */,
 				4861867A1F855A2A001C8E4F /* OFElementData.swift in Sources */,
+				48A871061F8FFD4300896352 /* MediaTableViewCell.swift in Sources */,
 				486186761F8556A2001C8E4F /* AssetSoftwareInfo.swift in Sources */,
 				4861867C1F855F6E001C8E4F /* OFLinkMedia.swift in Sources */,
 				486186841F8572A6001C8E4F /* OLUser.swift in Sources */,
@@ -448,7 +461,6 @@
 				482BFD3D1F5706320075B758 /* OperationalFormCell.swift in Sources */,
 				486186781F855772001C8E4F /* Asset.swift in Sources */,
 				4830CAEB1F5F102A008DDDDA /* ECDataEntryViewController.swift in Sources */,
-				481769431F4B646300D69326 /* MealTableViewCell.swift in Sources */,
 				482C09721F61E5C900E64A5A /* ECGridViewController.swift in Sources */,
 				482BFD451F5743DE0075B758 /* LoginViewController.swift in Sources */,
 			);
