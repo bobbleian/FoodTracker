@@ -30,8 +30,8 @@ class ECDataEntryViewController: UIViewController, UITextViewDelegate {
             title = entryControl?.title
             
             // Set up the view, depending on the Entry Control's data entry type
-            switch (entryControl?.dataEntryTypeName) {
-            case "OptionList"?:
+            switch (entryControl?.dataEntryTypeName ?? "") {
+            case "OptionList":
                 pickerView.isHidden = false
                 textView.isHidden = true
                 
@@ -41,13 +41,13 @@ class ECDataEntryViewController: UIViewController, UITextViewDelegate {
                 if let index = entryControl?.globalList.index(of: (entryControl?.value)!) {
                     pickerView.selectRow(index, inComponent: 0, animated: false)
                 }
-            case "Numeric"?:
+            case "Numeric":
                 textView.keyboardType = .numberPad
                 setGenericTextEntry()
-            case "Decimal"?:
+            case "Decimal":
                 textView.keyboardType = .decimalPad
                 setGenericTextEntry()
-            case "Text"?:
+            case "Text":
                 fallthrough
             default:
                 setGenericTextEntry()

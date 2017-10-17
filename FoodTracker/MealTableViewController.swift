@@ -267,10 +267,8 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
                     //try updateMealToDB(modifiedMeal: meal!)
                     //meals[selectedIndexPath.section] = meal!
                     
-                    let dbFile = try MealTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
-                    let db = try Connection(dbFile.path)
                     for entryControl in entryControls {
-                        try OFElementData.updateOFElementValue(db: db, OFNumber: (meal?.OFNumber)!, OFElement_ID: entryControl.elementID, Value: entryControl.value)
+                        try OFElementData.updateOFElementValue(db: Database.DB(), OFNumber: (meal?.OFNumber)!, OFElement_ID: entryControl.elementID, Value: entryControl.value)
                     }
                     
                     tableView.reloadRows(at: [selectedIndexPath], with: .none)
@@ -336,33 +334,26 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
     }
     
     private func loadMealsFromDB() throws {
-        let dbFile = try MealTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
-        let db = try Connection(dbFile.path)
-        self.meals = try OperationalForm.loadOperationalFormsFromDB(db: db)
+        self.meals = try OperationalForm.loadOperationalFormsFromDB(db: Database.DB())
         
         // Load key values from OFElementData table
         for meal in meals {
-            let key1Value = try OFElementData.loadOFElementValue(db: db, OFNumber: meal.OFNumber, OFElement_ID: 148)
+            let key1Value = try OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: meal.OFNumber, OFElement_ID: 148)
             meal.key1 = key1Value
-            let key2Value = try OFElementData.loadOFElementValue(db: db, OFNumber: meal.OFNumber, OFElement_ID: 149)
+            let key2Value = try OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: meal.OFNumber, OFElement_ID: 149)
             meal.key2 = key2Value
-            let key3Value = try OFElementData.loadOFElementValue(db: db, OFNumber: meal.OFNumber, OFElement_ID: 150)
+            let key3Value = try OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: meal.OFNumber, OFElement_ID: 150)
             meal.key3 = key3Value
         }
     }
     
     private func addMealToDB(newMeal: OperationalForm) throws {
-        //let documentURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        //let dbFile = documentURL.appendingPathComponent("oplynx.sqlite3")
-        let dbFile = try MealTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
-        let db = try Connection(dbFile.path)
-        
         let meals = Table("meals")
         let name = Expression<String>("name")
         let photo = Expression<SQLite.Blob?>("photo")
         let rating = Expression<Int64>("rating")
         
-        try db.run(meals.insert(name <- newMeal.OFNumber, photo <- newMeal.photo != nil ? UIImagePNGRepresentation(newMeal.photo!)!.datatypeValue : nil, rating <- Int64(newMeal.OFType_ID)))
+        try Database.DB().run(meals.insert(name <- newMeal.OFNumber, photo <- newMeal.photo != nil ? UIImagePNGRepresentation(newMeal.photo!)!.datatypeValue : nil, rating <- Int64(newMeal.OFType_ID)))
         
         let imageData = UIImagePNGRepresentation(newMeal.photo!)!
         let imageBase64 = imageData.base64EncodedString()
@@ -404,10 +395,6 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
     }
     
     private func updateMealToDB(modifiedMeal: OperationalForm) throws {
-        //let documentURL = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        //let dbFile = documentURL.appendingPathComponent("oplynx.sqlite3")
-        let dbFile = try MealTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
-        let db = try Connection(dbFile.path)
         
         let meals = Table("meals")
         let name = Expression<String>("name")
@@ -416,14 +403,11 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         
         let filterMeal = meals.filter(name == modifiedMeal.OFNumber)
         
-        try db.run(filterMeal.update(photo <- modifiedMeal.photo != nil ? UIImagePNGRepresentation(modifiedMeal.photo!)!.datatypeValue : nil,
+        try Database.DB().run(filterMeal.update(photo <- modifiedMeal.photo != nil ? UIImagePNGRepresentation(modifiedMeal.photo!)!.datatypeValue : nil,
                                      rating <- Int64(modifiedMeal.OFType_ID)))
         
     }
     private func removeMealFromDB(mealToDelete: OperationalForm) throws {
-        let dbFile = try MealTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
-        let db = try Connection(dbFile.path)
-        
         let meals = Table("meals")
         let name = Expression<String>("name")
         let photo = Expression<SQLite.Blob?>("photo")
@@ -431,7 +415,7 @@ class MealTableViewController: UITableViewController, UISearchResultsUpdating, U
         
         let filterMeal = meals.filter(name == mealToDelete.OFNumber)
         
-        try db.run(filterMeal.delete())
+        try Database.DB().run(filterMeal.delete())
         
     }
     

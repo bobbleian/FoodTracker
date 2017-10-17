@@ -43,9 +43,7 @@ class MealViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let entryControls = getEntryControlSubviews(v: view)
         for entryControl in entryControls {
             do {
-                let dbFile = try MealTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
-                let db = try Connection(dbFile.path)
-                entryControl.value = try OFElementData.loadOFElementValue(db: db, OFNumber: (meal?.OFNumber)!, OFElement_ID: entryControl.elementID)
+                entryControl.value = try OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: (meal?.OFNumber)!, OFElement_ID: entryControl.elementID)
             }
             catch {
                 os_log("Unable to load OFDataValues from database", log: OSLog.default, type: .error)

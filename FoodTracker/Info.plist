@@ -23,7 +23,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Allows you to add photos to your meals.</string>
+	<string>Allows you to add photos to your operational form data.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Allows you to add photos to your operational form data.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

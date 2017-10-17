@@ -101,21 +101,75 @@ class MediaTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        switch (segue.identifier ?? "") {
+        case "ShowEditImage":
+            os_log("Editing an existing image", log: OSLog.default, type: .debug)
+            guard let mediaDetailViewController = segue.destination as? MediaViewController else {
+                fatalError("Unexpected destination \(segue.destination)")
+            }
+            guard let selectedMediaTableViewCell = sender as? MediaTableViewCell else {
+                fatalError("Unexpected sender \(sender ?? "")")
+            }
+            guard let indexPath = tableView.indexPath(for: selectedMediaTableViewCell) else {
+                fatalError("The selected cell is not being displayed by the table")
+            }
+            let mediaIndex = indexPath.row
+            let selectedMedia = media[mediaIndex]
+            mediaDetailViewController.media = selectedMedia
+ 
+        default:
+            os_log("unknown segue identifier", log: OSLog.default, type: .error)
+        }
     }
-    */
+    
+    //MARK: Actions
+    @IBAction func unwindToMediaList(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? MediaViewController {
+            
+            let sourceMedia = sourceViewController.media!
+            sourceMedia.Description = sourceViewController.mediaCommentsTextView.text
+            sourceMedia.ImageContent = sourceViewController.mediaImageView.image
+            
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                do {
+                    try Media.updateMediaToDB(db: Database.DB(), media: sourceMedia)
+                    self.media[selectedIndexPath.row] = sourceMedia
+                    tableView.reloadRows(at: [selectedIndexPath], with: .none)
+                }
+                catch {
+                    fatalError("Unable to update media to the database")
+                }
+            }
+            /*
+             else {
+             do {
+             // Add a new meal
+             try addMealToDB(newMeal: meal!)
+             let newIndexPath = IndexPath(row: 0, section: meals.count)
+             meals.append(meal!)
+             tableView.insertRows(at: [newIndexPath], with: .automatic)
+             }
+             catch {
+             fatalError("Unable to save meal to the database")
+             }
+             }
+             */
+        }
+    }
+    
+    @IBAction func cancelToMediaList(sender: UIStoryboardSegue) {
+    }
     
     //MARK: Load data
     private func loadMediaFromDB() throws {
-        let dbFile = try MealTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
-        let db = try Connection(dbFile.path)
-        self.media = try Media.loadMediaFromDB(db: db)
+        self.media = try Media.loadMediaFromDB(db: Database.DB())
     }
 
 }
