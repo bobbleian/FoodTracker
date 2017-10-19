@@ -9,11 +9,25 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    
+    static let LAST_USER_KEY = "LastUserLoggedIntoOplynx"
 
+    //MARK: Properties
+    @IBOutlet weak var userNameTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        do {
+            if let lastUser = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LoginViewController.LAST_USER_KEY) {
+                userNameTextField.text = lastUser
+            }
+        }
+        catch {
+            
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {

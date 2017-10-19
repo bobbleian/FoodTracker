@@ -44,6 +44,7 @@ class MealViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         for entryControl in entryControls {
             do {
                 entryControl.value = try OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: (meal?.OFNumber)!, OFElement_ID: entryControl.elementID)
+                entryControl.ofNumber = (meal?.OFNumber)!
             }
             catch {
                 os_log("Unable to load OFDataValues from database", log: OSLog.default, type: .error)
@@ -127,6 +128,7 @@ class MealViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 return
             }
             ecDataEntryViewController.entryControl = entryControl
+            ecDataEntryViewController.OFNumber = (meal?.OFNumber)!
         default:
             //os_log("Unexpected segue identifier; \(segue.identifier ?? "")", log: OSLog.default, type: .error)
             os_log("Unexpected segue identifier", log: OSLog.default, type: .error)

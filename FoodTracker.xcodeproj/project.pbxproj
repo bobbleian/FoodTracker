@@ -33,6 +33,7 @@
 		486186841F8572A6001C8E4F /* OLUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486186831F8572A6001C8E4F /* OLUser.swift */; };
 		486186861F86DE4F001C8E4F /* OFType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486186851F86DE4F001C8E4F /* OFType.swift */; };
 		4870B9BD1F965F9800C1F31F /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4870B9BC1F965F9800C1F31F /* Database.swift */; };
+		4870B9BF1F9956F800C1F31F /* LocalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4870B9BE1F9956F800C1F31F /* LocalSettings.swift */; };
 		488A09CA1F4E182A00ADD2D1 /* oplynx.db in Resources */ = {isa = PBXBuildFile; fileRef = 488A09C91F4E182A00ADD2D1 /* oplynx.db */; };
 		488A09CC1F4F8CAB00ADD2D1 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488A09CB1F4F8CAB00ADD2D1 /* CustomSearchBar.swift */; };
 		489D08B61F54729800A93A56 /* CustomHorizontalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D08B51F54729800A93A56 /* CustomHorizontalStackView.swift */; };
@@ -154,6 +155,7 @@
 		486186831F8572A6001C8E4F /* OLUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OLUser.swift; sourceTree = "<group>"; };
 		486186851F86DE4F001C8E4F /* OFType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFType.swift; sourceTree = "<group>"; };
 		4870B9BC1F965F9800C1F31F /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		4870B9BE1F9956F800C1F31F /* LocalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSettings.swift; sourceTree = "<group>"; };
 		488A09C91F4E182A00ADD2D1 /* oplynx.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = oplynx.db; sourceTree = SOURCE_ROOT; };
 		488A09CB1F4F8CAB00ADD2D1 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		489D08B51F54729800A93A56 /* CustomHorizontalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHorizontalStackView.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 		486186701F8542D9001C8E4F /* DataElements */ = {
 			isa = PBXGroup;
 			children = (
+				4870B9BE1F9956F800C1F31F /* LocalSettings.swift */,
 				486186771F855772001C8E4F /* Asset.swift */,
 				48A871071F900DE400896352 /* Media.swift */,
 				486186751F8556A2001C8E4F /* AssetSoftwareInfo.swift */,
@@ -450,6 +453,7 @@
 			files = (
 				48A870FE1F8FF54400896352 /* MediaTableViewController.swift in Sources */,
 				489D08B61F54729800A93A56 /* CustomHorizontalStackView.swift in Sources */,
+				4870B9BF1F9956F800C1F31F /* LocalSettings.swift in Sources */,
 				488A09CC1F4F8CAB00ADD2D1 /* CustomSearchBar.swift in Sources */,
 				486186801F856D57001C8E4F /* OFLinkRun.swift in Sources */,
 				481769411F4B472300D69326 /* OperationalForm.swift in Sources */,

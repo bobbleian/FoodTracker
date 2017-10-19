@@ -64,6 +64,8 @@ import UIKit
         }
     }
     
+    var ofNumber: String = ""
+    
     
     /*
     // Only override draw() if you perform custom drawing.

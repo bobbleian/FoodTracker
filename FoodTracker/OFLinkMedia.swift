@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SQLite
 
 class OFLinkMedia {
     
@@ -43,5 +44,20 @@ class OFLinkMedia {
         self.MediaNumber = MediaNumber
         self.OFElement_ID = OFElement_ID
         self.SortOrder = SortOrder
+    }
+    
+    
+    //MARK: Database interface
+    public static func insertMediaToDB(db: Connection, MediaNumber: String, OFNumber: String, OFElement_ID: Int, SortOrder: Int) throws {
+        let OFLinkMediaTable = Table("OFLinkMedia")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let MediaNumberExp = Expression<String>("MediaNumber")
+        let OFElement_IDExp = Expression<Int64>("OFElement_ID")
+        let SortOrderExp = Expression<Int64>("SortOrder")
+        
+        try db.run(OFLinkMediaTable.insert(OFNumberExp <- OFNumber,
+                                           MediaNumberExp <- MediaNumber,
+                                           OFElement_IDExp <- Int64(OFElement_ID),
+                                           SortOrderExp <- Int64(SortOrder)))
     }
 }

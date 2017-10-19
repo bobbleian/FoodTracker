@@ -76,14 +76,12 @@ class OperationalForm {
         var operationalForms = [OperationalForm]()
         let operationalFormTable = Table("OperationalForm")
         let OFNumber = Expression<String>("OFNumber")
-        //let photo = Expression<SQLite.Blob?>("photo")
         let OFType_ID = Expression<Int64>("OFType_ID")
         let Due_Date = Expression<Date>("Due_Date")
         
         for operationalFormRecord in try db.prepare(operationalFormTable) {
             guard let operationalForm = OperationalForm(
                 OFNumber: operationalFormRecord[OFNumber],
-                //photo: meal[photo] != nil ? UIImage(data: Data.fromDatatypeValue(meal[photo]!)) : nil,
                 photo: nil,
                 OFType_ID: Int(exactly: operationalFormRecord[OFType_ID]) ?? 0,
                 type: "Type",

@@ -7,20 +7,25 @@
 //
 
 import UIKit
+import os.log
 
 class ECDataEntryViewController: UIViewController, UITextViewDelegate {
     
     //MARK: Properties
     @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var textView: UITextView!
+    
+    var OFElement_ID = 0
+    var OFNumber = ""
+    
     var entryControl: EntryControl? {
         didSet {
             pickerView?.dataSource = entryControl
             pickerView?.delegate = entryControl
             title = entryControl?.name
+            OFElement_ID = (entryControl?.elementID)!
         }
     }
-
-    @IBOutlet weak var textView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +96,25 @@ class ECDataEntryViewController: UIViewController, UITextViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    // This method lets you configure a view controller before it's presented
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        switch (segue.identifier ?? "") {
+        case "EditMediaList":
+            guard let mediaTableViewController = segue.destination as? MediaTableViewController else {
+                os_log("No MediaTableViewController found", log: OSLog.default, type: .debug)
+                return
+            }
+            mediaTableViewController.ofElement = OFElementData(OFNumber: OFNumber, OFElement_ID: OFElement_ID, Value: "")
+        default:
+            //os_log("Unexpected segue identifier; \(segue.identifier ?? "")", log: OSLog.default, type: .error)
+            os_log("Unexpected segue identifier", log: OSLog.default, type: .error)
+        }
+        
+    }
     
     //MARK: Action Handlers
     @IBAction func doneNavButtonTapped(_ sender: UIBarButtonItem) {

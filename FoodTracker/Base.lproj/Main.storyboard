@@ -63,7 +63,7 @@
                             </barButtonItem>
                             <barButtonItem systemItem="camera" id="YbI-iN-hSY">
                                 <connections>
-                                    <segue destination="AKX-ad-tv3" kind="show" id="1Lh-ZM-H8Y"/>
+                                    <segue destination="AKX-ad-tv3" kind="show" identifier="EditMediaList" id="1Lh-ZM-H8Y"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -93,7 +93,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" text="Comments..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="omV-iT-wZR">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" scrollEnabled="NO" editable="NO" text="Comments..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="omV-iT-wZR">
                                             <rect key="frame" x="98" y="8" width="269" height="74"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -119,7 +119,13 @@
                             <outlet property="delegate" destination="AKX-ad-tv3" id="kYG-iT-qQ3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Image List" id="hFz-xZ-y2h"/>
+                    <navigationItem key="navigationItem" title="Image List" id="hFz-xZ-y2h">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="MTk-1Q-bQc">
+                            <connections>
+                                <segue destination="m1m-7Y-y8I" kind="show" identifier="ShowAddImage" id="g84-5V-kQp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgN-yI-ceL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -567,6 +573,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="t0H-aU-00n"/>
+                    <connections>
+                        <outlet property="userNameTextField" destination="eg0-Zn-EX6" id="zkn-f3-PbZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0z-mQ-uLi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1994,7 +2003,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="C9s-hs-AFi"/>
         <segue reference="Hh7-Cj-O3Q"/>
-        <segue reference="Ppz-bx-fRT"/>
+        <segue reference="g84-5V-kQp"/>
         <segue reference="1Lh-ZM-H8Y"/>
     </inferredMetricsTieBreakers>
 </document>

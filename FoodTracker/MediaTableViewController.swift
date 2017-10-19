@@ -15,6 +15,8 @@ class MediaTableViewController: UITableViewController {
     //MARK: Properties
     private var media = [Media]()
     
+    var ofElement: OFElementData?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -66,25 +68,43 @@ class MediaTableViewController: UITableViewController {
     }
     
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.delete
+    }
+    
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            let sourceMedia = media[indexPath.row]
+            
+            do {
+                // delete media record from local database
+                try Media.deleteMediaFromDB(db: Database.DB(), media: sourceMedia)
+                
+                // Delete the row from the data source
+                media.remove(at: indexPath.row)
+                
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            catch {
+                fatalError("Unable to save media to the database")
+            }
+            
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+ 
 
     /*
     // Override to support rearranging the table view.
@@ -133,7 +153,7 @@ class MediaTableViewController: UITableViewController {
     @IBAction func unwindToMediaList(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? MediaViewController {
             
-            let sourceMedia = sourceViewController.media!
+            let sourceMedia = sourceViewController.media ?? Media(MediaNumber: UUID().uuidString, Description: "", ImageContent: nil)
             sourceMedia.Description = sourceViewController.mediaCommentsTextView.text
             sourceMedia.ImageContent = sourceViewController.mediaImageView.image
             
@@ -147,20 +167,24 @@ class MediaTableViewController: UITableViewController {
                     fatalError("Unable to update media to the database")
                 }
             }
-            /*
-             else {
-             do {
-             // Add a new meal
-             try addMealToDB(newMeal: meal!)
-             let newIndexPath = IndexPath(row: 0, section: meals.count)
-             meals.append(meal!)
-             tableView.insertRows(at: [newIndexPath], with: .automatic)
-             }
-             catch {
-             fatalError("Unable to save meal to the database")
-             }
-             }
-             */
+            else {
+                do {
+                    // Add a new media image
+                    try Media.insertMediaToDB(db: Database.DB(), media: sourceMedia)
+                    try OFLinkMedia.insertMediaToDB(db: Database.DB(),
+                                                    MediaNumber: sourceMedia.MediaNumber,
+                                                    OFNumber: (ofElement?.OFNumber)!,
+                                                    OFElement_ID: (ofElement?.OFElement_ID)!,
+                                                    SortOrder: media.count)
+                    let newIndexPath = IndexPath(row: media.count, section: 0)
+                    media.append(sourceMedia)
+                    tableView.insertRows(at: [newIndexPath], with: .automatic)
+                }
+                catch {
+                    fatalError("Unable to save media to the database")
+                }
+            }
+            
         }
     }
     
@@ -169,7 +193,7 @@ class MediaTableViewController: UITableViewController {
     
     //MARK: Load data
     private func loadMediaFromDB() throws {
-        self.media = try Media.loadMediaFromDB(db: Database.DB())
+        self.media = try Media.loadMediaFromDB(db: Database.DB(), OFNumber: (ofElement?.OFNumber)!, OFElement_ID: (ofElement?.OFElement_ID)!)
     }
 
 }
