@@ -536,11 +536,11 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jWq-c0-PMt">
                                 <rect key="frame" x="81" y="565" width="213" height="30"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xe-k8-MNr">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Xe-k8-MNr">
                                         <rect key="frame" x="0.0" y="0.0" width="101.5" height="30"/>
                                         <state key="normal" title="Start Run"/>
                                         <connections>
-                                            <segue destination="za0-Bn-h15" kind="show" id="Hh7-Cj-O3Q"/>
+                                            <action selector="StartRun:" destination="taS-yT-0BM" eventType="touchUpInside" id="j4A-1W-8wy"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Q3-sS-dn2">
@@ -575,6 +575,7 @@
                     <navigationItem key="navigationItem" title="Login" id="t0H-aU-00n"/>
                     <connections>
                         <outlet property="userNameTextField" destination="eg0-Zn-EX6" id="zkn-f3-PbZ"/>
+                        <segue destination="za0-Bn-h15" kind="show" identifier="ShowOperationalFormList" id="1nZ-5k-vem"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0z-mQ-uLi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2002,7 +2003,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="C9s-hs-AFi"/>
-        <segue reference="Hh7-Cj-O3Q"/>
+        <segue reference="1nZ-5k-vem"/>
         <segue reference="g84-5V-kQp"/>
         <segue reference="1Lh-ZM-H8Y"/>
     </inferredMetricsTieBreakers>

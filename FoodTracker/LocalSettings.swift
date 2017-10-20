@@ -23,5 +23,18 @@ class LocalSettings {
         return nil
     }
     
+    
+    public static func updateSettingsValue(db: Connection, Key: String, Value: String) throws {
+        let LocalSettingsTable = Table("LocalSettings")
+        let KeyExp = Expression<String>("Key")
+        let ValueExp = Expression<String>("Value")
+        
+        // First try updating the entry
+        if try db.run(LocalSettingsTable.filter(KeyExp == Key).update(ValueExp <- Value)) == 0 {
+            // No records updated, try an insert
+            try db.run(LocalSettingsTable.insert(KeyExp <- Key, ValueExp <- Value))
+        }
+    }
+    
 }
 

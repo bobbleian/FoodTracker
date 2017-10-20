@@ -23,6 +23,8 @@
 		485C9A971F3E0E0400BA6CBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 485C9A961F3E0E0400BA6CBD /* Assets.xcassets */; };
 		485C9A9A1F3E0E0400BA6CBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485C9A981F3E0E0400BA6CBD /* LaunchScreen.storyboard */; };
 		485C9AA51F3E0E0400BA6CBD /* FoodTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485C9AA41F3E0E0400BA6CBD /* FoodTrackerTests.swift */; };
+		4861380C1F9A5BB300567409 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 486137FA1F9A5B3800567409 /* CryptoSwift.framework */; };
+		4861380D1F9A5BB300567409 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 486137FA1F9A5B3800567409 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		486186761F8556A2001C8E4F /* AssetSoftwareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486186751F8556A2001C8E4F /* AssetSoftwareInfo.swift */; };
 		486186781F855772001C8E4F /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486186771F855772001C8E4F /* Asset.swift */; };
 		4861867A1F855A2A001C8E4F /* OFElementData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486186791F855A2A001C8E4F /* OFElementData.swift */; };
@@ -109,6 +111,27 @@
 			remoteGlobalIDString = 485C9A8B1F3E0E0400BA6CBD;
 			remoteInfo = FoodTracker;
 		};
+		486137F91F9A5B3800567409 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 486137F41F9A5B3800567409 /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE45519693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
+		486137FB1F9A5B3800567409 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 486137F41F9A5B3800567409 /* CryptoSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 754BE46019693E190098E6F3;
+			remoteInfo = Tests;
+		};
+		4861380E1F9A5BB300567409 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 486137F41F9A5B3800567409 /* CryptoSwift.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 754BE45419693E190098E6F3;
+			remoteInfo = CryptoSwift;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -119,6 +142,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				4830D2D71F4DD00E00FF7EF6 /* SQLite.framework in Embed Frameworks */,
+				4861380D1F9A5BB300567409 /* CryptoSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,6 +169,7 @@
 		485C9AA01F3E0E0400BA6CBD /* FoodTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		485C9AA41F3E0E0400BA6CBD /* FoodTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTrackerTests.swift; sourceTree = "<group>"; };
 		485C9AA61F3E0E0400BA6CBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		486137F41F9A5B3800567409 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = "../CryptoSwift-master/CryptoSwift.xcodeproj"; sourceTree = "<group>"; };
 		486186751F8556A2001C8E4F /* AssetSoftwareInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetSoftwareInfo.swift; sourceTree = "<group>"; };
 		486186771F855772001C8E4F /* Asset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 		486186791F855A2A001C8E4F /* OFElementData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFElementData.swift; sourceTree = "<group>"; };
@@ -173,6 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4830D2D61F4DD00E00FF7EF6 /* SQLite.framework in Frameworks */,
+				4861380C1F9A5BB300567409 /* CryptoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +232,7 @@
 				485C9A8E1F3E0E0400BA6CBD /* FoodTracker */,
 				485C9AA31F3E0E0400BA6CBD /* FoodTrackerTests */,
 				485C9A8D1F3E0E0400BA6CBD /* Products */,
+				486137F41F9A5B3800567409 /* CryptoSwift.xcodeproj */,
 				4830D2BD1F4DCFBF00FF7EF6 /* SQLite.xcodeproj */,
 			);
 			sourceTree = "<group>";
@@ -258,6 +285,15 @@
 			path = FoodTrackerTests;
 			sourceTree = "<group>";
 		};
+		486137F51F9A5B3800567409 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				486137FA1F9A5B3800567409 /* CryptoSwift.framework */,
+				486137FC1F9A5B3800567409 /* Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		486186701F8542D9001C8E4F /* DataElements */ = {
 			isa = PBXGroup;
 			children = (
@@ -301,6 +337,7 @@
 			);
 			dependencies = (
 				4830D2D91F4DD00E00FF7EF6 /* PBXTargetDependency */,
+				4861380F1F9A5BB300567409 /* PBXTargetDependency */,
 			);
 			name = FoodTracker;
 			productName = FoodTracker;
@@ -359,6 +396,10 @@
 			productRefGroup = 485C9A8D1F3E0E0400BA6CBD /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 486137F51F9A5B3800567409 /* Products */;
+					ProjectRef = 486137F41F9A5B3800567409 /* CryptoSwift.xcodeproj */;
+				},
 				{
 					ProductGroup = 4830D2BE1F4DCFBF00FF7EF6 /* Products */;
 					ProjectRef = 4830D2BD1F4DCFBF00FF7EF6 /* SQLite.xcodeproj */;
@@ -420,6 +461,20 @@
 			fileType = wrapper.framework;
 			path = SQLite.framework;
 			remoteRef = 4830D2D31F4DCFC000FF7EF6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		486137FA1F9A5B3800567409 /* CryptoSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CryptoSwift.framework;
+			remoteRef = 486137F91F9A5B3800567409 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		486137FC1F9A5B3800567409 /* Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tests.xctest;
+			remoteRef = 486137FB1F9A5B3800567409 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -502,6 +557,11 @@
 			isa = PBXTargetDependency;
 			target = 485C9A8B1F3E0E0400BA6CBD /* FoodTracker */;
 			targetProxy = 485C9AA11F3E0E0400BA6CBD /* PBXContainerItemProxy */;
+		};
+		4861380F1F9A5BB300567409 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CryptoSwift;
+			targetProxy = 4861380E1F9A5BB300567409 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
