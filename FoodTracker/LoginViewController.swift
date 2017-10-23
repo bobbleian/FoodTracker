@@ -15,6 +15,7 @@ class LoginViewController: UIViewController {
 
     //MARK: Properties
     @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,22 @@ class LoginViewController: UIViewController {
     */
     
     //MARK: Actions
+/*
+     test
+     AAyjKXBE1f2FFO3vyss9St8Xc8oPOEffyu73uXi9akdznG2zwjCIIhX/fHfumiiIwA==
+     
+     d4
+     AIAubpsxSDvqiOcnH/vgS+9bOPS6dGtpmX0uAf+vfDJzP1ExkHrKEgM/e5UIpQ7IGg==
+     
+     this is a long test
+     AO110rX5nZpqDYs08RJPr5uU9QRfuanzggITVgEF0JY4CGM6u8uXysdhC4FdOGG7Gg==
+     
+     hello world
+     ALR2YrZQnbQ9P8Puvgyfv5HH926LlbO6/fQzJpYj+KrI4IyCR+g/+OqhfpRNeOKyZw==
+     
+     !Hello@25$
+     AMsPWS5rqlqnTm79Z5f3ecg5AtopqphJOrE79iLl4KUYDUDgJOX7hA8pHn8OA7Lz1A==
+ */
     @IBAction func StartRun(_ sender: UIButton) {
         // Save the user name
         do {
@@ -56,15 +73,25 @@ class LoginViewController: UIViewController {
         catch {
             
         }
-        let password: Array<UInt8> = Array("infoH@WK20".utf8)
-        let salt: Array<UInt8> = Array("nacllcan".utf8)
+        
+        // Get the user name's hashed password from the database
         do {
-            try PKCS5.PBKDF2(password: password, salt: salt, iterations: 0x3e8, keyLength: 128, variant: .sha1)
+            guard let hashedPassword = try OLUser.loadUserPassword(db: Database.DB(), UserName: userNameTextField.text!) else {
+                // TODO: error message here
+                return
+            }
+            let hashMatches = PasswordHasher.VerifyHashedPassword(base64HashedPassword: hashedPassword, password: passwordTextField.text!)
+            if (hashMatches) {
+                performSegue(withIdentifier: "ShowOperationalFormList", sender: self)
+            }
+            // TODO: error message here
         }
         catch {
-            
+            // TODO: error message here
+            return
         }
-        performSegue(withIdentifier: "ShowOperationalFormList", sender: self)
+        
+        
     }
     
 

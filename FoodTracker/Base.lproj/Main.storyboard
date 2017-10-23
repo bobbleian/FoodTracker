@@ -574,6 +574,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="t0H-aU-00n"/>
                     <connections>
+                        <outlet property="passwordTextField" destination="Gbn-jX-hxK" id="pEV-PP-KxA"/>
                         <outlet property="userNameTextField" destination="eg0-Zn-EX6" id="zkn-f3-PbZ"/>
                         <segue destination="za0-Bn-h15" kind="show" identifier="ShowOperationalFormList" id="1nZ-5k-vem"/>
                     </connections>

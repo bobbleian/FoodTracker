@@ -25,6 +25,7 @@
 		485C9AA51F3E0E0400BA6CBD /* FoodTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485C9AA41F3E0E0400BA6CBD /* FoodTrackerTests.swift */; };
 		4861380C1F9A5BB300567409 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 486137FA1F9A5B3800567409 /* CryptoSwift.framework */; };
 		4861380D1F9A5BB300567409 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 486137FA1F9A5B3800567409 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		486138121F9E865000567409 /* PasswordHasher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486138111F9E865000567409 /* PasswordHasher.swift */; };
 		486186761F8556A2001C8E4F /* AssetSoftwareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486186751F8556A2001C8E4F /* AssetSoftwareInfo.swift */; };
 		486186781F855772001C8E4F /* Asset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486186771F855772001C8E4F /* Asset.swift */; };
 		4861867A1F855A2A001C8E4F /* OFElementData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486186791F855A2A001C8E4F /* OFElementData.swift */; };
@@ -170,6 +171,7 @@
 		485C9AA41F3E0E0400BA6CBD /* FoodTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTrackerTests.swift; sourceTree = "<group>"; };
 		485C9AA61F3E0E0400BA6CBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		486137F41F9A5B3800567409 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = "../CryptoSwift-master/CryptoSwift.xcodeproj"; sourceTree = "<group>"; };
+		486138111F9E865000567409 /* PasswordHasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordHasher.swift; sourceTree = "<group>"; };
 		486186751F8556A2001C8E4F /* AssetSoftwareInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetSoftwareInfo.swift; sourceTree = "<group>"; };
 		486186771F855772001C8E4F /* Asset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asset.swift; sourceTree = "<group>"; };
 		486186791F855A2A001C8E4F /* OFElementData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFElementData.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 		485C9A8E1F3E0E0400BA6CBD /* FoodTracker */ = {
 			isa = PBXGroup;
 			children = (
+				486138101F9E85DE00567409 /* Encryption */,
 				4870B9B41F965F4D00C1F31F /* Database */,
 				486186701F8542D9001C8E4F /* DataElements */,
 				485C9A8F1F3E0E0400BA6CBD /* AppDelegate.swift */,
@@ -292,6 +295,14 @@
 				486137FC1F9A5B3800567409 /* Tests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		486138101F9E85DE00567409 /* Encryption */ = {
+			isa = PBXGroup;
+			children = (
+				486138111F9E865000567409 /* PasswordHasher.swift */,
+			);
+			name = Encryption;
 			sourceTree = "<group>";
 		};
 		486186701F8542D9001C8E4F /* DataElements */ = {
@@ -530,6 +541,7 @@
 				486186861F86DE4F001C8E4F /* OFType.swift in Sources */,
 				482BFD3D1F5706320075B758 /* OperationalFormCell.swift in Sources */,
 				486186781F855772001C8E4F /* Asset.swift in Sources */,
+				486138121F9E865000567409 /* PasswordHasher.swift in Sources */,
 				4830CAEB1F5F102A008DDDDA /* ECDataEntryViewController.swift in Sources */,
 				4870B9BD1F965F9800C1F31F /* Database.swift in Sources */,
 				482C09721F61E5C900E64A5A /* ECGridViewController.swift in Sources */,

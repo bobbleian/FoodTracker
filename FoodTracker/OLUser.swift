@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SQLite
 
 class OLUser {
     
@@ -60,4 +61,17 @@ class OLUser {
         self.LastUpdate = LastUpdate
         
     }
+    
+    //MARK: Database interface
+    public static func loadUserPassword(db: Connection, UserName: String) throws -> String? {
+        let OLUserTable = Table("OLUser")
+        let UserNameExp = Expression<String>("UserName")
+        let PasswordExp = Expression<String>("Password")
+        
+        for passwordValue in try db.prepare(OLUserTable.select(PasswordExp).filter(UserNameExp == UserName)) {
+            return passwordValue[PasswordExp]
+        }
+        return nil
+    }
+    
 }
