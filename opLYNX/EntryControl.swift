@@ -237,10 +237,10 @@ import UIKit
 }
 
 extension EntryControl {
-    var viewController : MealViewController? {
+    var viewController : OFViewController? {
         var responder: UIResponder? = self
         while (responder != nil) {
-            if let responder = responder as? MealViewController {
+            if let responder = responder as? OFViewController {
                 return responder
             }
             responder = responder?.next

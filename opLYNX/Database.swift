@@ -12,7 +12,7 @@ import SQLite
 class Database {
     
     static func DB() throws -> Connection {
-        let dbFile = try MealTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
+        let dbFile = try OFTableViewController.makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
         let db = try Connection(dbFile.path)
         return db
     }

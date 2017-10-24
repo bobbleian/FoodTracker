@@ -19,31 +19,37 @@ class PasswordHasher {
         let pbkdf2Iterations = 0x3e8
         let pbkdf2KeyLength = 128
         
+        // Convert password to array of bytes
         let passwordBytes: Array<UInt8> = Array(password.utf8)
         
+        // Base64 decode the hashed password value
         guard let base64DecodedDotNetHash = Data(base64Encoded: base64HashedPassword) else {
             return false
         }
         
-        let thecount = base64DecodedDotNetHash.count
-        guard thecount >= saltStart + saltLength + hashLength else {
+        // Check that the decoded hashed password is the correct minimum length
+        guard base64DecodedDotNetHash.count >= saltStart + saltLength + hashLength else {
             return false
         }
         
+        // Extract the salt value
         var salt: Array<UInt8> = Array<UInt8>()
         for i in saltStart..<saltStart+saltLength {
             salt.append(base64DecodedDotNetHash[i])
         }
         
+        // Extract the hashed password value
         var decodedhash: Array<UInt8> = Array<UInt8>()
         for i in saltStart+saltLength..<saltStart+saltLength+hashLength {
             decodedhash.append(base64DecodedDotNetHash[i])
         }
         
+        // Generate the equivalent hash of the password passed in, using the extracted salt value
         var newhashedpassword: Array<UInt8> = Array<UInt8>()
         var hashMatches = true
         do {
             newhashedpassword = try PKCS5.PBKDF2(password: passwordBytes, salt: salt, iterations: pbkdf2Iterations, keyLength: pbkdf2KeyLength, variant: .sha1).calculate()
+            // Compare the generated hash to the original hash
             for i in 0..<hashLength {
                 if newhashedpassword[i] != decodedhash[i] {
                     hashMatches = false
