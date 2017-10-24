@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		481769411F4B472300D69326 /* OperationalForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481769401F4B472300D69326 /* OperationalForm.swift */; };
 		482BFD3D1F5706320075B758 /* OperationalFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD3C1F5706320075B758 /* OperationalFormCell.swift */; };
 		482BFD451F5743DE0075B758 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD441F5743DE0075B758 /* LoginViewController.swift */; };
 		482BFD471F575C0E0075B758 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 482BFD461F575C0E0075B758 /* Settings.bundle */; };
@@ -16,6 +15,7 @@
 		4830CAEB1F5F102A008DDDDA /* ECDataEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4830CAEA1F5F102A008DDDDA /* ECDataEntryViewController.swift */; };
 		4830D2D61F4DD00E00FF7EF6 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4830D2C81F4DCFC000FF7EF6 /* SQLite.framework */; };
 		4830D2D71F4DD00E00FF7EF6 /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4830D2C81F4DCFC000FF7EF6 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		484002841F9FAA6900F8BEAD /* OperationalForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484002831F9FAA6900F8BEAD /* OperationalForm.swift */; };
 		485C9A901F3E0E0400BA6CBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485C9A8F1F3E0E0400BA6CBD /* AppDelegate.swift */; };
 		485C9A921F3E0E0400BA6CBD /* OFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485C9A911F3E0E0400BA6CBD /* OFViewController.swift */; };
 		485C9A951F3E0E0400BA6CBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485C9A931F3E0E0400BA6CBD /* Main.storyboard */; };
@@ -141,7 +141,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		481769401F4B472300D69326 /* OperationalForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OperationalForm.swift; path = ../OperationalForm.swift; sourceTree = "<group>"; };
 		482BFD3C1F5706320075B758 /* OperationalFormCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationalFormCell.swift; sourceTree = "<group>"; };
 		482BFD441F5743DE0075B758 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		482BFD461F575C0E0075B758 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -149,6 +148,7 @@
 		482C09711F61E5C900E64A5A /* ECGridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECGridViewController.swift; sourceTree = "<group>"; };
 		4830CAEA1F5F102A008DDDDA /* ECDataEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECDataEntryViewController.swift; sourceTree = "<group>"; };
 		4830D2BD1F4DCFBF00FF7EF6 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../SQLite.swift-master/SQLite.xcodeproj"; sourceTree = "<group>"; };
+		484002831F9FAA6900F8BEAD /* OperationalForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationalForm.swift; sourceTree = "<group>"; };
 		485C9A8C1F3E0E0400BA6CBD /* opLYNX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = opLYNX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		485C9A8F1F3E0E0400BA6CBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		485C9A911F3E0E0400BA6CBD /* OFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFViewController.swift; sourceTree = "<group>"; };
@@ -271,6 +271,7 @@
 		486186701F8542D9001C8E4F /* DataElements */ = {
 			isa = PBXGroup;
 			children = (
+				484002831F9FAA6900F8BEAD /* OperationalForm.swift */,
 				4870B9BE1F9956F800C1F31F /* LocalSettings.swift */,
 				486186771F855772001C8E4F /* Asset.swift */,
 				48A871071F900DE400896352 /* Media.swift */,
@@ -282,7 +283,6 @@
 				486186811F857275001C8E4F /* OFLinkUser.swift */,
 				486186851F86DE4F001C8E4F /* OFType.swift */,
 				486186831F8572A6001C8E4F /* OLUser.swift */,
-				481769401F4B472300D69326 /* OperationalForm.swift */,
 			);
 			name = DataElements;
 			sourceTree = "<group>";
@@ -463,7 +463,6 @@
 				489D08B61F54729800A93A56 /* CustomHorizontalStackView.swift in Sources */,
 				4870B9BF1F9956F800C1F31F /* LocalSettings.swift in Sources */,
 				486186801F856D57001C8E4F /* OFLinkRun.swift in Sources */,
-				481769411F4B472300D69326 /* OperationalForm.swift in Sources */,
 				48A8710A1F9122A700896352 /* MediaViewController.swift in Sources */,
 				486186821F857275001C8E4F /* OFLinkUser.swift in Sources */,
 				482C096A1F61E2B000E64A5A /* ECDataEntryNavigationController.swift in Sources */,
@@ -473,6 +472,7 @@
 				489D08BE1F54A18500A93A56 /* EntryControl.swift in Sources */,
 				485C9A901F3E0E0400BA6CBD /* AppDelegate.swift in Sources */,
 				48B457A01F4B69B4006D9DBF /* OFTableViewController.swift in Sources */,
+				484002841F9FAA6900F8BEAD /* OperationalForm.swift in Sources */,
 				4861867A1F855A2A001C8E4F /* OFElementData.swift in Sources */,
 				48A871061F8FFD4300896352 /* MediaTableViewCell.swift in Sources */,
 				486186761F8556A2001C8E4F /* AssetSoftwareInfo.swift in Sources */,
