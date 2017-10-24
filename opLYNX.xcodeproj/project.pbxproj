@@ -17,7 +17,7 @@
 		4830D2D61F4DD00E00FF7EF6 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4830D2C81F4DCFC000FF7EF6 /* SQLite.framework */; };
 		4830D2D71F4DD00E00FF7EF6 /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4830D2C81F4DCFC000FF7EF6 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		485C9A901F3E0E0400BA6CBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485C9A8F1F3E0E0400BA6CBD /* AppDelegate.swift */; };
-		485C9A921F3E0E0400BA6CBD /* MealViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485C9A911F3E0E0400BA6CBD /* MealViewController.swift */; };
+		485C9A921F3E0E0400BA6CBD /* OFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485C9A911F3E0E0400BA6CBD /* OFViewController.swift */; };
 		485C9A951F3E0E0400BA6CBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485C9A931F3E0E0400BA6CBD /* Main.storyboard */; };
 		485C9A971F3E0E0400BA6CBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 485C9A961F3E0E0400BA6CBD /* Assets.xcassets */; };
 		485C9A9A1F3E0E0400BA6CBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485C9A981F3E0E0400BA6CBD /* LaunchScreen.storyboard */; };
@@ -42,7 +42,7 @@
 		48A871061F8FFD4300896352 /* MediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A871051F8FFD4300896352 /* MediaTableViewCell.swift */; };
 		48A871081F900DE400896352 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A871071F900DE400896352 /* Media.swift */; };
 		48A8710A1F9122A700896352 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A871091F9122A700896352 /* MediaViewController.swift */; };
-		48B457A01F4B69B4006D9DBF /* MealTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B4579F1F4B69B4006D9DBF /* MealTableViewController.swift */; };
+		48B457A01F4B69B4006D9DBF /* OFTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B4579F1F4B69B4006D9DBF /* OFTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,7 +151,7 @@
 		4830D2BD1F4DCFBF00FF7EF6 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../SQLite.swift-master/SQLite.xcodeproj"; sourceTree = "<group>"; };
 		485C9A8C1F3E0E0400BA6CBD /* opLYNX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = opLYNX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		485C9A8F1F3E0E0400BA6CBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		485C9A911F3E0E0400BA6CBD /* MealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealViewController.swift; sourceTree = "<group>"; };
+		485C9A911F3E0E0400BA6CBD /* OFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFViewController.swift; sourceTree = "<group>"; };
 		485C9A941F3E0E0400BA6CBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		485C9A961F3E0E0400BA6CBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		485C9A991F3E0E0400BA6CBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 		48A871051F8FFD4300896352 /* MediaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableViewCell.swift; sourceTree = "<group>"; };
 		48A871071F900DE400896352 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		48A871091F9122A700896352 /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
-		48B4579F1F4B69B4006D9DBF /* MealTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealTableViewController.swift; sourceTree = "<group>"; };
+		48B4579F1F4B69B4006D9DBF /* OFTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,18 +229,16 @@
 			children = (
 				486138101F9E85DE00567409 /* Encryption */,
 				4870B9B41F965F4D00C1F31F /* Database */,
+				4872F2B91F9FA1C100B1388E /* Controls */,
 				486186701F8542D9001C8E4F /* DataElements */,
 				485C9A8F1F3E0E0400BA6CBD /* AppDelegate.swift */,
-				482BFD441F5743DE0075B758 /* LoginViewController.swift */,
 				485C9A931F3E0E0400BA6CBD /* Main.storyboard */,
+				482BFD441F5743DE0075B758 /* LoginViewController.swift */,
 				482C09711F61E5C900E64A5A /* ECGridViewController.swift */,
 				482C09691F61E2B000E64A5A /* ECDataEntryNavigationController.swift */,
-				489D08BD1F54A18500A93A56 /* EntryControl.swift */,
 				4830CAEA1F5F102A008DDDDA /* ECDataEntryViewController.swift */,
-				489D08B51F54729800A93A56 /* CustomHorizontalStackView.swift */,
-				485C9A911F3E0E0400BA6CBD /* MealViewController.swift */,
-				48B4579F1F4B69B4006D9DBF /* MealTableViewController.swift */,
-				482BFD3C1F5706320075B758 /* OperationalFormCell.swift */,
+				485C9A911F3E0E0400BA6CBD /* OFViewController.swift */,
+				48B4579F1F4B69B4006D9DBF /* OFTableViewController.swift */,
 				48A871091F9122A700896352 /* MediaViewController.swift */,
 				48A870FD1F8FF54400896352 /* MediaTableViewController.swift */,
 				48A871051F8FFD4300896352 /* MediaTableViewCell.swift */,
@@ -295,6 +293,16 @@
 				4870B9BC1F965F9800C1F31F /* Database.swift */,
 			);
 			name = Database;
+			sourceTree = "<group>";
+		};
+		4872F2B91F9FA1C100B1388E /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				489D08BD1F54A18500A93A56 /* EntryControl.swift */,
+				482BFD3C1F5706320075B758 /* OperationalFormCell.swift */,
+				489D08B51F54729800A93A56 /* CustomHorizontalStackView.swift */,
+			);
+			name = Controls;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -459,12 +467,12 @@
 				48A8710A1F9122A700896352 /* MediaViewController.swift in Sources */,
 				486186821F857275001C8E4F /* OFLinkUser.swift in Sources */,
 				482C096A1F61E2B000E64A5A /* ECDataEntryNavigationController.swift in Sources */,
-				485C9A921F3E0E0400BA6CBD /* MealViewController.swift in Sources */,
+				485C9A921F3E0E0400BA6CBD /* OFViewController.swift in Sources */,
 				4861867E1F856B3A001C8E4F /* OFLinkOperationalForm.swift in Sources */,
 				48A871081F900DE400896352 /* Media.swift in Sources */,
 				489D08BE1F54A18500A93A56 /* EntryControl.swift in Sources */,
 				485C9A901F3E0E0400BA6CBD /* AppDelegate.swift in Sources */,
-				48B457A01F4B69B4006D9DBF /* MealTableViewController.swift in Sources */,
+				48B457A01F4B69B4006D9DBF /* OFTableViewController.swift in Sources */,
 				4861867A1F855A2A001C8E4F /* OFElementData.swift in Sources */,
 				48A871061F8FFD4300896352 /* MediaTableViewCell.swift in Sources */,
 				486186761F8556A2001C8E4F /* AssetSoftwareInfo.swift in Sources */,

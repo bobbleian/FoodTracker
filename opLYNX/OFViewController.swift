@@ -10,7 +10,7 @@ import UIKit
 import SQLite
 import os.log
 
-class MealViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class OFViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //MARK: Properties
     @IBOutlet weak var saveButton: UIBarButtonItem!
