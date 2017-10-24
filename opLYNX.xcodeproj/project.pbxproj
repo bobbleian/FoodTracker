@@ -22,7 +22,6 @@
 		485C9A951F3E0E0400BA6CBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485C9A931F3E0E0400BA6CBD /* Main.storyboard */; };
 		485C9A971F3E0E0400BA6CBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 485C9A961F3E0E0400BA6CBD /* Assets.xcassets */; };
 		485C9A9A1F3E0E0400BA6CBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485C9A981F3E0E0400BA6CBD /* LaunchScreen.storyboard */; };
-		485C9AA51F3E0E0400BA6CBD /* FoodTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485C9AA41F3E0E0400BA6CBD /* FoodTrackerTests.swift */; };
 		4861380C1F9A5BB300567409 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 486137FA1F9A5B3800567409 /* CryptoSwift.framework */; };
 		4861380D1F9A5BB300567409 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 486137FA1F9A5B3800567409 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		486138121F9E865000567409 /* PasswordHasher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486138111F9E865000567409 /* PasswordHasher.swift */; };
@@ -105,13 +104,6 @@
 			remoteGlobalIDString = EE247AD21C3F04ED00AE3E12;
 			remoteInfo = "SQLite iOS";
 		};
-		485C9AA11F3E0E0400BA6CBD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 485C9A841F3E0E0400BA6CBD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 485C9A8B1F3E0E0400BA6CBD;
-			remoteInfo = FoodTracker;
-		};
 		486137F91F9A5B3800567409 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 486137F41F9A5B3800567409 /* CryptoSwift.xcodeproj */;
@@ -160,16 +152,13 @@
 		482C09711F61E5C900E64A5A /* ECGridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECGridViewController.swift; sourceTree = "<group>"; };
 		4830CAEA1F5F102A008DDDDA /* ECDataEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECDataEntryViewController.swift; sourceTree = "<group>"; };
 		4830D2BD1F4DCFBF00FF7EF6 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../SQLite.swift-master/SQLite.xcodeproj"; sourceTree = "<group>"; };
-		485C9A8C1F3E0E0400BA6CBD /* FoodTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		485C9A8C1F3E0E0400BA6CBD /* opLYNX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = opLYNX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		485C9A8F1F3E0E0400BA6CBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		485C9A911F3E0E0400BA6CBD /* MealViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealViewController.swift; sourceTree = "<group>"; };
 		485C9A941F3E0E0400BA6CBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		485C9A961F3E0E0400BA6CBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		485C9A991F3E0E0400BA6CBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		485C9A9B1F3E0E0400BA6CBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		485C9AA01F3E0E0400BA6CBD /* FoodTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		485C9AA41F3E0E0400BA6CBD /* FoodTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTrackerTests.swift; sourceTree = "<group>"; };
-		485C9AA61F3E0E0400BA6CBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		486137F41F9A5B3800567409 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = "../CryptoSwift-master/CryptoSwift.xcodeproj"; sourceTree = "<group>"; };
 		486138111F9E865000567409 /* PasswordHasher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordHasher.swift; sourceTree = "<group>"; };
 		486186751F8556A2001C8E4F /* AssetSoftwareInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetSoftwareInfo.swift; sourceTree = "<group>"; };
@@ -204,13 +193,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		485C9A9D1F3E0E0400BA6CBD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -231,8 +213,7 @@
 		485C9A831F3E0E0400BA6CBD = {
 			isa = PBXGroup;
 			children = (
-				485C9A8E1F3E0E0400BA6CBD /* FoodTracker */,
-				485C9AA31F3E0E0400BA6CBD /* FoodTrackerTests */,
+				485C9A8E1F3E0E0400BA6CBD /* opLYNX */,
 				485C9A8D1F3E0E0400BA6CBD /* Products */,
 				486137F41F9A5B3800567409 /* CryptoSwift.xcodeproj */,
 				4830D2BD1F4DCFBF00FF7EF6 /* SQLite.xcodeproj */,
@@ -242,13 +223,12 @@
 		485C9A8D1F3E0E0400BA6CBD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				485C9A8C1F3E0E0400BA6CBD /* FoodTracker.app */,
-				485C9AA01F3E0E0400BA6CBD /* FoodTrackerTests.xctest */,
+				485C9A8C1F3E0E0400BA6CBD /* opLYNX.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		485C9A8E1F3E0E0400BA6CBD /* FoodTracker */ = {
+		485C9A8E1F3E0E0400BA6CBD /* opLYNX */ = {
 			isa = PBXGroup;
 			children = (
 				486138101F9E85DE00567409 /* Encryption */,
@@ -276,16 +256,7 @@
 				485C9A9B1F3E0E0400BA6CBD /* Info.plist */,
 				488A09C91F4E182A00ADD2D1 /* oplynx.db */,
 			);
-			path = FoodTracker;
-			sourceTree = "<group>";
-		};
-		485C9AA31F3E0E0400BA6CBD /* FoodTrackerTests */ = {
-			isa = PBXGroup;
-			children = (
-				485C9AA41F3E0E0400BA6CBD /* FoodTrackerTests.swift */,
-				485C9AA61F3E0E0400BA6CBD /* Info.plist */,
-			);
-			path = FoodTrackerTests;
+			path = opLYNX;
 			sourceTree = "<group>";
 		};
 		486137F51F9A5B3800567409 /* Products */ = {
@@ -335,9 +306,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		485C9A8B1F3E0E0400BA6CBD /* FoodTracker */ = {
+		485C9A8B1F3E0E0400BA6CBD /* opLYNX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 485C9AA91F3E0E0400BA6CBD /* Build configuration list for PBXNativeTarget "FoodTracker" */;
+			buildConfigurationList = 485C9AA91F3E0E0400BA6CBD /* Build configuration list for PBXNativeTarget "opLYNX" */;
 			buildPhases = (
 				485C9A881F3E0E0400BA6CBD /* Sources */,
 				485C9A891F3E0E0400BA6CBD /* Frameworks */,
@@ -350,28 +321,10 @@
 				4830D2D91F4DD00E00FF7EF6 /* PBXTargetDependency */,
 				4861380F1F9A5BB300567409 /* PBXTargetDependency */,
 			);
-			name = FoodTracker;
+			name = opLYNX;
 			productName = FoodTracker;
-			productReference = 485C9A8C1F3E0E0400BA6CBD /* FoodTracker.app */;
+			productReference = 485C9A8C1F3E0E0400BA6CBD /* opLYNX.app */;
 			productType = "com.apple.product-type.application";
-		};
-		485C9A9F1F3E0E0400BA6CBD /* FoodTrackerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 485C9AAC1F3E0E0400BA6CBD /* Build configuration list for PBXNativeTarget "FoodTrackerTests" */;
-			buildPhases = (
-				485C9A9C1F3E0E0400BA6CBD /* Sources */,
-				485C9A9D1F3E0E0400BA6CBD /* Frameworks */,
-				485C9A9E1F3E0E0400BA6CBD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				485C9AA21F3E0E0400BA6CBD /* PBXTargetDependency */,
-			);
-			name = FoodTrackerTests;
-			productName = FoodTrackerTests;
-			productReference = 485C9AA01F3E0E0400BA6CBD /* FoodTrackerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -387,11 +340,6 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 6DNC8JVCSU;
 						ProvisioningStyle = Automatic;
-					};
-					485C9A9F1F3E0E0400BA6CBD = {
-						CreatedOnToolsVersion = 8.3.3;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 485C9A8B1F3E0E0400BA6CBD;
 					};
 				};
 			};
@@ -418,8 +366,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				485C9A8B1F3E0E0400BA6CBD /* FoodTracker */,
-				485C9A9F1F3E0E0400BA6CBD /* FoodTrackerTests */,
+				485C9A8B1F3E0E0400BA6CBD /* opLYNX */,
 			);
 		};
 /* End PBXProject section */
@@ -503,13 +450,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		485C9A9E1F3E0E0400BA6CBD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -549,14 +489,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		485C9A9C1F3E0E0400BA6CBD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				485C9AA51F3E0E0400BA6CBD /* FoodTrackerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -564,11 +496,6 @@
 			isa = PBXTargetDependency;
 			name = "SQLite iOS";
 			targetProxy = 4830D2D81F4DD00E00FF7EF6 /* PBXContainerItemProxy */;
-		};
-		485C9AA21F3E0E0400BA6CBD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 485C9A8B1F3E0E0400BA6CBD /* FoodTracker */;
-			targetProxy = 485C9AA11F3E0E0400BA6CBD /* PBXContainerItemProxy */;
 		};
 		4861380F1F9A5BB300567409 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -710,7 +637,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6DNC8JVCSU;
-				INFOPLIST_FILE = FoodTracker/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/opLYNX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cis.FoodTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -724,39 +651,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6DNC8JVCSU;
-				INFOPLIST_FILE = FoodTracker/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/opLYNX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cis.FoodTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		485C9AAD1F3E0E0400BA6CBD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = FoodTrackerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cis.FoodTrackerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoodTracker.app/FoodTracker";
-			};
-			name = Debug;
-		};
-		485C9AAE1F3E0E0400BA6CBD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = FoodTrackerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cis.FoodTrackerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoodTracker.app/FoodTracker";
 			};
 			name = Release;
 		};
@@ -772,20 +671,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		485C9AA91F3E0E0400BA6CBD /* Build configuration list for PBXNativeTarget "FoodTracker" */ = {
+		485C9AA91F3E0E0400BA6CBD /* Build configuration list for PBXNativeTarget "opLYNX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				485C9AAA1F3E0E0400BA6CBD /* Debug */,
 				485C9AAB1F3E0E0400BA6CBD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		485C9AAC1F3E0E0400BA6CBD /* Build configuration list for PBXNativeTarget "FoodTrackerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				485C9AAD1F3E0E0400BA6CBD /* Debug */,
-				485C9AAE1F3E0E0400BA6CBD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
