@@ -12,14 +12,12 @@ import CryptoSwift
 class PasswordHasher {
     static func VerifyHashedPassword(base64HashedPassword: String, password: String) -> Bool {
         
-        // Constants
+        // Constants for PBKDF2 hashing
         let saltStart = 0x1
         let saltLength = 0x10
         let hashLength = 0x20
         let pbkdf2Iterations = 0x3e8
         let pbkdf2KeyLength = 128
-        
-        var result = false
         
         let passwordBytes: Array<UInt8> = Array(password.utf8)
         
