@@ -182,6 +182,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="FrO-2q-KWd" firstAttribute="width" secondItem="NW4-3K-Op9" secondAttribute="width" id="Qf0-bi-bPw"/>
+                                    <constraint firstItem="eZ5-iv-x22" firstAttribute="width" secondItem="NW4-3K-Op9" secondAttribute="width" id="il5-uu-tUh"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -191,7 +192,6 @@
                             <constraint firstItem="FrO-2q-KWd" firstAttribute="height" secondItem="Hgh-rQ-CfZ" secondAttribute="height" constant="-300" id="YCI-FF-MTs"/>
                             <constraint firstItem="NW4-3K-Op9" firstAttribute="top" secondItem="gaB-Rd-5Nc" secondAttribute="bottom" id="jBs-R6-Z1c"/>
                             <constraint firstItem="NW4-3K-Op9" firstAttribute="width" secondItem="Hgh-rQ-CfZ" secondAttribute="width" constant="-50" id="jIy-p0-c9R"/>
-                            <constraint firstItem="eZ5-iv-x22" firstAttribute="width" secondItem="Hgh-rQ-CfZ" secondAttribute="width" id="md0-kj-gvz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Edit Image" id="aM7-hD-fcs">
@@ -1304,7 +1304,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YUA-Th-rfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3710" y="-669"/>
+            <point key="canvasLocation" x="3710" y="-774"/>
         </scene>
         <!--Grid View Controller-->
         <scene sceneID="ewa-1w-IS3">
@@ -1555,7 +1555,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1kw-o2-9oX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3710" y="-81"/>
+            <point key="canvasLocation" x="3710" y="-138"/>
         </scene>
         <!--Grid View Controller-->
         <scene sceneID="o9J-3y-tzZ">

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4800DEC01F473CA6009241B1 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4800DEBF1F473CA6009241B1 /* RatingControl.swift */; };
 		481769411F4B472300D69326 /* OperationalForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481769401F4B472300D69326 /* OperationalForm.swift */; };
 		482BFD3D1F5706320075B758 /* OperationalFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD3C1F5706320075B758 /* OperationalFormCell.swift */; };
 		482BFD451F5743DE0075B758 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD441F5743DE0075B758 /* LoginViewController.swift */; };
@@ -37,7 +36,6 @@
 		4870B9BD1F965F9800C1F31F /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4870B9BC1F965F9800C1F31F /* Database.swift */; };
 		4870B9BF1F9956F800C1F31F /* LocalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4870B9BE1F9956F800C1F31F /* LocalSettings.swift */; };
 		488A09CA1F4E182A00ADD2D1 /* oplynx.db in Resources */ = {isa = PBXBuildFile; fileRef = 488A09C91F4E182A00ADD2D1 /* oplynx.db */; };
-		488A09CC1F4F8CAB00ADD2D1 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488A09CB1F4F8CAB00ADD2D1 /* CustomSearchBar.swift */; };
 		489D08B61F54729800A93A56 /* CustomHorizontalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D08B51F54729800A93A56 /* CustomHorizontalStackView.swift */; };
 		489D08BE1F54A18500A93A56 /* EntryControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D08BD1F54A18500A93A56 /* EntryControl.swift */; };
 		48A870FE1F8FF54400896352 /* MediaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A870FD1F8FF54400896352 /* MediaTableViewController.swift */; };
@@ -143,7 +141,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4800DEBF1F473CA6009241B1 /* RatingControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		481769401F4B472300D69326 /* OperationalForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OperationalForm.swift; path = ../OperationalForm.swift; sourceTree = "<group>"; };
 		482BFD3C1F5706320075B758 /* OperationalFormCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationalFormCell.swift; sourceTree = "<group>"; };
 		482BFD441F5743DE0075B758 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -173,7 +170,6 @@
 		4870B9BC1F965F9800C1F31F /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		4870B9BE1F9956F800C1F31F /* LocalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSettings.swift; sourceTree = "<group>"; };
 		488A09C91F4E182A00ADD2D1 /* oplynx.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = oplynx.db; sourceTree = SOURCE_ROOT; };
-		488A09CB1F4F8CAB00ADD2D1 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		489D08B51F54729800A93A56 /* CustomHorizontalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHorizontalStackView.swift; sourceTree = "<group>"; };
 		489D08BD1F54A18500A93A56 /* EntryControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryControl.swift; sourceTree = "<group>"; };
 		48A870FD1F8FF54400896352 /* MediaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableViewController.swift; sourceTree = "<group>"; };
@@ -236,14 +232,12 @@
 				486186701F8542D9001C8E4F /* DataElements */,
 				485C9A8F1F3E0E0400BA6CBD /* AppDelegate.swift */,
 				482BFD441F5743DE0075B758 /* LoginViewController.swift */,
-				4800DEBF1F473CA6009241B1 /* RatingControl.swift */,
 				485C9A931F3E0E0400BA6CBD /* Main.storyboard */,
 				482C09711F61E5C900E64A5A /* ECGridViewController.swift */,
 				482C09691F61E2B000E64A5A /* ECDataEntryNavigationController.swift */,
 				489D08BD1F54A18500A93A56 /* EntryControl.swift */,
 				4830CAEA1F5F102A008DDDDA /* ECDataEntryViewController.swift */,
 				489D08B51F54729800A93A56 /* CustomHorizontalStackView.swift */,
-				488A09CB1F4F8CAB00ADD2D1 /* CustomSearchBar.swift */,
 				485C9A911F3E0E0400BA6CBD /* MealViewController.swift */,
 				48B4579F1F4B69B4006D9DBF /* MealTableViewController.swift */,
 				482BFD3C1F5706320075B758 /* OperationalFormCell.swift */,
@@ -460,7 +454,6 @@
 				48A870FE1F8FF54400896352 /* MediaTableViewController.swift in Sources */,
 				489D08B61F54729800A93A56 /* CustomHorizontalStackView.swift in Sources */,
 				4870B9BF1F9956F800C1F31F /* LocalSettings.swift in Sources */,
-				488A09CC1F4F8CAB00ADD2D1 /* CustomSearchBar.swift in Sources */,
 				486186801F856D57001C8E4F /* OFLinkRun.swift in Sources */,
 				481769411F4B472300D69326 /* OperationalForm.swift in Sources */,
 				48A8710A1F9122A700896352 /* MediaViewController.swift in Sources */,
@@ -468,7 +461,6 @@
 				482C096A1F61E2B000E64A5A /* ECDataEntryNavigationController.swift in Sources */,
 				485C9A921F3E0E0400BA6CBD /* MealViewController.swift in Sources */,
 				4861867E1F856B3A001C8E4F /* OFLinkOperationalForm.swift in Sources */,
-				4800DEC01F473CA6009241B1 /* RatingControl.swift in Sources */,
 				48A871081F900DE400896352 /* Media.swift in Sources */,
 				489D08BE1F54A18500A93A56 /* EntryControl.swift in Sources */,
 				485C9A901F3E0E0400BA6CBD /* AppDelegate.swift in Sources */,
