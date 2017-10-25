@@ -9,13 +9,23 @@
 import UIKit
 import CryptoSwift
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+
+    
     
     static let LAST_USER_KEY = "LastUserLoggedIntoOplynx"
+    static let CURRENT_RUN_KEY = "CurrentRun"
 
     //MARK: Properties
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var runTextField: UITextField!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    var activeField: UITextField?
+    
+    
+    let runPickerView = UIPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +35,28 @@ class LoginViewController: UIViewController {
             if let lastUser = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LoginViewController.LAST_USER_KEY) {
                 userNameTextField.text = lastUser
             }
+            if let lastRun = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LoginViewController.CURRENT_RUN_KEY) {
+                runTextField.text = lastRun
+            }
         }
         catch {
             
         }
+        registerForKeyboardNotifications()
         
+        userNameTextField.delegate = self
+        passwordTextField.delegate = self
+        
+        runPickerView.dataSource = self
+        runPickerView.delegate = self
+        
+        runTextField.inputView = runPickerView
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        deregisterFromKeyboardNotifications()
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,13 +93,6 @@ class LoginViewController: UIViewController {
      AMsPWS5rqlqnTm79Z5f3ecg5AtopqphJOrE79iLl4KUYDUDgJOX7hA8pHn8OA7Lz1A==
  */
     @IBAction func StartRun(_ sender: UIButton) {
-        // Save the user name
-        do {
-            try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LoginViewController.LAST_USER_KEY, Value: userNameTextField.text!)
-        }
-        catch {
-            
-        }
         
         // Get the user name's hashed password from the database
         do {
@@ -82,6 +102,14 @@ class LoginViewController: UIViewController {
             }
             let hashMatches = PasswordHasher.VerifyHashedPassword(base64HashedPassword: hashedPassword, password: passwordTextField.text!)
             if (hashMatches) {
+                // Save the user name & run
+                do {
+                    try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LoginViewController.LAST_USER_KEY, Value: userNameTextField.text!)
+                    //TODO: Handle data sync case
+                    try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LoginViewController.CURRENT_RUN_KEY, Value: runTextField.text!)
+                }
+                catch {
+                }
                 performSegue(withIdentifier: "ShowOperationalFormList", sender: self)
             }
             // TODO: error message here
@@ -94,5 +122,108 @@ class LoginViewController: UIViewController {
         
     }
     
+    //MARK: UITextFieldDelegate
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == userNameTextField {
+            passwordTextField.text = ""
+        }
+        return true
+    }
+    
+    //MARK: UIPickerViewDataSource interface
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 3
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch row {
+        case 0:
+            return "First Run"
+        case 1:
+            return "Second Run"
+        case 2:
+            fallthrough
+        default:
+            return "Third Run"
+        }
+    }
+    
+    //MARK: UIPickerViewDelegate interface
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        var text = ""
+        switch row {
+        case 0:
+            text = "First Run"
+        case 1:
+            text = "Second Run"
+        case 2:
+            fallthrough
+        default:
+            text = "Third Run"
+        }
+        runTextField.text = text
+        runTextField.resignFirstResponder()
+    }
+    
+    //MARK: Keyboard/ScrollView managing
+    func registerForKeyboardNotifications(){
+        //Adding notifies on keyboard appearing
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+
+    func deregisterFromKeyboardNotifications(){
+        //Removing notifies on keyboard appearing
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+
+    func keyboardWasShown(notification: NSNotification){
+        //Need to calculate keyboard exact size due to Apple suggestions
+        self.scrollView.isScrollEnabled = true
+        var info = notification.userInfo!
+        //let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize!.height, 0.0)
+        
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+        
+        var aRect : CGRect = self.view.frame
+        aRect.size.height -= keyboardSize!.height
+        if let activeField = self.activeField {
+            if (!aRect.contains(activeField.frame.origin)){
+                self.scrollView.scrollRectToVisible(activeField.frame, animated: true)
+            }
+        }
+    }
+
+    func keyboardWillBeHidden(notification: NSNotification){
+        //Once keyboard disappears, restore original positions
+        var info = notification.userInfo!
+        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, -keyboardSize!.height, 0.0)
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+        //self.view.endEditing(true)
+        self.scrollView.isScrollEnabled = false
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField){
+        activeField = textField
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField){
+        activeField = nil
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 
 }
