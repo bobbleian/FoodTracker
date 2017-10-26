@@ -111,6 +111,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
                 catch {
                 }
                 performSegue(withIdentifier: "ShowOperationalFormList", sender: self)
+                return
             }
             // TODO: error message here
         }
@@ -118,6 +119,11 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
             // TODO: error message here
             return
         }
+        
+        // Password was not verified, display alert
+        let alert = UIAlertController(title: "User name and password do not match", message: "Try logging in again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
         
         
     }
