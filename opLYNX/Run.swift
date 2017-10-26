@@ -39,15 +39,35 @@ class Run {
     }
     
     //MARK: Database interface
-    public static func loadSettingsValue(db: Connection, Key: String) throws -> String? {
-        let LocalSettingsTable = Table("LocalSettings")
-        let KeyExp = Expression<String>("Key")
-        let ValueExp = Expression<String>("Value")
+    public static func loadActiveRuns(db: Connection) throws -> [Run] {
         
-        for localValue in try db.prepare(LocalSettingsTable.select(ValueExp).filter(KeyExp == Key)) {
-            return localValue[ValueExp]
+        // Array of Runs
+        var runs = [Run]()
+        
+        // SQLLite table properties
+        let RunTable = Table("Run")
+        let Run_IDExp = Expression<Int64>("Run_ID")
+        let NameExp = Expression<String>("Name")
+        let DescriptionExp = Expression<String>("Description")
+        let ActiveExp = Expression<Bool>("Active")
+        let LastUpdateExp = Expression<Date>("LastUpdate")
+        
+        
+        for runRecord in try db.prepare(RunTable.filter(ActiveExp == true)) {
+            guard let run = Run(
+                Run_ID: Int(exactly: runRecord[Run_IDExp]) ?? 0,
+                Name: runRecord[NameExp],
+                Description: runRecord[DescriptionExp],
+                Active: true,
+                LastUpdate: Date())
+                //TODO: restore once database format has been updated LastUpdate: runRecord[LastUpdateExp])
+            else {
+                fatalError("Unable to load run from database")
+            }
+            runs += [run]
         }
-        return nil
+        
+        return runs
     }
 }
 

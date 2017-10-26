@@ -26,6 +26,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     
     
     let runPickerView = UIPickerView()
+    var runs = [Run]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,12 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
             if let lastUser = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LoginViewController.LAST_USER_KEY) {
                 userNameTextField.text = lastUser
             }
+        }
+        catch {
+            
+        }
+        
+        do {
             if let lastRun = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LoginViewController.CURRENT_RUN_KEY) {
                 runTextField.text = lastRun
             }
@@ -42,6 +49,14 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         catch {
             
         }
+        
+        do {
+            runs = try Run.loadActiveRuns(db: Database.DB())
+        }
+        catch {
+            
+        }
+        
         registerForKeyboardNotifications()
         
         userNameTextField.delegate = self
@@ -142,36 +157,16 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 3
+        return runs.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        switch row {
-        case 0:
-            return "First Run"
-        case 1:
-            return "Second Run"
-        case 2:
-            fallthrough
-        default:
-            return "Third Run"
-        }
+        return runs[row].Name        
     }
     
     //MARK: UIPickerViewDelegate interface
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        var text = ""
-        switch row {
-        case 0:
-            text = "First Run"
-        case 1:
-            text = "Second Run"
-        case 2:
-            fallthrough
-        default:
-            text = "Third Run"
-        }
-        runTextField.text = text
+        runTextField.text = runs[row].Name
         runTextField.resignFirstResponder()
     }
     
