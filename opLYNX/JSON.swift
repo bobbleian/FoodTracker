@@ -10,7 +10,7 @@ import Foundation
 
 /*
  * Sending a JSON formatted image to the server
- let imageData = UIImagePNGRepresentation(newMeal.photo!)!
+ let imageData = UIImagePNGRepresentation(new.photo!)!
  let imageBase64 = imageData.base64EncodedString()
  
  let json: [String: Any] = ["Contents": imageBase64, "MediaNumber": "QK2AHSAAC"]

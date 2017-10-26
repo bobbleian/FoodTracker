@@ -1,6 +1,6 @@
 //
 //  PasswordHasher.swift
-//  FoodTracker
+//  opLYNX
 //
 //  Created by oplynx developer on 2017-10-23.
 //  Copyright © 2017 CIS. All rights reserved.

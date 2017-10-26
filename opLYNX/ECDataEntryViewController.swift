@@ -1,6 +1,6 @@
 //
 //  ECDataEntryViewController.swift
-//  FoodTracker
+//  opLYNX
 //
 //  Created by oplynx developer on 2017-09-05.
 //  Copyright © 2017 CIS. All rights reserved.

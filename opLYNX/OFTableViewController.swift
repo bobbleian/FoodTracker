@@ -1,6 +1,6 @@
 //
-//  MealTableViewController.swift
-//  FoodTracker
+//  OFTableViewController.swift
+//  opLYNX
 //
 //  Created by oplynx developer on 2017-08-21.
 //  Copyright © 2017 CIS. All rights reserved.
@@ -28,7 +28,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Load meal data from SQLLite
+        // Load Operational Form data from SQLLite
         do {
             try operationalForms = OperationalForm.loadOperationalFormsWithKeysFromDB()
         }
@@ -77,7 +77,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
             fatalError("The dequeued cell is not an instance of OFTableViewCell.")
         }
 
-        // Fetch the meal for the data source layout
+        // Fetch the Operational Form for the data source layout
         let operationalForm: OperationalForm
         if isFiltering() {
             operationalForm = filteredOperationalForms[indexPath.section]
@@ -107,22 +107,20 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         super.prepare(for: segue, sender: sender)
         
         switch (segue.identifier ?? "") {
-        case "AddItem":
-            os_log("Adding a new meal", log: OSLog.default, type: .debug)
         case "ShowDetail":
-            guard let mealDetailViewController = segue.destination as? OFViewController else {
+            guard let ofViewController = segue.destination as? OFViewController else {
                 fatalError("Unexpected destination \(segue.destination)")
             }
-            guard let selectedMealCell = sender as? OFTableViewCell else {
+            guard let selectedOFTableViewCell = sender as? OFTableViewCell else {
                 fatalError("Unexpected sender \(sender ?? "")")
             }
-            guard let indexPath = tableView.indexPath(for: selectedMealCell) else {
+            guard let indexPath = tableView.indexPath(for: selectedOFTableViewCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
-            let selectedMeal = operationalForms[indexPath.section]
-            mealDetailViewController.operationalForm = selectedMeal
+            let selectedOperationalForm = operationalForms[indexPath.section]
+            ofViewController.operationalForm = selectedOperationalForm
         default:
-            fatalError("Unexpected segue identifier; \(segue.identifier ?? "")")
+            os_log("Unknown segue identifier", log: OSLog.default, type: .error)
         }
     }
     
@@ -132,18 +130,20 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         case "Save":
             if let sourceViewController = sender.source as? OFViewController {
                 
-                let meal = sourceViewController.operationalForm
-                let entryControls = sourceViewController.getEntryControlSubviews()
-                
-                if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                    do {
-                        for entryControl in entryControls {
-                            try OFElementData.updateOFElementValue(db: Database.DB(), OFNumber: (meal?.OFNumber)!, OFElement_ID: entryControl.elementID, Value: entryControl.value)
+                if let operationalForm = sourceViewController.operationalForm
+                {
+                    let entryControls = sourceViewController.getEntryControlSubviews()
+                    
+                    if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                        do {
+                            for entryControl in entryControls {
+                                try OFElementData.updateOFElementValue(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFElement_ID: entryControl.elementID, Value: entryControl.value)
+                            }
+                            tableView.reloadRows(at: [selectedIndexPath], with: .none)
                         }
-                        tableView.reloadRows(at: [selectedIndexPath], with: .none)
-                    }
-                    catch {
-                        fatalError("Unable to update operational form in database")
+                        catch {
+                            fatalError("Unable to update operational form in database")
+                        }
                     }
                 }
             }

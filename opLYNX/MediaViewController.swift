@@ -1,6 +1,6 @@
 //
 //  MediaViewController.swift
-//  FoodTracker
+//  opLYNX
 //
 //  Created by oplynx developer on 2017-10-13.
 //  Copyright © 2017 CIS. All rights reserved.
@@ -23,7 +23,7 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set up views if editing an existing Meal
+        // Set up views
         if let media = media {
             mediaCommentsTextView.text = media.Description
             mediaImageView.image = media.ImageContent

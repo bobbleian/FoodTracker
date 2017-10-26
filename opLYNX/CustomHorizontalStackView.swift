@@ -1,6 +1,6 @@
 //
 //  CustomHorizontalStackView.swift
-//  FoodTracker
+//  opLYNX
 //
 //  Created by oplynx developer on 2017-08-28.
 //  Copyright © 2017 CIS. All rights reserved.

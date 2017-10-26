@@ -1,6 +1,5 @@
 //
-//  Meal.swift
-//  FoodTracker
+//  OperationalForm.swift
 //
 //  Created by oplynx developer on 2017-08-21.
 //  Copyright © 2017 CIS. All rights reserved.
@@ -76,7 +75,7 @@ class OperationalForm {
                 OFType_ID: Int(exactly: operationalFormRecord[OFType_ID]) ?? 0,
                 Due_Date: operationalFormRecord[Due_Date])
             else {
-                    fatalError("Unable to load meal from database")
+                    fatalError("Unable to load form from database")
             }
             operationalForms += [operationalForm]
         }

@@ -1,6 +1,6 @@
 //
-//  MealTableViewCell.swift
-//  FoodTracker
+//  OFTableViewCell.swift
+//  opLYNX
 //
 //  Created by oplynx developer on 2017-08-21.
 //  Copyright © 2017 CIS. All rights reserved.

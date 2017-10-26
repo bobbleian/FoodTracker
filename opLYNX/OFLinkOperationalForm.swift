@@ -1,6 +1,6 @@
 //
 //  Asset.swift
-//  FoodTracker
+//  opLYNX
 //
 //  Created by oplynx developer on 2017-10-04.
 //  Copyright © 2017 CIS. All rights reserved.
