@@ -10,7 +10,7 @@ import UIKit
 import SQLite
 import os.log
 
-class OFViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class OFViewController: UIViewController, UINavigationControllerDelegate {
     
     //MARK: Properties
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -21,93 +21,49 @@ class OFViewController: UIViewController, UIImagePickerControllerDelegate, UINav
     @IBOutlet weak var containerViewD: UIView!
     @IBOutlet weak var containerViewE: UIView!
     
-    /*
-     This value is either passed by MealTableViewController in prepare(for:sender:)
-     or constructed as part of adding a new meal
-     */
-    var meal: OperationalForm?
+
+	// This value is set by the OFTableViewController in the prepare function
+    var operationalForm: OperationalForm?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set up views for editing an Operational Form
+        if let operationalForm = operationalForm {
+            navigationItem.title = operationalForm.OFNumber
         
-        // Set up views if editing an existing Meal
-        if let meal = meal {
-            navigationItem.title = meal.OFNumber
-            //nameTextField.text = meal.name
-            //photoImageView.image = meal.photo
-            //ratingControl.rating = meal.rating
-        }
-        
-        // Load Entry Control values from the database
-        let entryControls = getEntryControlSubviews(v: view)
-        for entryControl in entryControls {
-            do {
-                entryControl.value = try OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: (meal?.OFNumber)!, OFElement_ID: entryControl.elementID)
-                entryControl.ofNumber = (meal?.OFNumber)!
-            }
-            catch {
-                os_log("Unable to load OFDataValues from database", log: OSLog.default, type: .error)
+            // Load Entry Control values from the database
+            let entryControls = getEntryControlSubviews(v: view)
+            for entryControl in entryControls {
+                do {
+                    entryControl.value = try OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFElement_ID: entryControl.elementID)
+                    entryControl.ofNumber = operationalForm.OFNumber
+                }
+                catch {
+                    os_log("Unable to load OFDataValues from database", log: OSLog.default, type: .error)
+                }
             }
         }
-        
-        // Enable Save button only if the Meal has a valid name
-        updateSaveButtonState()
     }
     
-    //MARK: UITextFieldDelegate
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // Hide the keyboard
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        updateSaveButtonState()
-        navigationItem.title = textField.text
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        //Disable the save button while editing
-        saveButton.isEnabled = false
-    }
-    
-    //MARK: UIImagePickerControllerDelegate
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        // Dismiss the picker
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        // use original image
-        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else
-        {
-            fatalError("Expected a dictionary containing an image but was provided the following: \(info)")
+    // Get all EntryControl controls by traversing the view hierarchy
+    private func getEntryControlSubviews(v: UIView) -> [EntryControl] {
+        var entryControls = [EntryControl]()
+        for subview in v.subviews {
+            entryControls += getEntryControlSubviews(v: subview)
+            if (subview is EntryControl) {
+                entryControls.append(subview as! EntryControl)
+            }
         }
-        
-        // Set the photoImageView to display the selected image
-        //photoImageView.image = selectedImage
-        
-        // Dismiss the picker
-        dismiss(animated: true, completion: nil)
+        return entryControls
+    }
+    
+    // Public function to return all EntryControl controls
+    public func getEntryControlSubviews() -> [EntryControl] {
+        return getEntryControlSubviews(v: self.view)
     }
     
     //MARK: Navigation
-    @IBAction func cancel(_ sender: UIBarButtonItem) {
-        // Dismiss view based on type of presentation (modal vs. push)
-        let isPresentingInAddMealMode = presentingViewController is UINavigationController
-        if (isPresentingInAddMealMode) {
-            dismiss(animated: true, completion: nil)
-        }
-        else if let owningNavigationController = navigationController {
-            owningNavigationController.popViewController(animated: true)
-        }
-        else {
-            fatalError("The MealViewController is not inside a navigation controller")
-        }
-        
-    }
-    
     
     // This method lets you configure a view controller before it's presented
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -128,7 +84,7 @@ class OFViewController: UIViewController, UIImagePickerControllerDelegate, UINav
                 return
             }
             ecDataEntryViewController.entryControl = entryControl
-            ecDataEntryViewController.OFNumber = (meal?.OFNumber)!
+            ecDataEntryViewController.OFNumber = (operationalForm?.OFNumber)!
         default:
             //os_log("Unexpected segue identifier; \(segue.identifier ?? "")", log: OSLog.default, type: .error)
             os_log("Unexpected segue identifier", log: OSLog.default, type: .error)
@@ -137,46 +93,6 @@ class OFViewController: UIViewController, UIImagePickerControllerDelegate, UINav
     }
     
     //MARK: Actions
-    @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
-        // Hide keyboard
-        //nameTextField.resignFirstResponder()
-        
-        // UIImagePickerController is a view controller that lets a user pick media from their photo library
-        let imagePickerController = UIImagePickerController()
-        // Only allow photos to be selected, not taken
-        imagePickerController.sourceType = .photoLibrary
-        // make sure the viewcontroller is notified when the user picks an image
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true, completion: nil)
-    }
-    
-    @IBAction func showActionSheetTapped(sender: AnyObject) {
-        //Create the AlertController
-        let actionSheetController: UIAlertController = UIAlertController(title: "Inspected?", message: nil, preferredStyle: .actionSheet)
-        
-        //Create and add the Cancel action
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
-            //Do some stuff
-        }
-        actionSheetController.addAction(cancelAction)
-        //Create and add first option action
-        let takePictureAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { action -> Void in
-            //Do some other stuff
-        }
-        actionSheetController.addAction(takePictureAction)
-        //Create and add a second option action
-        let choosePictureAction: UIAlertAction = UIAlertAction(title: "No", style: .default) { action -> Void in
-            //Do some other stuff
-        }
-        actionSheetController.addAction(choosePictureAction)
-        
-        //We need to provide a popover sourceView when using it on iPad
-        //actionSheetController.popoverPresentationController?.sourceView = sender as? UIView;
-        
-        //Present the AlertController
-        self.present(actionSheetController, animated: true, completion: nil)
-    }
-    
     @IBAction func showContainerView(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -230,27 +146,6 @@ class OFViewController: UIViewController, UIImagePickerControllerDelegate, UINav
         }
     }
     
-    //MARK: Private
-    private func updateSaveButtonState() {
-        // Disable the Save button if the text field is empty
-        //let text = nameTextField.text ?? ""
-        //saveButton.isEnabled = !text.isEmpty
-    }
-    
-    private func getEntryControlSubviews(v: UIView) -> [EntryControl] {
-        var entryControls = [EntryControl]()
-        for subview in v.subviews {
-            entryControls += getEntryControlSubviews(v: subview)
-            if (subview is EntryControl) {
-                entryControls.append(subview as! EntryControl)
-            }
-        }
-        return entryControls
-    }
-    
-    public func getEntryControlSubviews() -> [EntryControl] {
-        return getEntryControlSubviews(v: self.view)
-    }
     
 }
 

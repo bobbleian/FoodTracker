@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OperationalFormCell: UITableViewCell {
+class OFTableViewCell: UITableViewCell {
     
     //MARK: Properties
     

@@ -11,11 +11,9 @@ import SQLite
 
 class OperationalForm {
     //MARK: Properties
-    var photo: UIImage?
-    var type: String = "type"
-    var key1: String = "key 1"
-    var key2: String = "key 2"
-    var key3: String = "key 3"
+    var key1: String = ""
+    var key2: String = ""
+    var key3: String = ""
     
     //MARK: Official opLYNX Properties
     var OFNumber: String
@@ -35,7 +33,7 @@ class OperationalForm {
     
     
     //MARK: Initialization
-    init?(OFNumber: String, photo: UIImage?, OFType_ID: Int, type: String, Due_Date: Date, key1: String, key2: String, key3: String) {
+    init?(OFNumber: String, OFType_ID: Int, Due_Date: Date) {
         
         // Initialization fails if name is empty
         guard !OFNumber.isEmpty else {
@@ -46,12 +44,6 @@ class OperationalForm {
         guard OFType_ID >= 0 else {
             return nil
         }
-        
-        self.photo = photo
-        self.type = type
-        self.key1 = key1
-        self.key2 = key2
-        self.key3 = key3
         
         self.OFNumber = OFNumber
         self.Operational_Date = Date()
@@ -70,8 +62,7 @@ class OperationalForm {
         
     }
     
-    //MARK: Database interface
-    
+    //MARK: Database interface    
     public static func loadOperationalFormsFromDB(db: Connection) throws -> [OperationalForm] {
         var operationalForms = [OperationalForm]()
         let operationalFormTable = Table("OperationalForm")
@@ -82,18 +73,29 @@ class OperationalForm {
         for operationalFormRecord in try db.prepare(operationalFormTable) {
             guard let operationalForm = OperationalForm(
                 OFNumber: operationalFormRecord[OFNumber],
-                photo: nil,
                 OFType_ID: Int(exactly: operationalFormRecord[OFType_ID]) ?? 0,
-                type: "Type",
-                Due_Date: operationalFormRecord[Due_Date],
-                key1: "Surface Location",
-                key2: "Location Name",
-                key3: "UWI")
-                else {
+                Due_Date: operationalFormRecord[Due_Date])
+            else {
                     fatalError("Unable to load meal from database")
             }
             operationalForms += [operationalForm]
         }
         return operationalForms
     }
+    
+    public static func loadOperationalFormsWithKeysFromDB() throws -> [OperationalForm] {
+        let operationalForms = try OperationalForm.loadOperationalFormsFromDB(db: Database.DB())
+        
+        // Load key values from OFElementData table
+        for operationalForm in operationalForms {
+            let key1Value = try OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFElement_ID: 148)
+            operationalForm.key1 = key1Value
+            let key2Value = try OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFElement_ID: 149)
+            operationalForm.key2 = key2Value
+            let key3Value = try OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFElement_ID: 150)
+            operationalForm.key3 = key3Value
+        }
+        return operationalForms
+    }
+    
 }
