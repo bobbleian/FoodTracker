@@ -20,20 +20,18 @@ class MediaTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
         // Load the media items to display
         do {
-            try loadMediaFromDB()
+            if let ofElement = ofElement {
+                media = try Media.loadMediaFromDB(db: Database.DB(), OFNumber: ofElement.OFNumber, OFElement_ID: ofElement.OFElement_ID)
+            }
+            else {
+                media.removeAll()
+            }
         }
         catch {
             os_log("Unable to load media from database", log: OSLog.default, type: .error)
         }
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,8 +76,6 @@ class MediaTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return UITableViewCellEditingStyle.delete
     }
-    
-
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -150,50 +146,49 @@ class MediaTableViewController: UITableViewController {
     }
     
     //MARK: Actions
-    @IBAction func unwindToMediaList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? MediaViewController {
-            
-            let sourceMedia = sourceViewController.media ?? Media(MediaNumber: UUID().uuidString, Description: "", ImageContent: nil)
-            sourceMedia.Description = sourceViewController.mediaCommentsTextView.text
-            sourceMedia.ImageContent = sourceViewController.mediaImageView.image
-            
-            if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                do {
-                    try Media.updateMediaToDB(db: Database.DB(), media: sourceMedia)
-                    self.media[selectedIndexPath.row] = sourceMedia
-                    tableView.reloadRows(at: [selectedIndexPath], with: .none)
+    @IBAction func unwindToMediaTableView(sender: UIStoryboardSegue) {
+        
+        switch (sender.identifier ?? "") {
+        case "Save":
+            if let sourceViewController = sender.source as? MediaViewController {
+                
+                let sourceMedia = sourceViewController.media ?? Media(MediaNumber: UUID().uuidString, Description: "", ImageContent: nil)
+                sourceMedia.Description = sourceViewController.mediaCommentsTextView.text
+                sourceMedia.ImageContent = sourceViewController.mediaImageView.image
+                
+                if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                    do {
+                        try Media.updateMediaToDB(db: Database.DB(), media: sourceMedia)
+                        self.media[selectedIndexPath.row] = sourceMedia
+                        tableView.reloadRows(at: [selectedIndexPath], with: .none)
+                    }
+                    catch {
+                        fatalError("Unable to update media to the database")
+                    }
                 }
-                catch {
-                    fatalError("Unable to update media to the database")
+                else {
+                    do {
+                        // Add a new media image
+                        try Media.insertMediaToDB(db: Database.DB(), media: sourceMedia)
+                        try OFLinkMedia.insertMediaToDB(db: Database.DB(),
+                                                        MediaNumber: sourceMedia.MediaNumber,
+                                                        OFNumber: (ofElement?.OFNumber)!,
+                                                        OFElement_ID: (ofElement?.OFElement_ID)!,
+                                                        SortOrder: media.count)
+                        let newIndexPath = IndexPath(row: media.count, section: 0)
+                        media.append(sourceMedia)
+                        tableView.insertRows(at: [newIndexPath], with: .automatic)
+                    }
+                    catch {
+                        fatalError("Unable to save media to the database")
+                    }
                 }
             }
-            else {
-                do {
-                    // Add a new media image
-                    try Media.insertMediaToDB(db: Database.DB(), media: sourceMedia)
-                    try OFLinkMedia.insertMediaToDB(db: Database.DB(),
-                                                    MediaNumber: sourceMedia.MediaNumber,
-                                                    OFNumber: (ofElement?.OFNumber)!,
-                                                    OFElement_ID: (ofElement?.OFElement_ID)!,
-                                                    SortOrder: media.count)
-                    let newIndexPath = IndexPath(row: media.count, section: 0)
-                    media.append(sourceMedia)
-                    tableView.insertRows(at: [newIndexPath], with: .automatic)
-                }
-                catch {
-                    fatalError("Unable to save media to the database")
-                }
-            }
-            
+        case "Cancel":
+            os_log("Cancel segue - nothing to do", log: OSLog.default, type: .info)
+        default:
+            os_log("Unknown segue identifier", log: OSLog.default, type: .error)
         }
     }
     
-    @IBAction func cancelToMediaList(sender: UIStoryboardSegue) {
-    }
-    
-    //MARK: Load data
-    private func loadMediaFromDB() throws {
-        self.media = try Media.loadMediaFromDB(db: Database.DB(), OFNumber: (ofElement?.OFNumber)!, OFElement_ID: (ofElement?.OFElement_ID)!)
-    }
-
 }

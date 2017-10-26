@@ -196,12 +196,12 @@
                     <navigationItem key="navigationItem" title="Edit Image" id="aM7-hD-fcs">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="UCC-mE-kq6">
                             <connections>
-                                <segue destination="fgB-oT-3BL" kind="unwind" unwindAction="cancelToMediaListWithSender:" id="bks-RX-COX"/>
+                                <segue destination="fgB-oT-3BL" kind="unwind" identifier="Cancel" unwindAction="unwindToMediaTableViewWithSender:" id="HDh-in-DDn"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="LRP-x6-Yza">
                             <connections>
-                                <segue destination="fgB-oT-3BL" kind="unwind" unwindAction="unwindToMediaListWithSender:" id="ovd-Ez-6fC"/>
+                                <segue destination="fgB-oT-3BL" kind="unwind" identifier="Save" unwindAction="unwindToMediaTableViewWithSender:" id="wM5-xv-Yyq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

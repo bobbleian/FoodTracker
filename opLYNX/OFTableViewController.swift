@@ -34,7 +34,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         }
         catch {
             os_log("Unable to load Operational Forms from database", log: OSLog.default, type: .error)
-            operationalForms = [OperationalForm]()
+            operationalForms.removeAll()
         }
         
         // Seatup the Search Controller
