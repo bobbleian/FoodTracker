@@ -360,8 +360,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZeD-kR-8Cg">
-                                <rect key="frame" x="15.5" y="74" width="344" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZeD-kR-8Cg">
+                                <rect key="frame" x="48.5" y="74" width="278" height="29"/>
                                 <segments>
                                     <segment title="General"/>
                                     <segment title="Site"/>
@@ -2008,6 +2008,6 @@
         <segue reference="5Lk-8V-dW5"/>
         <segue reference="1nZ-5k-vem"/>
         <segue reference="g84-5V-kQp"/>
-        <segue reference="1Lh-ZM-H8Y"/>
+        <segue reference="juk-KN-9fH"/>
     </inferredMetricsTieBreakers>
 </document>
