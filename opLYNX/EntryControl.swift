@@ -13,6 +13,7 @@ import UIKit
     //MARK: Properties
     private let nonmandatoryColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
     private let readonlyColor = UIColor(red: 175/255, green: 175/255, blue: 175/255, alpha: 1.0)
+    
     private let backGroundView = UIControl()
     private let entryTitle = UILabel()
     private let entryValue = UILabel()
@@ -111,14 +112,18 @@ import UIKit
         backGroundView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         
         entryTitle.textAlignment = .center
+        entryTitle.translatesAutoresizingMaskIntoConstraints = false
         entryTitle.adjustsFontSizeToFitWidth = true
         entryTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
+        entryTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
         //entryTitle.layer.borderWidth = 1.0
         //entryTitle.heightAnchor.constraint(equalToConstant: 20).isActive = true
         //entryTitle.widthAnchor.constraint(equalToConstant: 20).isActive = true
         addArrangedSubview(entryTitle)
         
         entryValue.textAlignment = .center
+        entryValue.translatesAutoresizingMaskIntoConstraints = false
+        entryValue.heightAnchor.constraint(equalToConstant: 40).isActive = true
         //entryValue.backgroundColor = .white
         //entryValue.layer.borderWidth = 1.0
         //entryValue.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -153,66 +158,9 @@ import UIKit
     }
     
     func ecTapped(entryControl: EntryControl) {
-        //Create the AlertController
-        /*
-        let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-        
-        pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: 250, height: 60))
-        
-        pickerView?.dataSource = self
-        pickerView?.delegate = self
-        alertController.view.addSubview(pickerView!)
-        
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(action)
-        
-        let vc = ECDataEntryViewController()
-        vc.modalPresentationStyle = .popover
-        
-        viewController?.present(vc, animated: true, completion: nil)
-        vc.popoverPresentationController?.sourceView = viewController?.view
-        vc.popoverPresentationController?.sourceRect = entryControl.frame
-        */
-        
-        /*
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let myAlert = storyboard.instantiateViewController(withIdentifier: "alert") as? ECDataEntryViewController
-        myAlert?.entryControl = self
-        myAlert?.modalPresentationStyle = .overCurrentContext
-        myAlert?.modalTransitionStyle = .coverVertical
-        viewController?.present(myAlert!, animated: true, completion: nil)
-        */
         if !readonly {
             viewController?.performSegue(withIdentifier: "editData", sender: self)
         }
-    }
-    
-    
-    func ecTapped2(entryControl: EntryControl) {
-        //Create the AlertController
-        let actionSheetController: UIAlertController = UIAlertController(title: "Inspected?", message: nil, preferredStyle: .actionSheet)
-        
-        //Create and add the Cancel action
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) { action -> Void in
-            //Do some stuff
-        }
-        actionSheetController.addAction(cancelAction)
-        //Create and add first option action
-        let takePictureAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { action -> Void in
-            //Do some other stuff
-        }
-        actionSheetController.addAction(takePictureAction)
-        //Create and add a second option action
-        let choosePictureAction: UIAlertAction = UIAlertAction(title: "No", style: .default) { action -> Void in
-            //Do some other stuff
-        }
-        actionSheetController.addAction(choosePictureAction)
-        
-        //We need to provide a popover sourceView when using it on iPad
-        //actionSheetController.popoverPresentationController?.sourceView = sender as? UIView;
-        
-        //Present the AlertController
-        viewController?.present(actionSheetController, animated: true, completion: nil)
     }
     
     //MARK: UIPickerViewDelegate, UIPickerViewDataSource
@@ -232,7 +180,6 @@ import UIKit
         }
         return globalList[row]
     }
-
     
 }
 
