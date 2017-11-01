@@ -11,11 +11,6 @@ import CryptoSwift
 
 class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
 
-    
-    
-    static let LAST_USER_KEY = "LastUserLoggedIntoOplynx"
-    static let CURRENT_RUN_KEY = "CurrentRun"
-
     //MARK: Properties
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -33,7 +28,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
 
         // Do any additional setup after loading the view.
         do {
-            if let lastUser = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LoginViewController.LAST_USER_KEY) {
+            if let lastUser = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_LAST_USER_KEY) {
                 userNameTextField.text = lastUser
             }
         }
@@ -42,7 +37,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         }
         
         do {
-            if let lastRun = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LoginViewController.CURRENT_RUN_KEY) {
+            if let lastRun = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_CURRENT_RUN_KEY) {
                 runTextField.text = lastRun
             }
         }
@@ -119,9 +114,9 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
             if (hashMatches) {
                 // Save the user name & run
                 do {
-                    try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LoginViewController.LAST_USER_KEY, Value: userNameTextField.text!)
+                    try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_LAST_USER_KEY, Value: userNameTextField.text!)
                     //TODO: Handle data sync case
-                    try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LoginViewController.CURRENT_RUN_KEY, Value: runTextField.text!)
+                    try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_CURRENT_RUN_KEY, Value: runTextField.text!)
                 }
                 catch {
                 }
@@ -141,6 +136,9 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         self.present(alert, animated: true, completion: nil)
         
         
+    }
+    @IBAction func EndRun(_ sender: UIButton) {
+        Authorize.RegisterAsset(assetName: "CIS9")
     }
     
     //MARK: UITextFieldDelegate

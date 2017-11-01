@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomHorizontalStackView: UIStackView {
+class CustomHorizontalStackViewXXX: UIStackView {
 
     /*
     // Only override draw() if you perform custom drawing.

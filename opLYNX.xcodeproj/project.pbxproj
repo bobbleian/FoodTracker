@@ -17,6 +17,7 @@
 		4830D2D71F4DD00E00FF7EF6 /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4830D2C81F4DCFC000FF7EF6 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		484002841F9FAA6900F8BEAD /* OperationalForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484002831F9FAA6900F8BEAD /* OperationalForm.swift */; };
 		484002861FA11ADA00F8BEAD /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484002851FA11ADA00F8BEAD /* Run.swift */; };
+		4857D8A71FA90CF700BFBBA0 /* Authorize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4857D8A61FA90CF700BFBBA0 /* Authorize.swift */; };
 		485C9A901F3E0E0400BA6CBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485C9A8F1F3E0E0400BA6CBD /* AppDelegate.swift */; };
 		485C9A921F3E0E0400BA6CBD /* OFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485C9A911F3E0E0400BA6CBD /* OFViewController.swift */; };
 		485C9A951F3E0E0400BA6CBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 485C9A931F3E0E0400BA6CBD /* Main.storyboard */; };
@@ -37,7 +38,6 @@
 		4870B9BD1F965F9800C1F31F /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4870B9BC1F965F9800C1F31F /* Database.swift */; };
 		4870B9BF1F9956F800C1F31F /* LocalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4870B9BE1F9956F800C1F31F /* LocalSettings.swift */; };
 		488A09CA1F4E182A00ADD2D1 /* oplynx.db in Resources */ = {isa = PBXBuildFile; fileRef = 488A09C91F4E182A00ADD2D1 /* oplynx.db */; };
-		489D08B61F54729800A93A56 /* CustomHorizontalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D08B51F54729800A93A56 /* CustomHorizontalStackView.swift */; };
 		489D08BE1F54A18500A93A56 /* EntryControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D08BD1F54A18500A93A56 /* EntryControl.swift */; };
 		48A870FE1F8FF54400896352 /* MediaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A870FD1F8FF54400896352 /* MediaTableViewController.swift */; };
 		48A871061F8FFD4300896352 /* MediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A871051F8FFD4300896352 /* MediaTableViewCell.swift */; };
@@ -45,6 +45,7 @@
 		48A8710A1F9122A700896352 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A871091F9122A700896352 /* MediaViewController.swift */; };
 		48B457A01F4B69B4006D9DBF /* OFTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B4579F1F4B69B4006D9DBF /* OFTableViewController.swift */; };
 		48BC40FD1FA27F6700929617 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BC40FC1FA27F6700929617 /* JSON.swift */; };
+		48CED76A1FAA1DD700A56C43 /* ConfigSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CED7691FAA1DD700A56C43 /* ConfigSync.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +153,7 @@
 		4830D2BD1F4DCFBF00FF7EF6 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../SQLite.swift-master/SQLite.xcodeproj"; sourceTree = "<group>"; };
 		484002831F9FAA6900F8BEAD /* OperationalForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationalForm.swift; sourceTree = "<group>"; };
 		484002851FA11ADA00F8BEAD /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
+		4857D8A61FA90CF700BFBBA0 /* Authorize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authorize.swift; sourceTree = "<group>"; };
 		485C9A8C1F3E0E0400BA6CBD /* opLYNX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = opLYNX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		485C9A8F1F3E0E0400BA6CBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		485C9A911F3E0E0400BA6CBD /* OFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFViewController.swift; sourceTree = "<group>"; };
@@ -173,7 +175,6 @@
 		4870B9BC1F965F9800C1F31F /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		4870B9BE1F9956F800C1F31F /* LocalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSettings.swift; sourceTree = "<group>"; };
 		488A09C91F4E182A00ADD2D1 /* oplynx.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = oplynx.db; sourceTree = SOURCE_ROOT; };
-		489D08B51F54729800A93A56 /* CustomHorizontalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomHorizontalStackView.swift; sourceTree = "<group>"; };
 		489D08BD1F54A18500A93A56 /* EntryControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryControl.swift; sourceTree = "<group>"; };
 		48A870FD1F8FF54400896352 /* MediaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableViewController.swift; sourceTree = "<group>"; };
 		48A871051F8FFD4300896352 /* MediaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableViewCell.swift; sourceTree = "<group>"; };
@@ -181,6 +182,7 @@
 		48A871091F9122A700896352 /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
 		48B4579F1F4B69B4006D9DBF /* OFTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFTableViewController.swift; sourceTree = "<group>"; };
 		48BC40FC1FA27F6700929617 /* JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		48CED7691FAA1DD700A56C43 /* ConfigSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSync.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,7 +308,6 @@
 			isa = PBXGroup;
 			children = (
 				489D08BD1F54A18500A93A56 /* EntryControl.swift */,
-				489D08B51F54729800A93A56 /* CustomHorizontalStackView.swift */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -315,6 +316,8 @@
 			isa = PBXGroup;
 			children = (
 				48BC40FC1FA27F6700929617 /* JSON.swift */,
+				4857D8A61FA90CF700BFBBA0 /* Authorize.swift */,
+				48CED7691FAA1DD700A56C43 /* ConfigSync.swift */,
 			);
 			name = Syncronization;
 			sourceTree = "<group>";
@@ -474,7 +477,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				48A870FE1F8FF54400896352 /* MediaTableViewController.swift in Sources */,
-				489D08B61F54729800A93A56 /* CustomHorizontalStackView.swift in Sources */,
 				4870B9BF1F9956F800C1F31F /* LocalSettings.swift in Sources */,
 				486186801F856D57001C8E4F /* OFLinkRun.swift in Sources */,
 				48A8710A1F9122A700896352 /* MediaViewController.swift in Sources */,
@@ -486,8 +488,10 @@
 				48A871081F900DE400896352 /* Media.swift in Sources */,
 				489D08BE1F54A18500A93A56 /* EntryControl.swift in Sources */,
 				485C9A901F3E0E0400BA6CBD /* AppDelegate.swift in Sources */,
+				48CED76A1FAA1DD700A56C43 /* ConfigSync.swift in Sources */,
 				48B457A01F4B69B4006D9DBF /* OFTableViewController.swift in Sources */,
 				484002841F9FAA6900F8BEAD /* OperationalForm.swift in Sources */,
+				4857D8A71FA90CF700BFBBA0 /* Authorize.swift in Sources */,
 				4861867A1F855A2A001C8E4F /* OFElementData.swift in Sources */,
 				48A871061F8FFD4300896352 /* MediaTableViewCell.swift in Sources */,
 				486186761F8556A2001C8E4F /* AssetSoftwareInfo.swift in Sources */,
@@ -658,6 +662,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cis.opLYNX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -672,6 +677,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cis.opLYNX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

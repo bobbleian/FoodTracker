@@ -10,6 +10,11 @@ import Foundation
 import SQLite
 
 class LocalSettings {
+    
+    // All Local Settings Keys here
+    static let AUTHORIZE_ASSET_TOKEN_KEY = "AuthorizeAssetTokenKey"
+    static let LOGIN_LAST_USER_KEY = "LoginLastUserLoggedIntoOplynxKey"
+    static let LOGIN_CURRENT_RUN_KEY = "LoginCurrentRunKey"
 
     //MARK: Database interface
     public static func loadSettingsValue(db: Connection, Key: String) throws -> String? {
