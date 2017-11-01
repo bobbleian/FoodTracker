@@ -15,6 +15,7 @@
 		4830CAEB1F5F102A008DDDDA /* ECDataEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4830CAEA1F5F102A008DDDDA /* ECDataEntryViewController.swift */; };
 		4830D2D61F4DD00E00FF7EF6 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4830D2C81F4DCFC000FF7EF6 /* SQLite.framework */; };
 		4830D2D71F4DD00E00FF7EF6 /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4830D2C81F4DCFC000FF7EF6 /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		483B20C61FAA7279003A411F /* opLYNXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483B20C51FAA7279003A411F /* opLYNXTests.swift */; };
 		484002841F9FAA6900F8BEAD /* OperationalForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484002831F9FAA6900F8BEAD /* OperationalForm.swift */; };
 		484002861FA11ADA00F8BEAD /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484002851FA11ADA00F8BEAD /* Run.swift */; };
 		4857D8A71FA90CF700BFBBA0 /* Authorize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4857D8A61FA90CF700BFBBA0 /* Authorize.swift */; };
@@ -105,6 +106,13 @@
 			remoteGlobalIDString = EE247AD21C3F04ED00AE3E12;
 			remoteInfo = "SQLite iOS";
 		};
+		483B20C81FAA7279003A411F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 485C9A841F3E0E0400BA6CBD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 485C9A8B1F3E0E0400BA6CBD;
+			remoteInfo = opLYNX;
+		};
 		486137F91F9A5B3800567409 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 486137F41F9A5B3800567409 /* CryptoSwift.xcodeproj */;
@@ -151,6 +159,9 @@
 		482C09711F61E5C900E64A5A /* ECGridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECGridViewController.swift; sourceTree = "<group>"; };
 		4830CAEA1F5F102A008DDDDA /* ECDataEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECDataEntryViewController.swift; sourceTree = "<group>"; };
 		4830D2BD1F4DCFBF00FF7EF6 /* SQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SQLite.xcodeproj; path = "../SQLite.swift-master/SQLite.xcodeproj"; sourceTree = "<group>"; };
+		483B20C31FAA7279003A411F /* opLYNXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = opLYNXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		483B20C51FAA7279003A411F /* opLYNXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = opLYNXTests.swift; sourceTree = "<group>"; };
+		483B20C71FAA7279003A411F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		484002831F9FAA6900F8BEAD /* OperationalForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationalForm.swift; sourceTree = "<group>"; };
 		484002851FA11ADA00F8BEAD /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
 		4857D8A61FA90CF700BFBBA0 /* Authorize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authorize.swift; sourceTree = "<group>"; };
@@ -186,6 +197,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		483B20C01FAA7279003A411F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		485C9A891F3E0E0400BA6CBD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -212,10 +230,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		483B20C41FAA7279003A411F /* opLYNXTests */ = {
+			isa = PBXGroup;
+			children = (
+				483B20C51FAA7279003A411F /* opLYNXTests.swift */,
+				483B20C71FAA7279003A411F /* Info.plist */,
+			);
+			path = opLYNXTests;
+			sourceTree = "<group>";
+		};
 		485C9A831F3E0E0400BA6CBD = {
 			isa = PBXGroup;
 			children = (
 				485C9A8E1F3E0E0400BA6CBD /* opLYNX */,
+				483B20C41FAA7279003A411F /* opLYNXTests */,
 				485C9A8D1F3E0E0400BA6CBD /* Products */,
 				486137F41F9A5B3800567409 /* CryptoSwift.xcodeproj */,
 				4830D2BD1F4DCFBF00FF7EF6 /* SQLite.xcodeproj */,
@@ -226,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				485C9A8C1F3E0E0400BA6CBD /* opLYNX.app */,
+				483B20C31FAA7279003A411F /* opLYNXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -325,6 +354,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		483B20C21FAA7279003A411F /* opLYNXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 483B20D31FAA7279003A411F /* Build configuration list for PBXNativeTarget "opLYNXTests" */;
+			buildPhases = (
+				483B20BF1FAA7279003A411F /* Sources */,
+				483B20C01FAA7279003A411F /* Frameworks */,
+				483B20C11FAA7279003A411F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				483B20C91FAA7279003A411F /* PBXTargetDependency */,
+			);
+			name = opLYNXTests;
+			productName = opLYNXTests;
+			productReference = 483B20C31FAA7279003A411F /* opLYNXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		485C9A8B1F3E0E0400BA6CBD /* opLYNX */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 485C9AA91F3E0E0400BA6CBD /* Build configuration list for PBXNativeTarget "opLYNX" */;
@@ -351,10 +398,16 @@
 		485C9A841F3E0E0400BA6CBD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = CIS;
 				TargetAttributes = {
+					483B20C21FAA7279003A411F = {
+						CreatedOnToolsVersion = 9.0.1;
+						DevelopmentTeam = 6DNC8JVCSU;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 485C9A8B1F3E0E0400BA6CBD;
+					};
 					485C9A8B1F3E0E0400BA6CBD = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 6DNC8JVCSU;
@@ -386,6 +439,7 @@
 			projectRoot = "";
 			targets = (
 				485C9A8B1F3E0E0400BA6CBD /* opLYNX */,
+				483B20C21FAA7279003A411F /* opLYNXTests */,
 			);
 		};
 /* End PBXProject section */
@@ -457,6 +511,13 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		483B20C11FAA7279003A411F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		485C9A8A1F3E0E0400BA6CBD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -472,6 +533,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		483B20BF1FAA7279003A411F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				483B20C61FAA7279003A411F /* opLYNXTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		485C9A881F3E0E0400BA6CBD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -517,6 +586,11 @@
 			name = "SQLite iOS";
 			targetProxy = 4830D2D81F4DD00E00FF7EF6 /* PBXContainerItemProxy */;
 		};
+		483B20C91FAA7279003A411F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 485C9A8B1F3E0E0400BA6CBD /* opLYNX */;
+			targetProxy = 483B20C81FAA7279003A411F /* PBXContainerItemProxy */;
+		};
 		4861380F1F9A5BB300567409 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CryptoSwift;
@@ -544,6 +618,48 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		483B20CA1FAA7279003A411F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6DNC8JVCSU;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = opLYNXTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cis.opLYNXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/opLYNX.app/opLYNX";
+			};
+			name = Debug;
+		};
+		483B20CB1FAA7279003A411F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6DNC8JVCSU;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = opLYNXTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cis.opLYNXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/opLYNX.app/opLYNX";
+			};
+			name = Release;
+		};
 		485C9AA71F3E0E0400BA6CBD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -684,6 +800,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		483B20D31FAA7279003A411F /* Build configuration list for PBXNativeTarget "opLYNXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				483B20CA1FAA7279003A411F /* Debug */,
+				483B20CB1FAA7279003A411F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		485C9A871F3E0E0400BA6CBD /* Build configuration list for PBXProject "opLYNX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

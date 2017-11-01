@@ -115,7 +115,7 @@ import UIKit
         entryTitle.translatesAutoresizingMaskIntoConstraints = false
         entryTitle.adjustsFontSizeToFitWidth = true
         entryTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
-        entryTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        //entryTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
         //entryTitle.layer.borderWidth = 1.0
         //entryTitle.heightAnchor.constraint(equalToConstant: 20).isActive = true
         //entryTitle.widthAnchor.constraint(equalToConstant: 20).isActive = true
@@ -123,7 +123,7 @@ import UIKit
         
         entryValue.textAlignment = .center
         entryValue.translatesAutoresizingMaskIntoConstraints = false
-        entryValue.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        //entryValue.heightAnchor.constraint(equalToConstant: 40).isActive = true
         //entryValue.backgroundColor = .white
         //entryValue.layer.borderWidth = 1.0
         //entryValue.heightAnchor.constraint(equalToConstant: 20).isActive = true
