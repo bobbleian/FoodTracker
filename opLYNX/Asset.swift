@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SQLite
 
 class Asset {
     
@@ -31,5 +32,27 @@ class Asset {
         self.Asset_ID = Asset_ID
         self.Name = Name
         self.LastUpdate = LastUpdate
+    }
+    
+    
+    //MARK: Database interface
+    public static func updateAsset(db: Connection, Asset_ID: Int, Name: String) throws {
+        let AssetTable = Table("Asset")
+        let Asset_IDExp = Expression<Int64>("Asset_ID")
+        let NameExp = Expression<String>("Name")
+        let LastUpdateExp = Expression<Date>("LastUpdate")
+        
+        // First try updating the entry
+        if try db.run(AssetTable.filter(Asset_IDExp == Int64(Asset_ID)).update(NameExp <- Name, LastUpdateExp <- Date())) == 0 {
+            // No records updated, try an insert
+            try db.run(AssetTable.insert(Asset_IDExp <- Int64(Asset_ID), NameExp <- Name, LastUpdateExp <- Date()))
+        }
+    }
+    
+    public static func deleteAllAsset(db: Connection) throws {
+        let AssetTable = Table("Asset")
+        
+        // Delete all records
+        try db.run(AssetTable.delete())
     }
 }

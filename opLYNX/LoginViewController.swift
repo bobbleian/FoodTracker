@@ -138,7 +138,22 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         
     }
     @IBAction func EndRun(_ sender: UIButton) {
-        Authorize.RegisterAsset(assetName: "CIS9")
+        JustHUD.shared.showInView(view: self.view, withHeader: "Registering Asset", andFooter: nil)
+        Authorize.RegisterAsset(assetName: "CIS9") { success in
+            if success {
+                DispatchQueue.main.async {
+                    JustHUD.shared.showInView(view: self.view, withHeader: "Loading Asset", andFooter: nil)
+                }
+                Authorize.LoadAssetByName(assetName: "CIS9") { success in
+                    DispatchQueue.main.async {
+                        JustHUD.shared.hide()
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                JustHUD.shared.hide()
+            }            
+        }
     }
     
     //MARK: UITextFieldDelegate
