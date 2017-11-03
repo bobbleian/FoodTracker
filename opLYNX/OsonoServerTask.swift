@@ -7,8 +7,43 @@
 //
 
 import Foundation
+import os.log
+
+protocol OsonoCompletionDelegate {
+    func success()
+    func error(message: String)
+}
 
 class OsonoServerTask {
+    
+    // Static properties
+    public static var ASSET_TOKEN: String {
+        get {
+            if let cachedAssetToken = cachedAssetToken {
+                return cachedAssetToken
+            }
+            else {
+                // Try loading from the local database
+                do {
+                    if let dbAssetToken = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LocalSettings.AUTHORIZE_ASSET_TOKEN_KEY) {
+                        OsonoServerTask.cachedAssetToken = dbAssetToken
+                        return dbAssetToken
+                    }
+                }
+                catch { }
+            }
+            return ""
+        }
+        set {
+            // Store in local database and update the cached value
+            do {
+                try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.AUTHORIZE_ASSET_TOKEN_KEY, Value: newValue)
+                OsonoServerTask.cachedAssetToken = newValue
+            }
+            catch { }
+        }
+    }
+    private static var cachedAssetToken: String?
     
     // Required properties
     private let serverIP: String
@@ -20,6 +55,8 @@ class OsonoServerTask {
     private var parameters = [String:String]()
     private var parameterKeys = [String]()
     
+    // Completion Handler
+    public var completionDelegate: OsonoCompletionDelegate?    
     
     // Initialize the Osono server task with basic parameters
     init(serverIP: String, serverPort: String?, serverMethod: String, application: String, module: String?, method: String) {
@@ -68,6 +105,87 @@ class OsonoServerTask {
         }
         
         return url
+    }
+    
+    
+    func RegisterAsset(assetName: String) {
+        
+        var errorMessage = "Unknown Error"
+        
+        let headers = ["content-type": "application/json", "authorization": "Bearer " + OsonoServerTask.ASSET_TOKEN]
+
+        if let url = URL(string: generateURLString()) {
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.allHTTPHeaderFields = headers
+            
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if error != nil {
+                    os_log("Server request error", log: OSLog.default, type: .error)
+                    errorMessage = "Server Error"
+                }
+                else {
+                    do {
+                        if let httpResponse = response as? HTTPURLResponse {
+                            if httpResponse.statusCode == 200 {
+                                if let parsedData = try JSONSerialization.jsonObject(with: data!) as? [String:Any] {
+                                    for (key, value) in parsedData {
+                                        print("\(key): \(value)")
+                                    }
+                                    // Check Osono error package
+                                    if let error = parsedData["error"] as? [String:Any] {
+                                        // See if there is an error message
+                                        if let code = error["code"] as? Int, let message = error["message"] as? String {
+                                            os_log("osono server error code=%d message=%s", log: OSLog.default, type: .error, code, message)
+                                            self.completionDelegate?.error(message: message)
+                                            return
+                                        }
+                                    }
+                                    
+                                    // Process Osono data payload
+                                    if let data = parsedData["data"] as? String {
+                                        // Save the Asset Token
+                                        do {
+                                            try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.AUTHORIZE_ASSET_TOKEN_KEY, Value: data)
+                                            OsonoServerTask.ASSET_TOKEN = data
+                                            self.completionDelegate?.success()
+                                            return
+                                        }
+                                        catch {
+                                            // Unable to save the Asset Token to the database
+                                            errorMessage = "Error saving Asset Token locally"
+                                        }
+                                    }
+                                    else {
+                                        // Unable to extract the Osono data payload as a String
+                                        errorMessage = "Error parsing server data"
+                                    }
+                                }
+                                else {
+                                    // Unable to deserialize the JSON object sent back from the Osono server
+                                    errorMessage = "Error parsing server data"
+                                }
+                            }
+                            else {
+                                // HTTP error code (non-200 response)
+                                os_log("HTTP Error: %d", log: OSLog.default, type: .error, httpResponse.statusCode)
+                                errorMessage = "Error contacting server"
+                            }
+                        }
+                        else {
+                            // Unable to process response as HTTP Response
+                            errorMessage = "Error contacting server"
+                        }
+                    }
+                    catch {
+                        print(error)
+                    }
+                }
+                // If we've gotten this far, then the Osono data payload was not processed successfully
+                // Return the error message through the callback delegate
+                self.completionDelegate?.error(message: errorMessage)
+            }.resume()
+        }
     }
     
 }

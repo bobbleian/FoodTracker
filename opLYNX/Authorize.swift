@@ -12,11 +12,10 @@ import os.log
 class Authorize {
     
     private static let CLIENT_ID = "ba91fecd-7371-4466-a11e-8b44a99ee809"
-    private static var ASSET_TOKEN = ""
     
     public static func RegisterAsset(assetName: String, completion: @escaping (Bool) -> Void) {
         
-        let headers = ["content-type": "application/json"]
+        let headers = ["content-type": "application/json", "authorization": "Bearer " + OsonoServerTask.ASSET_TOKEN]
         
         let urlBase = "http://199.180.29.38:13616/opLYNXJSON/auth/registerasset"
         let parameters = "asset_name=" + assetName + "&client_id=" + CLIENT_ID
@@ -52,7 +51,7 @@ class Authorize {
                                     // Save the Asset Token
                                     do {
                                         try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.AUTHORIZE_ASSET_TOKEN_KEY, Value: data)
-                                        ASSET_TOKEN = data
+                                        OsonoServerTask.ASSET_TOKEN = data
                                         completion(true)
                                     }
                                     catch {
@@ -86,7 +85,7 @@ class Authorize {
     
     public static func LoadAssetByName(assetName: String, completion: @escaping (Bool) -> Void) {
         
-        let headers = ["content-type": "application/json", "authorization": "Bearer " + ASSET_TOKEN]
+        let headers = ["content-type": "application/json", "authorization": "Bearer " + OsonoServerTask.ASSET_TOKEN]
         
         let urlBase = "http://199.180.29.38:13616/opLYNXJSON/asset/loadassetbyname"
         let parameters = "asset_name=" + assetName
