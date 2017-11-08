@@ -91,7 +91,9 @@ class JustHUD: UIView {
         
         progressIndicator?.frame.origin = getIndicatorOrigin(view: backView!, activityIndicatorView: progressIndicator!)
         backView?.addSubview(progressIndicator!)
-        view.addSubview(self)
+        DispatchQueue.main.async {
+            view.addSubview(self)
+        }
     }
     
     // Show the loader added to the mentioned window with the provided title and footer texts

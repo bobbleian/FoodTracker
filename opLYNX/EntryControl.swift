@@ -157,7 +157,7 @@ import UIKit
         }
     }
     
-    func ecTapped(entryControl: EntryControl) {
+    @objc func ecTapped(entryControl: EntryControl) {
         if !readonly {
             viewController?.performSegue(withIdentifier: "editData", sender: self)
         }

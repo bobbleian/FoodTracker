@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class OPLYNXServerTask : OsonoServerTask {
     // Static values
@@ -23,5 +24,51 @@ class OPLYNXServerTask : OsonoServerTask {
                    module: module,
                    method: method)
     }
+    
+    override func Run() {
+        // Display task title, if it exists
+        if let oplynxServerTaskDelegate = taskDelegate as? OPLYNXServerTaskDelegate, let viewController = oplynxServerTaskDelegate.viewController, let taskTitle = oplynxServerTaskDelegate.taskTitle {
+            DispatchQueue.main.async {
+                JustHUD.shared.showInView(view: viewController.view, withHeader: taskTitle, andFooter: nil)
+            }
+        }
+        
+        // Run the task
+        super.Run()
+    }
 }
+
+class OPLYNXServerTaskDelegate : OsonoTaskDelegate {
+    
+    //MARK: Properties
+    let taskTitle: String?
+    let viewController: UIViewController?
+    
+    //MARK: Initializers
+    init(taskTitle: String?, viewController: UIViewController?) {
+        self.taskTitle = taskTitle
+        self.viewController = viewController
+    }
+    
+    //MARK: OsonoTaskDelegate Protocol
+    func success() {
+        DispatchQueue.main.async {
+            JustHUD.shared.hide()
+        }
+    }
+    
+    func error(message: String) {
+        DispatchQueue.main.async {
+            JustHUD.shared.hide()
+        }
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        viewController?.present(alert, animated: true, completion: nil)
+    }
+    
+    func processData(data: Any) throws {
+        
+    }
+}
+
 

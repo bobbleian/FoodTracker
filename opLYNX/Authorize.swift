@@ -11,7 +11,7 @@ import os.log
 
 class Authorize {
     
-    private static let CLIENT_ID = "ba91fecd-7371-4466-a11e-8b44a99ee809"
+    public static let CLIENT_ID = "ba91fecd-7371-4466-a11e-8b44a99ee809"
     
     public static func RegisterAsset(assetName: String, completion: @escaping (Bool) -> Void) {
         
@@ -96,6 +96,7 @@ class Authorize {
         request.allHTTPHeaderFields = headers
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
+            sleep(5)
             if error != nil {
                 os_log(error as! StaticString, log: OSLog.default, type: .error)
             }

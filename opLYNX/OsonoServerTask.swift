@@ -9,9 +9,14 @@
 import Foundation
 import os.log
 
-protocol OsonoCompletionDelegate {
+protocol OsonoTaskDelegate {
     func success()
     func error(message: String)
+    func processData(data: Any) throws
+}
+
+enum OsonoError : Error {
+    case Message(String)
 }
 
 class OsonoServerTask {
@@ -56,7 +61,10 @@ class OsonoServerTask {
     private var parameterKeys = [String]()
     
     // Completion Handler
-    public var completionDelegate: OsonoCompletionDelegate?    
+    public var taskDelegate: OsonoTaskDelegate?
+    
+    // Osono Task Chaining
+    public var nextOsonoTask: OsonoServerTask?
     
     // Initialize the Osono server task with basic parameters
     init(serverIP: String, serverPort: String?, serverMethod: String, application: String, module: String?, method: String) {
@@ -108,7 +116,7 @@ class OsonoServerTask {
     }
     
     
-    func RegisterAsset(assetName: String) {
+    func Run() {
         
         var errorMessage = "Unknown Error"
         
@@ -136,24 +144,24 @@ class OsonoServerTask {
                                     if let error = parsedData["error"] as? [String:Any] {
                                         // See if there is an error message
                                         if let code = error["code"] as? Int, let message = error["message"] as? String {
-                                            os_log("osono server error code=%d message=%s", log: OSLog.default, type: .error, code, message)
-                                            self.completionDelegate?.error(message: message)
+                                            os_log("osono server error code=%d message=%@", log: OSLog.default, type: .error, code, message)
+                                            self.taskDelegate?.error(message: message)
                                             return
                                         }
                                     }
                                     
                                     // Process Osono data payload
-                                    if let data = parsedData["data"] as? String {
-                                        // Save the Asset Token
+                                    if let dataPayload = parsedData["data"] {
                                         do {
-                                            try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.AUTHORIZE_ASSET_TOKEN_KEY, Value: data)
-                                            OsonoServerTask.ASSET_TOKEN = data
-                                            self.completionDelegate?.success()
+                                            try self.taskDelegate?.processData(data: dataPayload)
+                                            self.taskDelegate?.success()
+                                            // Run the next Osono Task, if necessary
+                                            self.nextOsonoTask?.Run()
                                             return
                                         }
-                                        catch {
-                                            // Unable to save the Asset Token to the database
-                                            errorMessage = "Error saving Asset Token locally"
+                                        catch OsonoError.Message(let osonoErrorMessage){
+                                            // Set the Osono Error Message
+                                            errorMessage = osonoErrorMessage
                                         }
                                     }
                                     else {
@@ -183,7 +191,7 @@ class OsonoServerTask {
                 }
                 // If we've gotten this far, then the Osono data payload was not processed successfully
                 // Return the error message through the callback delegate
-                self.completionDelegate?.error(message: errorMessage)
+                self.taskDelegate?.error(message: errorMessage)
             }.resume()
         }
     }
