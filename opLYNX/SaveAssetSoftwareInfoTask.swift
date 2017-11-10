@@ -20,6 +20,7 @@ class SaveAssetSoftwareInfoTask: OPLYNXServerTask {
     
     // Inserts the AssetSoftwareInfo payload into the Task before calling Run
     override func Run() {
+        // Need to load ASSET SOFTWARE INFO
         if let assetSoftwareInfo = ConfigSync.ASSET_SOFTWARE_INFO {
             setDataPayload(dataPayload: assetSoftwareInfo.convertToOsono())
         }
@@ -41,6 +42,9 @@ class SaveAssetSoftwareInfoTask: OPLYNXServerTask {
             do {
                 try ConfigSync.ASSET_SOFTWARE_INFO?.updateDB(db: Database.DB())
                 super.success()
+                let alert = UIAlertController(title: "Success", message: "Config Sync Complete", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                viewController?.present(alert, animated: true, completion: nil)
             } catch {
                 super.error(message: "Error saving AssetSWInfo to local database")
             }

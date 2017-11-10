@@ -62,8 +62,8 @@ class AssetSoftwareInfo {
         result["aid"] = String(Asset_ID)
         result["sid"] = String(Software_ID)
         result["ver"] = Version
-        result["lsc"] = "\"" + LastSyncConfiguration.formatJsonDate() + "\""
-        result["lsd"] = "\"" + LastSyncData.formatJsonDate() + "\""
+        result["lsc"] = LastSyncConfiguration.formatJsonDate()
+        result["lsd"] = LastSyncData.formatJsonDate()
         return result
     }
     
