@@ -7,8 +7,12 @@
 //
 
 import Foundation
+import SQLite
 
 class AssetSoftwareInfo {
+    
+    //MARK: Static Properties
+    static let SOFTWARE_ID = 101
     
     //MARK: Properties
     var AssetSoftwareInfo_ID: Int
@@ -49,5 +53,49 @@ class AssetSoftwareInfo {
         self.LastSyncConfiguration = LastSyncConfiguration
         self.LastSyncData = LastSyncData
         self.LastUpdate = LastUpdate
+    }
+    
+    //MARK: Osono Data Interface
+    public func convertToOsono() -> [String: Any] {
+        var result = [String: Any]()
+        result["id"] = String(AssetSoftwareInfo_ID)
+        result["aid"] = String(Asset_ID)
+        result["sid"] = String(Software_ID)
+        result["ver"] = Version
+        result["lsc"] = "\"" + LastSyncConfiguration.formatJsonDate() + "\""
+        result["lsd"] = "\"" + LastSyncData.formatJsonDate() + "\""
+        return result
+    }
+    
+    
+    //MARK: Database interface
+    public func updateDB(db: Connection) throws {
+        let AssetSoftwareInfoTable = Table("AssetSoftwareInfo")
+        let AssetSoftwareInfo_IDExp = Expression<Int64>("AssetSoftwareInfo_ID")
+        let Asset_IDExp = Expression<Int64>("Asset_ID")
+        let Software_IDExp = Expression<Int64>("Software_ID")
+        let VersionExp = Expression<String>("Version")
+        let LastSyncConfigurationExp = Expression<Date>("LastSyncConfiguration")
+        let LastSyncDataExp = Expression<Date>("LastSyncData")
+        let LastUpdateExp = Expression<Date>("LastUpdate")
+        
+        // First try updating the entry
+        if try db.run(AssetSoftwareInfoTable.filter(AssetSoftwareInfo_IDExp == Int64(AssetSoftwareInfo_ID)).update(AssetSoftwareInfo_IDExp <- Int64(AssetSoftwareInfo_ID),
+                                                                                  Asset_IDExp <- Int64(Asset_ID),
+                                                                                  Software_IDExp <- Int64(Software_ID),
+                                                                                  VersionExp <- Version,
+                                                                                  LastSyncConfigurationExp <- LastSyncConfiguration,
+                                                                                  LastSyncDataExp <- LastSyncData,
+                                                                                  LastUpdateExp <- LastUpdate)) == 0 {
+            // No records updated, try an insert
+            try db.run(AssetSoftwareInfoTable.insert(AssetSoftwareInfo_IDExp <- Int64(AssetSoftwareInfo_ID),
+                                          AssetSoftwareInfo_IDExp <- Int64(AssetSoftwareInfo_ID),
+                                          Asset_IDExp <- Int64(Asset_ID),
+                                          Software_IDExp <- Int64(Software_ID),
+                                          VersionExp <- Version,
+                                          LastSyncConfigurationExp <- LastSyncConfiguration,
+                                          LastSyncDataExp <- LastSyncData,
+                                          LastUpdateExp <- LastUpdate))
+        }
     }
 }

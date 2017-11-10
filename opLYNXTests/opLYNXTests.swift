@@ -36,8 +36,23 @@ class opLYNXTests: XCTestCase {
         let osonoTask = OsonoServerTask(serverIP: "199.180.29.38", serverPort: "13616", serverMethod: "http", application: "opLYNXJSON", module: "auth", method: "registerasset")
         osonoTask.addParameter(name: "asset_name", value: "CIS9")
         osonoTask.addParameter(name: "client_id", value: "ba91fecd-7371-4466-a11e-8b44a99ee809")
-        let correctURL = "http://199.180.29.38:13616/opLYNXJSON/auth/registerasset?asset_name=CIS9&client_id=ba91fecd-7371-4466-a11e-8b44a99ee809"
-        XCTAssertEqual(osonoTask.generateURLString(), correctURL)
+        XCTAssertEqual(osonoTask.generateURLString(), "http://199.180.29.38:13616/opLYNXJSON/auth/registerasset?asset_name=CIS9&client_id=ba91fecd-7371-4466-a11e-8b44a99ee809")
+    }
+    
+    // Test JSON date formatting extension (For UTC Epoch time since 1970)
+    func testJSONDateFormatting() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        let dateString = "Jan 1, 2000"
+        if let date = dateFormatter.date(from: dateString) {
+            // Test generating the JSON/Microsoft formatted string from a date object
+            XCTAssertEqual(date.formatJsonDate(), "/Date(946710000000)/")
+            
+            // Test generating a Date object from a JSON/Microsoft formatted string
+            let jsonCreatedDate = Date(jsonDate: "/Date(946710000000)/")
+            XCTAssertNotNil(jsonCreatedDate)
+            XCTAssertEqual(jsonCreatedDate!, date)
+        }
     }
     
     func testPerformanceExample() {

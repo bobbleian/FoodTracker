@@ -69,5 +69,33 @@ class Run {
         
         return runs
     }
+    
+    
+    //MARK: Database interface
+    public func updateDB(db: Connection) throws {
+        
+        // SQLLite table properties
+        let RunTable = Table("Run")
+        let Run_IDExp = Expression<Int64>("Run_ID")
+        let NameExp = Expression<String>("Name")
+        let DescriptionExp = Expression<String>("Description")
+        let ActiveExp = Expression<Bool>("Active")
+        let LastUpdateExp = Expression<Date>("LastUpdate")
+        
+        // First try updating the entry
+        if try db.run(RunTable.filter(Run_IDExp == Int64(Run_ID)).update(
+                                        NameExp <- Name,
+                                        DescriptionExp <- Description,
+                                        ActiveExp <- Active,
+                                        LastUpdateExp <- LastUpdate)) == 0 {
+            // No records updated, try an insert
+            try db.run(RunTable.insert(Run_IDExp <- Int64(Run_ID),
+                                        NameExp <- Name,
+                                        DescriptionExp <- Description,
+                                        ActiveExp <- Active,
+                                        LastUpdateExp <- LastUpdate))
+        }
+    }
+    
 }
 

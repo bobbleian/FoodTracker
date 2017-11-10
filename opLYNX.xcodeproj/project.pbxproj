@@ -37,6 +37,7 @@
 		486186861F86DE4F001C8E4F /* OFType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486186851F86DE4F001C8E4F /* OFType.swift */; };
 		4870B9BD1F965F9800C1F31F /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4870B9BC1F965F9800C1F31F /* Database.swift */; };
 		4870B9BF1F9956F800C1F31F /* LocalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4870B9BE1F9956F800C1F31F /* LocalSettings.swift */; };
+		487CDF691FB515C900218846 /* SaveAssetSoftwareInfoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487CDF681FB515C900218846 /* SaveAssetSoftwareInfoTask.swift */; };
 		488A09CA1F4E182A00ADD2D1 /* oplynx.db in Resources */ = {isa = PBXBuildFile; fileRef = 488A09C91F4E182A00ADD2D1 /* oplynx.db */; };
 		489D08BE1F54A18500A93A56 /* EntryControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D08BD1F54A18500A93A56 /* EntryControl.swift */; };
 		48A870FE1F8FF54400896352 /* MediaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A870FD1F8FF54400896352 /* MediaTableViewController.swift */; };
@@ -189,6 +190,7 @@
 		486186851F86DE4F001C8E4F /* OFType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFType.swift; sourceTree = "<group>"; };
 		4870B9BC1F965F9800C1F31F /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		4870B9BE1F9956F800C1F31F /* LocalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSettings.swift; sourceTree = "<group>"; };
+		487CDF681FB515C900218846 /* SaveAssetSoftwareInfoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAssetSoftwareInfoTask.swift; sourceTree = "<group>"; };
 		488A09C91F4E182A00ADD2D1 /* oplynx.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = oplynx.db; sourceTree = SOURCE_ROOT; };
 		489D08BD1F54A18500A93A56 /* EntryControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryControl.swift; sourceTree = "<group>"; };
 		48A870FD1F8FF54400896352 /* MediaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableViewController.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 				48CED7691FAA1DD700A56C43 /* ConfigSync.swift */,
 				483B20D61FABC28F003A411F /* OsonoServerTask.swift */,
 				483B20D81FABC92A003A411F /* OPLYNXServerTask.swift */,
+				487CDF681FB515C900218846 /* SaveAssetSoftwareInfoTask.swift */,
 			);
 			name = Syncronization;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48A870FE1F8FF54400896352 /* MediaTableViewController.swift in Sources */,
+				487CDF691FB515C900218846 /* SaveAssetSoftwareInfoTask.swift in Sources */,
 				4870B9BF1F9956F800C1F31F /* LocalSettings.swift in Sources */,
 				486186801F856D57001C8E4F /* OFLinkRun.swift in Sources */,
 				483B20D91FABC92A003A411F /* OPLYNXServerTask.swift in Sources */,

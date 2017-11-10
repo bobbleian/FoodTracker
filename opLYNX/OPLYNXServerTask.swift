@@ -16,13 +16,14 @@ class OPLYNXServerTask : OsonoServerTask {
     private static let SERVER_METHOD = "http"
     private static let SERVER_APPLICATION = "opLYNXJSON"
     
-    init(module: String?, method: String) {
+    init(module: String?, method: String, httpMethod: String) {
         super.init(serverIP: OPLYNXServerTask.SERVER_IP,
                    serverPort: OPLYNXServerTask.SERVER_PORT,
                    serverMethod: OPLYNXServerTask.SERVER_METHOD,
                    application: OPLYNXServerTask.SERVER_APPLICATION,
                    module: module,
-                   method: method)
+                   method: method,
+                   httpMethod: httpMethod)
     }
     
     override func Run() {

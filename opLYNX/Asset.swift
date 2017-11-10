@@ -32,10 +32,21 @@ class Asset {
         self.Asset_ID = Asset_ID
         self.Name = Name
         self.LastUpdate = LastUpdate
-    }
-    
+    }    
     
     //MARK: Database interface
+    public static func loadAsset(db: Connection) throws -> Asset? {
+        let AssetTable = Table("Asset")
+        let Asset_IDExp = Expression<Int64>("Asset_ID")
+        let NameExp = Expression<String>("Name")
+        let LastUpdateExp = Expression<Date>("LastUpdate")
+        
+        for assetRecord in try db.prepare(AssetTable) {
+            return Asset(Asset_ID: Int(assetRecord[Asset_IDExp]), Name: assetRecord[NameExp], LastUpdate: assetRecord[LastUpdateExp])
+        }
+        return nil
+    }
+    
     public static func updateAsset(db: Connection, Asset_ID: Int, Name: String) throws {
         let AssetTable = Table("Asset")
         let Asset_IDExp = Expression<Int64>("Asset_ID")

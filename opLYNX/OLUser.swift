@@ -74,4 +74,44 @@ class OLUser {
         return nil
     }
     
+    public func updateUser(db: Connection) throws {
+        let OLUserTable = Table("OLUser")
+        let OLUser_IDExp = Expression<Int64>("OLUser_ID")
+        let Run_IDExp = Expression<Int64>("Run_ID")
+        let UserNameExp = Expression<String>("UserName")
+        let PasswordExp = Expression<String>("Password")
+        let FirstNameExp = Expression<String>("FirstName")
+        let LastNameExp = Expression<String>("LastName")
+        let PhoneNumberExp = Expression<String>("PhoneNumber")
+        let MobileNumberExp = Expression<String>("MobileNumber")
+        let EmailAddressExp = Expression<String>("EmailAddress")
+        let ActiveExp = Expression<Bool>("Active")
+        let LastUpdateExp = Expression<Date>("LastUpdate")
+        
+        // First try updating the entry
+        if try db.run(OLUserTable.filter(OLUser_IDExp == Int64(OLUser_ID)).update(Run_IDExp <- Int64(Run_ID),
+                                                                                  UserNameExp <- UserName,
+                                                                                  PasswordExp <- Password,
+                                                                                  FirstNameExp <- FirstName,
+                                                                                  LastNameExp <- LastName,
+                                                                                  PhoneNumberExp <- PhoneNumber,
+                                                                                  MobileNumberExp <- MobileNumber,
+                                                                                  EmailAddressExp <- EmailAddress,
+                                                                                  ActiveExp <- Active,
+                                                                                  LastUpdateExp <- Date())) == 0 {
+            // No records updated, try an insert
+            try db.run(OLUserTable.insert(OLUser_IDExp <- Int64(OLUser_ID),
+                                          Run_IDExp <- Int64(Run_ID),
+                                          UserNameExp <- UserName,
+                                          PasswordExp <- Password,
+                                          FirstNameExp <- FirstName,
+                                          LastNameExp <- LastName,
+                                          PhoneNumberExp <- PhoneNumber,
+                                          MobileNumberExp <- MobileNumber,
+                                          EmailAddressExp <- EmailAddress,
+                                          ActiveExp <- Active,
+                                          LastUpdateExp <- Date()))
+        }
+    }
+    
 }

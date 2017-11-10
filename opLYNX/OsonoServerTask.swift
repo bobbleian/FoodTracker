@@ -35,21 +35,21 @@ class OsonoServerTask {
                         return dbAssetToken
                     }
                 }
-                catch { }
+                catch {
+                    os_log("Unable to load asset token from local database", log: OSLog.default, type: .error)
+                }
             }
             return ""
         }
-        set {
-            // Store in local database and update the cached value
-            do {
-                try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.AUTHORIZE_ASSET_TOKEN_KEY, Value: newValue)
-                OsonoServerTask.cachedAssetToken = newValue
-            }
-            catch { }
-        }
     }
-    private static var cachedAssetToken: String?
     
+    static func setAssetToken(newValue: String) throws {// Store in local database and update the cached value
+        try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.AUTHORIZE_ASSET_TOKEN_KEY, Value: newValue)
+        OsonoServerTask.cachedAssetToken = newValue
+    }
+    
+    private static var cachedAssetToken: String?
+        
     // Required properties
     private let serverIP: String
     private let serverPort: String?
@@ -57,8 +57,10 @@ class OsonoServerTask {
     private let application: String
     private let module: String?
     private let method: String
+    private let httpMethod: String
     private var parameters = [String:String]()
     private var parameterKeys = [String]()
+    private var dataPayload: Any?
     
     // Completion Handler
     public var taskDelegate: OsonoTaskDelegate?
@@ -67,19 +69,25 @@ class OsonoServerTask {
     public var nextOsonoTask: OsonoServerTask?
     
     // Initialize the Osono server task with basic parameters
-    init(serverIP: String, serverPort: String?, serverMethod: String, application: String, module: String?, method: String) {
+    init(serverIP: String, serverPort: String?, serverMethod: String, application: String, module: String?, method: String, httpMethod: String) {
         self.serverIP = serverIP
         self.serverPort = serverPort
         self.serverMethod = serverMethod
         self.application = application
         self.module = module
         self.method = method
+        self.httpMethod = httpMethod
     }
     
     // Add a parameter to be passed into the Osono server call
     func addParameter(name: String, value: String) {
         parameters[name] = value
         parameterKeys.append(name)
+    }
+    
+    // Set the Osono Data payload
+    func setDataPayload(dataPayload: [String: Any]) {
+        self.dataPayload = dataPayload
     }
     
     // Generate the URL string
@@ -106,12 +114,13 @@ class OsonoServerTask {
         // Add parameters
         var parmOperator = "?"
         for (name) in parameterKeys {
-            if let value = parameters[name] {
-                url += parmOperator + name + "=" + value
+            if let value = parameters[name], let encodedName = name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let encodedValue = value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                url += parmOperator + encodedName + "=" + encodedValue
                 parmOperator = "&"
             }
         }
         
+        print(url)
         return url
     }
     
@@ -124,8 +133,21 @@ class OsonoServerTask {
 
         if let url = URL(string: generateURLString()) {
             var request = URLRequest(url: url)
-            request.httpMethod = "GET"
+            request.httpMethod = httpMethod
             request.allHTTPHeaderFields = headers
+            
+            // Format the Data Payload in Osono Format
+            //if let dataPayload = dataPayload, let jsonData = try? JSONSerialization.data(withJSONObject: dataPayload) {
+            if let dataPayload = dataPayload {
+                var osonoDataPayload = [String:Any]()
+                osonoDataPayload["data"] = dataPayload
+                
+                if let jsonData = try? JSONSerialization.data(withJSONObject: osonoDataPayload) {
+                    let string = String(data: jsonData, encoding: String.Encoding.utf8)
+                    print(string)
+                    request.httpBody = jsonData
+                }
+            }
             
             URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if error != nil {
@@ -135,7 +157,7 @@ class OsonoServerTask {
                 else {
                     do {
                         if let httpResponse = response as? HTTPURLResponse {
-                            if httpResponse.statusCode == 200 {
+                            if httpResponse.statusCode == 200 {                                
                                 if let parsedData = try JSONSerialization.jsonObject(with: data!) as? [String:Any] {
                                     for (key, value) in parsedData {
                                         print("\(key): \(value)")
@@ -196,4 +218,32 @@ class OsonoServerTask {
         }
     }
     
+}
+
+// Extension to String for Osono Parameter Date Formatting
+extension Date {
+    init?(jsonDate: String) {
+        let prefix = "/Date("
+        let suffix = ")/"
+        
+        // Check for correct format
+        guard jsonDate.hasPrefix(prefix) && jsonDate.hasSuffix(suffix) else { return nil }
+        
+        // Extract the number as a string
+        let from = jsonDate.index(jsonDate.startIndex, offsetBy: prefix.count)
+        let to = jsonDate.index(jsonDate.endIndex, offsetBy: -suffix.count)
+        
+        // Convert from milliseconds to double
+        guard let milliSeconds = Double(jsonDate[from ..< to]) else { return nil }
+        
+        // Create Date with this UNIX stamp
+        self.init(timeIntervalSince1970: milliSeconds/1000.0)
+    }
+    
+    func formatJsonDate() -> String {
+        let prefix = "/Date("
+        let suffix = ")/"
+        let millisecondsSince1970 = Int(timeIntervalSince1970 * 1000)
+        return prefix + String(millisecondsSince1970) + suffix
+    }
 }

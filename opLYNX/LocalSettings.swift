@@ -15,6 +15,7 @@ class LocalSettings {
     static let AUTHORIZE_ASSET_TOKEN_KEY = "AuthorizeAssetTokenKey"
     static let LOGIN_LAST_USER_KEY = "LoginLastUserLoggedIntoOplynxKey"
     static let LOGIN_CURRENT_RUN_KEY = "LoginCurrentRunKey"
+    static let CONFIG_SYNC_SERVER_DATETIME_UTC = "ServerDateTimeUTC"
 
     //MARK: Database interface
     public static func loadSettingsValue(db: Connection, Key: String) throws -> String? {

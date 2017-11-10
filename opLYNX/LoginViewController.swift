@@ -140,21 +140,64 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     
     @IBAction func EndRun(_ sender: UIButton) {
         
+        // Load AssetSoftwareInfo
+        do {
+            // Load current Asset from local database
+            let db = try Database.DB()
+            guard let asset = try Asset.loadAsset(db: db) else {
+                // TODO: Error message
+                return
+            }
+            // Create a task for loading asset software info
+            let loadAssetSoftwareInfoTask = OPLYNXServerTask(module: "asset", method: "loadassetsoftwareinfo", httpMethod: "GET")
+            loadAssetSoftwareInfoTask.addParameter(name: "asset_id", value: String(asset.Asset_ID))
+            loadAssetSoftwareInfoTask.addParameter(name: "software_id", value: String(AssetSoftwareInfo.SOFTWARE_ID))
+            loadAssetSoftwareInfoTask.taskDelegate = ConfigSync.LoadAssetSoftwareInfoHandler(viewController: self)
+            
+            // Create a task for loading Server DateTime
+            let loadDateTimeUTCTask = OPLYNXServerTask(module: "common", method: "serverdatetimenowutc", httpMethod: "GET")
+            loadDateTimeUTCTask.taskDelegate = ConfigSync.GetDateTimeUTCHandler(viewController: self)
+                        
+            // Create a task for loading users
+            let loadUserTask = ConfigSync.ConfigSyncServerTask(module: "user", method: "getusersbylastupdate", httpMethod: "GET")
+            loadUserTask.taskDelegate = ConfigSync.LoadUsersHandler(viewController: self)
+            
+            // Create a task for loading runs
+            let loadRunTask = ConfigSync.ConfigSyncServerTask(module: "fd", method: "getrunsbylastupdate", httpMethod: "GET")
+            loadRunTask.taskDelegate = ConfigSync.LoadRunsHandler(viewController: self)
+            
+            // Create a task for saving AssetSoftwareInfo
+            let saveAssetSoftwareInfoTask = SaveAssetSoftwareInfoTask(viewController: self)
+            
+            // Chain the Config Sync tasks together
+            loadAssetSoftwareInfoTask.nextOsonoTask = loadDateTimeUTCTask
+            loadDateTimeUTCTask.nextOsonoTask = loadUserTask
+            loadUserTask.nextOsonoTask = loadRunTask
+            loadRunTask.nextOsonoTask = saveAssetSoftwareInfoTask
+            
+            // Run the Osono Task Chain
+            loadAssetSoftwareInfoTask.Run()
+        }
+        catch {
+            // TODO: Error message
+        }
+        
+        /*
         // Create a task for registering the asset
         let registerAssetTask = OPLYNXServerTask(module: "auth", method: "registerasset")
         registerAssetTask.addParameter(name: "asset_name", value: "CIS9")
         registerAssetTask.addParameter(name: "client_id", value: Authorize.CLIENT_ID)
-        registerAssetTask.taskDelegate = RegisterAssetHandler(viewController: self)
+        registerAssetTask.taskDelegate = Authorize.RegisterAssetHandler(viewController: self)
         
         // Create a task for loading the asset data
         let loadAssetTask = OPLYNXServerTask(module: "asset", method: "loadassetbyname")
         loadAssetTask.addParameter(name: "asset_name", value: "CIS9")
-        loadAssetTask.taskDelegate = LoadAssetHandler(viewController: self)
+        loadAssetTask.taskDelegate = Authorize.LoadAssetHandler(viewController: self)
         
         // Chain the tasks & run
         registerAssetTask.nextOsonoTask = loadAssetTask
         registerAssetTask.Run()
-        
+        */
     }
     
     //MARK: UITextFieldDelegate
@@ -241,65 +284,5 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         return true
     }
     
-    //MARK: Server Delegate Handlers
-    class RegisterAssetHandler: OPLYNXServerTaskDelegate {
-        
-        //MARK: Initializers
-        init(viewController: UIViewController?) {
-            super.init(taskTitle: "Registering Asset", viewController: viewController)
-        }
-        
-        //MARK: OsonoTaskDelegate Protocol
-        override func processData(data: Any) throws {
-            sleep(2)
-            if let data = data as? String {
-                // Save the Asset Token
-                do {
-                    try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.AUTHORIZE_ASSET_TOKEN_KEY, Value: data)
-                    OsonoServerTask.ASSET_TOKEN = data
-                }
-                catch {
-                    // Unable to save the Asset Token to the database
-                    throw OsonoError.Message("Error saving Asset Token locally")
-                }
-            }
-            else {
-                // Unable to parse server data
-                throw OsonoError.Message("Error Authorizing Asset on Server")
-            }
-        }
-        
-    }
-
-    class LoadAssetHandler: OPLYNXServerTaskDelegate {
-        
-        //MARK: Initializers
-        init(viewController: UIViewController?) {
-            super.init(taskTitle: "Loading Asset", viewController: viewController)
-        }
-        
-        //MARK: OsonoTaskDelegate Protocol
-        override func processData(data: Any) throws {
-            sleep(2)
-            if let data = data as? [String:Any] {
-                if let Asset_ID = data["id"] as? Int, let Name = data["name"] as? String {
-                    // Save the Asset record to the database
-                    do {
-                        let db = try Database.DB()
-                        try Asset.deleteAllAsset(db: db)
-                        try Asset.updateAsset(db: db, Asset_ID: Asset_ID, Name: Name)
-                    }
-                    catch {
-                        // Unable to save the Asset Token to the database
-                        throw OsonoError.Message("Error saving Asset Data locally")
-                    }
-                }
-            }
-            else {
-                // Unable to parse server data
-                throw OsonoError.Message("Error Loading Asset Data from Server")
-            }
-        }
-    }
 
 }
