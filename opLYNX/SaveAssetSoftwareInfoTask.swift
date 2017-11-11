@@ -22,6 +22,12 @@ class SaveAssetSoftwareInfoTask: OPLYNXServerTask {
     override func Run() {
         // Need to load ASSET SOFTWARE INFO
         if let assetSoftwareInfo = ConfigSync.ASSET_SOFTWARE_INFO {
+            // Update ASSET SOFTWARE INFO with server time, if exists
+            if let serverSyncTime = ConfigSync.SERVER_DATETIME_UTC {
+                assetSoftwareInfo.LastSyncConfiguration = serverSyncTime
+            }
+            // Update Last Update time ??
+            assetSoftwareInfo.LastUpdate = Date()
             setDataPayload(dataPayload: assetSoftwareInfo.convertToOsono())
         }
         super.Run()

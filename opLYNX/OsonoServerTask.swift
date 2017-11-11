@@ -143,8 +143,6 @@ class OsonoServerTask {
                 osonoDataPayload["data"] = dataPayload
                 
                 if let jsonData = try? JSONSerialization.data(withJSONObject: osonoDataPayload) {
-                    let string = String(data: jsonData, encoding: String.Encoding.utf8)
-                    print(string)
                     request.httpBody = jsonData
                 }
             }

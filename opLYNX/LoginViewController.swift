@@ -86,28 +86,13 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     */
     
     //MARK: Actions
-/*
-     test
-     AAyjKXBE1f2FFO3vyss9St8Xc8oPOEffyu73uXi9akdznG2zwjCIIhX/fHfumiiIwA==
-     
-     d4
-     AIAubpsxSDvqiOcnH/vgS+9bOPS6dGtpmX0uAf+vfDJzP1ExkHrKEgM/e5UIpQ7IGg==
-     
-     this is a long test
-     AO110rX5nZpqDYs08RJPr5uU9QRfuanzggITVgEF0JY4CGM6u8uXysdhC4FdOGG7Gg==
-     
-     hello world
-     ALR2YrZQnbQ9P8Puvgyfv5HH926LlbO6/fQzJpYj+KrI4IyCR+g/+OqhfpRNeOKyZw==
-     
-     !Hello@25$
-     AMsPWS5rqlqnTm79Z5f3ecg5AtopqphJOrE79iLl4KUYDUDgJOX7hA8pHn8OA7Lz1A==
- */
     @IBAction func StartRun(_ sender: UIButton) {
         
         // Get the user name's hashed password from the database
         do {
             guard let hashedPassword = try OLUser.loadUserPassword(db: Database.DB(), UserName: userNameTextField.text!) else {
                 // TODO: error message here
+                showLoginError()
                 return
             }
             let hashMatches = PasswordHasher.VerifyHashedPassword(base64HashedPassword: hashedPassword, password: passwordTextField.text!)
@@ -130,15 +115,20 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
             return
         }
         
+        // TODO: error message here
+        showLoginError()
+        
+    }
+    
+    private func showLoginError() {
         // Password was not verified, display alert
         let alert = UIAlertController(title: "User name and password do not match", message: "Try logging in again.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
-        
-        
     }
     
     @IBAction func EndRun(_ sender: UIButton) {
+        
         
         // Load AssetSoftwareInfo
         do {
@@ -181,23 +171,19 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         catch {
             // TODO: Error message
         }
+ 
         
-        /*
+        
         // Create a task for registering the asset
-        let registerAssetTask = OPLYNXServerTask(module: "auth", method: "registerasset")
-        registerAssetTask.addParameter(name: "asset_name", value: "CIS9")
-        registerAssetTask.addParameter(name: "client_id", value: Authorize.CLIENT_ID)
-        registerAssetTask.taskDelegate = Authorize.RegisterAssetHandler(viewController: self)
+        let registerAssetTask = RegisterAssetTask(viewController: self)
         
         // Create a task for loading the asset data
-        let loadAssetTask = OPLYNXServerTask(module: "asset", method: "loadassetbyname")
-        loadAssetTask.addParameter(name: "asset_name", value: "CIS9")
-        loadAssetTask.taskDelegate = Authorize.LoadAssetHandler(viewController: self)
+        let loadAssetTask = LoadAssetTask("CIS9", viewController: self)
         
         // Chain the tasks & run
         registerAssetTask.nextOsonoTask = loadAssetTask
-        registerAssetTask.Run()
-        */
+        //registerAssetTask.Run()
+        
     }
     
     //MARK: UITextFieldDelegate

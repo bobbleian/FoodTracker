@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D5454A11FB7BF6A00212209 /* RegisterAssetTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */; };
+		3D5454AA1FB7C05000212209 /* LoadAssetTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454A91FB7C05000212209 /* LoadAssetTask.swift */; };
 		482BFD3D1F5706320075B758 /* OFTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD3C1F5706320075B758 /* OFTableViewCell.swift */; };
 		482BFD451F5743DE0075B758 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD441F5743DE0075B758 /* LoginViewController.swift */; };
 		482BFD471F575C0E0075B758 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 482BFD461F575C0E0075B758 /* Settings.bundle */; };
@@ -156,6 +158,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAssetTask.swift; sourceTree = "<group>"; };
+		3D5454A91FB7C05000212209 /* LoadAssetTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAssetTask.swift; sourceTree = "<group>"; };
 		482BFD3C1F5706320075B758 /* OFTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFTableViewCell.swift; sourceTree = "<group>"; };
 		482BFD441F5743DE0075B758 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		482BFD461F575C0E0075B758 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -344,6 +348,8 @@
 				483B20D61FABC28F003A411F /* OsonoServerTask.swift */,
 				483B20D81FABC92A003A411F /* OPLYNXServerTask.swift */,
 				487CDF681FB515C900218846 /* SaveAssetSoftwareInfoTask.swift */,
+				3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */,
+				3D5454A91FB7C05000212209 /* LoadAssetTask.swift */,
 			);
 			name = Syncronization;
 			sourceTree = "<group>";
@@ -585,6 +591,7 @@
 				484002841F9FAA6900F8BEAD /* OperationalForm.swift in Sources */,
 				4857D8A71FA90CF700BFBBA0 /* Authorize.swift in Sources */,
 				4861867A1F855A2A001C8E4F /* OFElementData.swift in Sources */,
+				3D5454A11FB7BF6A00212209 /* RegisterAssetTask.swift in Sources */,
 				48A871061F8FFD4300896352 /* MediaTableViewCell.swift in Sources */,
 				486186761F8556A2001C8E4F /* AssetSoftwareInfo.swift in Sources */,
 				483B20D51FABA4AF003A411F /* JustHUD.swift in Sources */,
@@ -593,6 +600,7 @@
 				486186861F86DE4F001C8E4F /* OFType.swift in Sources */,
 				482BFD3D1F5706320075B758 /* OFTableViewCell.swift in Sources */,
 				486186781F855772001C8E4F /* Asset.swift in Sources */,
+				3D5454AA1FB7C05000212209 /* LoadAssetTask.swift in Sources */,
 				486138121F9E865000567409 /* PasswordHasher.swift in Sources */,
 				4830CAEB1F5F102A008DDDDA /* ECDataEntryViewController.swift in Sources */,
 				4870B9BD1F965F9800C1F31F /* Database.swift in Sources */,
