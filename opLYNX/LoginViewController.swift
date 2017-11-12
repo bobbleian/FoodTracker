@@ -128,62 +128,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
     
     @IBAction func EndRun(_ sender: UIButton) {
-        
-        
-        // Load AssetSoftwareInfo
-        do {
-            // Load current Asset from local database
-            let db = try Database.DB()
-            guard let asset = try Asset.loadAsset(db: db) else {
-                // TODO: Error message
-                return
-            }
-            // Create a task for loading asset software info
-            let loadAssetSoftwareInfoTask = OPLYNXServerTask(module: "asset", method: "loadassetsoftwareinfo", httpMethod: "GET")
-            loadAssetSoftwareInfoTask.addParameter(name: "asset_id", value: String(asset.Asset_ID))
-            loadAssetSoftwareInfoTask.addParameter(name: "software_id", value: String(AssetSoftwareInfo.SOFTWARE_ID))
-            loadAssetSoftwareInfoTask.taskDelegate = ConfigSync.LoadAssetSoftwareInfoHandler(viewController: self)
-            
-            // Create a task for loading Server DateTime
-            let loadDateTimeUTCTask = OPLYNXServerTask(module: "common", method: "serverdatetimenowutc", httpMethod: "GET")
-            loadDateTimeUTCTask.taskDelegate = ConfigSync.GetDateTimeUTCHandler(viewController: self)
-                        
-            // Create a task for loading users
-            let loadUserTask = ConfigSync.ConfigSyncServerTask(module: "user", method: "getusersbylastupdate", httpMethod: "GET")
-            loadUserTask.taskDelegate = ConfigSync.LoadUsersHandler(viewController: self)
-            
-            // Create a task for loading runs
-            let loadRunTask = ConfigSync.ConfigSyncServerTask(module: "fd", method: "getrunsbylastupdate", httpMethod: "GET")
-            loadRunTask.taskDelegate = ConfigSync.LoadRunsHandler(viewController: self)
-            
-            // Create a task for saving AssetSoftwareInfo
-            let saveAssetSoftwareInfoTask = SaveAssetSoftwareInfoTask(viewController: self)
-            
-            // Chain the Config Sync tasks together
-            loadAssetSoftwareInfoTask.nextOsonoTask = loadDateTimeUTCTask
-            loadDateTimeUTCTask.nextOsonoTask = loadUserTask
-            loadUserTask.nextOsonoTask = loadRunTask
-            loadRunTask.nextOsonoTask = saveAssetSoftwareInfoTask
-            
-            // Run the Osono Task Chain
-            loadAssetSoftwareInfoTask.Run()
-        }
-        catch {
-            // TODO: Error message
-        }
- 
-        
-        
-        // Create a task for registering the asset
-        let registerAssetTask = RegisterAssetTask(viewController: self)
-        
-        // Create a task for loading the asset data
-        let loadAssetTask = LoadAssetTask("CIS9", viewController: self)
-        
-        // Chain the tasks & run
-        registerAssetTask.nextOsonoTask = loadAssetTask
-        //registerAssetTask.Run()
-        
+        ConfigSync.RunConfigSync(viewController: self)
     }
     
     //MARK: UITextFieldDelegate

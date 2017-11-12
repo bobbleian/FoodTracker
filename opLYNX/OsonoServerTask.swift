@@ -125,7 +125,7 @@ class OsonoServerTask {
     }
     
     
-    func Run() {
+    func RunTask() {
         
         var errorMessage = "Unknown Error"
         
@@ -176,7 +176,7 @@ class OsonoServerTask {
                                             try self.taskDelegate?.processData(data: dataPayload)
                                             self.taskDelegate?.success()
                                             // Run the next Osono Task, if necessary
-                                            self.nextOsonoTask?.Run()
+                                            self.nextOsonoTask?.RunTask()
                                             return
                                         }
                                         catch OsonoError.Message(let osonoErrorMessage){

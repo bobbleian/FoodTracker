@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		3D5454A11FB7BF6A00212209 /* RegisterAssetTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */; };
 		3D5454AA1FB7C05000212209 /* LoadAssetTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454A91FB7C05000212209 /* LoadAssetTask.swift */; };
+		3D5454AD1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454AC1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift */; };
+		3D5454AF1FB8C4AF00212209 /* LoadDateTimeUTCTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454AE1FB8C4AF00212209 /* LoadDateTimeUTCTask.swift */; };
+		3D5454B11FB8DB1D00212209 /* LoadUserTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454B01FB8DB1D00212209 /* LoadUserTask.swift */; };
+		3D5454B31FB8E21400212209 /* LoadRunsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454B21FB8E21400212209 /* LoadRunsTask.swift */; };
+		3D5454B51FB8E62300212209 /* ConfigSyncServerTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454B41FB8E62300212209 /* ConfigSyncServerTask.swift */; };
 		482BFD3D1F5706320075B758 /* OFTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD3C1F5706320075B758 /* OFTableViewCell.swift */; };
 		482BFD451F5743DE0075B758 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD441F5743DE0075B758 /* LoginViewController.swift */; };
 		482BFD471F575C0E0075B758 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 482BFD461F575C0E0075B758 /* Settings.bundle */; };
@@ -160,6 +165,11 @@
 /* Begin PBXFileReference section */
 		3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAssetTask.swift; sourceTree = "<group>"; };
 		3D5454A91FB7C05000212209 /* LoadAssetTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAssetTask.swift; sourceTree = "<group>"; };
+		3D5454AC1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAssetSoftwareInfoTask.swift; sourceTree = "<group>"; };
+		3D5454AE1FB8C4AF00212209 /* LoadDateTimeUTCTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadDateTimeUTCTask.swift; sourceTree = "<group>"; };
+		3D5454B01FB8DB1D00212209 /* LoadUserTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadUserTask.swift; sourceTree = "<group>"; };
+		3D5454B21FB8E21400212209 /* LoadRunsTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadRunsTask.swift; sourceTree = "<group>"; };
+		3D5454B41FB8E62300212209 /* ConfigSyncServerTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSyncServerTask.swift; sourceTree = "<group>"; };
 		482BFD3C1F5706320075B758 /* OFTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFTableViewCell.swift; sourceTree = "<group>"; };
 		482BFD441F5743DE0075B758 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		482BFD461F575C0E0075B758 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -342,14 +352,19 @@
 		48BC40FB1FA27F5800929617 /* Syncronization */ = {
 			isa = PBXGroup;
 			children = (
+				483B20D61FABC28F003A411F /* OsonoServerTask.swift */,
 				48BC40FC1FA27F6700929617 /* JSON.swift */,
 				4857D8A61FA90CF700BFBBA0 /* Authorize.swift */,
 				48CED7691FAA1DD700A56C43 /* ConfigSync.swift */,
-				483B20D61FABC28F003A411F /* OsonoServerTask.swift */,
+				3D5454B41FB8E62300212209 /* ConfigSyncServerTask.swift */,
 				483B20D81FABC92A003A411F /* OPLYNXServerTask.swift */,
-				487CDF681FB515C900218846 /* SaveAssetSoftwareInfoTask.swift */,
 				3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */,
+				487CDF681FB515C900218846 /* SaveAssetSoftwareInfoTask.swift */,
+				3D5454AC1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift */,
+				3D5454AE1FB8C4AF00212209 /* LoadDateTimeUTCTask.swift */,
 				3D5454A91FB7C05000212209 /* LoadAssetTask.swift */,
+				3D5454B01FB8DB1D00212209 /* LoadUserTask.swift */,
+				3D5454B21FB8E21400212209 /* LoadRunsTask.swift */,
 			);
 			name = Syncronization;
 			sourceTree = "<group>";
@@ -573,10 +588,12 @@
 			files = (
 				48A870FE1F8FF54400896352 /* MediaTableViewController.swift in Sources */,
 				487CDF691FB515C900218846 /* SaveAssetSoftwareInfoTask.swift in Sources */,
+				3D5454B11FB8DB1D00212209 /* LoadUserTask.swift in Sources */,
 				4870B9BF1F9956F800C1F31F /* LocalSettings.swift in Sources */,
 				486186801F856D57001C8E4F /* OFLinkRun.swift in Sources */,
 				483B20D91FABC92A003A411F /* OPLYNXServerTask.swift in Sources */,
 				48A8710A1F9122A700896352 /* MediaViewController.swift in Sources */,
+				3D5454AD1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift in Sources */,
 				484002861FA11ADA00F8BEAD /* Run.swift in Sources */,
 				486186821F857275001C8E4F /* OFLinkUser.swift in Sources */,
 				482C096A1F61E2B000E64A5A /* ECDataEntryNavigationController.swift in Sources */,
@@ -584,10 +601,12 @@
 				483B20D71FABC28F003A411F /* OsonoServerTask.swift in Sources */,
 				4861867E1F856B3A001C8E4F /* OFLinkOperationalForm.swift in Sources */,
 				48A871081F900DE400896352 /* Media.swift in Sources */,
+				3D5454AF1FB8C4AF00212209 /* LoadDateTimeUTCTask.swift in Sources */,
 				489D08BE1F54A18500A93A56 /* EntryControl.swift in Sources */,
 				485C9A901F3E0E0400BA6CBD /* AppDelegate.swift in Sources */,
 				48CED76A1FAA1DD700A56C43 /* ConfigSync.swift in Sources */,
 				48B457A01F4B69B4006D9DBF /* OFTableViewController.swift in Sources */,
+				3D5454B51FB8E62300212209 /* ConfigSyncServerTask.swift in Sources */,
 				484002841F9FAA6900F8BEAD /* OperationalForm.swift in Sources */,
 				4857D8A71FA90CF700BFBBA0 /* Authorize.swift in Sources */,
 				4861867A1F855A2A001C8E4F /* OFElementData.swift in Sources */,
@@ -604,6 +623,7 @@
 				486138121F9E865000567409 /* PasswordHasher.swift in Sources */,
 				4830CAEB1F5F102A008DDDDA /* ECDataEntryViewController.swift in Sources */,
 				4870B9BD1F965F9800C1F31F /* Database.swift in Sources */,
+				3D5454B31FB8E21400212209 /* LoadRunsTask.swift in Sources */,
 				48BC40FD1FA27F6700929617 /* JSON.swift in Sources */,
 				482C09721F61E5C900E64A5A /* ECGridViewController.swift in Sources */,
 				482BFD451F5743DE0075B758 /* LoginViewController.swift in Sources */,

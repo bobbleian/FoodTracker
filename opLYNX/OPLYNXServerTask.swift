@@ -26,7 +26,7 @@ class OPLYNXServerTask : OsonoServerTask {
                    httpMethod: httpMethod)
     }
     
-    override func Run() {
+    override func RunTask() {
         // Display task title, if it exists
         if let oplynxServerTaskDelegate = taskDelegate as? OPLYNXServerTaskDelegate, let viewController = oplynxServerTaskDelegate.viewController, let taskTitle = oplynxServerTaskDelegate.taskTitle {
             DispatchQueue.main.async {
@@ -35,7 +35,7 @@ class OPLYNXServerTask : OsonoServerTask {
         }
         
         // Run the task
-        super.Run()
+        super.RunTask()
     }
 }
 
