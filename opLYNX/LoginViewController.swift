@@ -128,7 +128,8 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
     
     @IBAction func EndRun(_ sender: UIButton) {
-        ConfigSync.RunConfigSync(viewController: self)
+        //ConfigSync.RunConfigSync(viewController: self)
+        DataSync.RunDataSync(viewController: self)
     }
     
     //MARK: UITextFieldDelegate

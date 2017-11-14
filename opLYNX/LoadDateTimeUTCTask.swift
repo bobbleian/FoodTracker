@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import os.log
 
-class LoadDateTimeUTCTask: OPLYNXServerTask {
+class LoadDateTimeUTCTask: OPLYNXAssetServerTask {
     
     //MARK: Initializer
     init(viewController: UIViewController?) {

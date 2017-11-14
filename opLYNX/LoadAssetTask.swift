@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 import os.log
 
-class LoadAssetTask: OPLYNXServerTask {
+class LoadAssetTask: OPLYNXAssetServerTask {
     
     //MARK: Initializer
     init(_ assetName: String, viewController: UIViewController?) {
         super.init(module: "asset", method: "loadassetbyname", httpMethod: "GET")
-        addParameter(name: "asset_name", value: "CIS9")
+        addParameter(name: "asset_name", value: assetName)
         taskDelegate = LoadAssetHandler(viewController: viewController)
     }
     

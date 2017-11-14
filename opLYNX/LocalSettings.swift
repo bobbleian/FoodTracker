@@ -13,6 +13,7 @@ class LocalSettings {
     
     // All Local Settings Keys here
     static let AUTHORIZE_ASSET_TOKEN_KEY = "AuthorizeAssetTokenKey"
+    static let AUTHORIZE_USER_TOKEN_KEY = "AuthorizeUserTokenKey"
     static let LOGIN_LAST_USER_KEY = "LoginLastUserLoggedIntoOplynxKey"
     static let LOGIN_CURRENT_RUN_KEY = "LoginCurrentRunKey"
     static let CONFIG_SYNC_SERVER_DATETIME_UTC = "ServerDateTimeUTC"

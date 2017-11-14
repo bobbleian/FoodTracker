@@ -11,7 +11,7 @@ import UIKit
 import os.log
 
 
-class LoadAssetSoftwareInfoTask: OPLYNXServerTask {
+class LoadAssetSoftwareInfoTask: OPLYNXAssetServerTask {
     
     //MARK: Initializer
     init?(viewController: UIViewController?) {

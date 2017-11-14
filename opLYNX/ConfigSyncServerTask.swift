@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ConfigSyncServerTask: OPLYNXServerTask {
+class ConfigSyncServerTask: OPLYNXAssetServerTask {
     
     // Inserts a "last_update" parameter to all the Task before calling Run
     override func RunTask() {

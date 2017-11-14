@@ -33,7 +33,7 @@ class opLYNXTests: XCTestCase {
     
     // Test OsonoServerTask URL creation against known values
     func testOsonoServerTaskGenerateURL() {
-        let osonoTask = OsonoServerTask(serverIP: "199.180.29.38", serverPort: "13616", serverMethod: "http", application: "opLYNXJSON", module: "auth", method: "registerasset")
+        let osonoTask = OsonoServerTask(serverIP: "199.180.29.38", serverPort: "13616", serverMethod: "http", application: "opLYNXJSON", module: "auth", method: "registerasset", httpMethod: "GET")
         osonoTask.addParameter(name: "asset_name", value: "CIS9")
         osonoTask.addParameter(name: "client_id", value: "ba91fecd-7371-4466-a11e-8b44a99ee809")
         XCTAssertEqual(osonoTask.generateURLString(), "http://199.180.29.38:13616/opLYNXJSON/auth/registerasset?asset_name=CIS9&client_id=ba91fecd-7371-4466-a11e-8b44a99ee809")

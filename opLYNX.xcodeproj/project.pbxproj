@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D0390081FBA0B9A00310B64 /* RegisterUserTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0390071FBA0B9A00310B64 /* RegisterUserTask.swift */; };
+		3D0390111FBAA42900310B64 /* OPLYNXAssetServerTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0390101FBAA42900310B64 /* OPLYNXAssetServerTask.swift */; };
+		3D0390131FBAA4AD00310B64 /* OPLYNXUserServerTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0390121FBAA4AD00310B64 /* OPLYNXUserServerTask.swift */; };
 		3D5454A11FB7BF6A00212209 /* RegisterAssetTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */; };
 		3D5454AA1FB7C05000212209 /* LoadAssetTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454A91FB7C05000212209 /* LoadAssetTask.swift */; };
 		3D5454AD1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454AC1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift */; };
@@ -14,6 +17,8 @@
 		3D5454B11FB8DB1D00212209 /* LoadUserTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454B01FB8DB1D00212209 /* LoadUserTask.swift */; };
 		3D5454B31FB8E21400212209 /* LoadRunsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454B21FB8E21400212209 /* LoadRunsTask.swift */; };
 		3D5454B51FB8E62300212209 /* ConfigSyncServerTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454B41FB8E62300212209 /* ConfigSyncServerTask.swift */; };
+		3D5454B71FB8EB2A00212209 /* DataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454B61FB8EB2A00212209 /* DataSync.swift */; };
+		3DF205EA1FBA022A00217CF8 /* LoadOFListTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF205E91FBA022A00217CF8 /* LoadOFListTask.swift */; };
 		482BFD3D1F5706320075B758 /* OFTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD3C1F5706320075B758 /* OFTableViewCell.swift */; };
 		482BFD451F5743DE0075B758 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD441F5743DE0075B758 /* LoginViewController.swift */; };
 		482BFD471F575C0E0075B758 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 482BFD461F575C0E0075B758 /* Settings.bundle */; };
@@ -163,6 +168,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3D0390071FBA0B9A00310B64 /* RegisterUserTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserTask.swift; sourceTree = "<group>"; };
+		3D0390101FBAA42900310B64 /* OPLYNXAssetServerTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPLYNXAssetServerTask.swift; sourceTree = "<group>"; };
+		3D0390121FBAA4AD00310B64 /* OPLYNXUserServerTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPLYNXUserServerTask.swift; sourceTree = "<group>"; };
 		3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAssetTask.swift; sourceTree = "<group>"; };
 		3D5454A91FB7C05000212209 /* LoadAssetTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAssetTask.swift; sourceTree = "<group>"; };
 		3D5454AC1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAssetSoftwareInfoTask.swift; sourceTree = "<group>"; };
@@ -170,6 +178,8 @@
 		3D5454B01FB8DB1D00212209 /* LoadUserTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadUserTask.swift; sourceTree = "<group>"; };
 		3D5454B21FB8E21400212209 /* LoadRunsTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadRunsTask.swift; sourceTree = "<group>"; };
 		3D5454B41FB8E62300212209 /* ConfigSyncServerTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSyncServerTask.swift; sourceTree = "<group>"; };
+		3D5454B61FB8EB2A00212209 /* DataSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSync.swift; sourceTree = "<group>"; };
+		3DF205E91FBA022A00217CF8 /* LoadOFListTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadOFListTask.swift; sourceTree = "<group>"; };
 		482BFD3C1F5706320075B758 /* OFTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFTableViewCell.swift; sourceTree = "<group>"; };
 		482BFD441F5743DE0075B758 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		482BFD461F575C0E0075B758 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -355,16 +365,21 @@
 				483B20D61FABC28F003A411F /* OsonoServerTask.swift */,
 				48BC40FC1FA27F6700929617 /* JSON.swift */,
 				4857D8A61FA90CF700BFBBA0 /* Authorize.swift */,
+				3D5454B61FB8EB2A00212209 /* DataSync.swift */,
 				48CED7691FAA1DD700A56C43 /* ConfigSync.swift */,
 				3D5454B41FB8E62300212209 /* ConfigSyncServerTask.swift */,
 				483B20D81FABC92A003A411F /* OPLYNXServerTask.swift */,
+				3D0390101FBAA42900310B64 /* OPLYNXAssetServerTask.swift */,
+				3D0390121FBAA4AD00310B64 /* OPLYNXUserServerTask.swift */,
 				3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */,
+				3D0390071FBA0B9A00310B64 /* RegisterUserTask.swift */,
 				487CDF681FB515C900218846 /* SaveAssetSoftwareInfoTask.swift */,
 				3D5454AC1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift */,
 				3D5454AE1FB8C4AF00212209 /* LoadDateTimeUTCTask.swift */,
 				3D5454A91FB7C05000212209 /* LoadAssetTask.swift */,
 				3D5454B01FB8DB1D00212209 /* LoadUserTask.swift */,
 				3D5454B21FB8E21400212209 /* LoadRunsTask.swift */,
+				3DF205E91FBA022A00217CF8 /* LoadOFListTask.swift */,
 			);
 			name = Syncronization;
 			sourceTree = "<group>";
@@ -591,6 +606,7 @@
 				3D5454B11FB8DB1D00212209 /* LoadUserTask.swift in Sources */,
 				4870B9BF1F9956F800C1F31F /* LocalSettings.swift in Sources */,
 				486186801F856D57001C8E4F /* OFLinkRun.swift in Sources */,
+				3DF205EA1FBA022A00217CF8 /* LoadOFListTask.swift in Sources */,
 				483B20D91FABC92A003A411F /* OPLYNXServerTask.swift in Sources */,
 				48A8710A1F9122A700896352 /* MediaViewController.swift in Sources */,
 				3D5454AD1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift in Sources */,
@@ -599,6 +615,7 @@
 				482C096A1F61E2B000E64A5A /* ECDataEntryNavigationController.swift in Sources */,
 				485C9A921F3E0E0400BA6CBD /* OFViewController.swift in Sources */,
 				483B20D71FABC28F003A411F /* OsonoServerTask.swift in Sources */,
+				3D0390111FBAA42900310B64 /* OPLYNXAssetServerTask.swift in Sources */,
 				4861867E1F856B3A001C8E4F /* OFLinkOperationalForm.swift in Sources */,
 				48A871081F900DE400896352 /* Media.swift in Sources */,
 				3D5454AF1FB8C4AF00212209 /* LoadDateTimeUTCTask.swift in Sources */,
@@ -606,8 +623,10 @@
 				485C9A901F3E0E0400BA6CBD /* AppDelegate.swift in Sources */,
 				48CED76A1FAA1DD700A56C43 /* ConfigSync.swift in Sources */,
 				48B457A01F4B69B4006D9DBF /* OFTableViewController.swift in Sources */,
+				3D5454B71FB8EB2A00212209 /* DataSync.swift in Sources */,
 				3D5454B51FB8E62300212209 /* ConfigSyncServerTask.swift in Sources */,
 				484002841F9FAA6900F8BEAD /* OperationalForm.swift in Sources */,
+				3D0390081FBA0B9A00310B64 /* RegisterUserTask.swift in Sources */,
 				4857D8A71FA90CF700BFBBA0 /* Authorize.swift in Sources */,
 				4861867A1F855A2A001C8E4F /* OFElementData.swift in Sources */,
 				3D5454A11FB7BF6A00212209 /* RegisterAssetTask.swift in Sources */,
@@ -622,6 +641,7 @@
 				3D5454AA1FB7C05000212209 /* LoadAssetTask.swift in Sources */,
 				486138121F9E865000567409 /* PasswordHasher.swift in Sources */,
 				4830CAEB1F5F102A008DDDDA /* ECDataEntryViewController.swift in Sources */,
+				3D0390131FBAA4AD00310B64 /* OPLYNXUserServerTask.swift in Sources */,
 				4870B9BD1F965F9800C1F31F /* Database.swift in Sources */,
 				3D5454B31FB8E21400212209 /* LoadRunsTask.swift in Sources */,
 				48BC40FD1FA27F6700929617 /* JSON.swift in Sources */,

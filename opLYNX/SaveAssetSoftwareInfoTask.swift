@@ -10,21 +10,26 @@ import Foundation
 import UIKit
 import os.log
 
-class SaveAssetSoftwareInfoTask: OPLYNXServerTask {
+class SaveAssetSoftwareInfoTask: OPLYNXAssetServerTask {
+    
     
     //MARK: Initializer
-    init(viewController: UIViewController?) {
+    init(_ syncType: String, viewController: UIViewController?) {
         super.init(module: "asset", method: "saveassetsoftwareinfo", httpMethod: "POST")
-        taskDelegate = SaveAssetSoftwareInfoHandler(viewController: viewController)
+        taskDelegate = SaveAssetSoftwareInfoHandler(syncType, viewController: viewController)
     }
     
     // Inserts the AssetSoftwareInfo payload into the Task before calling Run
     override func RunTask() {
         // Need to load ASSET SOFTWARE INFO
         if let assetSoftwareInfo = ConfigSync.ASSET_SOFTWARE_INFO {
-            // Update ASSET SOFTWARE INFO with server time, if exists
+            // Update ASSET SOFTWARE INFO with config sync server time, if exists
             if let serverSyncTime = ConfigSync.SERVER_DATETIME_UTC {
                 assetSoftwareInfo.LastSyncConfiguration = serverSyncTime
+            }
+            // Update ASSET SOFTWARE INFO with data sync server time, if exists
+            if let serverSyncTime = DataSync.SERVER_DATETIME_UTC {
+                assetSoftwareInfo.LastSyncData = serverSyncTime
             }
             // Update Last Update time ??
             assetSoftwareInfo.LastUpdate = Date()
@@ -36,8 +41,11 @@ class SaveAssetSoftwareInfoTask: OPLYNXServerTask {
     // Save AssetSoftwareInfo Handler
     class SaveAssetSoftwareInfoHandler: OPLYNXServerTaskDelegate {
         
+        private let syncType: String
+        
         //MARK: Initializers
-        init(viewController: UIViewController?) {
+        init(_ syncType: String, viewController: UIViewController?) {
+            self.syncType = syncType
             super.init(taskTitle: "Saving AssetSWInfo", viewController: viewController)
         }
         
@@ -48,7 +56,7 @@ class SaveAssetSoftwareInfoTask: OPLYNXServerTask {
             do {
                 try ConfigSync.ASSET_SOFTWARE_INFO?.updateDB(db: Database.DB())
                 super.success()
-                let alert = UIAlertController(title: "Success", message: "Config Sync Complete", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Success", message: syncType + " Complete", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 viewController?.present(alert, animated: true, completion: nil)
             } catch {

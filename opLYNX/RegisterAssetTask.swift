@@ -11,12 +11,12 @@ import Foundation
 import UIKit
 import os.log
 
-class RegisterAssetTask: OPLYNXServerTask {
+class RegisterAssetTask: OPLYNXAssetServerTask {
     
     //MARK: Initializer
-    init(viewController: UIViewController?) {
+    init(_ assetName: String, viewController: UIViewController?) {
         super.init(module: "auth", method: "registerasset", httpMethod: "GET")
-        addParameter(name: "asset_name", value: "CIS9")
+        addParameter(name: "asset_name", value: assetName)
         addParameter(name: "client_id", value: Authorize.CLIENT_ID)
         taskDelegate = RegisterAssetHandler(viewController: viewController)
     }

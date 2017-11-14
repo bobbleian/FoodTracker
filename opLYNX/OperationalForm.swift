@@ -64,12 +64,12 @@ class OperationalForm {
     //MARK: Database interface    
     public static func loadOperationalFormsFromDB(db: Connection) throws -> [OperationalForm] {
         var operationalForms = [OperationalForm]()
-        let operationalFormTable = Table("OperationalForm")
+        let OperationalFormTable = Table("OperationalForm")
         let OFNumber = Expression<String>("OFNumber")
         let OFType_ID = Expression<Int64>("OFType_ID")
         let Due_Date = Expression<Date>("Due_Date")
         
-        for operationalFormRecord in try db.prepare(operationalFormTable) {
+        for operationalFormRecord in try db.prepare(OperationalFormTable) {
             guard let operationalForm = OperationalForm(
                 OFNumber: operationalFormRecord[OFNumber],
                 OFType_ID: Int(exactly: operationalFormRecord[OFType_ID]) ?? 0,
@@ -95,6 +95,26 @@ class OperationalForm {
             operationalForm.key3 = key3Value
         }
         return operationalForms
+    }
+    
+    // Returns a list of all locally stored OFNumbers grouped by Operational Date
+    public static func loadOFList(db: Connection) throws -> [Date: [String]] {
+        var ofList = [Date: [String]]()
+        
+        let OperationalFormTable = Table("OperationalForm")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let Operational_DateExp = Expression<Date>("Operational_Date")
+        
+        for ofRecord in try db.prepare(OperationalFormTable.select(Operational_DateExp, OFNumberExp).order(Operational_DateExp)) {
+            let operationalDate = ofRecord[Operational_DateExp]
+            let ofNumber = ofRecord[OFNumberExp]
+            if !ofList.keys.contains(operationalDate) {
+                ofList[operationalDate] = [String]()
+            }
+            ofList[operationalDate]?.append(ofNumber)
+        }
+        
+        return ofList
     }
     
 }

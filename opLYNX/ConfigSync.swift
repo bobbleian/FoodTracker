@@ -13,7 +13,6 @@ import os.log
 class ConfigSync {
     
     //MARK: Static Properties
-    
     // Static variable for storing Server Date Time used in Config Sync
     public static var SERVER_DATETIME_UTC: Date?
     public static var ASSET_SOFTWARE_INFO: AssetSoftwareInfo?
@@ -36,7 +35,7 @@ class ConfigSync {
         let loadRunTask = LoadRunsTask(viewController: viewController)
         
         // Create a task for saving AssetSoftwareInfo
-        let saveAssetSoftwareInfoTask = SaveAssetSoftwareInfoTask(viewController: viewController)
+        let saveAssetSoftwareInfoTask = SaveAssetSoftwareInfoTask("Config Sync", viewController: viewController)
         
         // Chain the Config Sync tasks together
         loadAssetSoftwareInfoTask.nextOsonoTask = loadDateTimeUTCTask

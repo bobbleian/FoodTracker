@@ -45,10 +45,39 @@ class OsonoServerTask {
     
     static func setAssetToken(newValue: String) throws {// Store in local database and update the cached value
         try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.AUTHORIZE_ASSET_TOKEN_KEY, Value: newValue)
-        OsonoServerTask.cachedAssetToken = newValue
+        cachedAssetToken = newValue
     }
     
+    
+    // Static properties
+    public static var USER_TOKEN: String {
+        get {
+            if let cachedUserToken = cachedUserToken {
+                return cachedUserToken
+            }
+            else {
+                // Try loading from the local database
+                do {
+                    if let dbUserToken = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LocalSettings.AUTHORIZE_USER_TOKEN_KEY) {
+                        cachedUserToken = dbUserToken
+                        return dbUserToken
+                    }
+                }
+                catch {
+                    os_log("Unable to load user token from local database", log: OSLog.default, type: .error)
+                }
+            }
+            return ""
+        }
+    }
+    static func setUserToken(newValue: String) throws {// Store in local database and update the cached value
+        try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.AUTHORIZE_USER_TOKEN_KEY, Value: newValue)
+        cachedUserToken = newValue
+    }
+    
+    
     private static var cachedAssetToken: String?
+    private static var cachedUserToken: String?
         
     // Required properties
     private let serverIP: String
@@ -124,17 +153,23 @@ class OsonoServerTask {
         return url
     }
     
+    // Function returns Bearer token - to be implemented by subclasses as necessary
+    func GetBearerToken() -> String {
+        return ""
+    }
+    
     
     func RunTask() {
         
         var errorMessage = "Unknown Error"
         
-        let headers = ["content-type": "application/json", "authorization": "Bearer " + OsonoServerTask.ASSET_TOKEN]
+        let headers = ["content-type": "application/json", "authorization": "Bearer " + GetBearerToken()]
 
         if let url = URL(string: generateURLString()) {
             var request = URLRequest(url: url)
             request.httpMethod = httpMethod
             request.allHTTPHeaderFields = headers
+            print(headers)
             
             // Format the Data Payload in Osono Format
             //if let dataPayload = dataPayload, let jsonData = try? JSONSerialization.data(withJSONObject: dataPayload) {

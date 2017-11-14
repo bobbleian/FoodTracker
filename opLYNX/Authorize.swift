@@ -18,12 +18,12 @@ class Authorize {
     
     
     // Register Asset
-    static func RegisterAsset(viewController: UIViewController?) {
+    static func RegisterAsset(_ assetName: String, viewController: UIViewController?) {
         // Create a task for registering the asset
-        let registerAssetTask = RegisterAssetTask(viewController: viewController)
+        let registerAssetTask = RegisterAssetTask(assetName, viewController: viewController)
         
         // Create a task for loading the asset data
-        let loadAssetTask = LoadAssetTask("CIS9", viewController: viewController)
+        let loadAssetTask = LoadAssetTask(assetName, viewController: viewController)
         
         // Chain the tasks & run
         registerAssetTask.nextOsonoTask = loadAssetTask
