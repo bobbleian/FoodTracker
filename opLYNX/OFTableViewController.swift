@@ -13,6 +13,13 @@ import Foundation
 
 class OFTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
     
+    //MARK: Static Properties
+    static let OF_STATUS_COMPLETE_COLOR = UIColor(red: 0.45, green: 0.84, blue: 0.25, alpha: 1.0)
+    static let OF_STATUS_CREATED_COLOR = UIColor(red: 0.82, green: 0.65, blue: 0.47, alpha: 1.0)
+    static let OF_STATUS_INPROGRESS_COLOR = UIColor(red: 0.49, green: 0.67, blue: 0.96, alpha: 1.0)
+    
+    
+    
     //MARK: Properties
     let mercury = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
     var operationalForms = [OperationalForm]()
@@ -101,6 +108,21 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd, yyyy"
         cell.dueDateLabel.text = dateFormatter.string(from: operationalForm.Due_Date)
+        
+        switch operationalForm.OFStatus_ID {
+        // Created
+        case 1:
+            cell.labelContainerView.backgroundColor  = OFTableViewController.OF_STATUS_CREATED_COLOR
+        // Completed
+        case 2:
+            cell.labelContainerView.backgroundColor = OFTableViewController.OF_STATUS_COMPLETE_COLOR
+        // InProgress
+        case 6:
+            cell.labelContainerView.backgroundColor  = OFTableViewController.OF_STATUS_INPROGRESS_COLOR
+        // Default
+        default:
+            cell.labelContainerView.backgroundColor  = UIColor.lightGray
+        }
 
         return cell
     }
@@ -200,7 +222,10 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
                     operationalForm.key1.lowercased().contains(searchText.lowercased()) ||
                     operationalForm.key2.lowercased().contains(searchText.lowercased()) ||
                     operationalForm.key3.lowercased().contains(searchText.lowercased()) ||
-                    dateFormatter.string(from: operationalForm.Due_Date).lowercased().contains(searchText.lowercased())
+                    dateFormatter.string(from: operationalForm.Due_Date).lowercased().contains(searchText.lowercased()) ||
+                    ("completed".starts(with: searchText.lowercased()) && operationalForm.OFStatus_ID == 2) ||
+                    ("inprogress".starts(with: searchText.lowercased()) && operationalForm.OFStatus_ID == 6) ||
+                    ("created".starts(with: searchText.lowercased()) && operationalForm.OFStatus_ID == 1)
             })
         }
         tableView.reloadData()

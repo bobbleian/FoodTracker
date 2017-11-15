@@ -135,7 +135,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
     
     @IBAction func EndRun(_ sender: UIButton) {
-        Authorize.RegisterAsset("CIS9", viewController: self)
+        Authorize.RegisterAsset("CIS8", viewController: self)
         ConfigSync.RunConfigSync(viewController: self)
     }
     

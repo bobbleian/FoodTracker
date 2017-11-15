@@ -18,6 +18,7 @@ class OFTableViewCell: UITableViewCell {
     @IBOutlet weak var key1Label: UILabel!
     @IBOutlet weak var key2Label: UILabel!
     @IBOutlet weak var key3Label: UILabel!
+    @IBOutlet weak var labelContainerView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
