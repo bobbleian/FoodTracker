@@ -39,8 +39,9 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                 throw OsonoError.Message("Error Loading Form Data from Server")
             }
             
-            // Get a Database Connection
-            let db = try Database.DB()
+            
+            // Build a list of OperationalForm objects to load to the database
+            var operationalForms = [OperationalForm: [OFElementData]]()
             
             // Extract the Date -> OFNumber Dictionary
             for jsonListEntry in jsonList {
@@ -68,32 +69,27 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                 
                 // Create the Operational Form object
                 // TODO: LastUpdate??
-                let operationalForm = OperationalForm(OFNumber: OFNumber, Operational_Date: Operational_Date, Asset_ID: Asset_ID, UniqueOFNumber: UniqueOFNumber, OFType_ID: OFType_ID, OFStatus_ID: OFStatus_ID, Due_Date: Due_Date, Create_Date: Create_Date, Complete_Date: Complete_Date, CreateUser_ID: CreateUser_ID, CompleteUser_ID: CompleteUser_ID, Comments: Comments, LastUpdate: Date(), Dirty: false)
-                
-                // Insert the Operational Form to the database
-                try db.transaction {
+                if let operationalForm = OperationalForm(OFNumber: OFNumber, Operational_Date: Operational_Date, Asset_ID: Asset_ID, UniqueOFNumber: UniqueOFNumber, OFType_ID: OFType_ID, OFStatus_ID: OFStatus_ID, Due_Date: Due_Date, Create_Date: Create_Date, Complete_Date: Complete_Date, CreateUser_ID: CreateUser_ID, CompleteUser_ID: CompleteUser_ID, Comments: Comments, LastUpdate: Date(), Dirty: false) {
+                    // Add to the list
+                    operationalForms[operationalForm] = OFElementDataArray
+                }
+            }
+            
+            // Insert the Forms into the database            
+            // Get a Database Connection
+            let db = try Database.DB()
+            
+            // Insert the Operational Form to the database
+            try db.transaction {
+                for (operationalForm, OFElementDataArray) in operationalForms {
                     // Save the Operational Form
-                    try operationalForm?.insertDB(db: db)
+                    try operationalForm.insertDB(db: db)
                     
                     // Save the Data Array
                     for ofElementData in OFElementDataArray {
-                        try ofElementData.insertOrUpdatepdateOFElementValue(db: db)
+                        try ofElementData.insertOFElementValue(db: db)
                     }
                 }
-                /*
-                do {
-                    // Save the Operational Form
-                    try operationalForm?.updateDB(db: db)
-                    
-                    // Save the Data Array
-                    for ofElementData in OFElementDataArray {
-                        try ofElementData.updateOFElementValue(db: db)
-                    }
-                } catch {
-                    // TODO: Handle database error
-                    os_log("Unable to save Operational Form to database OFNumber=%@", log: OSLog.default, type: .error, OFNumber)
-                }
-                */
             }
             
             // Refresh the Operational Form List if this is being called from an OFTableViewController

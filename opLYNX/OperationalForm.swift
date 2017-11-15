@@ -8,7 +8,7 @@
 import UIKit
 import SQLite
 
-class OperationalForm {
+class OperationalForm: Hashable {
     //MARK: Properties
     var key1: String = ""
     var key2: String = ""
@@ -45,19 +45,19 @@ class OperationalForm {
         }
         
         self.OFNumber = OFNumber
-        self.Operational_Date = Date()
-        self.Asset_ID = 0
-        self.UniqueOFNumber = 0
+        self.Operational_Date = Operational_Date
+        self.Asset_ID = Asset_ID
+        self.UniqueOFNumber = UniqueOFNumber
         self.OFType_ID = OFType_ID
-        self.OFStatus_ID = 0
+        self.OFStatus_ID = OFStatus_ID
         self.Due_Date = Due_Date
-        self.Create_Date = Date()
-        self.Complete_Date = Date()
-        self.CreateUser_ID = 0
-        self.CompleteUser_ID = 0
-        self.Comments = ""
-        self.LastUpdate = Date()
-        self.Dirty = false
+        self.Create_Date = Create_Date
+        self.Complete_Date = Complete_Date
+        self.CreateUser_ID = CreateUser_ID
+        self.CompleteUser_ID = CompleteUser_ID
+        self.Comments = Comments
+        self.LastUpdate = LastUpdate
+        self.Dirty = Dirty
         
     }
     
@@ -234,6 +234,15 @@ class OperationalForm {
         let OperationalFormTable = Table("OperationalForm")
         let OFNumberExp = Expression<String>("OFNumber")
         try db.run(OperationalFormTable.filter(OFNumberExp == OFNumber).delete())
+    }
+    
+    //MARK: Hashable protocal
+    var hashValue: Int {
+        return OFNumber.hashValue
+    }
+    
+    static func == (lhs: OperationalForm, rhs: OperationalForm) -> Bool {
+        return lhs.OFNumber == rhs.OFNumber
     }
     
 }

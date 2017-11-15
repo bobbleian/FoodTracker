@@ -89,19 +89,21 @@ class LoadFormListTask: OPLYNXUserServerTask {
                         try db.transaction {
                             try OperationalForm.deleteOF(db: Database.DB(), OFNumber: localOFNumber)
                         }
-                        //do { try OperationalForm.deleteOF(db: Database.DB(), OFNumber: localOFNumber) } catch {
-                            // TODO: Log Error here
-                        //}
                     }
                 }
+                // Update the ServerOFList entry
+                LoadFormListTask.ServerOFList[localOFDate] = serverOFNumbers
             }
             
             // Go through the Server OF List Dictionary, loading Forms from server as necessary
             for serverOFDate in LoadFormListTask.ServerOFList.keys.sorted() {
                 let serverOFNumbers = LoadFormListTask.ServerOFList[serverOFDate] ?? [String]()
-                // Build an Osono Task for loading Forms by Date, to be run after this task
-                let loadFormsByDateTask = LoadFormsByDateTask(operationalDate: serverOFDate, ofNumbers: serverOFNumbers, viewController: viewController)
-                loadFormListTask.insertOsonoTask(loadFormsByDateTask)
+                // Create a task to load new Forms, if there is at least one new form to load
+                if serverOFNumbers.count > 0 {
+                    // Build an Osono Task for loading Forms by Date, to be run after this task
+                    let loadFormsByDateTask = LoadFormsByDateTask(operationalDate: serverOFDate, ofNumbers: serverOFNumbers, viewController: viewController)
+                    loadFormListTask.insertOsonoTask(loadFormsByDateTask)
+                }
             }
             
             // Refresh the Operational Form List if this is being called from an OFTableViewController
