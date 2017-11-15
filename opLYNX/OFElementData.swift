@@ -48,7 +48,7 @@ class OFElementData {
         return ""
     }
     
-    public func updateOFElementValue(db: Connection) throws {
+    public func insertOrUpdatepdateOFElementValue(db: Connection) throws {
         let OFElementDataTable = Table("OFElementData")
         let OFNumberExp = Expression<String>("OFNumber")
         let OFElement_IDExp = Expression<Int64>("OFElement_ID")
@@ -59,6 +59,16 @@ class OFElementData {
             // No records updated, try an insert
             try db.run(OFElementDataTable.insert(OFNumberExp <- OFNumber, OFElement_IDExp <- Int64(OFElement_ID), ValueExp <- Value))
         }
+    }
+    
+    public func insertOFElementValue(db: Connection) throws {
+        let OFElementDataTable = Table("OFElementData")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let OFElement_IDExp = Expression<Int64>("OFElement_ID")
+        let ValueExp = Expression<String>("Value")
+        
+        // Attempt to insert the record
+        try db.run(OFElementDataTable.insert(OFNumberExp <- OFNumber, OFElement_IDExp <- Int64(OFElement_ID), ValueExp <- Value))
     }
     
 }

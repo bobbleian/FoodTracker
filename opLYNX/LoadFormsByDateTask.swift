@@ -39,6 +39,9 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                 throw OsonoError.Message("Error Loading Form Data from Server")
             }
             
+            // Get a Database Connection
+            let db = try Database.DB()
+            
             // Extract the Date -> OFNumber Dictionary
             for jsonListEntry in jsonList {
                 guard let data = jsonListEntry as? [String:Any],
@@ -66,10 +69,19 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                 // Create the Operational Form object
                 // TODO: LastUpdate??
                 let operationalForm = OperationalForm(OFNumber: OFNumber, Operational_Date: Operational_Date, Asset_ID: Asset_ID, UniqueOFNumber: UniqueOFNumber, OFType_ID: OFType_ID, OFStatus_ID: OFStatus_ID, Due_Date: Due_Date, Create_Date: Create_Date, Complete_Date: Complete_Date, CreateUser_ID: CreateUser_ID, CompleteUser_ID: CompleteUser_ID, Comments: Comments, LastUpdate: Date(), Dirty: false)
-                do {
-                    // Get a Database Connection
-                    let db = try Database.DB()
+                
+                // Insert the Operational Form to the database
+                try db.transaction {
+                    // Save the Operational Form
+                    try operationalForm?.insertDB(db: db)
                     
+                    // Save the Data Array
+                    for ofElementData in OFElementDataArray {
+                        try ofElementData.insertOrUpdatepdateOFElementValue(db: db)
+                    }
+                }
+                /*
+                do {
                     // Save the Operational Form
                     try operationalForm?.updateDB(db: db)
                     
@@ -77,11 +89,11 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                     for ofElementData in OFElementDataArray {
                         try ofElementData.updateOFElementValue(db: db)
                     }
-                    
                 } catch {
                     // TODO: Handle database error
                     os_log("Unable to save Operational Form to database OFNumber=%@", log: OSLog.default, type: .error, OFNumber)
                 }
+                */
             }
             
             // Refresh the Operational Form List if this is being called from an OFTableViewController

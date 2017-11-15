@@ -62,7 +62,7 @@ class OperationalForm {
     }
     
     //MARK: Database interface
-    public func updateDB(db: Connection) throws {
+    public func insertOrUpdateDB(db: Connection) throws {
         
         // SQLLite table properties
         let OperationalFormTable = Table("OperationalForm")
@@ -112,6 +112,43 @@ class OperationalForm {
                                                    LastUpdate <- self.LastUpdate,
                                                    Dirty <- Dirty))
         }
+    }
+    
+    
+    public func insertDB(db: Connection) throws {
+        
+        // SQLLite table properties
+        let OperationalFormTable = Table("OperationalForm")
+        let OFNumber = Expression<String>("OFNumber")
+        let Operational_Date = Expression<Date>("Operational_Date")
+        let Asset_ID = Expression<Int>("Asset_ID")
+        let UniqueOFNumber = Expression<Int>("UniqueOFNumber")
+        let OFType_ID = Expression<Int>("OFType_ID")
+        let OFStatus_ID = Expression<Int>("OFStatus_ID")
+        let Due_Date = Expression<Date>("Due_Date")
+        let Create_Date = Expression<Date>("Create_Date")
+        let Complete_Date = Expression<Date>("Complete_Date")
+        let CreateUser_ID = Expression<Int>("CreateUser_ID")
+        let CompleteUser_ID = Expression<Int>("CompleteUser_ID")
+        let Comments = Expression<String>("Comments")
+        let LastUpdate = Expression<Date>("LastUpdate")
+        let Dirty = Expression<Bool>("Dirty")
+        
+        // Attempt to insert the record
+        try db.run(OperationalFormTable.insert(OFNumber <- self.OFNumber,
+            Operational_Date <- self.Operational_Date,
+            Asset_ID <- self.Asset_ID,
+            UniqueOFNumber <- self.UniqueOFNumber,
+            OFType_ID <- self.OFType_ID,
+            OFStatus_ID <- self.OFStatus_ID,
+            Due_Date <- self.Due_Date,
+            Create_Date <- self.Create_Date,
+            Complete_Date <- self.Complete_Date,
+            CreateUser_ID <- self.CreateUser_ID,
+            CompleteUser_ID <- self.CompleteUser_ID,
+            Comments <- self.Comments,
+            LastUpdate <- self.LastUpdate,
+            Dirty <- Dirty))
     }
     
     public static func loadOperationalFormsFromDB(db: Connection) throws -> [OperationalForm] {

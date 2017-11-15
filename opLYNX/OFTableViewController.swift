@@ -147,7 +147,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
                         do {
                             for entryControl in entryControls {
                                 if let ofElementData = OFElementData(OFNumber: operationalForm.OFNumber, OFElement_ID: entryControl.elementID, Value: entryControl.value) {
-                                    try ofElementData.updateOFElementValue(db: Database.DB())
+                                    try ofElementData.insertOrUpdatepdateOFElementValue(db: Database.DB())
                                 }
                             }
                             tableView.reloadRows(at: [selectedIndexPath], with: .none)

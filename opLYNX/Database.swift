@@ -14,6 +14,7 @@ class Database {
     static func DB() throws -> Connection {
         let dbFile = try makeWritableCopy(named: "oplynx.db", ofResourceFile: "oplynx.db")
         let db = try Connection(dbFile.path)
+        db.foreignKeys = true
         return db
     }
     
@@ -47,5 +48,18 @@ class Database {
         return writableFileURL
     }
     
+}
+
+extension Connection {
+    
+    // Set the foreign_keys PRAGMA for SQLite so foreign key contraints are enforced
+    public var foreignKeys: Bool {
+        get {
+            return Int32(try! scalar("PRAGMA foreign_keys") as! Int64) != 0
+        }
+        set {
+            try! run("PRAGMA foreign_keys = " + (newValue ? "ON" : "OFF"))
+        }
+    }
 }
 

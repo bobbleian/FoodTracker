@@ -85,9 +85,13 @@ class LoadFormListTask: OPLYNXUserServerTask {
                     // Remove it from the local database
                     else {
                         print("Deleting form \(localOFNumber) from database")
-                        do { try OperationalForm.deleteOF(db: Database.DB(), OFNumber: localOFNumber) } catch {
-                            // TODO: Log Error here
+                        let db = try Database.DB()
+                        try db.transaction {
+                            try OperationalForm.deleteOF(db: Database.DB(), OFNumber: localOFNumber)
                         }
+                        //do { try OperationalForm.deleteOF(db: Database.DB(), OFNumber: localOFNumber) } catch {
+                            // TODO: Log Error here
+                        //}
                     }
                 }
             }
