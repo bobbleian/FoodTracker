@@ -38,10 +38,10 @@ class ConfigSync {
         let saveAssetSoftwareInfoTask = SaveAssetSoftwareInfoTask("Config Sync", viewController: viewController)
         
         // Chain the Config Sync tasks together
-        loadAssetSoftwareInfoTask.nextOsonoTask = loadDateTimeUTCTask
-        loadDateTimeUTCTask.nextOsonoTask = loadUserTask
-        loadUserTask.nextOsonoTask = loadRunTask
-        loadRunTask.nextOsonoTask = saveAssetSoftwareInfoTask
+        loadAssetSoftwareInfoTask.insertOsonoTask(loadDateTimeUTCTask)
+        loadDateTimeUTCTask.insertOsonoTask(loadUserTask)
+        loadUserTask.insertOsonoTask(loadRunTask)
+        loadRunTask.insertOsonoTask(saveAssetSoftwareInfoTask)
         
         // Run the Osono Task Chain
         loadAssetSoftwareInfoTask.RunTask()

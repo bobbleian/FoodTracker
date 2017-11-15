@@ -95,7 +95,7 @@ class OsonoServerTask {
     public var taskDelegate: OsonoTaskDelegate?
     
     // Osono Task Chaining
-    public var nextOsonoTask: OsonoServerTask?
+    private var nextOsonoTask: OsonoServerTask?
     
     // Initialize the Osono server task with basic parameters
     init(serverIP: String, serverPort: String?, serverMethod: String, application: String, module: String?, method: String, httpMethod: String) {
@@ -112,6 +112,12 @@ class OsonoServerTask {
     func addParameter(name: String, value: String) {
         parameters[name] = value
         parameterKeys.append(name)
+    }
+    
+    // Set the next Osono Task
+    func insertOsonoTask(_ osonoTask: OsonoServerTask) {
+        osonoTask.nextOsonoTask = self.nextOsonoTask
+        self.nextOsonoTask = osonoTask
     }
     
     // Set the Osono Data payload

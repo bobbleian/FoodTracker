@@ -14,8 +14,10 @@ class Authorize {
     
     //MARK: Static Properties
     public static let CLIENT_ID = "ba91fecd-7371-4466-a11e-8b44a99ee809"
+    public static let D13_FORM_ID = 6
     public static var ASSET: Asset?
-    
+    public static var CURRENT_USER: OLUser?
+    public static var CURRENT_RUN: Run?
     
     // Register Asset
     static func RegisterAsset(_ assetName: String, viewController: UIViewController?) {
@@ -26,7 +28,7 @@ class Authorize {
         let loadAssetTask = LoadAssetTask(assetName, viewController: viewController)
         
         // Chain the tasks & run
-        registerAssetTask.nextOsonoTask = loadAssetTask
+        registerAssetTask.insertOsonoTask(loadAssetTask)
         registerAssetTask.RunTask()
     }
     

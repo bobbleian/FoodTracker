@@ -18,7 +18,7 @@
 		3D5454B31FB8E21400212209 /* LoadRunsTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454B21FB8E21400212209 /* LoadRunsTask.swift */; };
 		3D5454B51FB8E62300212209 /* ConfigSyncServerTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454B41FB8E62300212209 /* ConfigSyncServerTask.swift */; };
 		3D5454B71FB8EB2A00212209 /* DataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454B61FB8EB2A00212209 /* DataSync.swift */; };
-		3DF205EA1FBA022A00217CF8 /* LoadOFListTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF205E91FBA022A00217CF8 /* LoadOFListTask.swift */; };
+		3DF205EA1FBA022A00217CF8 /* LoadFormListTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF205E91FBA022A00217CF8 /* LoadFormListTask.swift */; };
 		482BFD3D1F5706320075B758 /* OFTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD3C1F5706320075B758 /* OFTableViewCell.swift */; };
 		482BFD451F5743DE0075B758 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD441F5743DE0075B758 /* LoginViewController.swift */; };
 		482BFD471F575C0E0075B758 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 482BFD461F575C0E0075B758 /* Settings.bundle */; };
@@ -50,6 +50,7 @@
 		4870B9BD1F965F9800C1F31F /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4870B9BC1F965F9800C1F31F /* Database.swift */; };
 		4870B9BF1F9956F800C1F31F /* LocalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4870B9BE1F9956F800C1F31F /* LocalSettings.swift */; };
 		487CDF691FB515C900218846 /* SaveAssetSoftwareInfoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487CDF681FB515C900218846 /* SaveAssetSoftwareInfoTask.swift */; };
+		487CDF741FBB985700218846 /* LoadFormsByDateTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487CDF731FBB985700218846 /* LoadFormsByDateTask.swift */; };
 		488A09CA1F4E182A00ADD2D1 /* oplynx.db in Resources */ = {isa = PBXBuildFile; fileRef = 488A09C91F4E182A00ADD2D1 /* oplynx.db */; };
 		489D08BE1F54A18500A93A56 /* EntryControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489D08BD1F54A18500A93A56 /* EntryControl.swift */; };
 		48A870FE1F8FF54400896352 /* MediaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A870FD1F8FF54400896352 /* MediaTableViewController.swift */; };
@@ -179,7 +180,7 @@
 		3D5454B21FB8E21400212209 /* LoadRunsTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadRunsTask.swift; sourceTree = "<group>"; };
 		3D5454B41FB8E62300212209 /* ConfigSyncServerTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSyncServerTask.swift; sourceTree = "<group>"; };
 		3D5454B61FB8EB2A00212209 /* DataSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSync.swift; sourceTree = "<group>"; };
-		3DF205E91FBA022A00217CF8 /* LoadOFListTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadOFListTask.swift; sourceTree = "<group>"; };
+		3DF205E91FBA022A00217CF8 /* LoadFormListTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFormListTask.swift; sourceTree = "<group>"; };
 		482BFD3C1F5706320075B758 /* OFTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFTableViewCell.swift; sourceTree = "<group>"; };
 		482BFD441F5743DE0075B758 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		482BFD461F575C0E0075B758 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -215,6 +216,7 @@
 		4870B9BC1F965F9800C1F31F /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		4870B9BE1F9956F800C1F31F /* LocalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSettings.swift; sourceTree = "<group>"; };
 		487CDF681FB515C900218846 /* SaveAssetSoftwareInfoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAssetSoftwareInfoTask.swift; sourceTree = "<group>"; };
+		487CDF731FBB985700218846 /* LoadFormsByDateTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFormsByDateTask.swift; sourceTree = "<group>"; };
 		488A09C91F4E182A00ADD2D1 /* oplynx.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = oplynx.db; sourceTree = SOURCE_ROOT; };
 		489D08BD1F54A18500A93A56 /* EntryControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryControl.swift; sourceTree = "<group>"; };
 		48A870FD1F8FF54400896352 /* MediaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableViewController.swift; sourceTree = "<group>"; };
@@ -379,7 +381,8 @@
 				3D5454A91FB7C05000212209 /* LoadAssetTask.swift */,
 				3D5454B01FB8DB1D00212209 /* LoadUserTask.swift */,
 				3D5454B21FB8E21400212209 /* LoadRunsTask.swift */,
-				3DF205E91FBA022A00217CF8 /* LoadOFListTask.swift */,
+				3DF205E91FBA022A00217CF8 /* LoadFormListTask.swift */,
+				487CDF731FBB985700218846 /* LoadFormsByDateTask.swift */,
 			);
 			name = Syncronization;
 			sourceTree = "<group>";
@@ -606,7 +609,7 @@
 				3D5454B11FB8DB1D00212209 /* LoadUserTask.swift in Sources */,
 				4870B9BF1F9956F800C1F31F /* LocalSettings.swift in Sources */,
 				486186801F856D57001C8E4F /* OFLinkRun.swift in Sources */,
-				3DF205EA1FBA022A00217CF8 /* LoadOFListTask.swift in Sources */,
+				3DF205EA1FBA022A00217CF8 /* LoadFormListTask.swift in Sources */,
 				483B20D91FABC92A003A411F /* OPLYNXServerTask.swift in Sources */,
 				48A8710A1F9122A700896352 /* MediaViewController.swift in Sources */,
 				3D5454AD1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift in Sources */,
@@ -633,6 +636,7 @@
 				48A871061F8FFD4300896352 /* MediaTableViewCell.swift in Sources */,
 				486186761F8556A2001C8E4F /* AssetSoftwareInfo.swift in Sources */,
 				483B20D51FABA4AF003A411F /* JustHUD.swift in Sources */,
+				487CDF741FBB985700218846 /* LoadFormsByDateTask.swift in Sources */,
 				4861867C1F855F6E001C8E4F /* OFLinkMedia.swift in Sources */,
 				486186841F8572A6001C8E4F /* OLUser.swift in Sources */,
 				486186861F86DE4F001C8E4F /* OFType.swift in Sources */,

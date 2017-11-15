@@ -51,16 +51,14 @@ class Run {
         let DescriptionExp = Expression<String>("Description")
         let ActiveExp = Expression<Bool>("Active")
         let LastUpdateExp = Expression<Date>("LastUpdate")
-        
-        
-        for runRecord in try db.prepare(RunTable.filter(ActiveExp == true)) {
+                
+        for runRecord in try db.prepare(RunTable.filter(ActiveExp == true).order(NameExp)) {
             guard let run = Run(
                 Run_ID: Int(exactly: runRecord[Run_IDExp]) ?? 0,
                 Name: runRecord[NameExp],
                 Description: runRecord[DescriptionExp],
                 Active: true,
-                LastUpdate: Date())
-                //TODO: restore once database format has been updated LastUpdate: runRecord[LastUpdateExp])
+                LastUpdate: runRecord[LastUpdateExp])
             else {
                 fatalError("Unable to load run from database")
             }

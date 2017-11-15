@@ -48,13 +48,17 @@ class OFElementData {
         return ""
     }
     
-    public static func updateOFElementValue(db: Connection, OFNumber: String, OFElement_ID: Int, Value: String) throws {
+    public func updateOFElementValue(db: Connection) throws {
         let OFElementDataTable = Table("OFElementData")
         let OFNumberExp = Expression<String>("OFNumber")
         let OFElement_IDExp = Expression<Int64>("OFElement_ID")
         let ValueExp = Expression<String>("Value")
         
-        try db.run(OFElementDataTable.filter(OFNumberExp == OFNumber && OFElement_IDExp == Int64(OFElement_ID)).update(ValueExp <- Value))
+        // First try updating the entry
+        if try db.run(OFElementDataTable.filter(OFNumberExp == OFNumber && OFElement_IDExp == Int64(OFElement_ID)).update(ValueExp <- Value)) == 0 {
+            // No records updated, try an insert
+            try db.run(OFElementDataTable.insert(OFNumberExp <- OFNumber, OFElement_IDExp <- Int64(OFElement_ID), ValueExp <- Value))
+        }
     }
     
 }

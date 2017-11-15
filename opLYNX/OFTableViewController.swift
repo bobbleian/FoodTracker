@@ -29,13 +29,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         super.viewDidLoad()
         
         // Load Operational Form data from SQLLite
-        do {
-            try operationalForms = OperationalForm.loadOperationalFormsWithKeysFromDB()
-        }
-        catch {
-            os_log("Unable to load Operational Forms from database", log: OSLog.default, type: .error)
-            operationalForms.removeAll()
-        }
+        loadOperationalForms()
         
         // Seatup the Search Controller
         searchController.searchResultsUpdater = self
@@ -50,6 +44,17 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // Update OperationalForm list from database
+    public func loadOperationalForms() {
+        do {
+            try operationalForms = OperationalForm.loadOperationalFormsWithKeysFromDB()
+        }
+        catch {
+            os_log("Unable to load Operational Forms from database", log: OSLog.default, type: .error)
+            operationalForms.removeAll()
+        }
     }
 
     //MARK: Table view data source
@@ -125,6 +130,10 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     }
     
     //MARK: Actions
+    @IBAction func refreshOperationalForms(_ sender: UIBarButtonItem) {
+        DataSync.RunDataSync(viewController: self)
+    }
+    
     @IBAction func unwindToOFTableView(sender: UIStoryboardSegue) {
         switch (sender.identifier ?? "") {
         case "Save":
@@ -137,12 +146,15 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
                     if let selectedIndexPath = tableView.indexPathForSelectedRow {
                         do {
                             for entryControl in entryControls {
-                                try OFElementData.updateOFElementValue(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFElement_ID: entryControl.elementID, Value: entryControl.value)
+                                if let ofElementData = OFElementData(OFNumber: operationalForm.OFNumber, OFElement_ID: entryControl.elementID, Value: entryControl.value) {
+                                    try ofElementData.updateOFElementValue(db: Database.DB())
+                                }
                             }
                             tableView.reloadRows(at: [selectedIndexPath], with: .none)
                         }
                         catch {
-                            fatalError("Unable to update operational form in database")
+                            // TODO: Handle database error
+                            os_log("Unable to save Operational Form Data to database OFNumber=%@", log: OSLog.default, type: .error, operationalForm.OFNumber)
                         }
                     }
                 }

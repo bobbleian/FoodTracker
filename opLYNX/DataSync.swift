@@ -15,7 +15,6 @@ class DataSync {
     // Static variable for storing Server Date Time used in Data Sync
     public static var SERVER_DATETIME_UTC: Date?
     public static var ASSET_SOFTWARE_INFO: AssetSoftwareInfo?
-    public static var LocalOFList: [Date: [String]]?
     
     // Run Data Sync
     static func RunDataSync(viewController: UIViewController?) {
@@ -26,21 +25,15 @@ class DataSync {
         }
         
         // Register User Task
-        let registerUserTask = RegisterUserTask("admin", viewController: viewController)
+        let registerUserTask = RegisterUserTask(Authorize.CURRENT_USER?.UserName ?? "", viewController: viewController)
               
         // Save Dirty Media
         
         // Save Dirty Operational Forms
         
-        // Load Local Form OFNumbers by Operational Date
-        LocalOFList = try? OperationalForm.loadOFList(db: Database.DB())
-        guard LocalOFList != nil else {
-            // TODO: Error message
-            return
-        }
         
         // Load Operational Form List by Start Date
-        let loadOFListTask = LoadOFListTask(viewController: viewController)
+        let loadOFListTask = LoadFormListTask(viewController: viewController)
         
         // Create a task for loading Server DateTime
         let loadDateTimeUTCTask = LoadDateTimeUTCTask(viewController: viewController)
@@ -49,10 +42,10 @@ class DataSync {
         let saveAssetSoftwareInfoTask = SaveAssetSoftwareInfoTask("Data Sync", viewController: viewController)
         
         // Chain the Data Sync tasks together
-        loadAssetSoftwareInfoTask.nextOsonoTask = registerUserTask
-        registerUserTask.nextOsonoTask = loadOFListTask
-        loadOFListTask.nextOsonoTask = loadDateTimeUTCTask
-        loadDateTimeUTCTask.nextOsonoTask = saveAssetSoftwareInfoTask
+        loadAssetSoftwareInfoTask.insertOsonoTask(registerUserTask)
+        registerUserTask.insertOsonoTask(loadOFListTask)
+        loadOFListTask.insertOsonoTask(loadDateTimeUTCTask)
+        loadDateTimeUTCTask.insertOsonoTask(saveAssetSoftwareInfoTask)
         
         // Run the Osono Task Chain
         loadAssetSoftwareInfoTask.RunTask()

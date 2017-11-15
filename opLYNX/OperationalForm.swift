@@ -32,7 +32,7 @@ class OperationalForm {
     
     
     //MARK: Initialization
-    init?(OFNumber: String, OFType_ID: Int, Due_Date: Date) {
+    init?(OFNumber: String, Operational_Date: Date, Asset_ID: Int, UniqueOFNumber: Int, OFType_ID: Int, OFStatus_ID: Int, Due_Date: Date, Create_Date: Date, Complete_Date: Date, CreateUser_ID: Int, CompleteUser_ID: Int, Comments: String, LastUpdate: Date, Dirty: Bool) {
         
         // Initialization fails if name is empty
         guard !OFNumber.isEmpty else {
@@ -61,23 +61,99 @@ class OperationalForm {
         
     }
     
-    //MARK: Database interface    
+    //MARK: Database interface
+    public func updateDB(db: Connection) throws {
+        
+        // SQLLite table properties
+        let OperationalFormTable = Table("OperationalForm")
+        let OFNumber = Expression<String>("OFNumber")
+        let Operational_Date = Expression<Date>("Operational_Date")
+        let Asset_ID = Expression<Int>("Asset_ID")
+        let UniqueOFNumber = Expression<Int>("UniqueOFNumber")
+        let OFType_ID = Expression<Int>("OFType_ID")
+        let OFStatus_ID = Expression<Int>("OFStatus_ID")
+        let Due_Date = Expression<Date>("Due_Date")
+        let Create_Date = Expression<Date>("Create_Date")
+        let Complete_Date = Expression<Date>("Complete_Date")
+        let CreateUser_ID = Expression<Int>("CreateUser_ID")
+        let CompleteUser_ID = Expression<Int>("CompleteUser_ID")
+        let Comments = Expression<String>("Comments")
+        let LastUpdate = Expression<Date>("LastUpdate")
+        let Dirty = Expression<Bool>("Dirty")
+        
+        // First try updating the entry
+        if try db.run(OperationalFormTable.filter(OFNumber == self.OFNumber).update(
+            Operational_Date <- self.Operational_Date,
+            Asset_ID <- self.Asset_ID,
+            UniqueOFNumber <- self.UniqueOFNumber,
+            OFType_ID <- self.OFType_ID,
+            OFStatus_ID <- self.OFStatus_ID,
+            Due_Date <- self.Due_Date,
+            Create_Date <- self.Create_Date,
+            Complete_Date <- self.Complete_Date,
+            CreateUser_ID <- self.CreateUser_ID,
+            CompleteUser_ID <- self.CompleteUser_ID,
+            Comments <- self.Comments,
+            LastUpdate <- self.LastUpdate,
+            Dirty <- Dirty)) == 0 {
+            // No records updated, try an insert
+            try db.run(OperationalFormTable.insert(OFNumber <- self.OFNumber,
+                                                   Operational_Date <- self.Operational_Date,
+                                                   Asset_ID <- self.Asset_ID,
+                                                   UniqueOFNumber <- self.UniqueOFNumber,
+                                                   OFType_ID <- self.OFType_ID,
+                                                   OFStatus_ID <- self.OFStatus_ID,
+                                                   Due_Date <- self.Due_Date,
+                                                   Create_Date <- self.Create_Date,
+                                                   Complete_Date <- self.Complete_Date,
+                                                   CreateUser_ID <- self.CreateUser_ID,
+                                                   CompleteUser_ID <- self.CompleteUser_ID,
+                                                   Comments <- self.Comments,
+                                                   LastUpdate <- self.LastUpdate,
+                                                   Dirty <- Dirty))
+        }
+    }
+    
     public static func loadOperationalFormsFromDB(db: Connection) throws -> [OperationalForm] {
         var operationalForms = [OperationalForm]()
         let OperationalFormTable = Table("OperationalForm")
         let OFNumber = Expression<String>("OFNumber")
-        let OFType_ID = Expression<Int64>("OFType_ID")
+        let Operational_Date = Expression<Date>("Operational_Date")
+        let Asset_ID = Expression<Int>("Asset_ID")
+        let UniqueOFNumber = Expression<Int>("UniqueOFNumber")
+        let OFType_ID = Expression<Int>("OFType_ID")
+        let OFStatus_ID = Expression<Int>("OFStatus_ID")
         let Due_Date = Expression<Date>("Due_Date")
+        let Create_Date = Expression<Date>("Create_Date")
+        let Complete_Date = Expression<Date>("Complete_Date")
+        let CreateUser_ID = Expression<Int>("CreateUser_ID")
+        let CompleteUser_ID = Expression<Int>("CompleteUser_ID")
+        let Comments = Expression<String>("Comments")
+        let LastUpdate = Expression<Date>("LastUpdate")
+        let Dirty = Expression<Bool>("Dirty")
         
         for operationalFormRecord in try db.prepare(OperationalFormTable) {
-            guard let operationalForm = OperationalForm(
+            if let operationalForm = OperationalForm(
                 OFNumber: operationalFormRecord[OFNumber],
-                OFType_ID: Int(exactly: operationalFormRecord[OFType_ID]) ?? 0,
-                Due_Date: operationalFormRecord[Due_Date])
-            else {
-                    fatalError("Unable to load form from database")
+                Operational_Date: operationalFormRecord[Operational_Date],
+                Asset_ID: operationalFormRecord[Asset_ID],
+                UniqueOFNumber: operationalFormRecord[UniqueOFNumber],
+                OFType_ID: operationalFormRecord[OFType_ID],
+                OFStatus_ID: operationalFormRecord[OFStatus_ID],
+                Due_Date: operationalFormRecord[Due_Date],
+                Create_Date: operationalFormRecord[Create_Date],
+                Complete_Date: operationalFormRecord[Complete_Date],
+                CreateUser_ID: operationalFormRecord[CreateUser_ID],
+                CompleteUser_ID: operationalFormRecord[CompleteUser_ID],
+                Comments: operationalFormRecord[Comments],
+                LastUpdate: operationalFormRecord[LastUpdate],
+                Dirty: false) {
+                // TODO Dirty: operationalFormRecord[Dirty]) {
+                operationalForms += [operationalForm]
             }
-            operationalForms += [operationalForm]
+            else {
+                // TODO: Error message?
+            }
         }
         return operationalForms
     }
@@ -115,6 +191,12 @@ class OperationalForm {
         }
         
         return ofList
+    }
+    
+    public static func deleteOF(db: Connection, OFNumber: String) throws {
+        let OperationalFormTable = Table("OperationalForm")
+        let OFNumberExp = Expression<String>("OFNumber")
+        try db.run(OperationalFormTable.filter(OFNumberExp == OFNumber).delete())
     }
     
 }

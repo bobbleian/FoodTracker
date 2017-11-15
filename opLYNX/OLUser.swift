@@ -68,10 +68,33 @@ class OLUser {
         let UserNameExp = Expression<String>("UserName")
         let PasswordExp = Expression<String>("Password")
         
-        for passwordValue in try db.prepare(OLUserTable.select(PasswordExp).filter(UserNameExp == UserName)) {
+        if let passwordValue = try db.pluck(OLUserTable.select(PasswordExp).filter(UserNameExp == UserName)) {
             return passwordValue[PasswordExp]
         }
         return nil
+    }
+    
+    public static func loadUser(db: Connection, UserName: String) throws -> OLUser? {
+        let OLUserTable = Table("OLUser")
+        let OLUser_IDExp = Expression<Int64>("OLUser_ID")
+        let Run_IDExp = Expression<Int64>("Run_ID")
+        let UserNameExp = Expression<String>("UserName")
+        let PasswordExp = Expression<String>("Password")
+        let FirstNameExp = Expression<String>("FirstName")
+        let LastNameExp = Expression<String>("LastName")
+        let PhoneNumberExp = Expression<String>("PhoneNumber")
+        let MobileNumberExp = Expression<String>("MobileNumber")
+        let EmailAddressExp = Expression<String>("EmailAddress")
+        let ActiveExp = Expression<Bool>("Active")
+        let LastUpdateExp = Expression<Date>("LastUpdate")
+        
+        guard let userRecord = try db.pluck(OLUserTable.filter(UserNameExp == UserName)) else {
+            // No user record found for this user name
+            return nil
+        }
+        
+        return OLUser(OLUser_ID: Int(exactly: userRecord[OLUser_IDExp]) ?? 0, Run_ID: Int(exactly: userRecord[Run_IDExp]) ?? 0, UserName: userRecord[UserNameExp], Password: userRecord[PasswordExp], FirstName: userRecord[FirstNameExp], LastName: userRecord[LastNameExp], PhoneNumber: userRecord[PhoneNumberExp], MobileNumber: userRecord[MobileNumberExp], EmailAddress: userRecord[EmailAddressExp], Active: userRecord[ActiveExp], LastUpdate: userRecord[LastUpdateExp])
+        
     }
     
     public func updateUser(db: Connection) throws {

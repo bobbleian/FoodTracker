@@ -19,7 +19,6 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     
     var activeField: UITextField?
     
-    
     let runPickerView = UIPickerView()
     var runs = [Run]()
     
@@ -27,6 +26,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        // TODO: Clean up this code
         do {
             if let lastUser = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_LAST_USER_KEY) {
                 userNameTextField.text = lastUser
@@ -37,16 +37,11 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         }
         
         do {
+            runs = try Run.loadActiveRuns(db: Database.DB())
             if let lastRun = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_CURRENT_RUN_KEY) {
+                Authorize.CURRENT_RUN = runs.first(where: {$0.Name == lastRun})
                 runTextField.text = lastRun
             }
-        }
-        catch {
-            
-        }
-        
-        do {
-            runs = try Run.loadActiveRuns(db: Database.DB())
         }
         catch {
             
@@ -88,35 +83,47 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     //MARK: Actions
     @IBAction func StartRun(_ sender: UIButton) {
         
-        // Get the user name's hashed password from the database
-        do {
-            guard let hashedPassword = try OLUser.loadUserPassword(db: Database.DB(), UserName: userNameTextField.text!) else {
-                // TODO: error message here
-                showLoginError()
-                return
-            }
-            let hashMatches = PasswordHasher.VerifyHashedPassword(base64HashedPassword: hashedPassword, password: passwordTextField.text!)
-            if (hashMatches) {
-                // Save the user name & run
-                do {
-                    try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_LAST_USER_KEY, Value: userNameTextField.text!)
-                    //TODO: Handle data sync case
-                    try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_CURRENT_RUN_KEY, Value: runTextField.text!)
-                }
-                catch {
-                }
-                performSegue(withIdentifier: "ShowOperationalFormList", sender: self)
-                return
-            }
-            // TODO: error message here
-        }
-        catch {
-            // TODO: error message here
+        // Clear the current user
+        Authorize.CURRENT_USER = nil
+        
+        // Ensure there is a selected run
+        guard Authorize.CURRENT_RUN != nil else {
+            let alert = UIAlertController(title: "No Run Selected", message: "Select a Run before logging in", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             return
         }
         
-        // TODO: error message here
-        showLoginError()
+        // Get the user name's hashed password from the database
+        guard let olUserTmp = try? OLUser.loadUser(db: Database.DB(), UserName: userNameTextField.text!), let olUser = olUserTmp, olUser.Active == true else {
+            // Unable to find active user in local database
+            showLoginError()
+            return
+        }
+        
+        // Verify the user name and password
+        guard PasswordHasher.VerifyHashedPassword(base64HashedPassword: olUser.Password, password: passwordTextField.text!) else {
+            // User name and password do not match
+            showLoginError()
+            return
+        }
+        
+        
+        // Save the user name & run
+        do {
+            try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_LAST_USER_KEY, Value: userNameTextField.text!)
+            //TODO: Handle data sync case
+            try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_CURRENT_RUN_KEY, Value: runTextField.text!)
+        }
+        catch {
+            // TODO: Error message?
+        }
+        
+        // Set the current user
+        Authorize.CURRENT_USER = olUser
+        
+        // Navigate to the OF list screen
+        performSegue(withIdentifier: "ShowOperationalFormList", sender: self)
         
     }
     
@@ -128,8 +135,8 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
     
     @IBAction func EndRun(_ sender: UIButton) {
-        //ConfigSync.RunConfigSync(viewController: self)
-        DataSync.RunDataSync(viewController: self)
+        Authorize.RegisterAsset("CIS9", viewController: self)
+        ConfigSync.RunConfigSync(viewController: self)
     }
     
     //MARK: UITextFieldDelegate
@@ -156,6 +163,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     //MARK: UIPickerViewDelegate interface
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         runTextField.text = runs[row].Name
+        Authorize.CURRENT_RUN = runs[row]
         runTextField.resignFirstResponder()
     }
     
