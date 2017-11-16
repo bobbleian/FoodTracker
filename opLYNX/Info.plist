@@ -26,6 +26,8 @@
 	<string>Allows you to add photos to your operational form data.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allows you to add photos to your operational form data.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allows you to filter operational forms by GPS location</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

@@ -11,8 +11,10 @@ import UIKit
 @IBDesignable class EntryControl: UIStackView, UIPickerViewDataSource, UIPickerViewDelegate {
 
     //MARK: Properties
-    private let nonmandatoryColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
-    private let readonlyColor = UIColor(red: 175/255, green: 175/255, blue: 175/255, alpha: 1.0)
+    private static let EC_NONMANDATORY_COLOR = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+    private static let EC_READONLY_COLOR = UIColor(red: 175/255, green: 175/255, blue: 175/255, alpha: 1.0)
+    private static let EC_MANDATORY_EMPTY_COLOR = UIColor.orange
+    private static let EC_MANDATORY_COMPLETE_COLOR = UIColor.green
     
     private let backGroundView = UIControl()
     private let entryTitle = UILabel()
@@ -24,8 +26,7 @@ import UIKit
             globalList = pickerDataString.components(separatedBy: ";")
         }
     }
-    
-    
+        
     // Picker View Testing
     var pickerView: UIPickerView?
     
@@ -143,17 +144,17 @@ import UIKit
         entryValue.alpha = value.isEmpty ? 0.5 : 1.0
         if mandatory {
             if value.isEmpty {
-                backGroundView.backgroundColor = .orange
+                backGroundView.backgroundColor = EntryControl.EC_MANDATORY_EMPTY_COLOR
             }
             else {
-                backGroundView.backgroundColor = .green
+                backGroundView.backgroundColor = EntryControl.EC_MANDATORY_COMPLETE_COLOR
             }
         }
         else if readonly {
-            backGroundView.backgroundColor = readonlyColor
+            backGroundView.backgroundColor = EntryControl.EC_READONLY_COLOR
         }
         else {
-            backGroundView.backgroundColor = nonmandatoryColor
+            backGroundView.backgroundColor = EntryControl.EC_NONMANDATORY_COLOR
         }
     }
     

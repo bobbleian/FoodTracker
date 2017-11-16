@@ -10,15 +10,22 @@ import UIKit
 import os.log
 import SQLite
 import Foundation
+import CoreLocation
 
-class OFTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate {
+class OFTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate, CLLocationManagerDelegate {
     
     //MARK: Static Properties
-    static let OF_STATUS_COMPLETE_COLOR = UIColor(red: 0.45, green: 0.84, blue: 0.25, alpha: 1.0)
-    static let OF_STATUS_CREATED_COLOR = UIColor(red: 0.82, green: 0.65, blue: 0.47, alpha: 1.0)
-    static let OF_STATUS_INPROGRESS_COLOR = UIColor(red: 0.49, green: 0.67, blue: 0.96, alpha: 1.0)
+    static let OF_STATUS_COMPLETE_COLOR = UIColor.green
+    static let OF_STATUS_CREATED_COLOR = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+    static let OF_STATUS_INPROGRESS_COLOR = UIColor.orange
     
     
+//    static let OF_STATUS_CREATED_COLOR = UIColor(red: 0.82, green: 0.65, blue: 0.47, alpha: 1.0)
+//    static let OF_STATUS_CREATED_COLOR = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+//    static let OF_STATUS_INPROGRESS_COLOR = UIColor(red: 0.49, green: 0.67, blue: 0.96, alpha: 1.0)
+    
+    //MARK: Outlets
+    @IBOutlet weak var gpsBarButton: UIBarButtonItem!
     
     //MARK: Properties
     let mercury = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
@@ -27,8 +34,10 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     enum FilterMode: String {
         case All, Nearby
     }
-    
     var filterMode = FilterMode.All
+    
+    // Location
+    let locationManager = CLLocationManager()
     
     let searchController = UISearchController(searchResultsController: nil)
 
@@ -46,6 +55,16 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         //searchController.searchBar.scopeButtonTitles = [FilterMode.All.rawValue, FilterMode.Nearby.rawValue]
         searchController.searchBar.delegate = self
         searchController.searchBar.setValue("Done", forKey: "_cancelButtonText")
+        
+        // Location
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -126,6 +145,17 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
 
         return cell
     }
+    
+    //MARK: CLLocationManagerDelegate Delegate
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let locValue:CLLocationCoordinate2D = manager.location?.coordinate {
+            print("locations=\(locValue.latitude) \(locValue.longitude)")
+            let message = "\(locValue.latitude);\(locValue.longitude)"
+            let alert = UIAlertController(title: "GPS", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+    }
 
     // MARK: - Navigation
 
@@ -152,6 +182,17 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     }
     
     //MARK: Actions
+    @IBAction func toggleFilterByGPS(_ sender: UIBarButtonItem) {
+        if filterMode == FilterMode.All {
+            filterMode = .Nearby
+            gpsBarButton.tintColor = UIColor.green
+        }
+        else {
+            filterMode = .All
+            gpsBarButton.tintColor = UIColor.red
+        }
+    }
+    
     @IBAction func refreshOperationalForms(_ sender: UIBarButtonItem) {
         DataSync.RunDataSync(viewController: self)
     }
