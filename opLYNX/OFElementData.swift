@@ -11,6 +11,9 @@ import SQLite
 
 class OFElementData {
     
+    //MARK: Static Properties
+    public static let OF_ELEMENT_ID_GPS_LOCATION = 201
+    
     //MARK: Properties
     var OFNumber: String
     var OFElement_ID: Int

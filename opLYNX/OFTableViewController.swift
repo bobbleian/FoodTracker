@@ -19,33 +19,44 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     static let OF_STATUS_CREATED_COLOR = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
     static let OF_STATUS_INPROGRESS_COLOR = UIColor.orange
     
-    
+    // Classic Poopy colours
 //    static let OF_STATUS_CREATED_COLOR = UIColor(red: 0.82, green: 0.65, blue: 0.47, alpha: 1.0)
 //    static let OF_STATUS_CREATED_COLOR = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
 //    static let OF_STATUS_INPROGRESS_COLOR = UIColor(red: 0.49, green: 0.67, blue: 0.96, alpha: 1.0)
+    
+    // Proximity threshold for nearby mode
+    static let NEARBY_DISTANCE_THRESHOLD = 250.0
     
     //MARK: Outlets
     @IBOutlet weak var gpsBarButton: UIBarButtonItem!
     
     //MARK: Properties
-    let mercury = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
-    var operationalForms = [OperationalForm]()
-    var filteredOperationalForms = [OperationalForm]()
+    private static let mercury = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
+    
+    // Operatrional Form data
+    var operationalForms: [OperationalForm] {
+        get {
+            return filterMode == .All ? allOperationalForms : nearbyOperationalForms
+        }
+    }
+    private var allOperationalForms = [OperationalForm]()
+    private var nearbyOperationalForms = [OperationalForm]()
+    private var filteredOperationalForms = [OperationalForm]()
     enum FilterMode: String {
         case All, Nearby
     }
-    var filterMode = FilterMode.All
+    private var filterMode = FilterMode.All
     
     // Location
-    let locationManager = CLLocationManager()
+    private let locationManager = CLLocationManager()
     
-    let searchController = UISearchController(searchResultsController: nil)
+    private let searchController = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Load Operational Form data from SQLLite
-        loadOperationalForms()
+        // Load Operational Form data from local database
+        loadAllOperationalForms()
         
         // Seatup the Search Controller
         searchController.searchResultsUpdater = self
@@ -57,13 +68,16 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         searchController.searchBar.setValue("Done", forKey: "_cancelButtonText")
         
         // Location
-        self.locationManager.requestWhenInUseAuthorization()
+        locationManager.requestWhenInUseAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
+            locationManager.distanceFilter = 10
         }
+        
+        // For now, Nearby Mode is disabled unless user turns it on
+        gpsBarButton.tintColor = UIColor.red
         
     }
 
@@ -73,13 +87,13 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     }
     
     // Update OperationalForm list from database
-    public func loadOperationalForms() {
+    public func loadAllOperationalForms() {
         do {
-            try operationalForms = OperationalForm.loadOperationalFormsWithKeysFromDB()
+            try allOperationalForms = OperationalForm.loadOperationalFormsWithKeysFromDB()
         }
         catch {
             os_log("Unable to load Operational Forms from database", log: OSLog.default, type: .error)
-            operationalForms.removeAll()
+            allOperationalForms.removeAll()
         }
     }
 
@@ -150,10 +164,24 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let locValue:CLLocationCoordinate2D = manager.location?.coordinate {
             print("locations=\(locValue.latitude) \(locValue.longitude)")
-            let message = "\(locValue.latitude);\(locValue.longitude)"
-            let alert = UIAlertController(title: "GPS", message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(alert, animated: true, completion: nil)
+            
+            // Update the nearby operational form list
+            nearbyOperationalForms = allOperationalForms.filter({( operationalForm: OperationalForm) -> Bool in
+                // Get the GPS location from the form
+                if let gpsLocation = try? OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFElement_ID: OFElementData.OF_ELEMENT_ID_GPS_LOCATION) {
+                    let gpsComponents = gpsLocation.components(separatedBy: ";")
+                    if gpsComponents.count >= 2 {
+                        if let gpsLatitude = Double(gpsComponents[0]), let gpsLongitude = Double(gpsComponents[1]) {
+                            let formLocation = CLLocation(latitude: gpsLatitude, longitude: gpsLongitude)
+                            return formLocation.distance(from: manager.location!) <= OFTableViewController.NEARBY_DISTANCE_THRESHOLD
+                        }
+                    }
+                }
+                return false
+            })
+            
+            // Update the UI
+            tableView.reloadData()
         }
     }
 
@@ -183,14 +211,32 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     
     //MARK: Actions
     @IBAction func toggleFilterByGPS(_ sender: UIBarButtonItem) {
-        if filterMode == FilterMode.All {
-            filterMode = .Nearby
-            gpsBarButton.tintColor = UIColor.green
+        if CLLocationManager.locationServicesEnabled() {
+            if filterMode == FilterMode.All {
+                filterMode = .Nearby
+                gpsBarButton.tintColor = UIColor.green
+                locationManager.startUpdatingLocation()
+            }
+            else {
+                filterMode = .All
+                gpsBarButton.tintColor = UIColor.red
+                nearbyOperationalForms.removeAll()
+                locationManager.stopUpdatingLocation()
+            }
+            tableView.reloadData()
         }
-        else {
+        else if filterMode == .Nearby {
             filterMode = .All
             gpsBarButton.tintColor = UIColor.red
+            nearbyOperationalForms.removeAll()
+            tableView.reloadData()
         }
+        else if filterMode == .All {
+            let alert = UIAlertController(title: "GPS", message: "Turn on Location Services to enable GPS filtering", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+        
     }
     
     @IBAction func refreshOperationalForms(_ sender: UIBarButtonItem) {
@@ -255,7 +301,6 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
             filteredOperationalForms.removeAll()
         }
         else {
-            
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMM dd, yyyy"
             filteredOperationalForms = operationalForms.filter({( operationalForm: OperationalForm) -> Bool in

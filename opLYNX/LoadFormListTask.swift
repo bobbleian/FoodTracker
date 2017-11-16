@@ -108,7 +108,7 @@ class LoadFormListTask: OPLYNXUserServerTask {
             
             // Refresh the Operational Form List if this is being called from an OFTableViewController
             if let ofTableViewController = viewController as? OFTableViewController {
-                ofTableViewController.loadOperationalForms()                
+                ofTableViewController.loadAllOperationalForms()                
                 DispatchQueue.main.async {
                     ofTableViewController.tableView?.reloadData()
                 }
