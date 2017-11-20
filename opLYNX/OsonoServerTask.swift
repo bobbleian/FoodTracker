@@ -217,7 +217,7 @@ class OsonoServerTask {
                                             try self.taskDelegate?.processData(data: dataPayload)
                                             self.taskDelegate?.success()
                                             // Run the next Osono Task, if necessary
-                                            self.nextOsonoTask?.RunTask()
+                                            self.runNextTask()
                                             return
                                         }
                                         catch OsonoError.Message(let osonoErrorMessage){
@@ -255,6 +255,11 @@ class OsonoServerTask {
                 self.taskDelegate?.error(message: errorMessage)
             }.resume()
         }
+    }
+    
+    // Run the next task on a new thread?
+    public func runNextTask() {
+        self.nextOsonoTask?.RunTask()
     }
     
 }

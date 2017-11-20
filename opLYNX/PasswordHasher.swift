@@ -48,7 +48,7 @@ class PasswordHasher {
         var newhashedpassword: Array<UInt8> = Array<UInt8>()
         var hashMatches = true
         do {
-            newhashedpassword = try PKCS5.PBKDF2(password: passwordBytes, salt: salt, iterations: pbkdf2Iterations, keyLength: pbkdf2KeyLength, variant: .sha1).calculate()
+            let newhashedpassword = try PKCS5.PBKDF2(password: passwordBytes, salt: salt, iterations: pbkdf2Iterations, keyLength: pbkdf2KeyLength, variant: .sha1).calculate()
             // Compare the generated hash to the original hash
             for i in 0..<hashLength {
                 if newhashedpassword[i] != decodedhash[i] {

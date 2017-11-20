@@ -52,8 +52,12 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         userNameTextField.delegate = self
         passwordTextField.delegate = self
         
+        runPickerView.showsSelectionIndicator = true
         runPickerView.dataSource = self
         runPickerView.delegate = self
+        if let i = runs.index(where: { $0.Name == runTextField.text }) {
+            runPickerView.selectRow(i, inComponent: 0, animated: false)
+        }
         
         runTextField.inputView = runPickerView
         

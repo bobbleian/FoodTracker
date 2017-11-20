@@ -95,6 +95,14 @@ class LoadFormListTask: OPLYNXUserServerTask {
                 LoadFormListTask.ServerOFList[localOFDate] = serverOFNumbers
             }
             
+            // Refresh the Operational Form List if this is being called from an OFTableViewController
+            if let ofTableViewController = viewController as? OFTableViewController {
+                ofTableViewController.loadAllOperationalForms()
+                DispatchQueue.main.async {
+                    ofTableViewController.tableView?.reloadData()
+                }
+            }
+            
             // Go through the Server OF List Dictionary, loading Forms from server as necessary
             for serverOFDate in LoadFormListTask.ServerOFList.keys.sorted() {
                 let serverOFNumbers = LoadFormListTask.ServerOFList[serverOFDate] ?? [String]()
@@ -106,13 +114,6 @@ class LoadFormListTask: OPLYNXUserServerTask {
                 }
             }
             
-            // Refresh the Operational Form List if this is being called from an OFTableViewController
-            if let ofTableViewController = viewController as? OFTableViewController {
-                ofTableViewController.loadAllOperationalForms()                
-                DispatchQueue.main.async {
-                    ofTableViewController.tableView?.reloadData()
-                }
-            }
             
         }
         

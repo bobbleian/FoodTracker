@@ -19,16 +19,25 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
         addParameter(name: "user_id", value: String(Authorize.CURRENT_USER!.OLUser_ID))
         addParameter(name: "operational_date", value: "\"" + operationalDate.formatJsonDate() + "\"")
         addParameter(name: "ofnumbers", value: ofNumbers.joined(separator: ","))
-        taskDelegate = LoadFormsByDateHandler(viewController: viewController)
+        taskDelegate = LoadFormsByDateHandler(viewController: viewController, operationalDate: operationalDate, totalCount: ofNumbers.count)
     }
     
     //MARK: Server Delegate Handler
     // Load Operational Forms by Operational Date and OFNumbers
     class LoadFormsByDateHandler: OPLYNXServerTaskDelegate {
         
+        //MARK: Properties
+        let operationalDate: Date
+        let totalCount: Int
+        var currentCount: Int = 1
+        
         //MARK: Initializers
-        init(viewController: UIViewController?) {
-            super.init(taskTitle: "Loading Operational Forms", viewController: viewController)
+        init(viewController: UIViewController?, operationalDate: Date, totalCount: Int) {
+            self.operationalDate = operationalDate
+            self.totalCount = totalCount
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM dd, yyyy"
+            super.init(taskTitle: "Loading " + dateFormatter.string(from: operationalDate) + " Forms [" + String(currentCount) + "/" + String(totalCount) + "]", viewController: viewController)
         }
         
         //MARK: OsonoTaskDelegate Protocol
@@ -45,6 +54,14 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
             
             // Extract the Date -> OFNumber Dictionary
             for jsonListEntry in jsonList {
+                if let viewController = viewController {
+                    DispatchQueue.main.async {
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "MMM dd, yyyy"
+                        JustHUD.shared.showInView(view: viewController.view, withHeader: "Loading " + dateFormatter.string(from: self.operationalDate) + " Forms [" + String(self.currentCount) + "/" + String(self.totalCount) + "]", andFooter: nil)
+                        self.currentCount += 1
+                    }
+                }
                 guard let data = jsonListEntry as? [String:Any],
                     let OFNumber = data["ofn"] as? String,
                     let Operational_DateString = data["od"] as? String,
@@ -67,6 +84,8 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                         throw OsonoError.Message("Error Loading Form Data from Server")
                 }
                 
+                
+                
                 // Create the Operational Form object
                 // TODO: LastUpdate??
                 if let operationalForm = OperationalForm(OFNumber: OFNumber, Operational_Date: Operational_Date, Asset_ID: Asset_ID, UniqueOFNumber: UniqueOFNumber, OFType_ID: OFType_ID, OFStatus_ID: OFStatus_ID, Due_Date: Due_Date, Create_Date: Create_Date, Complete_Date: Complete_Date, CreateUser_ID: CreateUser_ID, CompleteUser_ID: CompleteUser_ID, Comments: Comments, LastUpdate: Date(), Dirty: false) {
@@ -80,8 +99,18 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
             let db = try Database.DB()
             
             // Insert the Operational Form to the database
+            currentCount = 1
             try db.transaction {
                 for (operationalForm, OFElementDataArray) in operationalForms {
+                    if let viewController = viewController {
+                        DispatchQueue.main.async {
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "MMM dd, yyyy"
+                            JustHUD.shared.showInView(view: viewController.view, withHeader: "Saving " + dateFormatter.string(from: self.operationalDate) + " Forms [" + String(self.currentCount) + "/" + String(self.totalCount) + "]", andFooter: nil)
+                            self.currentCount += 1
+                        }
+                    }
+                    
                     // Save the Operational Form
                     try operationalForm.insertDB(db: db)
                     

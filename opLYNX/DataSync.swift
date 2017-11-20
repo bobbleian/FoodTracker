@@ -34,7 +34,7 @@ class DataSync {
         
         // Load Operational Form List by Start Date
         let loadOFListTask = LoadFormListTask(viewController: viewController)
-        
+
         // Create a task for loading Server DateTime
         let loadDateTimeUTCTask = LoadDateTimeUTCTask(viewController: viewController)
         
