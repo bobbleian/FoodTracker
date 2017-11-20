@@ -53,6 +53,7 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
             var operationalForms = [OperationalForm]()
             var ofElementData = [OperationalForm: [OFElementData]]()
             var ofLinkRun = [OperationalForm: [OFLinkRun]]()
+            var ofLinkUser = [OperationalForm: [OFLinkUser]]()
             
             // Extract the Date -> OFNumber Dictionary
             for jsonListEntry in jsonList {
@@ -82,7 +83,8 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                     let CompleteUser_ID = data["cpui"] as? Int,
                     let Comments = data["com"] as? String,
                     let OFElementDataArray = parseOFElementData(OFNumber: OFNumber, data: data["da"]),
-                    let OFLinkRunArray = parseOFLinkRun(OFNumber: OFNumber, data: data["lrl"]) else {
+                    let OFLinkRunArray = parseOFLinkRun(OFNumber: OFNumber, data: data["lrl"]),
+                    let OFLinkUserArray = parseOFLinkUser(OFNumber: OFNumber, data: data["lul"]) else {
                         // Unable to parse server data
                         throw OsonoError.Message("Error Loading Form Data from Server")
                 }
@@ -96,6 +98,7 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                     operationalForms.append(operationalForm)
                     ofElementData[operationalForm] = OFElementDataArray
                     ofLinkRun[operationalForm] = OFLinkRunArray
+                    ofLinkUser[operationalForm] = OFLinkUserArray
                 }
             }
             
@@ -130,6 +133,13 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                     if let ofLinkRunArray = ofLinkRun[operationalForm] {
                         for ofLinkRun in ofLinkRunArray {
                             try ofLinkRun.insertOFLinkRun(db: db)
+                        }
+                    }
+                    
+                    // Save the Link User Array
+                    if let ofLinkUserArray = ofLinkUser[operationalForm] {
+                        for ofLinkUser in ofLinkUserArray {
+                            try ofLinkUser.insertOFLinkUser(db: db)
                         }
                     }
                     
@@ -193,6 +203,30 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                 }
             }
             return ofLinkRunArray
+        }
+        
+        private func parseOFLinkUser(OFNumber: String, data: Any?) -> [OFLinkUser]? {
+            guard let jsonList = data as? [Any] else {
+                // Unable to parse server data
+                return nil
+            }
+            
+            // Extract the Element Data array
+            var ofLinkUserArray = [OFLinkUser]()
+            for jsonListEntry in jsonList {
+                guard let data = jsonListEntry as? [String:Any],
+                    let OFNumber = data["ofn"] as? String,
+                    let OLUser_ID = data["oui"] as? Int else {
+                        // Unable to parse server data
+                        return nil
+                }
+                
+                // Create the OFElementData object
+                if let ofLinkUser = OFLinkUser(OFNumber: OFNumber, OLUser_ID: OLUser_ID) {
+                    ofLinkUserArray.append(ofLinkUser)
+                }
+            }
+            return ofLinkUserArray
         }
         
     }
