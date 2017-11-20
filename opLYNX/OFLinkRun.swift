@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SQLite
 
 class OFLinkRun {
     
@@ -31,4 +32,16 @@ class OFLinkRun {
         self.Run_ID = Run_ID
         
     }
+    
+    //MARK: Database interface
+    public func insertOFLinkRun(db: Connection) throws {
+        let OFLinkRunTable = Table("OFLinkRun")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let Run_IDExp = Expression<Int64>("Run_ID")
+        
+        // Try an insert
+        try db.run(OFLinkRunTable.insert(OFNumberExp <- OFNumber, Run_IDExp <- Int64(Run_ID)))
+    }
+    
+    
 }
