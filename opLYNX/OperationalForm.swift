@@ -236,6 +236,14 @@ class OperationalForm: Hashable {
         try db.run(OperationalFormTable.filter(OFNumberExp == OFNumber).delete())
     }
     
+    // Mark Form as DIRTY so it is part of the list of Forms to be sent to the server on a data sync
+    public static func updateOFDirty(db: Connection, OFNumber: String) throws {
+        let OperationalFormTable = Table("OperationalForm")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let DirtyExp = Expression<Bool>("Dirty")
+        try db.run(OperationalFormTable.filter(OFNumberExp == OFNumber).update(DirtyExp <- true))
+    }
+    
     //MARK: Hashable protocal
     var hashValue: Int {
         return OFNumber.hashValue
