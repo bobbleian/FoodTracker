@@ -60,4 +60,17 @@ class OFLinkMedia {
                                            OFElement_IDExp <- Int64(OFElement_ID),
                                            SortOrderExp <- Int64(SortOrder)))
     }
+    
+    public func insertMediaToDB(db: Connection) throws {
+        let OFLinkMediaTable = Table("OFLinkMedia")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let MediaNumberExp = Expression<String>("MediaNumber")
+        let OFElement_IDExp = Expression<Int64>("OFElement_ID")
+        let SortOrderExp = Expression<Int64>("SortOrder")
+        
+        try db.run(OFLinkMediaTable.insert(OFNumberExp <- OFNumber,
+                                           MediaNumberExp <- MediaNumber,
+                                           OFElement_IDExp <- Int64(OFElement_ID),
+                                           SortOrderExp <- Int64(SortOrder)))
+    }
 }

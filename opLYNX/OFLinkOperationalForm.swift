@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SQLite
 
 class OFLinkOperationalForm {
     
@@ -38,4 +39,17 @@ class OFLinkOperationalForm {
         self.OFLinkType_ID = OFLinkType_ID
         
     }
+    
+    
+    //MARK: Database interface
+    public func insertOFLinkOperationalForm(db: Connection) throws {
+        let OFLinkOperationalFormTable = Table("OFLinkOperationalForm")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let LinkOFNumberExp = Expression<String>("LinkOFNumber")
+        let OFLinkType_IDExp = Expression<Int64>("OFLinkType_ID")
+        
+        // Try an insert
+        try db.run(OFLinkOperationalFormTable.insert(OFNumberExp <- OFNumber, LinkOFNumberExp <- LinkOFNumber, OFLinkType_IDExp <- Int64(OFLinkType_ID)))
+    }
+    
 }

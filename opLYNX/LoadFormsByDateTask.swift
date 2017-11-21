@@ -54,6 +54,8 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
             var ofElementData = [OperationalForm: [OFElementData]]()
             var ofLinkRun = [OperationalForm: [OFLinkRun]]()
             var ofLinkUser = [OperationalForm: [OFLinkUser]]()
+            var ofLinkOperationalForm = [OperationalForm: [OFLinkOperationalForm]]()
+            var ofLinkMedia = [OperationalForm: [OFLinkMedia]]()
             
             // Extract the Date -> OFNumber Dictionary
             for jsonListEntry in jsonList {
@@ -84,7 +86,9 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                     let Comments = data["com"] as? String,
                     let OFElementDataArray = parseOFElementData(OFNumber: OFNumber, data: data["da"]),
                     let OFLinkRunArray = parseOFLinkRun(OFNumber: OFNumber, data: data["lrl"]),
-                    let OFLinkUserArray = parseOFLinkUser(OFNumber: OFNumber, data: data["lul"]) else {
+                    let OFLinkUserArray = parseOFLinkUser(OFNumber: OFNumber, data: data["lul"]),
+                    let OFLinkOperationalFormArray = parseOFLinkOperationalForm(OFNumber: OFNumber, data: data["lofl"]),
+                    let OFLinkMediaArray = parseOFLinkMedia(OFNumber: OFNumber, data: data["lml"]) else {
                         // Unable to parse server data
                         throw OsonoError.Message("Error Loading Form Data from Server")
                 }
@@ -99,6 +103,8 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                     ofElementData[operationalForm] = OFElementDataArray
                     ofLinkRun[operationalForm] = OFLinkRunArray
                     ofLinkUser[operationalForm] = OFLinkUserArray
+                    ofLinkOperationalForm[operationalForm] = OFLinkOperationalFormArray
+                    ofLinkMedia[operationalForm] = OFLinkMediaArray
                 }
             }
             
@@ -140,6 +146,20 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                     if let ofLinkUserArray = ofLinkUser[operationalForm] {
                         for ofLinkUser in ofLinkUserArray {
                             try ofLinkUser.insertOFLinkUser(db: db)
+                        }
+                    }
+                    
+                    // Save the Link Form Array
+                    if let ofLinkOperationalFormArray = ofLinkOperationalForm[operationalForm] {
+                        for ofLinkOperationalForm in ofLinkOperationalFormArray {
+                            try ofLinkOperationalForm.insertOFLinkOperationalForm(db: db)
+                        }
+                    }
+                    
+                    // Save the Link Media Array
+                    if let ofLinkMediaArray = ofLinkMedia[operationalForm] {
+                        for ofLinkMedia in ofLinkMediaArray {
+                            try ofLinkMedia.insertMediaToDB(db: db)
                         }
                     }
                     
@@ -227,6 +247,57 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                 }
             }
             return ofLinkUserArray
+        }
+        
+        private func parseOFLinkOperationalForm(OFNumber: String, data: Any?) -> [OFLinkOperationalForm]? {
+            guard let jsonList = data as? [Any] else {
+                // Unable to parse server data
+                return nil
+            }
+            
+            // Extract the Element Data array
+            var result = [OFLinkOperationalForm]()
+            for jsonListEntry in jsonList {
+                guard let data = jsonListEntry as? [String:Any],
+                    let OFNumber = data["ofn"] as? String,
+                    let LinkOFNumber = data["lofn"] as? String,
+                    let OFLinkType_ID = data["olt"] as? Int else {
+                        // Unable to parse server data
+                        return nil
+                }
+                
+                // Create the OFElementData object
+                if let entry = OFLinkOperationalForm(OFNumber: OFNumber, LinkOFNumber: LinkOFNumber, OFLinkType_ID: OFLinkType_ID) {
+                    result.append(entry)
+                }
+            }
+            return result
+        }
+        
+        private func parseOFLinkMedia(OFNumber: String, data: Any?) -> [OFLinkMedia]? {
+            guard let jsonList = data as? [Any] else {
+                // Unable to parse server data
+                return nil
+            }
+            
+            // Extract the Element Data array
+            var result = [OFLinkMedia]()
+            for jsonListEntry in jsonList {
+                guard let data = jsonListEntry as? [String:Any],
+                    let OFNumber = data["ofn"] as? String,
+                    let MediaNumber = data["mn"] as? String,
+                    let OFElement_ID = data["ofe"] as? Int,
+                    let SortOrder = data["so"] as? Int else {
+                        // Unable to parse server data
+                        return nil
+                }
+                
+                // Create the OFElementData object
+                if let entry = OFLinkMedia(OFNumber: OFNumber, MediaNumber: MediaNumber, OFElement_ID: OFElement_ID, SortOrder: SortOrder) {
+                    result.append(entry)
+                }
+            }
+            return result
         }
         
     }
