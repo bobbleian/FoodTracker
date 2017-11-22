@@ -50,7 +50,7 @@ class DataSync {
         let loadOFListTask = LoadFormListTask(viewController: viewController)
 
         // Create a task for loading Server DateTime
-        let loadDateTimeUTCTask = LoadDateTimeUTCTask(viewController: viewController)
+        let loadDateTimeUTCTask = LoadDateTimeUTCTask(viewController: viewController, updateConfigSync: false, updateDataSync: true)
         
         // Create a task for saving AssetSoftwareInfo
         let saveAssetSoftwareInfoTask = SaveAssetSoftwareInfoTask("Data Sync", viewController: viewController)

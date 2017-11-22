@@ -157,6 +157,7 @@ class OFViewController: UIViewController, UINavigationControllerDelegate {
                 self.performSegue(withIdentifier: "Save", sender: self)
             }))
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action -> Void in
+                // TODO: Set Complete Date?
                 operationalForm.OFStatus_ID = OperationalForm.OF_STATUS_COMPLETE
                 try? OperationalForm.updateOFStatus(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFStatus_ID: OperationalForm.OF_STATUS_COMPLETE)
                 self.performSegue(withIdentifier: "Save", sender: self)

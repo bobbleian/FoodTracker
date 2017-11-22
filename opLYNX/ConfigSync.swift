@@ -26,7 +26,7 @@ class ConfigSync {
         }
         
         // Create a task for loading Server DateTime
-        let loadDateTimeUTCTask = LoadDateTimeUTCTask(viewController: viewController)
+        let loadDateTimeUTCTask = LoadDateTimeUTCTask(viewController: viewController, updateConfigSync: true, updateDataSync: false)
         
         // Create a task for loading users
         let loadUserTask = LoadUserTask(viewController: viewController)
