@@ -9,6 +9,12 @@ import UIKit
 import SQLite
 
 class OperationalForm: Hashable {
+    
+    //MARK: Static Properties
+    static let OF_STATUS_CREATED = 1
+    static let OF_STATUS_COMPLETE = 2
+    static let OF_STATUS_INPROGRESS = 6
+    
     //MARK: Properties
     var key1: String = ""
     var key2: String = ""
@@ -289,6 +295,14 @@ class OperationalForm: Hashable {
         let OFNumberExp = Expression<String>("OFNumber")
         let DirtyExp = Expression<Bool>("Dirty")
         try db.run(OperationalFormTable.filter(OFNumberExp == OFNumber).update(DirtyExp <- Dirty))
+    }
+    
+    // Update Form's Status
+    public static func updateOFStatus(db: Connection, OFNumber: String, OFStatus_ID: Int) throws {
+        let OperationalFormTable = Table("OperationalForm")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let OFStatus_IDExp = Expression<Int>("OFStatus_ID")
+        try db.run(OperationalFormTable.filter(OFNumberExp == OFNumber).update(OFStatus_IDExp <- OFStatus_ID))
     }
     
     //MARK: Hashable protocal

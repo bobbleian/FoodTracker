@@ -66,12 +66,12 @@ class DataSync {
         }
         
         // Sync Forms from Server
-        //currentOsonoTask.insertOsonoTask(loadOFListTask)
-        //loadOFListTask.insertOsonoTask(loadDateTimeUTCTask)
-        //loadDateTimeUTCTask.insertOsonoTask(saveAssetSoftwareInfoTask)
+        currentOsonoTask.insertOsonoTask(loadOFListTask)
+        loadOFListTask.insertOsonoTask(loadDateTimeUTCTask)
+        loadDateTimeUTCTask.insertOsonoTask(saveAssetSoftwareInfoTask)
         
         // TESTING ONLY
-        currentOsonoTask.insertOsonoTask(saveAssetSoftwareInfoTask)
+        //currentOsonoTask.insertOsonoTask(saveAssetSoftwareInfoTask)
         
         // Run the Osono Task Chain
         loadAssetSoftwareInfoTask.RunTask()

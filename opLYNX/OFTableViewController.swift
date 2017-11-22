@@ -146,13 +146,13 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         
         switch operationalForm.OFStatus_ID {
         // Created
-        case 1:
+        case OperationalForm.OF_STATUS_CREATED:
             cell.labelContainerView.backgroundColor  = OFTableViewController.OF_STATUS_CREATED_COLOR
-        // Completed
-        case 2:
+        // Complete
+        case OperationalForm.OF_STATUS_COMPLETE:
             cell.labelContainerView.backgroundColor = OFTableViewController.OF_STATUS_COMPLETE_COLOR
         // InProgress
-        case 6:
+        case OperationalForm.OF_STATUS_INPROGRESS:
             cell.labelContainerView.backgroundColor  = OFTableViewController.OF_STATUS_INPROGRESS_COLOR
         // Default
         default:
@@ -263,6 +263,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
                             }
                             try OperationalForm.updateOFDirty(db: Database.DB(), OFNumber: operationalForm.OFNumber, Dirty: true)
                             operationalForm.Dirty = true
+                            
                             tableView.reloadRows(at: [selectedIndexPath], with: .none)
                         }
                         catch {

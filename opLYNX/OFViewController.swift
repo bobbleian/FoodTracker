@@ -146,6 +146,26 @@ class OFViewController: UIViewController, UINavigationControllerDelegate {
         }
     }
     
+    @IBAction func saveOperationalForm(_ sender: UIBarButtonItem) {
+        // Update Form status
+        // Ask user if they want the status to be set to Complete (TODO: ONLY if all mandatory fields are complete)
+        if let operationalForm = operationalForm {
+            let alert = UIAlertController(title: "Form Status", message: "Would you like to mark this operational form as COMPLETE?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: { action -> Void in
+                operationalForm.OFStatus_ID = OperationalForm.OF_STATUS_INPROGRESS
+                try? OperationalForm.updateOFStatus(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFStatus_ID: OperationalForm.OF_STATUS_INPROGRESS)
+                self.performSegue(withIdentifier: "Save", sender: self)
+            }))
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action -> Void in
+                operationalForm.OFStatus_ID = OperationalForm.OF_STATUS_COMPLETE
+                try? OperationalForm.updateOFStatus(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFStatus_ID: OperationalForm.OF_STATUS_COMPLETE)
+                self.performSegue(withIdentifier: "Save", sender: self)
+            }))
+            present(alert, animated: true, completion: nil)
+            
+        }
+ 
+    }
     
 }
 
