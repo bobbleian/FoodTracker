@@ -296,6 +296,13 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="⟳" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5KB-YV-Tn8">
+                                                    <rect key="frame" x="8" y="8" width="19" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
@@ -325,6 +332,7 @@
                                 </tableViewCellContentView>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
+                                    <outlet property="dirtyLabel" destination="5KB-YV-Tn8" id="mo2-lB-zxo"/>
                                     <outlet property="dueDateLabel" destination="V6V-x7-VUc" id="qDJ-0C-SnN"/>
                                     <outlet property="key1Label" destination="EIh-Zw-7of" id="R9R-E5-DTp"/>
                                     <outlet property="key2Label" destination="eb2-tb-h3y" id="rmd-cq-pyX"/>
@@ -348,7 +356,7 @@
                                     <action selector="refreshOperationalForms:" destination="za0-Bn-h15" id="ZIf-xX-d3e"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Nearby" id="4wH-yQ-xKT">
+                            <barButtonItem title="⚑" id="4wH-yQ-xKT">
                                 <connections>
                                     <action selector="toggleFilterByGPS:" destination="za0-Bn-h15" id="xP3-Kp-cjc"/>
                                 </connections>
@@ -356,12 +364,12 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="gpsBarButton" destination="4wH-yQ-xKT" id="XWE-Zg-YQI"/>
+                        <outlet property="nearbyButton" destination="4wH-yQ-xKT" id="XWE-Zg-YQI"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V2R-co-TLS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="174" y="-333"/>
+            <point key="canvasLocation" x="173.59999999999999" y="-333.28335832083962"/>
         </scene>
         <!--D13 Form-->
         <scene sceneID="tne-QT-ifu">

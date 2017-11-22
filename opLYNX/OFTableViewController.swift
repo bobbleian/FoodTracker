@@ -28,7 +28,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     static let NEARBY_DISTANCE_THRESHOLD = 250.0
     
     //MARK: Outlets
-    @IBOutlet weak var gpsBarButton: UIBarButtonItem!
+    @IBOutlet weak var nearbyButton: UIBarButtonItem!
     
     //MARK: Properties
     private static let mercury = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
@@ -77,7 +77,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         }
         
         // For now, Nearby Mode is disabled unless user turns it on
-        gpsBarButton.tintColor = UIColor.red
+        nearbyButton.tintColor = UIColor.red
         
     }
 
@@ -137,6 +137,8 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         cell.key3Label.text = operationalForm.key3
         
         cell.typeLabel.text = OFType.GetDisplayNameFromID(OLType_ID: operationalForm.OFType_ID)
+        
+        cell.dirtyLabel.isHidden = !operationalForm.Dirty
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd, yyyy"
@@ -214,12 +216,12 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         if CLLocationManager.locationServicesEnabled() {
             if filterMode == FilterMode.All {
                 filterMode = .Nearby
-                gpsBarButton.tintColor = UIColor.green
+                nearbyButton.tintColor = UIColor.green
                 locationManager.startUpdatingLocation()
             }
             else {
                 filterMode = .All
-                gpsBarButton.tintColor = UIColor.red
+                nearbyButton.tintColor = UIColor.red
                 nearbyOperationalForms.removeAll()
                 locationManager.stopUpdatingLocation()
             }
@@ -227,7 +229,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         }
         else if filterMode == .Nearby {
             filterMode = .All
-            gpsBarButton.tintColor = UIColor.red
+            nearbyButton.tintColor = UIColor.red
             nearbyOperationalForms.removeAll()
             tableView.reloadData()
         }
@@ -260,6 +262,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
                                 }
                             }
                             try OperationalForm.updateOFDirty(db: Database.DB(), OFNumber: operationalForm.OFNumber, Dirty: true)
+                            operationalForm.Dirty = true
                             tableView.reloadRows(at: [selectedIndexPath], with: .none)
                         }
                         catch {

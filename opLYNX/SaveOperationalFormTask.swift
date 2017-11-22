@@ -17,17 +17,17 @@ class SaveOperationalFormTask: OPLYNXUserServerTask {
     init(_ operationalForm: OperationalForm, viewController: UIViewController?) {
         super.init(module: "of", method: "save", httpMethod: "POST")
         setDataPayload(dataPayload: operationalForm.convertToOsono())
-        taskDelegate = SaveOperationalFormHandler(operationalForm.OFNumber, viewController: viewController)
+        taskDelegate = SaveOperationalFormHandler(operationalForm, viewController: viewController)
     }
     
     // Save SaveOperationalForm Handler
     class SaveOperationalFormHandler: OPLYNXServerTaskDelegate {
         
-        private let OFNumber: String
+        private let operationalForm: OperationalForm
         
         //MARK: Initializers
-        init(_ OFNumber: String, viewController: UIViewController?) {
-            self.OFNumber = OFNumber
+        init(_ operationalForm: OperationalForm, viewController: UIViewController?) {
+            self.operationalForm = operationalForm
             super.init(taskTitle: "Uploading Operational Form", viewController: viewController)
         }
         
@@ -43,7 +43,16 @@ class SaveOperationalFormTask: OPLYNXUserServerTask {
         
         // Update Dirty status of Form to false
         override func success() {
-            try? OperationalForm.updateOFDirty(db: Database.DB(), OFNumber: OFNumber, Dirty: false)
+            try? OperationalForm.updateOFDirty(db: Database.DB(), OFNumber: operationalForm.OFNumber, Dirty: false)
+            operationalForm.Dirty = false;
+            
+            // Refresh the Operational Form List if this is being called from an OFTableViewController
+            if let ofTableViewController = viewController as? OFTableViewController {
+                ofTableViewController.loadAllOperationalForms()
+                DispatchQueue.main.async {
+                    ofTableViewController.tableView?.reloadData()
+                }
+            }
         }
     }
     
