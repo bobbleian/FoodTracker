@@ -1,0 +1,50 @@
+//
+//  SaveOperationalFormTask.swift
+//  opLYNX
+//
+//  Created by Ian Campbell on 2017-11-21.
+//  Copyright © 2017 CIS. All rights reserved.
+//
+
+import Foundation
+
+import UIKit
+import os.log
+
+class SaveOperationalFormTask: OPLYNXUserServerTask {
+    
+    //MARK: Initializer
+    init(_ operationalForm: OperationalForm, viewController: UIViewController?) {
+        super.init(module: "of", method: "save", httpMethod: "POST")
+        setDataPayload(dataPayload: operationalForm.convertToOsono())
+        taskDelegate = SaveOperationalFormHandler(operationalForm.OFNumber, viewController: viewController)
+    }
+    
+    // Save SaveOperationalForm Handler
+    class SaveOperationalFormHandler: OPLYNXServerTaskDelegate {
+        
+        private let OFNumber: String
+        
+        //MARK: Initializers
+        init(_ OFNumber: String, viewController: UIViewController?) {
+            self.OFNumber = OFNumber
+            super.init(taskTitle: "Uploading Operational Form", viewController: viewController)
+        }
+        
+        //MARK: OsonoTaskDelegate Protocol
+        override func processData(data: Any) throws {
+            if let data = data as? Bool {
+                // Unable to parse server data
+                if !data {
+                    throw OsonoError.Message("Error Saving Form to Server")
+                }
+            }
+        }
+        
+        // Update Dirty status of Form to false
+        override func success() {
+            try? OperationalForm.updateOFDirty(db: Database.DB(), OFNumber: OFNumber, Dirty: false)
+        }
+    }
+    
+}

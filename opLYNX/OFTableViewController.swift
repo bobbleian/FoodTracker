@@ -259,7 +259,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
                                     try ofElementData.insertOrUpdatepdateOFElementValue(db: Database.DB())
                                 }
                             }
-                            try OperationalForm.updateOFDirty(db: Database.DB(), OFNumber: operationalForm.OFNumber)
+                            try OperationalForm.updateOFDirty(db: Database.DB(), OFNumber: operationalForm.OFNumber, Dirty: true)
                             tableView.reloadRows(at: [selectedIndexPath], with: .none)
                         }
                         catch {

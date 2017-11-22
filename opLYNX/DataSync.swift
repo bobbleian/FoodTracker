@@ -30,7 +30,21 @@ class DataSync {
         // Save Dirty Media
         
         // Save Dirty Operational Forms
-        
+        var saveOperationalFormTasks = [SaveOperationalFormTask]()
+        do {
+            let dirtyOperationalForms = try OperationalForm.loadDirtyOperationalFormsFromDB(db: Database.DB())
+            for operationalForm in dirtyOperationalForms {
+                try operationalForm.ElementData = OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: operationalForm.OFNumber)
+                try operationalForm.LinkRun = OFLinkRun.loadOFLinkRuns(db: Database.DB(), OFNumber: operationalForm.OFNumber)
+                try operationalForm.LinkUser = OFLinkUser.loadOFLinkUsers(db: Database.DB(), OFNumber: operationalForm.OFNumber)
+                try operationalForm.LinkOperationalForm = OFLinkOperationalForm.loadOFLinkOperationalForms(db: Database.DB(), OFNumber: operationalForm.OFNumber)
+                try operationalForm.LinkMedia = OFLinkMedia.loadOFLinkMedia(db: Database.DB(), OFNumber: operationalForm.OFNumber)
+            }
+            saveOperationalFormTasks = dirtyOperationalForms.map { SaveOperationalFormTask($0, viewController: viewController) }
+        }
+        catch {
+            // TODO log error
+        }
         
         // Load Operational Form List by Start Date
         let loadOFListTask = LoadFormListTask(viewController: viewController)
@@ -43,9 +57,21 @@ class DataSync {
         
         // Chain the Data Sync tasks together
         loadAssetSoftwareInfoTask.insertOsonoTask(registerUserTask)
-        registerUserTask.insertOsonoTask(loadOFListTask)
-        loadOFListTask.insertOsonoTask(loadDateTimeUTCTask)
-        loadDateTimeUTCTask.insertOsonoTask(saveAssetSoftwareInfoTask)
+        
+        // Upload Dirty Forms
+        var currentOsonoTask: OsonoServerTask = registerUserTask
+        for saveOperationalFormTask in saveOperationalFormTasks {
+            currentOsonoTask.insertOsonoTask(saveOperationalFormTask)
+            currentOsonoTask = saveOperationalFormTask
+        }
+        
+        // Sync Forms from Server
+        //currentOsonoTask.insertOsonoTask(loadOFListTask)
+        //loadOFListTask.insertOsonoTask(loadDateTimeUTCTask)
+        //loadDateTimeUTCTask.insertOsonoTask(saveAssetSoftwareInfoTask)
+        
+        // TESTING ONLY
+        currentOsonoTask.insertOsonoTask(saveAssetSoftwareInfoTask)
         
         // Run the Osono Task Chain
         loadAssetSoftwareInfoTask.RunTask()

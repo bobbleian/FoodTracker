@@ -51,6 +51,22 @@ class OFElementData {
         return ""
     }
     
+    // Load all OF Element values for a Form
+    public static func loadOFElementValue(db: Connection, OFNumber: String) throws -> [OFElementData] {
+        var result = [OFElementData]()
+        let OFElementDataTable = Table("OFElementData")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let OFElement_IDExp = Expression<Int>("OFElement_ID")
+        let ValueExp = Expression<String>("Value")
+        
+        for row in try db.prepare(OFElementDataTable.filter(OFNumberExp == OFNumber)) {
+            if let ofElementData = OFElementData(OFNumber: OFNumber, OFElement_ID: row[OFElement_IDExp], Value: row[ValueExp]) {
+                result.append(ofElementData)
+            }
+        }
+        return result
+    }
+    
     public func insertOrUpdatepdateOFElementValue(db: Connection) throws {
         let OFElementDataTable = Table("OFElementData")
         let OFNumberExp = Expression<String>("OFNumber")
@@ -72,6 +88,14 @@ class OFElementData {
         
         // Attempt to insert the record
         try db.run(OFElementDataTable.insert(OFNumberExp <- OFNumber, OFElement_IDExp <- Int64(OFElement_ID), ValueExp <- Value))
+    }
+    
+    //MARK: Osono Data Interface
+    public func convertToOsono() -> [String: Any] {
+        var result = [String: Any]()
+        result["e"] = String(OFElement_ID)
+        result["v"] = Value
+        return result
     }
     
 }

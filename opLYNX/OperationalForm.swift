@@ -30,6 +30,11 @@ class OperationalForm: Hashable {
     var LastUpdate: Date
     var Dirty: Bool
     
+    var ElementData = [OFElementData]()
+    var LinkRun = [OFLinkRun]()
+    var LinkUser = [OFLinkUser]()
+    var LinkOperationalForm = [OFLinkOperationalForm]()
+    var LinkMedia = [OFLinkMedia]()
     
     //MARK: Initialization
     init?(OFNumber: String, Operational_Date: Date, Asset_ID: Int, UniqueOFNumber: Int, OFType_ID: Int, OFStatus_ID: Int, Due_Date: Date, Create_Date: Date, Complete_Date: Date, CreateUser_ID: Int, CompleteUser_ID: Int, Comments: String, LastUpdate: Date, Dirty: Bool) {
@@ -110,7 +115,7 @@ class OperationalForm: Hashable {
                                                    CompleteUser_ID <- self.CompleteUser_ID,
                                                    Comments <- self.Comments,
                                                    LastUpdate <- self.LastUpdate,
-                                                   Dirty <- Dirty))
+                                                   Dirty <- self.Dirty))
         }
     }
     
@@ -148,7 +153,7 @@ class OperationalForm: Hashable {
             CompleteUser_ID <- self.CompleteUser_ID,
             Comments <- self.Comments,
             LastUpdate <- self.LastUpdate,
-            Dirty <- Dirty))
+            Dirty <- self.Dirty))
     }
     
     public static func loadOperationalFormsFromDB(db: Connection) throws -> [OperationalForm] {
@@ -184,8 +189,50 @@ class OperationalForm: Hashable {
                 CompleteUser_ID: operationalFormRecord[CompleteUser_ID],
                 Comments: operationalFormRecord[Comments],
                 LastUpdate: operationalFormRecord[LastUpdate],
-                Dirty: false) {
-                // TODO Dirty: operationalFormRecord[Dirty]) {
+                Dirty: operationalFormRecord[Dirty]) {
+                operationalForms += [operationalForm]
+            }
+            else {
+                // TODO: Error message?
+            }
+        }
+        return operationalForms
+    }
+    
+    public static func loadDirtyOperationalFormsFromDB(db: Connection) throws -> [OperationalForm] {
+        var operationalForms = [OperationalForm]()
+        let OperationalFormTable = Table("OperationalForm")
+        let OFNumber = Expression<String>("OFNumber")
+        let Operational_Date = Expression<Date>("Operational_Date")
+        let Asset_ID = Expression<Int>("Asset_ID")
+        let UniqueOFNumber = Expression<Int>("UniqueOFNumber")
+        let OFType_ID = Expression<Int>("OFType_ID")
+        let OFStatus_ID = Expression<Int>("OFStatus_ID")
+        let Due_Date = Expression<Date>("Due_Date")
+        let Create_Date = Expression<Date>("Create_Date")
+        let Complete_Date = Expression<Date>("Complete_Date")
+        let CreateUser_ID = Expression<Int>("CreateUser_ID")
+        let CompleteUser_ID = Expression<Int>("CompleteUser_ID")
+        let Comments = Expression<String>("Comments")
+        let LastUpdate = Expression<Date>("LastUpdate")
+        let Dirty = Expression<Bool>("Dirty")
+        
+        for operationalFormRecord in try db.prepare(OperationalFormTable.filter(Dirty == true)) {
+            if let operationalForm = OperationalForm(
+                OFNumber: operationalFormRecord[OFNumber],
+                Operational_Date: operationalFormRecord[Operational_Date],
+                Asset_ID: operationalFormRecord[Asset_ID],
+                UniqueOFNumber: operationalFormRecord[UniqueOFNumber],
+                OFType_ID: operationalFormRecord[OFType_ID],
+                OFStatus_ID: operationalFormRecord[OFStatus_ID],
+                Due_Date: operationalFormRecord[Due_Date],
+                Create_Date: operationalFormRecord[Create_Date],
+                Complete_Date: operationalFormRecord[Complete_Date],
+                CreateUser_ID: operationalFormRecord[CreateUser_ID],
+                CompleteUser_ID: operationalFormRecord[CompleteUser_ID],
+                Comments: operationalFormRecord[Comments],
+                LastUpdate: operationalFormRecord[LastUpdate],
+                Dirty: operationalFormRecord[Dirty]) {
                 operationalForms += [operationalForm]
             }
             else {
@@ -237,11 +284,11 @@ class OperationalForm: Hashable {
     }
     
     // Mark Form as DIRTY so it is part of the list of Forms to be sent to the server on a data sync
-    public static func updateOFDirty(db: Connection, OFNumber: String) throws {
+    public static func updateOFDirty(db: Connection, OFNumber: String, Dirty: Bool) throws {
         let OperationalFormTable = Table("OperationalForm")
         let OFNumberExp = Expression<String>("OFNumber")
         let DirtyExp = Expression<Bool>("Dirty")
-        try db.run(OperationalFormTable.filter(OFNumberExp == OFNumber).update(DirtyExp <- true))
+        try db.run(OperationalFormTable.filter(OFNumberExp == OFNumber).update(DirtyExp <- Dirty))
     }
     
     //MARK: Hashable protocal
@@ -252,5 +299,32 @@ class OperationalForm: Hashable {
     static func == (lhs: OperationalForm, rhs: OperationalForm) -> Bool {
         return lhs.OFNumber == rhs.OFNumber
     }
+    
+    
+    //MARK: Osono Data Interface
+    public func convertToOsono() -> [String: Any] {
+        var result = [String: Any]()
+        result["ofn"] = OFNumber
+        result["od"] = Operational_Date.formatJsonDate()
+        result["ai"] = String(Asset_ID)
+        result["uofn"] = UniqueOFNumber
+        result["oti"] = String(OFType_ID)
+        result["osi"] = String(OFStatus_ID)
+        result["dd"] = Due_Date.formatJsonDate()
+        result["cd"] = Create_Date.formatJsonDate()
+        result["cpd"] = Complete_Date.formatJsonDate()
+        result["cui"] = String(CreateUser_ID)
+        result["cpui"] = String(CompleteUser_ID)
+        result["com"] = Comments
+        
+        result["da"] = ElementData.map { $0.convertToOsono() }
+        result["lrl"] = LinkRun.map { $0.convertToOsono() }
+        result["lul"] = LinkUser.map { $0.convertToOsono() }
+        result["lofl"] = LinkOperationalForm.map { $0.convertToOsono() }
+        result["lml"] = LinkMedia.map { $0.convertToOsono() }
+        
+        return result
+    }
+    
     
 }

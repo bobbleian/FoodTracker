@@ -44,4 +44,27 @@ class OFLinkUser {
         try db.run(OFLinkRunTable.insert(OFNumberExp <- OFNumber, OLUser_IDExp <- Int64(OLUser_ID)))
     }
     
+    // Load all OF Link Users for a Form
+    public static func loadOFLinkUsers(db: Connection, OFNumber: String) throws -> [OFLinkUser] {
+        var result = [OFLinkUser]()
+        let OFLinkRunTable = Table("OFLinkUser")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let OLUser_IDExp = Expression<Int>("OLUser_ID")
+        
+        for row in try db.prepare(OFLinkRunTable.filter(OFNumberExp == OFNumber)) {
+            if let ofLinkUser = OFLinkUser(OFNumber: OFNumber, OLUser_ID: row[OLUser_IDExp]) {
+                result.append(ofLinkUser)
+            }
+        }
+        return result
+    }
+    
+    //MARK: Osono Data Interface
+    public func convertToOsono() -> [String: Any] {
+        var result = [String: Any]()
+        result["ofn"] = OFNumber
+        result["oui"] = String(OLUser_ID)
+        return result
+    }
+    
 }

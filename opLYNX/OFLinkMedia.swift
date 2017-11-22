@@ -73,4 +73,32 @@ class OFLinkMedia {
                                            OFElement_IDExp <- Int64(OFElement_ID),
                                            SortOrderExp <- Int64(SortOrder)))
     }
+    
+    // Load all OF Link Runs for a Form
+    public static func loadOFLinkMedia(db: Connection, OFNumber: String) throws -> [OFLinkMedia] {
+        var result = [OFLinkMedia]()
+        let OFLinkMediaTable = Table("OFLinkMedia")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let MediaNumberExp = Expression<String>("MediaNumber")
+        let OFElement_IDExp = Expression<Int>("OFElement_ID")
+        let SortOrderExp = Expression<Int>("SortOrder")
+        
+        for row in try db.prepare(OFLinkMediaTable.filter(OFNumberExp == OFNumber)) {
+            if let ofLinkMedia = OFLinkMedia(OFNumber: OFNumber, MediaNumber: row[MediaNumberExp], OFElement_ID: row[OFElement_IDExp], SortOrder: row[SortOrderExp]) {
+                result.append(ofLinkMedia)
+            }
+        }
+        return result
+    }
+    
+    //MARK: Osono Data Interface
+    public func convertToOsono() -> [String: Any] {
+        var result = [String: Any]()
+        result["ofn"] = OFNumber
+        result["mn"] = MediaNumber
+        result["ofe"] = String(OFElement_ID)
+        result["so"] = String(SortOrder)
+        return result
+    }
+    
 }
