@@ -89,7 +89,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     // Update OperationalForm list from database
     public func loadAllOperationalForms() {
         do {
-            try allOperationalForms = OperationalForm.loadOperationalFormsWithKeysFromDB()
+            try allOperationalForms = OperationalForm.loadOperationalFormsWithKeysFromDB(db: Database.DB())
         }
         catch {
             os_log("Unable to load Operational Forms from database", log: OSLog.default, type: .error)

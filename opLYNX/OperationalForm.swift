@@ -77,7 +77,7 @@ class OperationalForm: Hashable {
     }
     
     //MARK: Utility functions
-    func isFormComplete() -> Bool {
+    func isD13FormComplete() -> Bool {
         for ofElement_ID in OperationalForm.OF_D13_MANDATORY_ELEMENT_IDS {
             guard let elementData = ElementData.first(where: { $0.OFElement_ID == ofElement_ID }), !elementData.Value.isEmpty else {
                 return false
@@ -262,23 +262,23 @@ class OperationalForm: Hashable {
         return operationalForms
     }
     
-    public static func loadOperationalFormsWithKeysFromDB() throws -> [OperationalForm] {
-        let operationalForms = try OperationalForm.loadOperationalFormsFromDB(db: Database.DB())
+    public static func loadOperationalFormsWithKeysFromDB(db: Connection) throws -> [OperationalForm] {
+        let operationalForms = try OperationalForm.loadOperationalFormsFromDB(db: db)
         
         // Load key values from OFElementData table
         for operationalForm in operationalForms {
-            let key1Value = try OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFElement_ID: 148)
+            let key1Value = try OFElementData.loadOFElementValue(db: db, OFNumber: operationalForm.OFNumber, OFElement_ID: 148)
             operationalForm.key1 = key1Value
-            let key2Value = try OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFElement_ID: 149)
+            let key2Value = try OFElementData.loadOFElementValue(db: db, OFNumber: operationalForm.OFNumber, OFElement_ID: 149)
             operationalForm.key2 = key2Value
-            let key3Value = try OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFElement_ID: 150)
+            let key3Value = try OFElementData.loadOFElementValue(db: db, OFNumber: operationalForm.OFNumber, OFElement_ID: 150)
             operationalForm.key3 = key3Value
         }
         return operationalForms
     }
     
     // Returns a list of all locally stored OFNumbers grouped by Operational Date
-    public static func loadOFList(db: Connection) throws -> [Date: [String]] {
+    public static func loadOFListByOperationalDate(db: Connection) throws -> [Date: [String]] {
         var ofList = [Date: [String]]()
         
         let OperationalFormTable = Table("OperationalForm")

@@ -69,7 +69,7 @@ class LoadFormListTask: OPLYNXUserServerTask {
             }
             
             // Get the Local OF List from database
-            guard let LocalOFList = try? OperationalForm.loadOFList(db: Database.DB()) else {
+            guard let LocalOFList = try? OperationalForm.loadOFListByOperationalDate(db: Database.DB()) else {
                 throw OsonoError.Message("Error Loading Local Form Data")
             }
             

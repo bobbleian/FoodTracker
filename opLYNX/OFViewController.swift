@@ -172,7 +172,7 @@ class OFViewController: UIViewController, UINavigationControllerDelegate {
             // Update Form status
             // Ask user if they want the status to be set to Complete (TODO: ONLY if all mandatory fields are complete)
             // Only present option to user if the Form is complete
-            if operationalForm.isFormComplete() {
+            if operationalForm.isD13FormComplete() {
                 let alert = UIAlertController(title: "Form Status", message: "Would you like to mark this operational form as COMPLETE?", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "No", style: .default, handler: { action -> Void in
                     operationalForm.OFStatus_ID = OperationalForm.OF_STATUS_INPROGRESS
