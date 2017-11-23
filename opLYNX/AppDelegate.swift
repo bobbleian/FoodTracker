@@ -12,10 +12,19 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let startingViewControllerID = OsonoServerTask.ASSET_TOKEN.isEmpty ? "AssetRegistration" : "UserLogin"
+        
+        let initialViewController = storyboard.instantiateViewController(withIdentifier: startingViewControllerID)
+        
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
 
@@ -43,4 +52,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
 

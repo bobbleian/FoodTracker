@@ -48,6 +48,19 @@ class LoadAssetTask: OPLYNXAssetServerTask {
                 throw OsonoError.Message("Error Loading Asset Data from Server")
             }
         }
+        
+        // Navigate to User Login screen
+        override func success() {
+            // Navigate to User Login screen
+            if let assetRegistrationViewController = viewController as? AssetRegistrationViewController {
+                DispatchQueue.main.async {
+                    assetRegistrationViewController.performSegue(withIdentifier: "ShowUserLogin", sender: assetRegistrationViewController)
+                }
+            }
+        }
+        
     }
     
 }
+
+
