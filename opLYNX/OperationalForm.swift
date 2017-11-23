@@ -7,6 +7,7 @@
 
 import UIKit
 import SQLite
+import CoreLocation
 
 class OperationalForm: Hashable {
     
@@ -23,6 +24,8 @@ class OperationalForm: Hashable {
     var key1: String = ""
     var key2: String = ""
     var key3: String = ""
+    
+    var formLocation: CLLocation?
     
     //MARK: Official opLYNX Properties
     var OFNumber: String
@@ -273,6 +276,16 @@ class OperationalForm: Hashable {
             operationalForm.key2 = key2Value
             let key3Value = try OFElementData.loadOFElementValue(db: db, OFNumber: operationalForm.OFNumber, OFElement_ID: 150)
             operationalForm.key3 = key3Value
+            
+            // Get the GSP location
+            if let gpsLocation = try? OFElementData.loadOFElementValue(db: db, OFNumber: operationalForm.OFNumber, OFElement_ID: OFElementData.OF_ELEMENT_ID_GPS_LOCATION) {
+                let gpsComponents = gpsLocation.components(separatedBy: ";")
+                if gpsComponents.count >= 2 {
+                    if let gpsLatitude = Double(gpsComponents[0]), let gpsLongitude = Double(gpsComponents[1]) {
+                        operationalForm.formLocation = CLLocation(latitude: gpsLatitude, longitude: gpsLongitude)
+                    }
+                }
+            }
         }
         return operationalForms
     }

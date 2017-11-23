@@ -169,17 +169,10 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
             
             // Update the nearby operational form list
             nearbyOperationalForms = allOperationalForms.filter({( operationalForm: OperationalForm) -> Bool in
-                // Get the GPS location from the form
-                if let gpsLocation = try? OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFElement_ID: OFElementData.OF_ELEMENT_ID_GPS_LOCATION) {
-                    let gpsComponents = gpsLocation.components(separatedBy: ";")
-                    if gpsComponents.count >= 2 {
-                        if let gpsLatitude = Double(gpsComponents[0]), let gpsLongitude = Double(gpsComponents[1]) {
-                            let formLocation = CLLocation(latitude: gpsLatitude, longitude: gpsLongitude)
-                            return formLocation.distance(from: manager.location!) <= OFTableViewController.NEARBY_DISTANCE_THRESHOLD
-                        }
-                    }
+                guard let formLocation = operationalForm.formLocation else {
+                    return false
                 }
-                return false
+                return formLocation.distance(from: manager.location!) <= OFTableViewController.NEARBY_DISTANCE_THRESHOLD
             })
             
             // Update the UI
