@@ -17,8 +17,10 @@ class OperationalForm: Hashable {
     static let OF_STATUS_INPROGRESS = 6
     
     static let OF_D13_MANDATORY_ELEMENT_IDS = [
-        150, 160, 156, 157, 161, 162, 163, 187, 188, 172, 173, 174, 175, 177, 178, 189, 190, 191, 192, 165
+        150, 160, 156, 157, 161, 162, 163, 187, 188, 172, 173, 174, 175, 177, 178, 189, 190, 191, 192, 165,
+        166, 167, 168, 179, 170, 164, 171, 183, 184, 185
     ]
+    public static let OF_D13_GPS_LOCATION_ELEMENT_ID = 201
     
     //MARK: Properties
     var key1: String = ""
@@ -278,7 +280,7 @@ class OperationalForm: Hashable {
             operationalForm.key3 = key3Value
             
             // Get the GSP location
-            if let gpsLocation = try? OFElementData.loadOFElementValue(db: db, OFNumber: operationalForm.OFNumber, OFElement_ID: OFElementData.OF_ELEMENT_ID_GPS_LOCATION) {
+            if let gpsLocation = try? OFElementData.loadOFElementValue(db: db, OFNumber: operationalForm.OFNumber, OFElement_ID: OperationalForm.OF_D13_GPS_LOCATION_ELEMENT_ID) {
                 let gpsComponents = gpsLocation.components(separatedBy: ";")
                 if gpsComponents.count >= 2 {
                     if let gpsLatitude = Double(gpsComponents[0]), let gpsLongitude = Double(gpsComponents[1]) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="XH6-e2-Ros">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ATi-IC-l90">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -610,7 +610,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0z-mQ-uLi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1193" y="985"/>
+            <point key="canvasLocation" x="-855.20000000000005" y="984.55772113943033"/>
         </scene>
         <!--Navigation ControllerA-->
         <scene sceneID="jjA-mv-C0g">
@@ -628,7 +628,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5mG-Cc-d6E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-58" y="1308"/>
+            <point key="canvasLocation" x="280.80000000000001" y="1307.4962518740631"/>
         </scene>
         <!--Navigation ControllerB-->
         <scene sceneID="pzY-pQ-xwM">
@@ -646,7 +646,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ER-eZ-rr6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1638" y="985"/>
+            <point key="canvasLocation" x="1976.8" y="984.55772113943033"/>
         </scene>
         <!--Navigation ControllerC-->
         <scene sceneID="6zM-jD-cp2">
@@ -664,7 +664,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RJd-AQ-PMx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2343" y="812"/>
+            <point key="canvasLocation" x="-855" y="257"/>
         </scene>
         <!--Grid View Controller-->
         <scene sceneID="LFX-7u-sgg">
@@ -1629,7 +1629,7 @@
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Valve Handles Removed"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="Yes;No"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
                                                                 <integer key="value" value="166"/>
@@ -1652,7 +1652,7 @@
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Master Valve Leaks"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
                                                                 <integer key="value" value="167"/>
                                                             </userDefinedRuntimeAttribute>
@@ -1675,7 +1675,7 @@
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Casing Valve Leaks"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
                                                                 <integer key="value" value="168"/>
                                                             </userDefinedRuntimeAttribute>
@@ -1739,7 +1739,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fIg-sB-lq4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3710" y="534"/>
+            <point key="canvasLocation" x="4048.8000000000002" y="533.88305847076469"/>
         </scene>
         <!--Grid View Controller-->
         <scene sceneID="qxh-CP-btl">
@@ -1771,7 +1771,7 @@
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Pressure Rating"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
                                                                 <integer key="value" value="179"/>
                                                             </userDefinedRuntimeAttribute>
@@ -1788,7 +1788,7 @@
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Casing Cathodic Protect."/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
                                                                 <integer key="value" value="170"/>
                                                             </userDefinedRuntimeAttribute>
@@ -1811,7 +1811,7 @@
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Pressure Test Annulus and TBG - 7MPa/10min"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
                                                                 <integer key="value" value="164"/>
                                                             </userDefinedRuntimeAttribute>
@@ -1834,7 +1834,7 @@
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Pressure Test Casing - 7MPa/10min"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
                                                                 <integer key="value" value="171"/>
                                                             </userDefinedRuntimeAttribute>
@@ -1857,7 +1857,7 @@
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="SI Tubing Press (kPa)"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
                                                                 <integer key="value" value="183"/>
                                                             </userDefinedRuntimeAttribute>
@@ -1873,7 +1873,7 @@
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="SI Prod Casing Press (kPa)"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
                                                                 <integer key="value" value="184"/>
                                                             </userDefinedRuntimeAttribute>
@@ -1895,7 +1895,7 @@
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="SI Inter Casing Press (kPa)"/>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
                                                                 <integer key="value" value="185"/>
                                                             </userDefinedRuntimeAttribute>
@@ -1951,7 +1951,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jHS-5Y-kHH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3710" y="1130"/>
+            <point key="canvasLocation" x="4048.8000000000002" y="1129.385307346327"/>
         </scene>
         <!--Data Entry Navigation Controller-->
         <scene sceneID="X6c-6E-bhu">
@@ -2006,6 +2006,152 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W0P-xh-K2x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6446" y="-831"/>
+        </scene>
+        <!--Registration-->
+        <scene sceneID="blo-77-QQL">
+            <objects>
+                <viewController id="fKh-OM-ggh" customClass="LoginViewController" customModule="opLYNX" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gnQ-Ym-O00"/>
+                        <viewControllerLayoutGuide type="bottom" id="Y49-ZY-ueY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4QM-WO-Wsg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mrd-V3-eqO">
+                                <rect key="frame" x="20" y="64" width="335" height="583"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="sxR-FN-NTf">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="401"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="opLYNX" translatesAutoresizingMaskIntoConstraints="NO" id="aYG-p0-jDC">
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="201"/>
+                                            </imageView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rYu-wT-8Hm" userLabel="User Stack View">
+                                                <rect key="frame" x="0.0" y="221" width="335" height="30"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0pv-2g-oik">
+                                                        <rect key="frame" x="0.0" y="0.0" width="162.5" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User Name..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hdl-R4-ex0">
+                                                        <rect key="frame" x="172.5" y="0.0" width="162.5" height="30"/>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" textContentType="username"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MiP-Ef-M6d" userLabel="Password Stack View">
+                                                <rect key="frame" x="0.0" y="271" width="335" height="30"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7C4-Ff-Iio">
+                                                        <rect key="frame" x="0.0" y="0.0" width="162.5" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="admin" borderStyle="roundedRect" placeholder="Password..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i0M-gL-R07">
+                                                        <rect key="frame" x="172.5" y="0.0" width="162.5" height="30"/>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4If-DD-CvJ" userLabel="Run Stack View">
+                                                <rect key="frame" x="0.0" y="321" width="335" height="30"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Run:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c26-AD-1FG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="162.5" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Select Run.." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Huq-Xg-Ddg">
+                                                        <rect key="frame" x="172.5" y="0.0" width="162.5" height="30"/>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
+                                                    </textField>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Xtj-86-jVf" userLabel="Login Stack View">
+                                                <rect key="frame" x="0.0" y="371" width="335" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lt7-D6-yAH">
+                                                        <rect key="frame" x="0.0" y="0.0" width="162.5" height="30"/>
+                                                        <state key="normal" title="Start Run"/>
+                                                        <connections>
+                                                            <action selector="StartRun:" destination="fKh-OM-ggh" eventType="touchUpInside" id="LEd-L1-V6c"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQ1-sT-Jzn">
+                                                        <rect key="frame" x="172.5" y="0.0" width="162.5" height="30"/>
+                                                        <state key="normal" title="Config Sync"/>
+                                                        <connections>
+                                                            <action selector="EndRun:" destination="fKh-OM-ggh" eventType="touchUpInside" id="fQc-7s-HgC"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="sxR-FN-NTf" secondAttribute="trailing" id="EZn-02-9A8"/>
+                                    <constraint firstAttribute="bottom" secondItem="sxR-FN-NTf" secondAttribute="bottom" id="c5J-Jl-VRz"/>
+                                    <constraint firstItem="sxR-FN-NTf" firstAttribute="width" secondItem="Mrd-V3-eqO" secondAttribute="width" id="kex-5U-49v"/>
+                                    <constraint firstItem="sxR-FN-NTf" firstAttribute="top" secondItem="Mrd-V3-eqO" secondAttribute="top" id="rJU-zV-4j9"/>
+                                    <constraint firstItem="sxR-FN-NTf" firstAttribute="leading" secondItem="Mrd-V3-eqO" secondAttribute="leading" id="rbb-6U-sRE"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Mrd-V3-eqO" firstAttribute="leading" secondItem="4QM-WO-Wsg" secondAttribute="leading" constant="20" id="TeX-qm-hdy"/>
+                            <constraint firstItem="aYG-p0-jDC" firstAttribute="centerX" secondItem="4QM-WO-Wsg" secondAttribute="centerX" id="eUy-8T-cLK"/>
+                            <constraint firstItem="MiP-Ef-M6d" firstAttribute="centerX" secondItem="4QM-WO-Wsg" secondAttribute="centerX" id="fah-FH-Q3A"/>
+                            <constraint firstItem="4If-DD-CvJ" firstAttribute="centerX" secondItem="4QM-WO-Wsg" secondAttribute="centerX" id="nMa-ws-2vD"/>
+                            <constraint firstItem="rYu-wT-8Hm" firstAttribute="centerX" secondItem="4QM-WO-Wsg" secondAttribute="centerX" id="qQW-io-kYB"/>
+                            <constraint firstItem="Y49-ZY-ueY" firstAttribute="top" secondItem="Mrd-V3-eqO" secondAttribute="bottom" constant="20" id="v88-Oj-Xy0"/>
+                            <constraint firstItem="Mrd-V3-eqO" firstAttribute="top" secondItem="gnQ-Ym-O00" secondAttribute="bottom" id="wXn-41-DZc"/>
+                            <constraint firstItem="Xtj-86-jVf" firstAttribute="centerX" secondItem="4QM-WO-Wsg" secondAttribute="centerX" id="xs1-dK-zbW"/>
+                            <constraint firstAttribute="trailing" secondItem="Mrd-V3-eqO" secondAttribute="trailing" constant="20" id="zdP-Uz-XUw"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Registration" id="wwG-Zm-LeK"/>
+                    <connections>
+                        <outlet property="passwordTextField" destination="i0M-gL-R07" id="I7P-0t-aOj"/>
+                        <outlet property="runTextField" destination="Huq-Xg-Ddg" id="h61-vd-fv7"/>
+                        <outlet property="scrollView" destination="Mrd-V3-eqO" id="qNB-j8-bdL"/>
+                        <outlet property="userNameTextField" destination="hdl-R4-ex0" id="lVU-m1-3x1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fUj-r9-2LP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1727.2" y="984.55772113943033"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="m83-Dx-VLn">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ATi-IC-l90" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ho5-rC-Cd6">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fKh-OM-ggh" kind="relationship" relationship="rootViewController" id="wUm-Tj-M0U"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sEj-Q9-Doa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1727" y="257"/>
         </scene>
     </scenes>
     <resources>
