@@ -147,24 +147,57 @@ class OFViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     @IBAction func saveOperationalForm(_ sender: UIBarButtonItem) {
-        // Update Form status
-        // Ask user if they want the status to be set to Complete (TODO: ONLY if all mandatory fields are complete)
+            
         if let operationalForm = operationalForm {
-            let alert = UIAlertController(title: "Form Status", message: "Would you like to mark this operational form as COMPLETE?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "No", style: .default, handler: { action -> Void in
+            let entryControls = getEntryControlSubviews()
+            
+            var ofElementDatas = [OFElementData]()
+            do {
+                for entryControl in entryControls {
+                    if let ofElementData = OFElementData(OFNumber: operationalForm.OFNumber, OFElement_ID: entryControl.elementID, Value: entryControl.value) {
+                        try ofElementData.insertOrUpdatepdateOFElementValue(db: Database.DB())
+                        ofElementDatas.append(ofElementData)
+                    }
+                }
+                try OperationalForm.updateOFDirty(db: Database.DB(), OFNumber: operationalForm.OFNumber, Dirty: true)
+                operationalForm.Dirty = true
+            }
+            catch {
+                // TODO: Handle database error
+                os_log("Unable to save Operational Form Data to database OFNumber=%@", log: OSLog.default, type: .error, operationalForm.OFNumber)
+            }
+            
+            operationalForm.ElementData = ofElementDatas
+        
+            // Update Form status
+            // Ask user if they want the status to be set to Complete (TODO: ONLY if all mandatory fields are complete)
+            // Only present option to user if the Form is complete
+            if operationalForm.isFormComplete() {
+                let alert = UIAlertController(title: "Form Status", message: "Would you like to mark this operational form as COMPLETE?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "No", style: .default, handler: { action -> Void in
+                    operationalForm.OFStatus_ID = OperationalForm.OF_STATUS_INPROGRESS
+                    try? OperationalForm.updateOFStatus(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFStatus_ID: OperationalForm.OF_STATUS_INPROGRESS)
+                    self.performSegue(withIdentifier: "Save", sender: self)
+                }))
+                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action -> Void in
+                    // TODO: Set Complete Date?
+                    operationalForm.OFStatus_ID = OperationalForm.OF_STATUS_COMPLETE
+                    try? OperationalForm.updateOFStatus(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFStatus_ID: OperationalForm.OF_STATUS_COMPLETE)
+                    self.performSegue(withIdentifier: "Save", sender: self)
+                }))
+                present(alert, animated: true, completion: nil)
+                return
+            }
+            // If Form is not complete, set status to InProgress
+            else {
                 operationalForm.OFStatus_ID = OperationalForm.OF_STATUS_INPROGRESS
                 try? OperationalForm.updateOFStatus(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFStatus_ID: OperationalForm.OF_STATUS_INPROGRESS)
                 self.performSegue(withIdentifier: "Save", sender: self)
-            }))
-            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action -> Void in
-                // TODO: Set Complete Date?
-                operationalForm.OFStatus_ID = OperationalForm.OF_STATUS_COMPLETE
-                try? OperationalForm.updateOFStatus(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFStatus_ID: OperationalForm.OF_STATUS_COMPLETE)
-                self.performSegue(withIdentifier: "Save", sender: self)
-            }))
-            present(alert, animated: true, completion: nil)
-            
+            }
         }
+        
+        // This should never happen - navigate back as Cancel
+        self.performSegue(withIdentifier: "Cancel", sender: self)
  
     }
     

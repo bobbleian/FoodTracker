@@ -114,7 +114,7 @@ class LoadFormsByLastSyncTask: OPLYNXUserServerTask {
                     ofLinkMedia[operationalForm] = OFLinkMediaArray
                 }
             }
-            /*
+            
             // Insert the Forms into the database
             // Get a Database Connection
             let db = try Database.DB()
@@ -123,14 +123,17 @@ class LoadFormsByLastSyncTask: OPLYNXUserServerTask {
             currentCount = 1
             try db.transaction {
                 for operationalForm in operationalForms {
-                    if let viewController = viewController {
-                        DispatchQueue.main.async {
-                            let dateFormatter = DateFormatter()
-                            dateFormatter.dateFormat = "MMM dd, yyyy"
-                            JustHUD.shared.showInView(view: viewController.view, withHeader: "Saving " + dateFormatter.string(from: self.operationalDate) + " Forms [" + String(self.currentCount) + "/" + String(self.totalCount) + "]", andFooter: nil)
-                            self.currentCount += 1
-                        }
-                    }
+//                    if let viewController = viewController {
+//                        DispatchQueue.main.async {
+//                            let dateFormatter = DateFormatter()
+//                            dateFormatter.dateFormat = "MMM dd, yyyy"
+//                            JustHUD.shared.showInView(view: viewController.view, withHeader: "Saving " + dateFormatter.string(from: self.operationalDate) + " Forms [" + String(self.currentCount) + "/" + String(self.totalCount) + "]", andFooter: nil)
+//                            self.currentCount += 1
+//                        }
+//                    }
+                    
+                    // Delete the local verson of the form
+                    try OperationalForm.deleteOF(db: db, OFNumber: operationalForm.OFNumber)
                     
                     // Save the Operational Form
                     try operationalForm.insertDB(db: db)
@@ -172,7 +175,6 @@ class LoadFormsByLastSyncTask: OPLYNXUserServerTask {
                     
                 }
             }
-            */
             
             // Refresh the Operational Form List if this is being called from an OFTableViewController
             if let ofTableViewController = viewController as? OFTableViewController {

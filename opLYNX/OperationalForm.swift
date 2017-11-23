@@ -15,6 +15,10 @@ class OperationalForm: Hashable {
     static let OF_STATUS_COMPLETE = 2
     static let OF_STATUS_INPROGRESS = 6
     
+    static let OF_D13_MANDATORY_ELEMENT_IDS = [
+        150, 160, 156, 157, 161, 162, 163, 187, 188, 172, 173, 174, 175, 177, 178, 189, 190, 191, 192, 165
+    ]
+    
     //MARK: Properties
     var key1: String = ""
     var key2: String = ""
@@ -70,6 +74,16 @@ class OperationalForm: Hashable {
         self.LastUpdate = LastUpdate
         self.Dirty = Dirty
         
+    }
+    
+    //MARK: Utility functions
+    func isFormComplete() -> Bool {
+        for ofElement_ID in OperationalForm.OF_D13_MANDATORY_ELEMENT_IDS {
+            guard let elementData = ElementData.first(where: { $0.OFElement_ID == ofElement_ID }), !elementData.Value.isEmpty else {
+                return false
+            }
+        }
+        return true
     }
     
     //MARK: Database interface
@@ -180,7 +194,7 @@ class OperationalForm: Hashable {
         let LastUpdate = Expression<Date>("LastUpdate")
         let Dirty = Expression<Bool>("Dirty")
         
-        for operationalFormRecord in try db.prepare(OperationalFormTable) {
+        for operationalFormRecord in try db.prepare(OperationalFormTable.order(Due_Date)) {
             if let operationalForm = OperationalForm(
                 OFNumber: operationalFormRecord[OFNumber],
                 Operational_Date: operationalFormRecord[Operational_Date],

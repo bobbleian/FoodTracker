@@ -204,7 +204,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
             guard let indexPath = tableView.indexPath(for: selectedOFTableViewCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
-            let selectedOperationalForm = operationalForms[indexPath.section]
+            let selectedOperationalForm = isFiltering() ? filteredOperationalForms[indexPath.section] : operationalForms[indexPath.section]
             ofViewController.operationalForm = selectedOperationalForm
         default:
             os_log("Unknown segue identifier", log: OSLog.default, type: .error)
@@ -248,35 +248,13 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     @IBAction func unwindToOFTableView(sender: UIStoryboardSegue) {
         switch (sender.identifier ?? "") {
         case "Save":
-            if let sourceViewController = sender.source as? OFViewController {
-                
-                if let operationalForm = sourceViewController.operationalForm
-                {
-                    let entryControls = sourceViewController.getEntryControlSubviews()
-                    
-                    if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                        do {
-                            for entryControl in entryControls {
-                                if let ofElementData = OFElementData(OFNumber: operationalForm.OFNumber, OFElement_ID: entryControl.elementID, Value: entryControl.value) {
-                                    try ofElementData.insertOrUpdatepdateOFElementValue(db: Database.DB())
-                                }
-                            }
-                            try OperationalForm.updateOFDirty(db: Database.DB(), OFNumber: operationalForm.OFNumber, Dirty: true)
-                            operationalForm.Dirty = true
-                            
-                            tableView.reloadRows(at: [selectedIndexPath], with: .none)
-                        }
-                        catch {
-                            // TODO: Handle database error
-                            os_log("Unable to save Operational Form Data to database OFNumber=%@", log: OSLog.default, type: .error, operationalForm.OFNumber)
-                        }
-                    }
-                }
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                tableView.reloadRows(at: [selectedIndexPath], with: .none)
             }
         case "Cancel":
             os_log("Cancel segue - nothing to do", log: OSLog.default, type: .info)
         default:
-            os_log("Unknown segue identifier", log: OSLog.default, type: .error)
+            os_log("OFTableViewController: Unknown segue identifier", log: OSLog.default, type: .error)
         }
     }
     
