@@ -33,19 +33,12 @@ class PasswordHasher {
         }
         
         // Extract the salt value
-        var salt: Array<UInt8> = Array<UInt8>()
-        for i in saltStart..<saltStart+saltLength {
-            salt.append(base64DecodedDotNetHash[i])
-        }
+        let salt = Array(base64DecodedDotNetHash[saltStart...saltStart+saltLength-1])
         
         // Extract the hashed password value
-        var decodedhash: Array<UInt8> = Array<UInt8>()
-        for i in saltStart+saltLength..<saltStart+saltLength+hashLength {
-            decodedhash.append(base64DecodedDotNetHash[i])
-        }
+        let decodedhash = Array(base64DecodedDotNetHash[saltStart+saltLength...saltStart+saltLength+hashLength-1])
         
         // Generate the equivalent hash of the password passed in, using the extracted salt value
-        var newhashedpassword: Array<UInt8> = Array<UInt8>()
         var hashMatches = true
         do {
             let newhashedpassword = try PKCS5.PBKDF2(password: passwordBytes, salt: salt, iterations: pbkdf2Iterations, keyLength: pbkdf2KeyLength, variant: .sha1).calculate()
