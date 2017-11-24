@@ -58,7 +58,7 @@ class MediaTableViewController: UITableViewController {
         let mediaItem = media[indexPath.row]
         
         cell.mediaCommentsTextView.text = mediaItem.Description
-        cell.mediaImageView.image = mediaItem.ImageContent
+        cell.mediaImageView.image = mediaItem.Content
 
         // Configure the cell...
 
@@ -150,11 +150,10 @@ class MediaTableViewController: UITableViewController {
         
         switch (sender.identifier ?? "") {
         case "Save":
-            if let sourceViewController = sender.source as? MediaViewController {
+            if let sourceViewController = sender.source as? MediaViewController, let image = sourceViewController.mediaImageView.image {
                 
-                let sourceMedia = sourceViewController.media ?? Media(MediaNumber: UUID().uuidString, Description: "", ImageContent: nil)
-                sourceMedia.Description = sourceViewController.mediaCommentsTextView.text
-                sourceMedia.ImageContent = sourceViewController.mediaImageView.image
+                // TODO: Save GPS location
+                let sourceMedia = sourceViewController.media ?? Media(MediaNumber: UUID().uuidString, Media_Date: Date(), Asset_ID: Authorize.ASSET?.Asset_ID ?? 0, UniqueMediaNumber: UUID().uuidString, MediaType_ID: Media.MEDIA_TYPE_ID_PNG, Url: "", Description: sourceViewController.mediaCommentsTextView.text, Create_Date: Date(), CreateUser_ID: Authorize.CURRENT_USER?.OLUser_ID ?? 0, GPSLocation: "", LastUpdate: Date(), Dirty: true, Content: image)
                 
                 if let selectedIndexPath = tableView.indexPathForSelectedRow {
                     do {

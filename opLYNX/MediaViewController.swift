@@ -26,7 +26,7 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
         // Set up views
         if let media = media {
             mediaCommentsTextView.text = media.Description
-            mediaImageView.image = media.ImageContent
+            mediaImageView.image = media.Content
         }
     }
 

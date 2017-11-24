@@ -10,6 +10,7 @@
 		3D0390081FBA0B9A00310B64 /* RegisterUserTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0390071FBA0B9A00310B64 /* RegisterUserTask.swift */; };
 		3D0390111FBAA42900310B64 /* OPLYNXAssetServerTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0390101FBAA42900310B64 /* OPLYNXAssetServerTask.swift */; };
 		3D0390131FBAA4AD00310B64 /* OPLYNXUserServerTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0390121FBAA4AD00310B64 /* OPLYNXUserServerTask.swift */; };
+		3D2E200A1FC8BB7100AE3BF1 /* SaveMediaTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E20091FC8BB7100AE3BF1 /* SaveMediaTask.swift */; };
 		3D5454A11FB7BF6A00212209 /* RegisterAssetTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */; };
 		3D5454AA1FB7C05000212209 /* LoadAssetTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454A91FB7C05000212209 /* LoadAssetTask.swift */; };
 		3D5454AD1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454AC1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift */; };
@@ -177,6 +178,7 @@
 		3D0390071FBA0B9A00310B64 /* RegisterUserTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserTask.swift; sourceTree = "<group>"; };
 		3D0390101FBAA42900310B64 /* OPLYNXAssetServerTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPLYNXAssetServerTask.swift; sourceTree = "<group>"; };
 		3D0390121FBAA4AD00310B64 /* OPLYNXUserServerTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPLYNXUserServerTask.swift; sourceTree = "<group>"; };
+		3D2E20091FC8BB7100AE3BF1 /* SaveMediaTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMediaTask.swift; sourceTree = "<group>"; };
 		3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAssetTask.swift; sourceTree = "<group>"; };
 		3D5454A91FB7C05000212209 /* LoadAssetTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAssetTask.swift; sourceTree = "<group>"; };
 		3D5454AC1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAssetSoftwareInfoTask.swift; sourceTree = "<group>"; };
@@ -413,6 +415,7 @@
 				3DB3D2F21FC64481004EDA09 /* LoadFormsByLastSyncTask.swift */,
 				3DC503411FC345D9000FE350 /* RefreshOFTableViewTask.swift */,
 				3DB3D2F01FC4CD09004EDA09 /* SaveOperationalFormTask.swift */,
+				3D2E20091FC8BB7100AE3BF1 /* SaveMediaTask.swift */,
 			);
 			name = Synchronization;
 			sourceTree = "<group>";
@@ -632,6 +635,7 @@
 				486186801F856D57001C8E4F /* OFLinkRun.swift in Sources */,
 				3DF205EA1FBA022A00217CF8 /* LoadFormListTask.swift in Sources */,
 				483B20D91FABC92A003A411F /* OPLYNXServerTask.swift in Sources */,
+				3D2E200A1FC8BB7100AE3BF1 /* SaveMediaTask.swift in Sources */,
 				48A8710A1F9122A700896352 /* MediaViewController.swift in Sources */,
 				3D5454AD1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift in Sources */,
 				484002861FA11ADA00F8BEAD /* Run.swift in Sources */,

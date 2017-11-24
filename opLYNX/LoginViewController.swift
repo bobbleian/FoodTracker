@@ -112,7 +112,6 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
             return
         }
         
-        
         // Save the user name & run
         do {
             try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_LAST_USER_KEY, Value: userNameTextField.text!)
