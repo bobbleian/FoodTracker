@@ -27,6 +27,14 @@ class DataSync {
         let registerUserTask = RegisterUserTask(Authorize.CURRENT_USER?.UserName ?? "", viewController: viewController)
               
         // Save Dirty Media
+        var saveMediaTasks = [SaveMediaTask]()
+        do {
+            let dirtyPictures = try Media.loadDirtyMediaFromDB(db: Database.DB())
+            saveMediaTasks = dirtyPictures.map { SaveMediaTask($0, viewController: viewController) }
+        }
+        catch {
+            // TODO log error
+        }
         
         // Save Dirty Operational Forms
         var saveOperationalFormTasks = [SaveOperationalFormTask]()
@@ -60,13 +68,18 @@ class DataSync {
         // Chain the Data Sync tasks together
         loadAssetSoftwareInfoTask.insertOsonoTask(registerUserTask)
         
-        // Upload Dirty Forms
+        // Upload Dirty Pictures
         var currentOsonoTask: OsonoServerTask = registerUserTask
+        for saveMediaTask in saveMediaTasks {
+            currentOsonoTask.insertOsonoTask(saveMediaTask)
+            currentOsonoTask = saveMediaTask
+        }
+        
+        // Upload Dirty Forms
         for saveOperationalFormTask in saveOperationalFormTasks {
             currentOsonoTask.insertOsonoTask(saveOperationalFormTask)
             currentOsonoTask = saveOperationalFormTask
         }
-        
         
         // Sync Forms from Server
         currentOsonoTask.insertOsonoTask(loadOFListTask)

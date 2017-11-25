@@ -101,6 +101,50 @@ class Media {
         return media
     }
     
+    public static func loadDirtyMediaFromDB(db: Connection) throws -> [Media] {
+        var media = [Media]()
+        let MediaTable = Table("Media")
+        let MediaNumberExp = Expression<String>("MediaNumber")
+        let Media_DateExp = Expression<Date>("Media_Date")
+        let Asset_IDExp = Expression<Int>("Asset_ID")
+        let UniqueMediaNumberExp = Expression<String?>("UniqueMediaNumber")
+        let MediaType_IDExp = Expression<Int>("MediaType_ID")
+        let UrlEXP = Expression<String>("Url")
+        let DescriptionExp = Expression<String>("Description")
+        let Create_DateExp = Expression<Date>("Create_Date")
+        let CreateUser_IDExp = Expression<Int>("CreateUser_ID")
+        let GPSLocationExp = Expression<String>("GPSLocation")
+        let LastUpdateExp = Expression<Date>("LastUpdate")
+        let DirtyExp = Expression<Bool>("Dirty")
+        let ContentExp = Expression<SQLite.Blob?>("Content")
+        
+        for mediaRecord in try db.prepare(MediaTable.filter(MediaType_IDExp == MEDIA_TYPE_ID_PNG && DirtyExp == true)) {
+                        
+                        // Get the Media
+                        var content: UIImage? = nil
+                        if let contentBlob = mediaRecord[ContentExp] {
+                            content = UIImage(data: Data.fromDatatypeValue(contentBlob))
+                        }
+                        
+                        let mediaItem = Media(MediaNumber: mediaRecord[MediaNumberExp],
+                                              Media_Date: mediaRecord[Media_DateExp],
+                                              Asset_ID: mediaRecord[Asset_IDExp],
+                                              UniqueMediaNumber: mediaRecord[UniqueMediaNumberExp] ?? "",
+                                              MediaType_ID: mediaRecord[MediaType_IDExp],
+                                              Url: mediaRecord[UrlEXP],
+                                              Description: mediaRecord[DescriptionExp],
+                                              Create_Date: mediaRecord[Create_DateExp],
+                                              CreateUser_ID: mediaRecord[CreateUser_IDExp],
+                                              GPSLocation: mediaRecord[GPSLocationExp],
+                                              LastUpdate: mediaRecord[LastUpdateExp],
+                                              Dirty: mediaRecord[DirtyExp],
+                                              Content: content)
+                        
+                        media += [mediaItem]
+        }
+        return media
+    }
+    
     public static func insertMediaToDB(db: Connection, media: Media) throws {
         let MediaTable = Table("Media")
         let MediaNumberExp = Expression<String>("MediaNumber")
@@ -162,7 +206,15 @@ class Media {
         
     }
     
-    // Mark Form as DIRTY so it is part of the list of Forms to be sent to the server on a data sync
+    // Update Media record's MediaNumber
+    public func updateMediaNumber(db: Connection, NewMediaNumber: String) throws {
+        let MediaTable = Table("Media")
+        let MediaNumberExp = Expression<String>("MediaNumber")
+        try db.run(MediaTable.filter(MediaNumberExp == MediaNumber).update(MediaNumberExp <- NewMediaNumber))
+        self.MediaNumber = NewMediaNumber
+    }
+    
+    // Mark Media as DIRTY so it is part of the list of Media to be sent to the server on a data sync
     public func updateMediaDirty(db: Connection, Dirty: Bool) throws {
         let MediaTable = Table("Media")
         let MediaNumberExp = Expression<String>("MediaNumber")
@@ -170,35 +222,6 @@ class Media {
         try db.run(MediaTable.filter(MediaNumberExp == MediaNumber).update(DirtyExp <- Dirty))
         self.Dirty = Dirty
     }
-    
-    /*
-    "ai": 718,
-    "cd": "/Date(1507666680000)/",
-    "contents": "{contents of media file (image/video/document)}"
-    "cui": 2,
-    "des": "Test Description",
-    "gps": "52.999,-109.899",
-    "md": "/Date(1483254000000)/",
-    "mn": "UBBA0RAAH",
-    "mti": 51,
-    "umn": 7,
-    "url": ""
-    
-    var MediaNumber: String
-    var Media_Date: Date
-    var Asset_ID: Int
-    var UniqueMediaNumber: String
-    var MediaType_ID: Int
-    var Url: String
-    var Description: String
-    var Create_Date: Date
-    var CreateUser_ID: Int
-    var GPSLocation: String
-    var LastUpdate: Date
-    var Dirty: Bool
-    var Content: UIImage
-     
-    */
     
     //MARK: Osono Data Interface
     public func convertToOsono() -> [String: Any] {
