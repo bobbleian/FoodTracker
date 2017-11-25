@@ -76,11 +76,13 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         // For now, Nearby Mode is disabled unless user turns it on
         nearbyButton.tintColor = UIColor.red
         
-        // Load Operational Form data from local database
-        self.loadAllOperationalForms()
-    
-        // Update the UI
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            // Load Operational Form data from local database
+            self.loadAllOperationalForms()
+            
+            // Update the UI
+            self.tableView.reloadData()
+        }
 
         
     }

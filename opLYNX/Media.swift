@@ -240,9 +240,12 @@ class Media {
         var result = [String: Any]()
         
         // Image contents
-        var base64Contents: String? = nil
+        var base64Contents: String = ""
         if let content = Content, let data = UIImagePNGRepresentation(content) {
-            base64Contents = data.base64EncodedString()
+            print("Image size=\(data.count/1024)kb")
+            if data.count/1024 < 512 {
+                base64Contents = data.base64EncodedString()
+            }
         }
         
         result["ai"] = String(Asset_ID)
