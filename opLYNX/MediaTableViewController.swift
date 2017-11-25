@@ -148,6 +148,12 @@ class MediaTableViewController: UITableViewController {
     //MARK: Actions
     @IBAction func unwindToMediaTableView(sender: UIStoryboardSegue) {
         
+        // At this point we need to have an OFElement.  If not, return
+        guard let ofElement = ofElement else {
+            // TODO: Log error
+            return
+        }
+        
         switch (sender.identifier ?? "") {
         case "Save":
             if let sourceViewController = sender.source as? MediaViewController, let image = sourceViewController.mediaImageView.image {
@@ -171,8 +177,8 @@ class MediaTableViewController: UITableViewController {
                         try Media.insertMediaToDB(db: Database.DB(), media: sourceMedia)
                         try OFLinkMedia.insertMediaToDB(db: Database.DB(),
                                                         MediaNumber: sourceMedia.MediaNumber,
-                                                        OFNumber: (ofElement?.OFNumber)!,
-                                                        OFElement_ID: (ofElement?.OFElement_ID)!,
+                                                        OFNumber: ofElement.OFNumber,
+                                                        OFElement_ID: ofElement.OFElement_ID,
                                                         SortOrder: media.count)
                         let newIndexPath = IndexPath(row: media.count, section: 0)
                         media.append(sourceMedia)

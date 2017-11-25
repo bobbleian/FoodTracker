@@ -210,8 +210,20 @@ class Media {
     public func updateMediaNumber(db: Connection, NewMediaNumber: String) throws {
         let MediaTable = Table("Media")
         let MediaNumberExp = Expression<String>("MediaNumber")
-        try db.run(MediaTable.filter(MediaNumberExp == MediaNumber).update(MediaNumberExp <- NewMediaNumber))
+        
+        let OFLinkMediaTable = Table("OFLinkMedia")
+        
+        // Update the Media and OFLinkMedia tables in a single transaction
+        try db.transaction {
+            try db.run(MediaTable.filter(MediaNumberExp == MediaNumber).update(MediaNumberExp <- NewMediaNumber))
+            try db.run(OFLinkMediaTable.filter(MediaNumberExp == MediaNumber).update(MediaNumberExp <- NewMediaNumber))
+        }
+        
+        // Update the Media object with the new Media Number
         self.MediaNumber = NewMediaNumber
+        
+        
+        
     }
     
     // Mark Media as DIRTY so it is part of the list of Media to be sent to the server on a data sync
