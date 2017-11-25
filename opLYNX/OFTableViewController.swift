@@ -55,7 +55,6 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         // Seatup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
@@ -77,18 +76,12 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         // For now, Nearby Mode is disabled unless user turns it on
         nearbyButton.tintColor = UIColor.red
         
-        JustHUD.shared.showInView(view: self.view, withHeader: "Operational Forms", andFooter: "Loading...")
-        
-        DispatchQueue.main.async {
-            // Load Operational Form data from local database
-            self.loadAllOperationalForms()
-            
-            // Hide the progress dialog
-            JustHUD.shared.hide()
-            
-            // Update the UI
-            self.tableView.reloadData()
-        }
+        // Load Operational Form data from local database
+        self.loadAllOperationalForms()
+    
+        // Update the UI
+        self.tableView.reloadData()
+
         
     }
 
