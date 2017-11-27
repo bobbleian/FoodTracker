@@ -38,21 +38,7 @@ class DataSync {
         }
         
         // Save Dirty Operational Forms
-        var saveOperationalFormTasks = [SaveOperationalFormTask]()
-        do {
-            let dirtyOperationalForms = try OperationalForm.loadDirtyOperationalFormsFromDB(db: Database.DB())
-            for operationalForm in dirtyOperationalForms {
-                try operationalForm.ElementData = OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: operationalForm.OFNumber)
-                try operationalForm.LinkRun = OFLinkRun.loadOFLinkRuns(db: Database.DB(), OFNumber: operationalForm.OFNumber)
-                try operationalForm.LinkUser = OFLinkUser.loadOFLinkUsers(db: Database.DB(), OFNumber: operationalForm.OFNumber)
-                try operationalForm.LinkOperationalForm = OFLinkOperationalForm.loadOFLinkOperationalForms(db: Database.DB(), OFNumber: operationalForm.OFNumber)
-                try operationalForm.LinkMedia = OFLinkMedia.loadOFLinkMedia(db: Database.DB(), OFNumber: operationalForm.OFNumber)
-            }
-            saveOperationalFormTasks = dirtyOperationalForms.map { SaveOperationalFormTask($0, viewController: viewController) }
-        }
-        catch {
-            // TODO log error
-        }
+        let stageSaveOperationalFormsTask = StageSaveOperationalFormTasks(viewController: viewController)
         
         // Load Operational Form List by Start Date
         let loadOFListTask = LoadFormListTask(viewController: viewController)
@@ -76,14 +62,9 @@ class DataSync {
             currentOsonoTask = saveMediaTask
         }
         
-        // Upload Dirty Forms
-        for saveOperationalFormTask in saveOperationalFormTasks {
-            currentOsonoTask.insertOsonoTask(saveOperationalFormTask)
-            currentOsonoTask = saveOperationalFormTask
-        }
-        
         // Sync Forms from Server
-        currentOsonoTask.insertOsonoTask(loadOFListTask)
+        currentOsonoTask.insertOsonoTask(stageSaveOperationalFormsTask)
+        stageSaveOperationalFormsTask.insertOsonoTask(loadOFListTask)
         loadOFListTask.insertOsonoTask(loadDateTimeUTCTask)
         loadDateTimeUTCTask.insertOsonoTask(loadFormsByLastSync)
         loadFormsByLastSync.insertOsonoTask(saveAssetSoftwareInfoTask)

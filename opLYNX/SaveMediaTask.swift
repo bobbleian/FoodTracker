@@ -34,7 +34,7 @@ class SaveMediaTask: OPLYNXUserServerTask {
         override func processData(data: Any) throws {
             
             // Parse out the returned Media number
-            guard let data = data as? [String:Any], let NewMediaNumber = data["mn"] as? String else {
+            guard let data = data as? [String:Any], let NewMediaNumber = data["mn"] as? String, let NewUniqueMediaNumber = data["umn"] as? Int else {
                 // Unable to parse server data
                 throw OsonoError.Message("Error Saving Media To Server")
             }
@@ -42,8 +42,7 @@ class SaveMediaTask: OPLYNXUserServerTask {
             // Save the Asset record to the database
             do {
                 let db = try Database.DB()
-                try media.updateMediaNumber(db: db, NewMediaNumber: NewMediaNumber)
-                try media.updateMediaDirty(db: db, Dirty: false)
+                try media.updateMediaNumber(db: db, NewMediaNumber: NewMediaNumber, NewUniqueMediaNumber: NewUniqueMediaNumber, NewDirty: false)
             }
             catch {
                 // Unable to save the Asset Token to the database

@@ -7,15 +7,13 @@
 //
 
 import Foundation
-
-import Foundation
 import os.log
 
-class OsonoNoServerTask: OsonoServerTask {
+class OsonoNoServerTask: OPLYNXServerTask {
     
     // Initialize the Osono server task with blank parameters
     init() {
-        super.init(serverIP: "", serverPort: nil, serverMethod: "", application: "", module: nil, method: "", httpMethod: "")
+        super.init(module: nil, method: "NA", httpMethod: "NONE")
     }
     
     // Subclasses provide their own RunTask implementation

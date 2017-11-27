@@ -193,6 +193,7 @@ class Media {
         let DescriptionExp = Expression<String>("Description")
         let ContentExp = Expression<SQLite.Blob?>("Content")
         let MediaType_IDExp = Expression<Int>("MediaType_ID")
+        let DirtyExp = Expression<Bool>("Dirty")
         
         // PNG image
         var contentBlob: Blob? = nil
@@ -200,7 +201,7 @@ class Media {
             contentBlob = pngContent.datatypeValue
         }
         
-        try db.run(MediaTable.filter(MediaNumberExp == media.MediaNumber).update(DescriptionExp <- media.Description, ContentExp <- contentBlob, MediaType_IDExp <- Media.MEDIA_TYPE_ID_PNG))
+        try db.run(MediaTable.filter(MediaNumberExp == media.MediaNumber).update(DescriptionExp <- media.Description, ContentExp <- contentBlob, MediaType_IDExp <- Media.MEDIA_TYPE_ID_PNG, DirtyExp <- true))
     }
     
     public static func deleteMediaFromDB(db: Connection, media: Media) throws {
@@ -212,22 +213,24 @@ class Media {
     }
     
     // Update Media record's MediaNumber
-    public func updateMediaNumber(db: Connection, NewMediaNumber: String) throws {
+    public func updateMediaNumber(db: Connection, NewMediaNumber: String, NewUniqueMediaNumber: Int, NewDirty: Bool) throws {
         let MediaTable = Table("Media")
         let MediaNumberExp = Expression<String>("MediaNumber")
+        let UniqueMediaNumberExp = Expression<Int>("UniqueMediaNumber")
+        let DirtyExp = Expression<Bool>("Dirty")
         
         let OFLinkMediaTable = Table("OFLinkMedia")
         
         // Update the Media and OFLinkMedia tables in a single transaction
-        try db.transaction {
-            try db.run(MediaTable.filter(MediaNumberExp == MediaNumber).update(MediaNumberExp <- NewMediaNumber))
+        //try db.transaction {
+            try db.run(MediaTable.filter(MediaNumberExp == MediaNumber).update(MediaNumberExp <- NewMediaNumber, UniqueMediaNumberExp <- NewUniqueMediaNumber, DirtyExp <- NewDirty))
             try db.run(OFLinkMediaTable.filter(MediaNumberExp == MediaNumber).update(MediaNumberExp <- NewMediaNumber))
-        }
+        //}
         
-        // Update the Media object with the new Media Number
+        // Update the Media object with the new Media Number, etc
         self.MediaNumber = NewMediaNumber
-        
-        
+        self.UniqueMediaNumber = NewUniqueMediaNumber
+        self.Dirty = NewDirty
         
     }
     
