@@ -4,6 +4,11 @@
 //
 //  Created by oplynx developer on 2017-10-04.
 //  Copyright © 2017 CIS. All rights reserved.
+/*
+// TEMP ONLY DELETE ALL MEDIA
+try? Database.DB().execute("DELETE FROM Media")
+try? Database.DB().execute("DELETE FROM OFLinkMedia")
+ */
 //
 
 import UIKit
@@ -19,7 +24,7 @@ class Media {
     var MediaNumber: String
     var Media_Date: Date
     var Asset_ID: Int
-    var UniqueMediaNumber: String
+    var UniqueMediaNumber: Int
     var MediaType_ID: Int
     var Url: String
     var Description: String
@@ -31,7 +36,7 @@ class Media {
     var Content: UIImage?
     
     //MARK: Initialization
-    init(MediaNumber: String, Media_Date: Date, Asset_ID: Int, UniqueMediaNumber: String, MediaType_ID: Int, Url: String, Description: String, Create_Date: Date, CreateUser_ID: Int, GPSLocation: String, LastUpdate: Date, Dirty: Bool, Content: UIImage?) {
+    init(MediaNumber: String, Media_Date: Date, Asset_ID: Int, UniqueMediaNumber: Int, MediaType_ID: Int, Url: String, Description: String, Create_Date: Date, CreateUser_ID: Int, GPSLocation: String, LastUpdate: Date, Dirty: Bool, Content: UIImage?) {
         self.MediaNumber = MediaNumber
         self.Media_Date = Media_Date
         self.Asset_ID = Asset_ID
@@ -55,7 +60,7 @@ class Media {
         let MediaNumberExp = Expression<String>("MediaNumber")
         let Media_DateExp = Expression<Date>("Media_Date")
         let Asset_IDExp = Expression<Int>("Asset_ID")
-        let UniqueMediaNumberExp = Expression<String>("UniqueMediaNumber")
+        let UniqueMediaNumberExp = Expression<Int>("UniqueMediaNumber")
         let MediaType_IDExp = Expression<Int>("MediaType_ID")
         let UrlEXP = Expression<String>("Url")
         let DescriptionExp = Expression<String>("Description")
@@ -107,7 +112,7 @@ class Media {
         let MediaNumberExp = Expression<String>("MediaNumber")
         let Media_DateExp = Expression<Date>("Media_Date")
         let Asset_IDExp = Expression<Int>("Asset_ID")
-        let UniqueMediaNumberExp = Expression<String?>("UniqueMediaNumber")
+        let UniqueMediaNumberExp = Expression<Int>("UniqueMediaNumber")
         let MediaType_IDExp = Expression<Int>("MediaType_ID")
         let UrlEXP = Expression<String>("Url")
         let DescriptionExp = Expression<String>("Description")
@@ -129,7 +134,7 @@ class Media {
                         let mediaItem = Media(MediaNumber: mediaRecord[MediaNumberExp],
                                               Media_Date: mediaRecord[Media_DateExp],
                                               Asset_ID: mediaRecord[Asset_IDExp],
-                                              UniqueMediaNumber: mediaRecord[UniqueMediaNumberExp] ?? "",
+                                              UniqueMediaNumber: mediaRecord[UniqueMediaNumberExp],
                                               MediaType_ID: mediaRecord[MediaType_IDExp],
                                               Url: mediaRecord[UrlEXP],
                                               Description: mediaRecord[DescriptionExp],
@@ -150,7 +155,7 @@ class Media {
         let MediaNumberExp = Expression<String>("MediaNumber")
         let Media_DateExp = Expression<Date>("Media_Date")
         let Asset_IDExp = Expression<Int>("Asset_ID")
-        let UniqueMediaNumberExp = Expression<String>("UniqueMediaNumber")
+        let UniqueMediaNumberExp = Expression<Int>("UniqueMediaNumber")
         let MediaType_IDExp = Expression<Int>("MediaType_ID")
         let UrlEXP = Expression<String>("Url")
         let DescriptionExp = Expression<String>("Description")
@@ -243,9 +248,7 @@ class Media {
         var base64Contents: String = ""
         if let content = Content, let data = UIImagePNGRepresentation(content) {
             print("Image size=\(data.count/1024)kb")
-            if data.count/1024 < 512 {
-                base64Contents = data.base64EncodedString()
-            }
+            base64Contents = data.base64EncodedString()
         }
         
         result["ai"] = String(Asset_ID)
@@ -257,7 +260,7 @@ class Media {
         result["md"] = Media_Date.formatJsonDate()
         result["mn"] = MediaNumber
         result["mti"] = MediaType_ID
-        result["umn"] = UniqueMediaNumber
+        result["umn"] = String(UniqueMediaNumber)
         result["url"] = Url
         
         return result

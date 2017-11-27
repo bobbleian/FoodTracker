@@ -17,6 +17,7 @@ class DataSync {
     
     // Run Data Sync
     static func RunDataSync(viewController: UIViewController?) {
+
         // Create a task for loading asset software info
         guard let loadAssetSoftwareInfoTask = LoadAssetSoftwareInfoTask(viewController: viewController) else {
             // TODO: Error message
