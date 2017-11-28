@@ -2112,12 +2112,12 @@
     </scenes>
     <resources>
         <image name="opLYNX" width="201" height="201"/>
-        <image name="sw" width="729" height="1080"/>
+        <image name="sw" width="480" height="319"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="5Lk-8V-dW5"/>
         <segue reference="1nZ-5k-vem"/>
         <segue reference="c59-hN-h0U"/>
-        <segue reference="juk-KN-9fH"/>
+        <segue reference="1Lh-ZM-H8Y"/>
     </inferredMetricsTieBreakers>
 </document>
