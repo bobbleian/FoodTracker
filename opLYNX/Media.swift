@@ -150,7 +150,7 @@ class Media {
         return media
     }
     
-    public static func insertMediaToDB(db: Connection, media: Media) throws {
+    public func insertMediaToDB(db: Connection) throws {
         let MediaTable = Table("Media")
         let MediaNumberExp = Expression<String>("MediaNumber")
         let Media_DateExp = Expression<Date>("Media_Date")
@@ -168,22 +168,22 @@ class Media {
         
         // PNG image
         var contentBlob: Blob? = nil
-        if let content = media.Content, let pngContent = UIImagePNGRepresentation(content) {
+        if let content = Content, let pngContent = UIImagePNGRepresentation(content) {
             contentBlob = pngContent.datatypeValue
         }
         
-        try db.run(MediaTable.insert(MediaNumberExp <- media.MediaNumber,
-                                     Media_DateExp <- media.Media_Date,
-                                     Asset_IDExp <- media.Asset_ID,
-                                     UniqueMediaNumberExp <- media.UniqueMediaNumber,
-                                     MediaType_IDExp <- MEDIA_TYPE_ID_PNG,
-                                     UrlEXP <- media.Url,
-                                     DescriptionExp <- media.Description,
-                                     Create_DateExp <- media.Create_Date,
-                                     CreateUser_IDExp <- media.CreateUser_ID,
-                                     GPSLocationExp <- media.GPSLocation,
-                                     LastUpdateExp <- media.LastUpdate,
-                                     DirtyExp <- media.Dirty,
+        try db.run(MediaTable.insert(MediaNumberExp <- MediaNumber,
+                                     Media_DateExp <- Media_Date,
+                                     Asset_IDExp <- Asset_ID,
+                                     UniqueMediaNumberExp <- UniqueMediaNumber,
+                                     MediaType_IDExp <- Media.MEDIA_TYPE_ID_PNG,
+                                     UrlEXP <- Url,
+                                     DescriptionExp <- Description,
+                                     Create_DateExp <- Create_Date,
+                                     CreateUser_IDExp <- CreateUser_ID,
+                                     GPSLocationExp <- GPSLocation,
+                                     LastUpdateExp <- LastUpdate,
+                                     DirtyExp <- Dirty,
                                      ContentExp <- contentBlob))
     }
     

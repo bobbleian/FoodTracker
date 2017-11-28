@@ -25,6 +25,7 @@
 		3DB3D2ED1FC354B8004EDA09 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DB3D2E31FC354A4004EDA09 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3DB3D2F11FC4CD09004EDA09 /* SaveOperationalFormTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3D2F01FC4CD09004EDA09 /* SaveOperationalFormTask.swift */; };
 		3DB3D2F31FC64481004EDA09 /* LoadFormsByLastSyncTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3D2F21FC64481004EDA09 /* LoadFormsByLastSyncTask.swift */; };
+		3DB3E8D31FCD2B9800738A22 /* LoadMediaTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3E8D21FCD2B9800738A22 /* LoadMediaTask.swift */; };
 		3DC503401FC34431000FE350 /* OsonoNoServerTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC5033F1FC34431000FE350 /* OsonoNoServerTask.swift */; };
 		3DC503421FC345D9000FE350 /* RefreshOFTableViewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC503411FC345D9000FE350 /* RefreshOFTableViewTask.swift */; };
 		3DF205EA1FBA022A00217CF8 /* LoadFormListTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF205E91FBA022A00217CF8 /* LoadFormListTask.swift */; };
@@ -193,6 +194,7 @@
 		3DB3D2DD1FC354A3004EDA09 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = "../CryptoSwift-master/CryptoSwift.xcodeproj"; sourceTree = "<group>"; };
 		3DB3D2F01FC4CD09004EDA09 /* SaveOperationalFormTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveOperationalFormTask.swift; sourceTree = "<group>"; };
 		3DB3D2F21FC64481004EDA09 /* LoadFormsByLastSyncTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFormsByLastSyncTask.swift; sourceTree = "<group>"; };
+		3DB3E8D21FCD2B9800738A22 /* LoadMediaTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMediaTask.swift; sourceTree = "<group>"; };
 		3DBD55341FC3537500EE86D8 /* CryptoSwift-master */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "CryptoSwift-master"; path = "../CryptoSwift-master"; sourceTree = "<group>"; };
 		3DBD55361FC3539300EE86D8 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = "../CryptoSwift-master/Package.swift"; sourceTree = "<group>"; };
 		3DBD55391FC3541100EE86D8 /* CryptoSwift.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; name = CryptoSwift.xcworkspace; path = "../CryptoSwift-master/CryptoSwift.xcworkspace"; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 				3DB3D2F01FC4CD09004EDA09 /* SaveOperationalFormTask.swift */,
 				3D2E20091FC8BB7100AE3BF1 /* SaveMediaTask.swift */,
 				3D2E20121FCCAF0900AE3BF1 /* StageSaveOperationalFormTasks.swift */,
+				3DB3E8D21FCD2B9800738A22 /* LoadMediaTask.swift */,
 			);
 			name = Synchronization;
 			sourceTree = "<group>";
@@ -659,6 +662,7 @@
 				3D5454B51FB8E62300212209 /* ConfigSyncServerTask.swift in Sources */,
 				484002841F9FAA6900F8BEAD /* OperationalForm.swift in Sources */,
 				3D0390081FBA0B9A00310B64 /* RegisterUserTask.swift in Sources */,
+				3DB3E8D31FCD2B9800738A22 /* LoadMediaTask.swift in Sources */,
 				4857D8A71FA90CF700BFBBA0 /* Authorize.swift in Sources */,
 				4861867A1F855A2A001C8E4F /* OFElementData.swift in Sources */,
 				3D5454A11FB7BF6A00212209 /* RegisterAssetTask.swift in Sources */,

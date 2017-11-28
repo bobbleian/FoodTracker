@@ -91,6 +91,25 @@ class OFLinkMedia {
         return result
     }
     
+    // Load all MediaNumbers for a Form/Element that are not in the Media table
+    public static func loadMissingMediaNumbers(db: Connection, OFNumber: String, OFElement_ID: Int) throws -> [String] {
+        var result = [String]()
+        
+        let OFLinkMediaTable = Table("OFLinkMedia")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let MediaNumberExp = Expression<String>("MediaNumber")
+        let OFElement_IDExp = Expression<Int>("OFElement_ID")
+        let SortOrderExp = Expression<Int>("SortOrder")
+        
+        for row in try db.prepare(OFLinkMediaTable.filter(OFNumberExp == OFNumber)) {
+            if let ofLinkMedia = OFLinkMedia(OFNumber: OFNumber, MediaNumber: row[MediaNumberExp], OFElement_ID: row[OFElement_IDExp], SortOrder: row[SortOrderExp]) {
+                result.append(ofLinkMedia)
+            }
+        }
+        
+        return result
+    }
+    
     //MARK: Osono Data Interface
     public func convertToOsono() -> [String: Any] {
         var result = [String: Any]()

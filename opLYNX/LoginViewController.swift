@@ -138,12 +138,12 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
     
     @IBAction func EndRun(_ sender: UIButton) {
-        //ConfigSync.RunConfigSync(viewController: self)
+        ConfigSync.RunConfigSync(viewController: self)
         
         
         // TEMP ONLY DELETE ALL MEDIA
-        try? Database.DB().execute("DELETE FROM Media")
-        try? Database.DB().execute("DELETE FROM OFLinkMedia")
+        //try? Database.DB().execute("DELETE FROM Media")
+        //try? Database.DB().execute("DELETE FROM OFLinkMedia")
         
     }
     

@@ -19,24 +19,36 @@ class MediaTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Load the media items to display
-        do {
-            if let ofElement = ofElement {
-                media = try Media.loadMediaFromDB(db: Database.DB(), OFNumber: ofElement.OFNumber, OFElement_ID: ofElement.OFElement_ID)
-            }
-            else {
-                media.removeAll()
-            }
-        }
-        catch {
-            os_log("Unable to load media from database", log: OSLog.default, type: .error)
+        
+        
+        DispatchQueue.main.async {
+            // Load Operational Form data from local database
+            self.loadMedia()
+            
+            // Update the UI
+            self.tableView.reloadData()
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func loadMedia() {
+        // Ensure Media data model is empty
+        media.removeAll()
+        
+        // Load the media items to display
+        if let ofElement = ofElement {
+            do {
+                let missingMediaNumbers = try OFLinkMedia.loadMissingMediaNumbers(db: Database.DB(), OFNumber: ofElement.OFNumber, OFElement_ID: ofElement.OFElement_ID)
+                media = try Media.loadMediaFromDB(db: Database.DB(), OFNumber: ofElement.OFNumber, OFElement_ID: ofElement.OFElement_ID)
+            }
+            catch {
+                os_log("Unable to load media from database", log: OSLog.default, type: .error)
+            }
+        }
     }
 
     // MARK: - Table view data source
@@ -174,7 +186,7 @@ class MediaTableViewController: UITableViewController {
                 else {
                     do {
                         // Add a new media image
-                        try Media.insertMediaToDB(db: Database.DB(), media: sourceMedia)
+                        try sourceMedia.insertMediaToDB(db: Database.DB())
                         try OFLinkMedia.insertMediaToDB(db: Database.DB(),
                                                         MediaNumber: sourceMedia.MediaNumber,
                                                         OFNumber: ofElement.OFNumber,
