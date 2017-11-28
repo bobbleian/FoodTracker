@@ -12,6 +12,7 @@
 		3D0390131FBAA4AD00310B64 /* OPLYNXUserServerTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0390121FBAA4AD00310B64 /* OPLYNXUserServerTask.swift */; };
 		3D2E200A1FC8BB7100AE3BF1 /* SaveMediaTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E20091FC8BB7100AE3BF1 /* SaveMediaTask.swift */; };
 		3D2E20131FCCAF0900AE3BF1 /* StageSaveOperationalFormTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E20121FCCAF0900AE3BF1 /* StageSaveOperationalFormTasks.swift */; };
+		3D2E20171FCDE1A300AE3BF1 /* DeleteCleanMediaTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E20161FCDE1A300AE3BF1 /* DeleteCleanMediaTask.swift */; };
 		3D5454A11FB7BF6A00212209 /* RegisterAssetTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */; };
 		3D5454AA1FB7C05000212209 /* LoadAssetTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454A91FB7C05000212209 /* LoadAssetTask.swift */; };
 		3D5454AD1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454AC1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift */; };
@@ -182,6 +183,7 @@
 		3D0390121FBAA4AD00310B64 /* OPLYNXUserServerTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPLYNXUserServerTask.swift; sourceTree = "<group>"; };
 		3D2E20091FC8BB7100AE3BF1 /* SaveMediaTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMediaTask.swift; sourceTree = "<group>"; };
 		3D2E20121FCCAF0900AE3BF1 /* StageSaveOperationalFormTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageSaveOperationalFormTasks.swift; sourceTree = "<group>"; };
+		3D2E20161FCDE1A300AE3BF1 /* DeleteCleanMediaTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCleanMediaTask.swift; sourceTree = "<group>"; };
 		3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAssetTask.swift; sourceTree = "<group>"; };
 		3D5454A91FB7C05000212209 /* LoadAssetTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAssetTask.swift; sourceTree = "<group>"; };
 		3D5454AC1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAssetSoftwareInfoTask.swift; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 				3DC503411FC345D9000FE350 /* RefreshOFTableViewTask.swift */,
 				3DB3D2F01FC4CD09004EDA09 /* SaveOperationalFormTask.swift */,
 				3D2E20091FC8BB7100AE3BF1 /* SaveMediaTask.swift */,
+				3D2E20161FCDE1A300AE3BF1 /* DeleteCleanMediaTask.swift */,
 				3D2E20121FCCAF0900AE3BF1 /* StageSaveOperationalFormTasks.swift */,
 				3DB3E8D21FCD2B9800738A22 /* LoadMediaTask.swift */,
 			);
@@ -672,6 +675,7 @@
 				483B20D51FABA4AF003A411F /* JustHUD.swift in Sources */,
 				487CDF741FBB985700218846 /* LoadFormsByDateTask.swift in Sources */,
 				4861867C1F855F6E001C8E4F /* OFLinkMedia.swift in Sources */,
+				3D2E20171FCDE1A300AE3BF1 /* DeleteCleanMediaTask.swift in Sources */,
 				3D2E20131FCCAF0900AE3BF1 /* StageSaveOperationalFormTasks.swift in Sources */,
 				486186841F8572A6001C8E4F /* OLUser.swift in Sources */,
 				486186861F86DE4F001C8E4F /* OFType.swift in Sources */,

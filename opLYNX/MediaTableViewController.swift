@@ -14,6 +14,7 @@ class MediaTableViewController: UITableViewController {
 
     //MARK: Properties
     private var media = [Media]()
+    private var ofLinkMedia = [OFLinkMedia]()
     
     var ofElement: OFElementData?
     
@@ -27,6 +28,25 @@ class MediaTableViewController: UITableViewController {
             
             // Update the UI
             self.tableView.reloadData()
+            
+            // Build Osono tasks for loading any missing media
+            var firstLoadMediaTask: LoadMediaTask? = nil
+            var currentLoadMediaTask: LoadMediaTask? = nil
+            
+            for ofLinkMediaItem in self.ofLinkMedia {
+                if self.media.first(where: { $0.MediaNumber == ofLinkMediaItem.MediaNumber }) == nil {
+                    let nextLoadMediaTask = LoadMediaTask(ofLinkMediaItem.MediaNumber, mediaTableViewController: self)
+                    if firstLoadMediaTask == nil {
+                        firstLoadMediaTask = nextLoadMediaTask
+                        currentLoadMediaTask = nextLoadMediaTask
+                    }
+                    else {
+                        currentLoadMediaTask?.insertOsonoTask(nextLoadMediaTask)
+                        currentLoadMediaTask = nextLoadMediaTask
+                    }
+                }
+            }
+            firstLoadMediaTask?.RunTask()
         }
     }
 
@@ -38,17 +58,22 @@ class MediaTableViewController: UITableViewController {
     func loadMedia() {
         // Ensure Media data model is empty
         media.removeAll()
+        ofLinkMedia.removeAll()
         
         // Load the media items to display
         if let ofElement = ofElement {
             do {
-                let missingMediaNumbers = try OFLinkMedia.loadMissingMediaNumbers(db: Database.DB(), OFNumber: ofElement.OFNumber, OFElement_ID: ofElement.OFElement_ID)
+                ofLinkMedia = try OFLinkMedia.loadOFLinkMedia(db: Database.DB(), OFNumber: ofElement.OFNumber)
                 media = try Media.loadMediaFromDB(db: Database.DB(), OFNumber: ofElement.OFNumber, OFElement_ID: ofElement.OFElement_ID)
             }
             catch {
                 os_log("Unable to load media from database", log: OSLog.default, type: .error)
             }
         }
+    }
+    
+    func appendMedia(_ mediaItem: Media) {
+        media.append(mediaItem)
     }
 
     // MARK: - Table view data source
@@ -58,7 +83,7 @@ class MediaTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return media.count
+        return ofLinkMedia.count
     }
 
     
@@ -67,21 +92,34 @@ class MediaTableViewController: UITableViewController {
             fatalError("Dequeued cell is not MediaTableViewCell")
         }
         
-        let mediaItem = media[indexPath.row]
+        let ofLinkMediaItem = ofLinkMedia[indexPath.row]
+        let mediaItem = media.first(where: { $0.MediaNumber == ofLinkMediaItem.MediaNumber } )
         
-        cell.mediaCommentsTextView.text = mediaItem.Description
-        cell.mediaImageView.image = mediaItem.Content
+        if let mediaItem = mediaItem {
+            cell.mediaCommentsTextView.text = mediaItem.Description
+            cell.mediaImageView.image = mediaItem.Content
+        }
+        else {
+            cell.mediaCommentsTextView.text = "Unable to download image..."
+            cell.mediaImageView.image = UIImage(named: "noimage")
+        }
 
         // Configure the cell...
 
         return cell
     }
     
-
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        let ofLinkMediaItem = ofLinkMedia[indexPath.row]
+        guard media.first(where: { $0.MediaNumber == ofLinkMediaItem.MediaNumber }) != nil else {
+            return nil
+        }
+        return indexPath
+    }
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
+        // Return false if you do not want the specified item to be editable
         return true
     }
     
@@ -93,14 +131,16 @@ class MediaTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let sourceMedia = media[indexPath.row]
+            let ofLinkMediaItem = ofLinkMedia[indexPath.row]
             
             do {
-                // delete media record from local database
-                try Media.deleteMediaFromDB(db: Database.DB(), media: sourceMedia)
+                // TODO: delete media record from local database
+                
+                // Delete the OFLinkMedia records from the local database
+                try ofLinkMediaItem.deleteFromDB(db: Database.DB())
                 
                 // Delete the row from the data source
-                media.remove(at: indexPath.row)
+                ofLinkMedia.remove(at: indexPath.row)
                 
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
@@ -148,8 +188,8 @@ class MediaTableViewController: UITableViewController {
             guard let indexPath = tableView.indexPath(for: selectedMediaTableViewCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
-            let mediaIndex = indexPath.row
-            let selectedMedia = media[mediaIndex]
+            let ofLinkMediaItem = ofLinkMedia[indexPath.row]
+            let selectedMedia = media.first(where: { $0.MediaNumber == ofLinkMediaItem.MediaNumber } )
             mediaDetailViewController.media = selectedMedia
  
         default:
@@ -168,31 +208,36 @@ class MediaTableViewController: UITableViewController {
         
         switch (sender.identifier ?? "") {
         case "Save":
-            if let sourceViewController = sender.source as? MediaViewController, let image = sourceViewController.mediaImageView.image {
+            if let sourceViewController = sender.source as? MediaViewController, let image = sourceViewController.mediaImageView.image, let description = sourceViewController.mediaCommentsTextView.text {
                 
                 // TODO: Save GPS location
-                let sourceMedia = sourceViewController.media ?? Media(MediaNumber: UUID().uuidString, Media_Date: Date(), Asset_ID: Authorize.ASSET?.Asset_ID ?? 0, UniqueMediaNumber: 0, MediaType_ID: Media.MEDIA_TYPE_ID_PNG, Url: "", Description: sourceViewController.mediaCommentsTextView.text, Create_Date: Date(), CreateUser_ID: Authorize.CURRENT_USER?.OLUser_ID ?? 0, GPSLocation: "", LastUpdate: Date(), Dirty: true, Content: image)
                 
-                if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                if let selectedIndexPath = tableView.indexPathForSelectedRow, let sourceMedia = sourceViewController.media {
+                    // Update the source media description & image
+                    sourceMedia.Description = description
+                    sourceMedia.Content = image
                     do {
                         try Media.updateMediaToDB(db: Database.DB(), media: sourceMedia)
-                        self.media[selectedIndexPath.row] = sourceMedia
+                        if let mediaIndex = media.index(where: { $0.MediaNumber == sourceMedia.MediaNumber}) {
+                            media.insert(sourceMedia, at: mediaIndex)
+                        }
+                        else {
+                            media.append(sourceMedia)
+                        }
                         tableView.reloadRows(at: [selectedIndexPath], with: .none)
                     }
                     catch {
                         fatalError("Unable to update media to the database")
                     }
                 }
-                else {
+                else if let ofLinkMediaItem = OFLinkMedia(OFNumber: ofElement.OFNumber, MediaNumber: UUID().uuidString, OFElement_ID: ofElement.OFElement_ID, SortOrder: ofLinkMedia.count) {
+                    let sourceMedia = Media(MediaNumber: ofLinkMediaItem.MediaNumber, Media_Date: Date(), Asset_ID: Authorize.ASSET?.Asset_ID ?? 0, UniqueMediaNumber: 0, MediaType_ID: Media.MEDIA_TYPE_ID_PNG, Url: "", Description: description, Create_Date: Date(), CreateUser_ID: Authorize.CURRENT_USER?.OLUser_ID ?? 0, GPSLocation: "", LastUpdate: Date(), Dirty: true, Content: image)
                     do {
                         // Add a new media image
                         try sourceMedia.insertMediaToDB(db: Database.DB())
-                        try OFLinkMedia.insertMediaToDB(db: Database.DB(),
-                                                        MediaNumber: sourceMedia.MediaNumber,
-                                                        OFNumber: ofElement.OFNumber,
-                                                        OFElement_ID: ofElement.OFElement_ID,
-                                                        SortOrder: media.count)
-                        let newIndexPath = IndexPath(row: media.count, section: 0)
+                        try ofLinkMediaItem.insertMediaToDB(db: Database.DB())
+                        let newIndexPath = IndexPath(row: ofLinkMedia.count, section: 0)
+                        ofLinkMedia.append(ofLinkMediaItem)
                         media.append(sourceMedia)
                         tableView.insertRows(at: [newIndexPath], with: .automatic)
                     }

@@ -83,7 +83,7 @@ class OFLinkMedia {
         let OFElement_IDExp = Expression<Int>("OFElement_ID")
         let SortOrderExp = Expression<Int>("SortOrder")
         
-        for row in try db.prepare(OFLinkMediaTable.filter(OFNumberExp == OFNumber)) {
+        for row in try db.prepare(OFLinkMediaTable.filter(OFNumberExp == OFNumber).order(SortOrderExp)) {
             if let ofLinkMedia = OFLinkMedia(OFNumber: OFNumber, MediaNumber: row[MediaNumberExp], OFElement_ID: row[OFElement_IDExp], SortOrder: row[SortOrderExp]) {
                 result.append(ofLinkMedia)
             }
@@ -91,23 +91,15 @@ class OFLinkMedia {
         return result
     }
     
-    // Load all MediaNumbers for a Form/Element that are not in the Media table
-    public static func loadMissingMediaNumbers(db: Connection, OFNumber: String, OFElement_ID: Int) throws -> [String] {
-        var result = [String]()
-        
+    // Delete OFLinkMedia record
+    public func deleteFromDB(db: Connection) throws {
         let OFLinkMediaTable = Table("OFLinkMedia")
         let OFNumberExp = Expression<String>("OFNumber")
         let MediaNumberExp = Expression<String>("MediaNumber")
         let OFElement_IDExp = Expression<Int>("OFElement_ID")
-        let SortOrderExp = Expression<Int>("SortOrder")
         
-        for row in try db.prepare(OFLinkMediaTable.filter(OFNumberExp == OFNumber)) {
-            if let ofLinkMedia = OFLinkMedia(OFNumber: OFNumber, MediaNumber: row[MediaNumberExp], OFElement_ID: row[OFElement_IDExp], SortOrder: row[SortOrderExp]) {
-                result.append(ofLinkMedia)
-            }
-        }
+        try db.run(OFLinkMediaTable.filter(OFNumberExp == OFNumber && MediaNumberExp == MediaNumber && OFElement_IDExp == OFElement_ID).delete())
         
-        return result
     }
     
     //MARK: Osono Data Interface

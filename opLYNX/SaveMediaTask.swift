@@ -39,10 +39,11 @@ class SaveMediaTask: OPLYNXUserServerTask {
                 throw OsonoError.Message("Error Saving Media To Server")
             }
                 
-            // Save the Asset record to the database
+            // After a successul upload to the server, delete the Media record from the local database
             do {
                 let db = try Database.DB()
                 try media.updateMediaNumber(db: db, NewMediaNumber: NewMediaNumber, NewUniqueMediaNumber: NewUniqueMediaNumber, NewDirty: false)
+                try media.deleteMediaFromDB(db: db)
             }
             catch {
                 // Unable to save the Asset Token to the database

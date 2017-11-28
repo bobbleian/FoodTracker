@@ -37,6 +37,9 @@ class DataSync {
             // TODO log error
         }
         
+        // Delete all Media that exists on the server
+        let deleteCleanMediaTask = DeleteCleanMediaTask(viewController: viewController)
+        
         // Save Dirty Operational Forms
         let stageSaveOperationalFormsTask = StageSaveOperationalFormTasks(viewController: viewController)
         
@@ -63,7 +66,8 @@ class DataSync {
         }
         
         // Sync Forms from Server
-        currentOsonoTask.insertOsonoTask(stageSaveOperationalFormsTask)
+        currentOsonoTask.insertOsonoTask(deleteCleanMediaTask)
+        deleteCleanMediaTask.insertOsonoTask(stageSaveOperationalFormsTask)
         stageSaveOperationalFormsTask.insertOsonoTask(loadOFListTask)
         loadOFListTask.insertOsonoTask(loadDateTimeUTCTask)
         loadDateTimeUTCTask.insertOsonoTask(loadFormsByLastSync)

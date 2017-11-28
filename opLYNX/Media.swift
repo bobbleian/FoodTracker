@@ -204,11 +204,19 @@ class Media {
         try db.run(MediaTable.filter(MediaNumberExp == media.MediaNumber).update(DescriptionExp <- media.Description, ContentExp <- contentBlob, MediaType_IDExp <- Media.MEDIA_TYPE_ID_PNG, DirtyExp <- true))
     }
     
-    public static func deleteMediaFromDB(db: Connection, media: Media) throws {
+    public func deleteMediaFromDB(db: Connection) throws {
         let MediaTable = Table("Media")
         let MediaNumberExp = Expression<String>("MediaNumber")
         
-        try db.run(MediaTable.filter(MediaNumberExp == media.MediaNumber).delete())
+        try db.run(MediaTable.filter(MediaNumberExp == MediaNumber).delete())
+        
+    }
+    
+    public static func deleteCleanMediaFromDB(db: Connection) throws {
+        let MediaTable = Table("Media")
+        let DirtyExp = Expression<Bool>("Dirty")
+        
+        try db.run(MediaTable.filter(DirtyExp == false).delete())
         
     }
     

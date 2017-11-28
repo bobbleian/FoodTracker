@@ -13,18 +13,21 @@ import os.log
 class LoadMediaTask: OPLYNXUserServerTask {
     
     //MARK: Initializer
-    init(_ mediaNumber: String, viewController: UIViewController?) {
+    init(_ mediaNumber: String, mediaTableViewController: MediaTableViewController?) {
         super.init(module: "media", method: "get", httpMethod: "GET")
         addParameter(name: "media_number", value: mediaNumber)
-        taskDelegate = LoadMediaHandler(viewController: viewController)
+        taskDelegate = LoadMediaHandler(mediaTableViewController: mediaTableViewController)
     }
     
     //MARK: Server Delegate Handlers
     class LoadMediaHandler: OPLYNXServerTaskDelegate {
         
+        let mediaTableViewController: MediaTableViewController?
+        
         //MARK: Initializers
-        init(viewController: UIViewController?) {
-            super.init(taskTitle: "Loading Media", viewController: viewController)
+        init(mediaTableViewController: MediaTableViewController?) {
+            self.mediaTableViewController = mediaTableViewController
+            super.init(taskTitle: "Loading Media", viewController: nil)
         }
         
         //MARK: OsonoTaskDelegate Protocol
@@ -52,6 +55,12 @@ class LoadMediaTask: OPLYNXUserServerTask {
                     // Save the Media record to the database
                     do {
                         try media.insertMediaToDB(db: Database.DB())
+                        if let mediaTableViewController = mediaTableViewController {
+                            mediaTableViewController.appendMedia(media)
+                            DispatchQueue.main.async {
+                                mediaTableViewController.tableView.reloadData()
+                            }
+                        }
                     }
                     catch {
                         // Unable to save the Asset Token to the database
