@@ -27,7 +27,7 @@ class SaveOperationalFormTask: OPLYNXUserServerTask {
         //MARK: Initializers
         init(_ operationalForm: OperationalForm, viewController: UIViewController?) {
             self.operationalForm = operationalForm
-            super.init(taskTitle: "Uploading Operational Form", viewController: viewController)
+            super.init(viewController: viewController, taskTitle: "Data Sync", taskDescription: "Uploading Operational Form")
         }
         
         //MARK: OsonoTaskDelegate Protocol

@@ -14,13 +14,12 @@ class ConfigSync {
     
     //MARK: Static Properties
     // Static variable for storing Server Date Time used in Config Sync
-    public static var SERVER_DATETIME_UTC: Date?
-    public static var ASSET_SOFTWARE_INFO: AssetSoftwareInfo?
+    public static var CONFIG_SYNC_SERVER_TIME_UTC: Date?
     
     // Run Config Sync
     static func RunConfigSync(viewController: UIViewController?) {
         // Create a task for loading asset software info
-        guard let loadAssetSoftwareInfoTask = LoadAssetSoftwareInfoTask(viewController: viewController) else {
+        guard let loadAssetSoftwareInfoTask = LoadAssetSoftwareInfoTask("Config Sync", viewController: viewController) else {
             // TODO: Error message
             return
         }

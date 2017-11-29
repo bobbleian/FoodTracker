@@ -27,7 +27,7 @@ class SaveMediaTask: OPLYNXUserServerTask {
         //MARK: Initializers
         init(_ media: Media, viewController: UIViewController?) {
             self.media = media
-            super.init(taskTitle: "Uploading Media", viewController: viewController)
+            super.init(viewController: viewController, taskTitle: "Data Sync", taskDescription: "Uploading Media")
         }
         
         //MARK: OsonoTaskDelegate Protocol

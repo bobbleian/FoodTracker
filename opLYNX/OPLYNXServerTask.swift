@@ -28,9 +28,9 @@ class OPLYNXServerTask : OsonoServerTask {
     
     override func RunTask() {
         // Display task title, if it exists
-        if let oplynxServerTaskDelegate = taskDelegate as? OPLYNXServerTaskDelegate, let viewController = oplynxServerTaskDelegate.viewController, let taskTitle = oplynxServerTaskDelegate.taskTitle {
+        if let oplynxServerTaskDelegate = taskDelegate as? OPLYNXServerTaskDelegate, let viewController = oplynxServerTaskDelegate.viewController, let header = oplynxServerTaskDelegate.taskTitle, let footer = oplynxServerTaskDelegate.taskDescription {
             DispatchQueue.main.async {
-                JustHUD.shared.showInView(view: viewController.view, withHeader: taskTitle, andFooter: nil)
+                JustHUD.shared.showInView(view: viewController.view, withHeader: header, andFooter: footer)
             }
         }
         
@@ -43,12 +43,14 @@ class OPLYNXServerTaskDelegate : OsonoTaskDelegate {
     
     //MARK: Properties
     let taskTitle: String?
+    let taskDescription: String?
     let viewController: UIViewController?
     
     //MARK: Initializers
-    init(taskTitle: String?, viewController: UIViewController?) {
-        self.taskTitle = taskTitle
+    init(viewController: UIViewController?, taskTitle: String?, taskDescription: String?) {
         self.viewController = viewController
+        self.taskTitle = taskTitle
+        self.taskDescription = taskDescription
     }
     
     //MARK: OsonoTaskDelegate Protocol

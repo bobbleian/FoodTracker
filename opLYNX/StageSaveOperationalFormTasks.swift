@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import os.log
 
-class StageSaveOperationalFormTasks: OsonoNoServerTask {
+class StageSaveOperationalFormTasks: OPLYNXGenericTask {
     
     let viewController: UIViewController?
     

@@ -14,21 +14,21 @@ import os.log
 class LoadAssetSoftwareInfoTask: OPLYNXAssetServerTask {
     
     //MARK: Initializer
-    init?(viewController: UIViewController?) {
+    init?(_ syncType: String, viewController: UIViewController?) {
         // Load current Asset from local database
         guard let asset = try? Asset.loadAsset(db: Database.DB())! else { return nil }
         super.init(module: "asset", method: "loadassetsoftwareinfo", httpMethod: "GET")
         addParameter(name: "asset_id", value: String(asset.Asset_ID))
         addParameter(name: "software_id", value: String(AssetSoftwareInfo.SOFTWARE_ID))
-        taskDelegate = LoadAssetSoftwareInfoHandler(viewController: viewController)
+        taskDelegate = LoadAssetSoftwareInfoHandler(syncType, viewController: viewController)
     }
     
     // Load Asset Software Info
     class LoadAssetSoftwareInfoHandler: OPLYNXServerTaskDelegate {
         
         //MARK: Initializers
-        init(viewController: UIViewController?) {
-            super.init(taskTitle: "Loading Asset Software Info", viewController: viewController)
+        init(_ syncType: String, viewController: UIViewController?) {
+            super.init(viewController: viewController, taskTitle: syncType, taskDescription: "Loading Asset Software Info")
         }
         
         //MARK: OsonoTaskDelegate Protocol
@@ -48,7 +48,7 @@ class LoadAssetSoftwareInfoTask: OPLYNXAssetServerTask {
                     // Save the AssetSoftwareInfo record to the database
                     do {
                         try assetSoftwareInfo.updateDB(db: Database.DB())
-                        ConfigSync.ASSET_SOFTWARE_INFO = assetSoftwareInfo
+                        Authorize.ASSET_SOFTWARE_INFO = assetSoftwareInfo
                     }
                     catch {
                         // Unable to save the Asset Token to the database

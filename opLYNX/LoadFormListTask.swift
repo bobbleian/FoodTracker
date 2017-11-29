@@ -16,14 +16,16 @@ class LoadFormListTask: OPLYNXUserServerTask {
     static var ServerOFList = [Date: [String]]()
     
     //MARK: Initializer
-    init(viewController: UIViewController?) {
+    init(viewController: UIViewController?, run: Run) {
         super.init(module: "of", method: "getgroupedbydate", httpMethod: "GET")
-        addParameter(name: "run_id", value: String(Authorize.CURRENT_RUN!.Run_ID))
-        addParameter(name: "user_id", value: String(Authorize.CURRENT_USER!.OLUser_ID))
+        addParameter(name: "run_id", value: String(run.Run_ID))
+        if let currentUser = Authorize.CURRENT_USER {
+            addParameter(name: "user_id", value: String(currentUser.OLUser_ID))
+        }
         // TODO: Fix start date Jan 1, 2000
         addParameter(name: "start_date", value: "\"/Date(946710000000)/\"")
-        addParameter(name: "oftype_ids", value: String(Authorize.D13_FORM_ID))
-        taskDelegate = LoadOFListHandler(viewController: viewController, loadFormListTask: self)
+        addParameter(name: "oftype_ids", value: String(OperationalForm.OF_TYPE_ID_D13))
+        taskDelegate = LoadOFListHandler(viewController: viewController, loadFormListTask: self, run: run)
     }
     
     //MARK: Server Delegate Handler
@@ -32,11 +34,13 @@ class LoadFormListTask: OPLYNXUserServerTask {
         
         //MARK: Properties
         let loadFormListTask: LoadFormListTask
+        let run: Run
         
         //MARK: Initializers
-        init(viewController: UIViewController?, loadFormListTask: LoadFormListTask) {
+        init(viewController: UIViewController?, loadFormListTask: LoadFormListTask, run: Run) {
             self.loadFormListTask = loadFormListTask
-            super.init(taskTitle: "Loading Operational Forms", viewController: viewController)
+            self.run = run
+            super.init(viewController: viewController, taskTitle: "Data Sync", taskDescription: "Loading Operational Forms")
         }
         
         //MARK: OsonoTaskDelegate Protocol
@@ -85,15 +89,16 @@ class LoadFormListTask: OPLYNXUserServerTask {
                     // Remove it from the local database
                     else {
                         print("Deleting form \(localOFNumber) from database")
-                        let db = try Database.DB()
-                        try db.transaction {
-                            try OperationalForm.deleteOF(db: Database.DB(), OFNumber: localOFNumber)
-                        }
+                        try? OperationalForm.deleteOF(db: Database.DB(), OFNumber: localOFNumber)
                     }
                 }
                 // Update the ServerOFList entry
                 LoadFormListTask.ServerOFList[localOFDate] = serverOFNumbers
             }
+            
+            // Now we are on the selected run, update the global reference
+            Authorize.CURRENT_RUN = run
+            try? LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_CURRENT_RUN_KEY, Value: run.Name)
             
             // Refresh the Operational Form List if this is being called from an OFTableViewController
             if let ofTableViewController = viewController as? OFTableViewController {
@@ -109,7 +114,7 @@ class LoadFormListTask: OPLYNXUserServerTask {
                 // Create a task to load new Forms, if there is at least one new form to load
                 if serverOFNumbers.count > 0 {
                     // Build an Osono Task for loading Forms by Date, to be run after this task
-                    let loadFormsByDateTask = LoadFormsByDateTask(operationalDate: serverOFDate, ofNumbers: serverOFNumbers, viewController: viewController)
+                    let loadFormsByDateTask = LoadFormsByDateTask(operationalDate: serverOFDate, ofNumbers: serverOFNumbers, run: run, viewController: viewController)
                     loadFormListTask.insertOsonoTask(loadFormsByDateTask)
                 }
             }

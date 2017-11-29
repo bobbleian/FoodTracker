@@ -22,6 +22,8 @@ class OperationalForm: Hashable {
     ]
     public static let OF_D13_GPS_LOCATION_ELEMENT_ID = 201
     
+    public static let OF_TYPE_ID_D13 = 6
+    
     //MARK: Properties
     var key1: String = ""
     var key2: String = ""

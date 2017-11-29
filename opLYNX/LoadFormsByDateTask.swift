@@ -13,10 +13,12 @@ import os.log
 class LoadFormsByDateTask: OPLYNXUserServerTask {
     
     //MARK: Initializer
-    init(operationalDate: Date, ofNumbers: [String], viewController: UIViewController?) {
+    init(operationalDate: Date, ofNumbers: [String], run: Run, viewController: UIViewController?) {
         super.init(module: "of", method: "getbydateandofnumbers", httpMethod: "GET")
-        addParameter(name: "run_id", value: String(Authorize.CURRENT_RUN!.Run_ID))
-        addParameter(name: "user_id", value: String(Authorize.CURRENT_USER!.OLUser_ID))
+        addParameter(name: "run_id", value: String(run.Run_ID))
+        if let currentUser = Authorize.CURRENT_USER {
+            addParameter(name: "user_id", value: String(currentUser.OLUser_ID))
+        }
         addParameter(name: "operational_date", value: "\"" + operationalDate.formatJsonDate() + "\"")
         addParameter(name: "ofnumbers", value: ofNumbers.joined(separator: ","))
         taskDelegate = LoadFormsByDateHandler(viewController: viewController, operationalDate: operationalDate, totalCount: ofNumbers.count)
@@ -29,7 +31,7 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
         //MARK: Properties
         let operationalDate: Date
         let totalCount: Int
-        var currentCount: Int = 1
+        var currentCount: Int = 0
         
         //MARK: Initializers
         init(viewController: UIViewController?, operationalDate: Date, totalCount: Int) {
@@ -37,7 +39,7 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
             self.totalCount = totalCount
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMM dd, yyyy"
-            super.init(taskTitle: "Loading " + dateFormatter.string(from: operationalDate) + " Forms [" + String(currentCount) + "/" + String(totalCount) + "]", viewController: viewController)
+            super.init(viewController: viewController, taskTitle: "Data Sync", taskDescription: "Loading Forms [" + String(currentCount) + "/" + String(totalCount) + "]")
         }
         
         //MARK: OsonoTaskDelegate Protocol
@@ -63,7 +65,7 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                     DispatchQueue.main.async {
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "MMM dd, yyyy"
-                        JustHUD.shared.showInView(view: viewController.view, withHeader: "Loading " + dateFormatter.string(from: self.operationalDate) + " Forms [" + String(self.currentCount) + "/" + String(self.totalCount) + "]", andFooter: nil)
+                        JustHUD.shared.showInView(view: viewController.view, withHeader: "Data Sync", andFooter: "Loading Forms [" + String(self.currentCount) + "/" + String(self.totalCount) + "]")
                         self.currentCount += 1
                     }
                 }
@@ -120,7 +122,7 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
                         DispatchQueue.main.async {
                             let dateFormatter = DateFormatter()
                             dateFormatter.dateFormat = "MMM dd, yyyy"
-                            JustHUD.shared.showInView(view: viewController.view, withHeader: "Saving " + dateFormatter.string(from: self.operationalDate) + " Forms [" + String(self.currentCount) + "/" + String(self.totalCount) + "]", andFooter: nil)
+                            JustHUD.shared.showInView(view: viewController.view, withHeader: "Data Sync", andFooter: "Saving Forms [" + String(self.currentCount) + "/" + String(self.totalCount) + "]")
                             self.currentCount += 1
                         }
                     }

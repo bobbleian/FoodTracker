@@ -29,14 +29,14 @@ class LoadDateTimeUTCTask: OPLYNXAssetServerTask {
         init(viewController: UIViewController?, updateConfigSync: Bool, updateDataSync: Bool) {
             self.updateConfigSync = updateConfigSync
             self.updateDataSync = updateDataSync
-            super.init(taskTitle: "Getting Server Time", viewController: viewController)
+            super.init(viewController: viewController, taskTitle: updateConfigSync ? "Config Sync" : "Data Sync", taskDescription: "Getting Server Time")
         }
         
         //MARK: OsonoTaskDelegate Protocol
         override func processData(data: Any) throws {
             if let data = data as? String, let serverDate = Date(jsonDate: data) {
-                if updateConfigSync { ConfigSync.SERVER_DATETIME_UTC = serverDate }
-                if updateDataSync { DataSync.SERVER_DATETIME_UTC = serverDate }
+                if updateConfigSync { ConfigSync.CONFIG_SYNC_SERVER_TIME_UTC = serverDate }
+                if updateDataSync { DataSync.DATA_SYNC_SERVER_TIME_UTC = serverDate }
             }
             else {
                 // Unable to parse server data

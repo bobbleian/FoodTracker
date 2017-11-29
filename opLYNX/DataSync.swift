@@ -13,13 +13,13 @@ class DataSync {
     
     //MARK: Static Properties
     // Static variable for storing Server Date Time used in Data Sync
-    public static var SERVER_DATETIME_UTC: Date?
+    public static var DATA_SYNC_SERVER_TIME_UTC: Date?
     
     // Run Data Sync
-    static func RunDataSync(viewController: UIViewController?) {
+    static func RunDataSync(selectedRun: Run, viewController: UIViewController?, finalTask: OsonoServerTask?) {
 
         // Create a task for loading asset software info
-        guard let loadAssetSoftwareInfoTask = LoadAssetSoftwareInfoTask(viewController: viewController) else {
+        guard let loadAssetSoftwareInfoTask = LoadAssetSoftwareInfoTask("Data Sync", viewController: viewController) else {
             // TODO: Error message
             return
         }
@@ -44,13 +44,13 @@ class DataSync {
         let stageSaveOperationalFormsTask = StageSaveOperationalFormTasks(viewController: viewController)
         
         // Load Operational Form List by Start Date
-        let loadOFListTask = LoadFormListTask(viewController: viewController)
+        let loadOFListTask = LoadFormListTask(viewController: viewController, run: selectedRun)
 
         // Create a task for loading Server DateTime
         let loadDateTimeUTCTask = LoadDateTimeUTCTask(viewController: viewController, updateConfigSync: false, updateDataSync: true)
         
         // Create task for getting all updated forms from server since last data sync
-        let loadFormsByLastSync = LoadFormsByLastSyncTask(viewController: viewController)
+        let loadFormsByLastSync = LoadFormsByLastSyncTask(viewController: viewController, run: selectedRun)
         
         // Create a task for saving AssetSoftwareInfo
         let saveAssetSoftwareInfoTask = SaveAssetSoftwareInfoTask("Data Sync", viewController: viewController)
@@ -72,6 +72,11 @@ class DataSync {
         loadOFListTask.insertOsonoTask(loadDateTimeUTCTask)
         loadDateTimeUTCTask.insertOsonoTask(loadFormsByLastSync)
         loadFormsByLastSync.insertOsonoTask(saveAssetSoftwareInfoTask)
+        
+        // Add the final task, if necessary
+        if let finalTask = finalTask {
+            saveAssetSoftwareInfoTask.insertOsonoTask(finalTask)
+        }
         
         // TESTING ONLY
         //currentOsonoTask.insertOsonoTask(saveAssetSoftwareInfoTask)

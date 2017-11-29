@@ -26,7 +26,7 @@ class RegisterUserTask: OPLYNXAssetServerTask {
         
         //MARK: Initializers
         init(viewController: UIViewController?) {
-            super.init(taskTitle: "Registering User", viewController: viewController)
+            super.init(viewController: viewController, taskTitle: "Data Sync", taskDescription: "Registering User")
         }
         
         //MARK: OsonoTaskDelegate Protocol

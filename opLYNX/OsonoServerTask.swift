@@ -21,7 +21,10 @@ enum OsonoError : Error {
 
 class OsonoServerTask {
     
-    // Static properties
+    //MARK: Static properties
+    private static var cachedAssetToken: String?
+    private static var cachedUserToken: String?
+    
     public static var ASSET_TOKEN: String {
         get {
             if let cachedAssetToken = cachedAssetToken {
@@ -75,9 +78,6 @@ class OsonoServerTask {
         cachedUserToken = newValue
     }
     
-    
-    private static var cachedAssetToken: String?
-    private static var cachedUserToken: String?
         
     // Required properties
     private let serverIP: String

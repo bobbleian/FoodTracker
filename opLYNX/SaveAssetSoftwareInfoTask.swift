@@ -22,13 +22,13 @@ class SaveAssetSoftwareInfoTask: OPLYNXAssetServerTask {
     // Inserts the AssetSoftwareInfo payload into the Task before calling Run
     override func RunTask() {
         // Need to load ASSET SOFTWARE INFO
-        if let assetSoftwareInfo = ConfigSync.ASSET_SOFTWARE_INFO {
+        if let assetSoftwareInfo = Authorize.ASSET_SOFTWARE_INFO {
             // Update ASSET SOFTWARE INFO with config sync server time, if exists
-            if let serverSyncTime = ConfigSync.SERVER_DATETIME_UTC {
+            if let serverSyncTime = ConfigSync.CONFIG_SYNC_SERVER_TIME_UTC {
                 assetSoftwareInfo.LastSyncConfiguration = serverSyncTime
             }
             // Update ASSET SOFTWARE INFO with data sync server time, if exists
-            if let serverSyncTime = DataSync.SERVER_DATETIME_UTC {
+            if let serverSyncTime = DataSync.DATA_SYNC_SERVER_TIME_UTC {
                 assetSoftwareInfo.LastSyncData = serverSyncTime
             }
             // Update Last Update time ??
@@ -46,7 +46,7 @@ class SaveAssetSoftwareInfoTask: OPLYNXAssetServerTask {
         //MARK: Initializers
         init(_ syncType: String, viewController: UIViewController?) {
             self.syncType = syncType
-            super.init(taskTitle: "Saving AssetSWInfo", viewController: viewController)
+            super.init(viewController: viewController, taskTitle: syncType, taskDescription: "Saving AssetSWInfo")
         }
         
         //MARK: OsonoTaskDelegate Protocol
@@ -54,11 +54,11 @@ class SaveAssetSoftwareInfoTask: OPLYNXAssetServerTask {
         // On Success, we save the AssetSoftwareInfo object to the database
         override func success() {
             do {
-                try ConfigSync.ASSET_SOFTWARE_INFO?.updateDB(db: Database.DB())
+                try Authorize.ASSET_SOFTWARE_INFO?.updateDB(db: Database.DB())
                 super.success()
-                let alert = UIAlertController(title: "Success", message: syncType + " Complete", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                viewController?.present(alert, animated: true, completion: nil)
+                //let alert = UIAlertController(title: "Success", message: syncType + " Complete", preferredStyle: .alert)
+                //alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                //viewController?.present(alert, animated: true, completion: nil)
             } catch {
                 super.error(message: "Error saving AssetSWInfo to local database")
             }

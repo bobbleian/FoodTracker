@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import os.log
 
-class DeleteCleanMediaTask: OsonoNoServerTask {
+class DeleteCleanMediaTask: OPLYNXGenericTask {
     
     let viewController: UIViewController?
     
@@ -23,6 +23,10 @@ class DeleteCleanMediaTask: OsonoNoServerTask {
     // Subclasses provide their own RunTask implementation
     override func RunTask() {
         try? Media.deleteCleanMediaFromDB(db: Database.DB())
+        
+        // Run the next Osono Task, if necessary
+        self.runNextTask()
+        
     }
     
 }

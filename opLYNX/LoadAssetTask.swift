@@ -24,7 +24,7 @@ class LoadAssetTask: OPLYNXAssetServerTask {
         
         //MARK: Initializers
         init(viewController: UIViewController?) {
-            super.init(taskTitle: "Loading Asset", viewController: viewController)
+            super.init(viewController: viewController, taskTitle: "Authorize", taskDescription: "Loading Asset")
         }
         
         //MARK: OsonoTaskDelegate Protocol

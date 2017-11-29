@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RefreshOFTableViewTask : OsonoNoServerTask {
+class RefreshOFTableViewTask : OPLYNXGenericTask {
     
     private let ofTableViewController: OFTableViewController
     

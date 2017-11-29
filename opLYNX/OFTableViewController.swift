@@ -241,7 +241,9 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     }
     
     @IBAction func refreshOperationalForms(_ sender: UIBarButtonItem) {
-        DataSync.RunDataSync(viewController: self)
+        if let currentRun = Authorize.CURRENT_RUN {
+            DataSync.RunDataSync(selectedRun: currentRun, viewController: self, finalTask: nil)
+        }
     }
     
     @IBAction func unwindToOFTableView(sender: UIStoryboardSegue) {

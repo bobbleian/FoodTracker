@@ -9,7 +9,7 @@
 import Foundation
 import os.log
 
-class OsonoNoServerTask: OPLYNXServerTask {
+class OPLYNXGenericTask: OPLYNXServerTask {
     
     // Initialize the Osono server task with blank parameters
     init() {

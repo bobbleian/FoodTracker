@@ -22,36 +22,37 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     let runPickerView = UIPickerView()
     var runs = [Run]()
     
+    private var selectedRun: Run?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        // TODO: Clean up this code
-        do {
-            if let lastUser = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_LAST_USER_KEY) {
-                userNameTextField.text = lastUser
-            }
-        }
-        catch {
-            
+        // Try to set user text field based on the previous user name
+        if let lastUser = try? LocalSettings.loadSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_LAST_USER_KEY) {
+            userNameTextField.text = lastUser
         }
         
+        // Try to set the last run that was logged into by the previous user
         do {
             runs = try Run.loadActiveRuns(db: Database.DB())
             if let lastRun = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_CURRENT_RUN_KEY) {
                 Authorize.CURRENT_RUN = runs.first(where: {$0.Name == lastRun})
-                runTextField.text = lastRun
+                if Authorize.CURRENT_RUN != nil {
+                    runTextField.text = lastRun
+                    selectedRun = Authorize.CURRENT_RUN
+                }
             }
         }
         catch {
             
         }
         
+        // Setup to scroll the view if the keyboard pops up
         registerForKeyboardNotifications()
-        
         userNameTextField.delegate = self
         passwordTextField.delegate = self
         
+        // Handle run picker view selection
         runPickerView.showsSelectionIndicator = true
         runPickerView.dataSource = self
         runPickerView.delegate = self
@@ -60,6 +61,11 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         }
         
         runTextField.inputView = runPickerView
+        
+        // Run Config Sync
+        DispatchQueue.main.async {
+            ConfigSync.RunConfigSync(viewController: self)
+        }
         
     }
     
@@ -91,7 +97,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         Authorize.CURRENT_USER = nil
         
         // Ensure there is a selected run
-        guard Authorize.CURRENT_RUN != nil else {
+        guard let selectedRun = selectedRun else {
             let alert = UIAlertController(title: "No Run Selected", message: "Select a Run before logging in", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -112,21 +118,14 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
             return
         }
         
-        // Save the user name & run
-        do {
-            try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_LAST_USER_KEY, Value: userNameTextField.text!)
-            //TODO: Handle data sync case
-            try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_CURRENT_RUN_KEY, Value: runTextField.text!)
-        }
-        catch {
-            // TODO: Error message?
-        }
+        // Save the user name
+        try? LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_LAST_USER_KEY, Value: userNameTextField.text!)
         
         // Set the current user
         Authorize.CURRENT_USER = olUser
         
-        // Navigate to the OF list screen
-        performSegue(withIdentifier: "ShowOperationalFormList", sender: self)
+        // Run Data Sync.  If it completes successfully, navigate to Operational Form List view
+        DataSync.RunDataSync(selectedRun: selectedRun, viewController: self, finalTask: ShowOperationalFormListTask(self))
         
     }
     
@@ -171,7 +170,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     //MARK: UIPickerViewDelegate interface
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         runTextField.text = runs[row].Name
-        Authorize.CURRENT_RUN = runs[row]
+        selectedRun = runs[row]
         runTextField.resignFirstResponder()
     }
     
@@ -230,6 +229,21 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    class ShowOperationalFormListTask: OPLYNXGenericTask {
+        private let viewController: UIViewController
+        
+        init(_ viewController: UIViewController) {
+            self.viewController = viewController
+            super.init()
+        }
+        override func RunTask() {
+            DispatchQueue.main.async {
+                // Navigate to the OF list screen
+                self.viewController.performSegue(withIdentifier: "ShowOperationalFormList", sender: self.viewController)
+            }
+        }
     }
     
 

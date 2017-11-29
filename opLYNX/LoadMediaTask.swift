@@ -27,7 +27,7 @@ class LoadMediaTask: OPLYNXUserServerTask {
         //MARK: Initializers
         init(mediaTableViewController: MediaTableViewController?) {
             self.mediaTableViewController = mediaTableViewController
-            super.init(taskTitle: "Loading Media", viewController: nil)
+            super.init(viewController: nil, taskTitle: "Data Sync", taskDescription: "Loading Media")
         }
         
         //MARK: OsonoTaskDelegate Protocol

@@ -24,7 +24,7 @@ class LoadRunsTask: ConfigSyncServerTask {
         
         //MARK: Initializers
         init(viewController: UIViewController?) {
-            super.init(taskTitle: "Loading Runs", viewController: viewController)
+            super.init(viewController: viewController, taskTitle: "Config Sync", taskDescription: "Loading Runs")
         }
         
         //MARK: OsonoTaskDelegate Protocol

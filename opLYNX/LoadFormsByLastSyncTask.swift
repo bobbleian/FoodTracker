@@ -13,10 +13,12 @@ import os.log
 class LoadFormsByLastSyncTask: OPLYNXUserServerTask {
     
     //MARK: Initializer
-    init(viewController: UIViewController?) {
+    init(viewController: UIViewController?, run: Run) {
         super.init(module: "of", method: "getbylinksforclient", httpMethod: "GET")
-        addParameter(name: "run_id", value: String(Authorize.CURRENT_RUN!.Run_ID))
-        addParameter(name: "user_id", value: String(Authorize.CURRENT_USER!.OLUser_ID))
+        addParameter(name: "run_id", value: String(run.Run_ID))
+        if let currentUser = Authorize.CURRENT_USER {
+            addParameter(name: "user_id", value: String(currentUser.OLUser_ID))
+        }
         // TODO: Fix start date Jan 1, 2000
         addParameter(name: "operational_date", value: "\"/Date(946710000000)/\"")
         // TODO: Fix hardcoded OF Type ID of 6
@@ -26,7 +28,7 @@ class LoadFormsByLastSyncTask: OPLYNXUserServerTask {
     
     // Inserts a "last_update" parameter to the task before calling Run
     override func RunTask() {
-        if let lastDataSyncDate = ConfigSync.ASSET_SOFTWARE_INFO?.LastSyncData {
+        if let lastDataSyncDate = Authorize.ASSET_SOFTWARE_INFO?.LastSyncData {
             addParameter(name: "last_update", value: "\"" + lastDataSyncDate.formatJsonDate() + "\"")
         }
         super.RunTask()
@@ -44,7 +46,7 @@ class LoadFormsByLastSyncTask: OPLYNXUserServerTask {
         init(viewController: UIViewController?) {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMM dd, yyyy"
-            super.init(taskTitle: "Loading Updated Forms", viewController: viewController)
+            super.init(viewController: viewController, taskTitle: "Data Sync", taskDescription: "Loading Updated Forms")
         }
         
         //MARK: OsonoTaskDelegate Protocol

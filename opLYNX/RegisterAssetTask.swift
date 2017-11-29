@@ -26,7 +26,7 @@ class RegisterAssetTask: OPLYNXAssetServerTask {
         
         //MARK: Initializers
         init(viewController: UIViewController?) {
-            super.init(taskTitle: "Registering Asset", viewController: viewController)
+            super.init(viewController: viewController, taskTitle: "Authorize", taskDescription: "Registering Asset")
         }
         
         //MARK: OsonoTaskDelegate Protocol

@@ -24,7 +24,7 @@ class LoadUserTask: ConfigSyncServerTask {
         
         //MARK: Initializers
         init(viewController: UIViewController?) {
-            super.init(taskTitle: "Loading Users", viewController: viewController)
+            super.init(viewController: viewController, taskTitle: "Config Sync", taskDescription: "Loading Users")
         }
         
         //MARK: OsonoTaskDelegate Protocol
