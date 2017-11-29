@@ -63,7 +63,7 @@ class MediaTableViewController: UITableViewController {
         // Load the media items to display
         if let ofElement = ofElement {
             do {
-                ofLinkMedia = try OFLinkMedia.loadOFLinkMedia(db: Database.DB(), OFNumber: ofElement.OFNumber)
+                ofLinkMedia = try OFLinkMedia.loadOFLinkMedia(db: Database.DB(), OFNumber: ofElement.OFNumber, OFElement_ID: ofElement.OFElement_ID)
                 media = try Media.loadMediaFromDB(db: Database.DB(), OFNumber: ofElement.OFNumber, OFElement_ID: ofElement.OFElement_ID)
             }
             catch {

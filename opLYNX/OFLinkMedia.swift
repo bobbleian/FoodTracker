@@ -91,6 +91,23 @@ class OFLinkMedia {
         return result
     }
     
+    // Load all OF Link Runs for an Element
+    public static func loadOFLinkMedia(db: Connection, OFNumber: String, OFElement_ID: Int) throws -> [OFLinkMedia] {
+        var result = [OFLinkMedia]()
+        let OFLinkMediaTable = Table("OFLinkMedia")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let MediaNumberExp = Expression<String>("MediaNumber")
+        let OFElement_IDExp = Expression<Int>("OFElement_ID")
+        let SortOrderExp = Expression<Int>("SortOrder")
+        
+        for row in try db.prepare(OFLinkMediaTable.filter(OFNumberExp == OFNumber && OFElement_IDExp == OFElement_ID).order(SortOrderExp)) {
+            if let ofLinkMedia = OFLinkMedia(OFNumber: OFNumber, MediaNumber: row[MediaNumberExp], OFElement_ID: row[OFElement_IDExp], SortOrder: row[SortOrderExp]) {
+                result.append(ofLinkMedia)
+            }
+        }
+        return result
+    }
+    
     // Delete OFLinkMedia record
     public func deleteFromDB(db: Connection) throws {
         let OFLinkMediaTable = Table("OFLinkMedia")
