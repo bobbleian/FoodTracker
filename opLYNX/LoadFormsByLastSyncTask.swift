@@ -68,14 +68,6 @@ class LoadFormsByLastSyncTask: OPLYNXUserServerTask {
             
             // Extract the Date -> OFNumber Dictionary
             for jsonListEntry in jsonList {
-                if let viewController = viewController {
-//                    DispatchQueue.main.async {
-//                        let dateFormatter = DateFormatter()
-//                        dateFormatter.dateFormat = "MMM dd, yyyy"
-//                        JustHUD.shared.showInView(view: viewController.view, withHeader: "Loading " + dateFormatter.string(from: self.operationalDate) + " Forms [" + String(self.currentCount) + "/" + String(self.totalCount) + "]", andFooter: nil)
-//                        self.currentCount += 1
-//                    }
-                }
                 guard let data = jsonListEntry as? [String:Any],
                     let OFNumber = data["ofn"] as? String,
                     let Operational_DateString = data["od"] as? String,
