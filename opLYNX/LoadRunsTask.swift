@@ -66,6 +66,16 @@ class LoadRunsTask: ConfigSyncServerTask {
             }
         }
         
+        override func success() {
+            // If this is being called from the LoginViewController, update the Run list
+            if let loginViewController = viewController as? LoginViewController {
+                DispatchQueue.main.async {
+                    loginViewController.loadRunList()
+                }
+            }
+            super.success()
+        }
+        
     }
     
 }

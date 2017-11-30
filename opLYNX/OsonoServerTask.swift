@@ -264,6 +264,26 @@ class OsonoServerTask {
     
 }
 
+class GenericOsonoTaskDelegate: OsonoTaskDelegate {
+    var successHandler: (()->Void)?
+    var errorHandler: ((String)->Void)?
+    var dataHandler: ((Any) throws ->Void)?
+    
+    func success() {
+        successHandler?()
+    }
+    
+    func error(message: String) {
+        errorHandler?(message)
+    }
+    
+    func processData(data: Any) throws {
+        try dataHandler?(data)
+    }
+    
+    
+}
+
 // Extension to String for Osono Parameter Date Formatting
 extension Date {
     init?(jsonDate: String) {

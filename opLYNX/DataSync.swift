@@ -18,6 +18,9 @@ class DataSync {
     // Run Data Sync
     static func RunDataSync(selectedRun: Run, viewController: UIViewController?, finalTask: OsonoServerTask?) {
 
+        // Check first we can hit the server
+        let pingServerTask = PingServerTask(viewController: viewController)
+        
         // Create a task for loading asset software info
         guard let loadAssetSoftwareInfoTask = LoadAssetSoftwareInfoTask("Data Sync", viewController: viewController) else {
             // TODO: Error message
@@ -56,6 +59,7 @@ class DataSync {
         let saveAssetSoftwareInfoTask = SaveAssetSoftwareInfoTask("Data Sync", viewController: viewController)
         
         // Chain the Data Sync tasks together
+        pingServerTask.insertOsonoTask(loadAssetSoftwareInfoTask)
         loadAssetSoftwareInfoTask.insertOsonoTask(registerUserTask)
         
         // Upload Dirty Pictures
@@ -82,7 +86,7 @@ class DataSync {
         //currentOsonoTask.insertOsonoTask(saveAssetSoftwareInfoTask)
         
         // Run the Osono Task Chain
-        loadAssetSoftwareInfoTask.RunTask()
+        pingServerTask.RunTask()
     }
     
 }

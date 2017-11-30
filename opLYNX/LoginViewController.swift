@@ -32,20 +32,13 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
             userNameTextField.text = lastUser
         }
         
+        // TESTING ONLY TODO: Remove
+        if userNameTextField.text == "admin" {
+            passwordTextField.text = "admin"
+        }
+        
         // Try to set the last run that was logged into by the previous user
-        do {
-            runs = try Run.loadActiveRuns(db: Database.DB())
-            if let lastRun = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_CURRENT_RUN_KEY) {
-                Authorize.CURRENT_RUN = runs.first(where: {$0.Name == lastRun})
-                if Authorize.CURRENT_RUN != nil {
-                    runTextField.text = lastRun
-                    selectedRun = Authorize.CURRENT_RUN
-                }
-            }
-        }
-        catch {
-            
-        }
+        loadRunList()
         
         // Setup to scroll the view if the keyboard pops up
         registerForKeyboardNotifications()
@@ -77,6 +70,28 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK: Utility functions
+    func loadRunList() {
+        
+        // Try to set the last run that was logged into by the previous user
+        do {
+            runs = try Run.loadActiveRuns(db: Database.DB())
+            if let lastRun = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_CURRENT_RUN_KEY) {
+                Authorize.CURRENT_RUN = runs.first(where: {$0.Name == lastRun})
+                if Authorize.CURRENT_RUN != nil {
+                    runTextField.text = lastRun
+                    selectedRun = Authorize.CURRENT_RUN
+                }
+                else {
+                    runTextField.text = ""
+                    selectedRun = nil
+                }
+            }
+        }
+        catch {
+        }
     }
     
 

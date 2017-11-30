@@ -22,6 +22,7 @@
 		3D5454B51FB8E62300212209 /* ConfigSyncServerTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454B41FB8E62300212209 /* ConfigSyncServerTask.swift */; };
 		3D5454B71FB8EB2A00212209 /* DataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454B61FB8EB2A00212209 /* DataSync.swift */; };
 		3D5F4B181FC7790A000BEFE3 /* AssetRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5F4B171FC7790A000BEFE3 /* AssetRegistrationViewController.swift */; };
+		3D8656171FD076180038E403 /* PingServerTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8656161FD076180038E403 /* PingServerTask.swift */; };
 		3DB3D2EC1FC354B8004EDA09 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DB3D2E31FC354A4004EDA09 /* CryptoSwift.framework */; };
 		3DB3D2ED1FC354B8004EDA09 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DB3D2E31FC354A4004EDA09 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3DB3D2F11FC4CD09004EDA09 /* SaveOperationalFormTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3D2F01FC4CD09004EDA09 /* SaveOperationalFormTask.swift */; };
@@ -192,6 +193,7 @@
 		3D5454B41FB8E62300212209 /* ConfigSyncServerTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSyncServerTask.swift; sourceTree = "<group>"; };
 		3D5454B61FB8EB2A00212209 /* DataSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSync.swift; sourceTree = "<group>"; };
 		3D5F4B171FC7790A000BEFE3 /* AssetRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetRegistrationViewController.swift; sourceTree = "<group>"; };
+		3D8656161FD076180038E403 /* PingServerTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingServerTask.swift; sourceTree = "<group>"; };
 		3DB3D2DD1FC354A3004EDA09 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = "../CryptoSwift-master/CryptoSwift.xcodeproj"; sourceTree = "<group>"; };
 		3DB3D2F01FC4CD09004EDA09 /* SaveOperationalFormTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveOperationalFormTask.swift; sourceTree = "<group>"; };
 		3DB3D2F21FC64481004EDA09 /* LoadFormsByLastSyncTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFormsByLastSyncTask.swift; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 				483B20D81FABC92A003A411F /* OPLYNXServerTask.swift */,
 				3D0390101FBAA42900310B64 /* OPLYNXAssetServerTask.swift */,
 				3D0390121FBAA4AD00310B64 /* OPLYNXUserServerTask.swift */,
+				3D8656161FD076180038E403 /* PingServerTask.swift */,
 				3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */,
 				3D5454A91FB7C05000212209 /* LoadAssetTask.swift */,
 				3D0390071FBA0B9A00310B64 /* RegisterUserTask.swift */,
@@ -681,6 +684,7 @@
 				3D5454AA1FB7C05000212209 /* LoadAssetTask.swift in Sources */,
 				3DB3D2F11FC4CD09004EDA09 /* SaveOperationalFormTask.swift in Sources */,
 				3DB3D2F31FC64481004EDA09 /* LoadFormsByLastSyncTask.swift in Sources */,
+				3D8656171FD076180038E403 /* PingServerTask.swift in Sources */,
 				3DC503401FC34431000FE350 /* OPLYNXGenericTask.swift in Sources */,
 				486138121F9E865000567409 /* PasswordHasher.swift in Sources */,
 				4830CAEB1F5F102A008DDDDA /* ECDataEntryViewController.swift in Sources */,

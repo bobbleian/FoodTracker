@@ -18,6 +18,10 @@ class ConfigSync {
     
     // Run Config Sync
     static func RunConfigSync(viewController: UIViewController?) {
+        
+        // Check first we can hit the server
+        let pingServerTask = PingServerTask(viewController: viewController)
+        
         // Create a task for loading asset software info
         guard let loadAssetSoftwareInfoTask = LoadAssetSoftwareInfoTask("Config Sync", viewController: viewController) else {
             // TODO: Error message
@@ -37,6 +41,7 @@ class ConfigSync {
         let saveAssetSoftwareInfoTask = SaveAssetSoftwareInfoTask("Config Sync", viewController: viewController)
         
         // Chain the Config Sync tasks together
+        pingServerTask.insertOsonoTask(loadAssetSoftwareInfoTask)
         loadAssetSoftwareInfoTask.insertOsonoTask(loadDateTimeUTCTask)
         loadDateTimeUTCTask.insertOsonoTask(loadUserTask)
         loadUserTask.insertOsonoTask(loadRunTask)
