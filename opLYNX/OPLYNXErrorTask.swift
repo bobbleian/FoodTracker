@@ -20,6 +20,11 @@ class OPLYNXErrorTask: OsonoErrorTask {
         super.init(serverIP: "", serverPort: nil, serverMethod: "", application: "", module: nil, method: "", httpMethod: "")
     }
     
+    init(viewController: UIViewController?) {
+        self.viewController = viewController
+        super.init(serverIP: "", serverPort: nil, serverMethod: "", application: "", module: nil, method: "", httpMethod: "")
+    }
+    
     override func RunTask() {
         // Hide any progress dialogs
         JustHUD.shared.hide()

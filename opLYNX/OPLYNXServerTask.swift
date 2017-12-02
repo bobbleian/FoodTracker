@@ -48,11 +48,19 @@ class OPLYNXServerTask : OsonoServerTask {
         
     }
     
+    override public func runError(errorMessage: String) {
+        DispatchQueue.main.async {
+            JustHUD.shared.hide()
+        }
+        super.runError(errorMessage: errorMessage)
+    }
+    
     //MARK: Overrides
     override func success() {
         DispatchQueue.main.async {
             JustHUD.shared.hide()
         }
+        super.success()
     }
     
 }

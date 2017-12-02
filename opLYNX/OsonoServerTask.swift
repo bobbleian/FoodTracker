@@ -250,7 +250,7 @@ class OsonoServerTask {
         }
     }
     
-    private func runError(errorMessage: String) {
+    public func runError(errorMessage: String) {
         // Run down the Task Chain and execute the first OsonoErrorTask we find
         var currentOsonoTask = self
         while let nextOsonoTask = currentOsonoTask.nextOsonoTask {

@@ -242,7 +242,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     
     @IBAction func refreshOperationalForms(_ sender: UIBarButtonItem) {
         if let currentRun = Authorize.CURRENT_RUN {
-            DataSync.RunDataSync(selectedRun: currentRun, viewController: self, successTask: nil, errorTask: nil)
+            DataSync.RunDataSync(selectedRun: currentRun, viewController: self, successTask: ShowDataSyncSuccessTask(self), errorTask: ShowDataSyncErrorTask(self))
         }
     }
     
@@ -306,12 +306,33 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         init(_ viewController: UIViewController) {
             super.init(viewController: viewController)
         }
+        
         override func RunTask() {
             DispatchQueue.main.async {
-                // Navigate to the OF list screen
-                self.viewController?.performSegue(withIdentifier: "ShowOperationalFormList", sender: self.viewController)
+                let alert = UIAlertController(title: "Data Sync Success", message: "All forms have been uploaded.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.viewController?.present(alert, animated: true, completion: nil)
             }
         }
+        
     }
+    
+    class ShowDataSyncErrorTask: OPLYNXErrorTask {
+        
+        init(_ viewController: UIViewController) {
+            super.init(viewController: viewController)
+        }
+        
+        override func RunTask() {
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "Data Sync Error", message: "Try again later.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.viewController?.present(alert, animated: true, completion: nil)
+            }
+        }
+        
+    }
+    
+    
     
 }

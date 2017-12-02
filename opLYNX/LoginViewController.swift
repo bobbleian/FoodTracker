@@ -140,7 +140,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         Authorize.CURRENT_USER = olUser
         
         // Run Data Sync.  If it completes successfully, navigate to Operational Form List view
-        DataSync.RunDataSync(selectedRun: selectedRun, viewController: self, successTask: ShowOperationalFormListTask(self), errorTask: WorkOfflineErrorTask())
+        DataSync.RunDataSync(selectedRun: selectedRun, viewController: self, successTask: ShowOperationalFormListTask(self), errorTask: WorkOfflineErrorTask(viewController: self))
         
     }
     
@@ -263,7 +263,12 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         override func RunTask() {
             super.RunTask()
             // Prompt user to naviate to work on current run in "Offline" mode
-            print("Do you want to work offline")
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "Data Sync Error", message: "Unable to switch runs.  Work Offline to work on previous run, or try again later", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Work Offline", style: .default, handler: nil))
+                self.viewController?.present(alert, animated: true, completion: nil)
+            }
         }
     }
     
