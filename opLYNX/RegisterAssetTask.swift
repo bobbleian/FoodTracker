@@ -15,39 +15,27 @@ class RegisterAssetTask: OPLYNXAssetServerTask {
     
     //MARK: Initializer
     init(_ assetName: String, viewController: UIViewController?) {
-        super.init(module: "auth", method: "registerasset", httpMethod: "GET")
+        super.init(module: "auth", method: "registerasset", httpMethod: "GET", viewController: viewController, taskTitle: "Authorize", taskDescription: "Registering Asset")
         addParameter(name: "asset_name", value: assetName)
         addParameter(name: "client_id", value: Authorize.CLIENT_ID)
-        taskDelegate = RegisterAssetHandler(viewController: viewController)
     }
     
-    //MARK: Server Delegate Handlers
-    class RegisterAssetHandler: OPLYNXServerTaskDelegate {
-        
-        //MARK: Initializers
-        init(viewController: UIViewController?) {
-            super.init(viewController: viewController, taskTitle: "Authorize", taskDescription: "Registering Asset")
-        }
-        
-        //MARK: OsonoTaskDelegate Protocol
-        override func processData(data: Any) throws {
-            if let data = data as? String {
-                // Save the Asset Token
-                do {
-                    try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.AUTHORIZE_ASSET_TOKEN_KEY, Value: data)
-                    try OsonoServerTask.setAssetToken(newValue: data)
-                }
-                catch {
-                    // Unable to save the Asset Token to the database
-                    throw OsonoError.Message("Error saving Asset Token locally")
-                }
+    override func processData(data: Any) throws {
+        if let data = data as? String {
+            // Save the Asset Token
+            do {
+                try LocalSettings.updateSettingsValue(db: Database.DB(), Key: LocalSettings.AUTHORIZE_ASSET_TOKEN_KEY, Value: data)
+                try OsonoServerTask.setAssetToken(newValue: data)
             }
-            else {
-                // Unable to parse server data
-                throw OsonoError.Message("Error Authorizing Asset on Server")
+            catch {
+                // Unable to save the Asset Token to the database
+                throw OsonoError.Message("Error saving Asset Token locally")
             }
         }
-        
+        else {
+            // Unable to parse server data
+            throw OsonoError.Message("Error Authorizing Asset on Server")
+        }
     }
     
 }

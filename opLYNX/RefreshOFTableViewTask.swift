@@ -27,11 +27,12 @@ class RefreshOFTableViewTask : OPLYNXGenericTask {
         }
         
         DispatchQueue.main.async {
+            if let ofTableViewController = self.viewController as? OFTableViewController {
+                self.ofTableViewController.tableView?.reloadData()
+            }
             
-            self.ofTableViewController.tableView?.reloadData()
-            
-            // Run success
-            self.taskDelegate?.success()
+            // Run success  TODO: Check
+            //self.taskDelegate?.success()
             
             // Run the next Osono Task, if necessary
             self.runNextTask()

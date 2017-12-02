@@ -15,8 +15,7 @@ class SaveAssetSoftwareInfoTask: OPLYNXAssetServerTask {
     
     //MARK: Initializer
     init(_ syncType: String, viewController: UIViewController?) {
-        super.init(module: "asset", method: "saveassetsoftwareinfo", httpMethod: "POST")
-        taskDelegate = SaveAssetSoftwareInfoHandler(syncType, viewController: viewController)
+        super.init(module: "asset", method: "saveassetsoftwareinfo", httpMethod: "POST", viewController: viewController, taskTitle: syncType, taskDescription: "Saving AssetSWInfo")
     }
     
     // Inserts the AssetSoftwareInfo payload into the Task before calling Run
@@ -38,31 +37,10 @@ class SaveAssetSoftwareInfoTask: OPLYNXAssetServerTask {
         super.RunTask()
     }
     
-    // Save AssetSoftwareInfo Handler
-    class SaveAssetSoftwareInfoHandler: OPLYNXServerTaskDelegate {
-        
-        private let syncType: String
-        
-        //MARK: Initializers
-        init(_ syncType: String, viewController: UIViewController?) {
-            self.syncType = syncType
-            super.init(viewController: viewController, taskTitle: syncType, taskDescription: "Saving AssetSWInfo")
-        }
-        
-        //MARK: OsonoTaskDelegate Protocol
-        
-        // On Success, we save the AssetSoftwareInfo object to the database
-        override func success() {
-            do {
-                try Authorize.ASSET_SOFTWARE_INFO?.updateDB(db: Database.DB())
-                super.success()
-                //let alert = UIAlertController(title: "Success", message: syncType + " Complete", preferredStyle: .alert)
-                //alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                //viewController?.present(alert, animated: true, completion: nil)
-            } catch {
-                super.error(message: "Error saving AssetSWInfo to local database")
-            }
-        }
+    // On Success, we save the AssetSoftwareInfo object to the database
+    override func success() {
+        try? Authorize.ASSET_SOFTWARE_INFO?.updateDB(db: Database.DB())
+        super.success()
     }
     
 }

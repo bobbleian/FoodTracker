@@ -140,7 +140,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         Authorize.CURRENT_USER = olUser
         
         // Run Data Sync.  If it completes successfully, navigate to Operational Form List view
-        DataSync.RunDataSync(selectedRun: selectedRun, viewController: self, finalTask: ShowOperationalFormListTask(self))
+        DataSync.RunDataSync(selectedRun: selectedRun, viewController: self, successTask: ShowOperationalFormListTask(self), errorTask: WorkOfflineErrorTask())
         
     }
     
@@ -247,17 +247,23 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
     
     class ShowOperationalFormListTask: OPLYNXGenericTask {
-        private let viewController: UIViewController
         
         init(_ viewController: UIViewController) {
-            self.viewController = viewController
-            super.init()
+            super.init(viewController: viewController)
         }
         override func RunTask() {
             DispatchQueue.main.async {
                 // Navigate to the OF list screen
-                self.viewController.performSegue(withIdentifier: "ShowOperationalFormList", sender: self.viewController)
+                self.viewController?.performSegue(withIdentifier: "ShowOperationalFormList", sender: self.viewController)
             }
+        }
+    }
+    
+    class WorkOfflineErrorTask: OPLYNXErrorTask {
+        override func RunTask() {
+            super.RunTask()
+            // Prompt user to naviate to work on current run in "Offline" mode
+            print("Do you want to work offline")
         }
     }
     

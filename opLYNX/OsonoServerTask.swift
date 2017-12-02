@@ -9,12 +9,6 @@
 import Foundation
 import os.log
 
-protocol OsonoTaskDelegate {
-    func success()
-    func error(message: String)
-    func processData(data: Any) throws
-}
-
 enum OsonoError : Error {
     case Message(String)
 }
@@ -90,9 +84,6 @@ class OsonoServerTask {
     private var parameters = [String:String]()
     private var parameterKeys = [String]()
     private var dataPayload: Any?
-    
-    // Completion Handler
-    public var taskDelegate: OsonoTaskDelegate?
     
     // Osono Task Chaining
     private var nextOsonoTask: OsonoServerTask?
@@ -188,6 +179,7 @@ class OsonoServerTask {
                 }
             }
             
+            URLSession.shared.configuration.timeoutIntervalForRequest = 2
             URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if error != nil {
                     os_log("Server request error", log: OSLog.default, type: .error)
@@ -206,7 +198,7 @@ class OsonoServerTask {
                                         // See if there is an error message
                                         if let code = error["code"] as? Int, let message = error["message"] as? String {
                                             os_log("osono server error code=%d message=%@", log: OSLog.default, type: .error, code, message)
-                                            self.taskDelegate?.error(message: message)
+                                            self.runError(errorMessage: message)
                                             return
                                         }
                                     }
@@ -214,8 +206,8 @@ class OsonoServerTask {
                                     // Process Osono data payload
                                     if let dataPayload = parsedData["data"] {
                                         do {
-                                            try self.taskDelegate?.processData(data: dataPayload)
-                                            self.taskDelegate?.success()
+                                            try self.processData(data: dataPayload)
+                                            self.success()
                                             // Run the next Osono Task, if necessary
                                             self.runNextTask()
                                             return
@@ -248,39 +240,44 @@ class OsonoServerTask {
                     }
                     catch {
                         print(error)
+                        errorMessage = "Error contacting server"
                     }
                 }
                 // If we've gotten this far, then the Osono data payload was not processed successfully
                 // Return the error message through the callback delegate
-                self.taskDelegate?.error(message: errorMessage)
+                self.runError(errorMessage: errorMessage)
             }.resume()
         }
     }
     
-    // Run the next task on a new thread?
+    private func runError(errorMessage: String) {
+        // Run down the Task Chain and execute the first OsonoErrorTask we find
+        var currentOsonoTask = self
+        while let nextOsonoTask = currentOsonoTask.nextOsonoTask {
+            if let osonoErrorTask = nextOsonoTask as? OsonoErrorTask {
+                osonoErrorTask.RunTask()
+                return
+            }
+            currentOsonoTask = nextOsonoTask
+        }
+    }
+    
+    // Run the next task, skip any OsonoErrorTasks
     public func runNextTask() {
-        self.nextOsonoTask?.RunTask()
+        var nextTask = nextOsonoTask
+        while nextTask as? OsonoErrorTask != nil {
+            nextTask = nextTask?.nextOsonoTask
+        }
+        nextTask?.RunTask()
     }
     
-}
-
-class GenericOsonoTaskDelegate: OsonoTaskDelegate {
-    var successHandler: (()->Void)?
-    var errorHandler: ((String)->Void)?
-    var dataHandler: ((Any) throws ->Void)?
     
+    //MARK: OsonoTaskDelegate Protocol
     func success() {
-        successHandler?()
-    }
-    
-    func error(message: String) {
-        errorHandler?(message)
     }
     
     func processData(data: Any) throws {
-        try dataHandler?(data)
     }
-    
     
 }
 

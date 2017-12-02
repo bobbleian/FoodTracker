@@ -242,7 +242,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     
     @IBAction func refreshOperationalForms(_ sender: UIBarButtonItem) {
         if let currentRun = Authorize.CURRENT_RUN {
-            DataSync.RunDataSync(selectedRun: currentRun, viewController: self, finalTask: nil)
+            DataSync.RunDataSync(selectedRun: currentRun, viewController: self, successTask: nil, errorTask: nil)
         }
     }
     
@@ -300,4 +300,18 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         }
         tableView.reloadData()
     }
+    
+    class ShowDataSyncSuccessTask: OPLYNXGenericTask {
+        
+        init(_ viewController: UIViewController) {
+            super.init(viewController: viewController)
+        }
+        override func RunTask() {
+            DispatchQueue.main.async {
+                // Navigate to the OF list screen
+                self.viewController?.performSegue(withIdentifier: "ShowOperationalFormList", sender: self.viewController)
+            }
+        }
+    }
+    
 }

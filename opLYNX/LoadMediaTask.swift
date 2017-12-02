@@ -14,26 +14,13 @@ class LoadMediaTask: OPLYNXUserServerTask {
     
     //MARK: Initializer
     init(_ mediaNumber: String, mediaTableViewController: MediaTableViewController?) {
-        super.init(module: "media", method: "get", httpMethod: "GET")
+        super.init(module: "media", method: "get", httpMethod: "GET", viewController: mediaTableViewController, taskTitle: "Data Sync", taskDescription: "Loading Media Info")
         addParameter(name: "media_number", value: mediaNumber)
-        taskDelegate = LoadMediaHandler(mediaTableViewController: mediaTableViewController)
     }
     
-    //MARK: Server Delegate Handlers
-    class LoadMediaHandler: OPLYNXServerTaskDelegate {
-        
-        let mediaTableViewController: MediaTableViewController?
-        
-        //MARK: Initializers
-        init(mediaTableViewController: MediaTableViewController?) {
-            self.mediaTableViewController = mediaTableViewController
-            super.init(viewController: nil, taskTitle: "Data Sync", taskDescription: "Loading Media")
-        }
-        
-        //MARK: OsonoTaskDelegate Protocol
-        override func processData(data: Any) throws {
-            if let data = data as? [String:Any] {
-                if let Asset_ID = data["ai"] as? Int,
+    override func processData(data: Any) throws {
+        if let data = data as? [String:Any] {
+            if let Asset_ID = data["ai"] as? Int,
                 let Create_DateString = data["cd"] as? String,
                 let Create_Date = Date(jsonDate: Create_DateString),
                 let base64Contents = data["contents"] as? String,
@@ -47,33 +34,31 @@ class LoadMediaTask: OPLYNXUserServerTask {
                 let MediaType_ID = data["mti"] as? Int,
                 let UniqueMediaNumber = data["umn"] as? Int,
                 let Url = data["url"] as? String {
-                    
-                    let Contents = UIImage(data: dataContents)
-                    
-                    let media = Media(MediaNumber: MediaNumber, Media_Date: Media_Date, Asset_ID: Asset_ID, UniqueMediaNumber: UniqueMediaNumber, MediaType_ID: MediaType_ID, Url: Url, Description: Description, Create_Date: Create_Date, CreateUser_ID: CreateUser_ID, GPSLocation: GPSLocation, LastUpdate: Date(), Dirty: false, Content: Contents)
-                    
-                    // Save the Media record to the database
-                    do {
-                        try media.insertMediaToDB(db: Database.DB())
-                        if let mediaTableViewController = mediaTableViewController {
-                            mediaTableViewController.appendMedia(media)
-                            DispatchQueue.main.async {
-                                mediaTableViewController.tableView.reloadData()
-                            }
+                
+                let Contents = UIImage(data: dataContents)
+                
+                let media = Media(MediaNumber: MediaNumber, Media_Date: Media_Date, Asset_ID: Asset_ID, UniqueMediaNumber: UniqueMediaNumber, MediaType_ID: MediaType_ID, Url: Url, Description: Description, Create_Date: Create_Date, CreateUser_ID: CreateUser_ID, GPSLocation: GPSLocation, LastUpdate: Date(), Dirty: false, Content: Contents)
+                
+                // Save the Media record to the database
+                do {
+                    try media.insertMediaToDB(db: Database.DB())
+                    if let mediaTableViewController = viewController as? MediaTableViewController {
+                        mediaTableViewController.appendMedia(media)
+                        DispatchQueue.main.async {
+                            mediaTableViewController.tableView.reloadData()
                         }
                     }
-                    catch {
-                        // Unable to save the Asset Token to the database
-                        throw OsonoError.Message("Error saving Media locally")
-                    }
+                }
+                catch {
+                    // Unable to save the Asset Token to the database
+                    throw OsonoError.Message("Error saving Media locally")
                 }
             }
-            else {
-                // Unable to parse server data
-                throw OsonoError.Message("Error Loading Media from Server")
-            }
         }
-        
+        else {
+            // Unable to parse server data
+            throw OsonoError.Message("Error Loading Media from Server")
+        }
     }
     
 }

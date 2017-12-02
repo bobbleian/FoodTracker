@@ -40,15 +40,19 @@ class ConfigSync {
         // Create a task for saving AssetSoftwareInfo
         let saveAssetSoftwareInfoTask = SaveAssetSoftwareInfoTask("Config Sync", viewController: viewController)
         
+        // Error handler task
+        let oplynxErrorTask = OPLYNXErrorTask()
+        
         // Chain the Config Sync tasks together
         pingServerTask.insertOsonoTask(loadAssetSoftwareInfoTask)
         loadAssetSoftwareInfoTask.insertOsonoTask(loadDateTimeUTCTask)
         loadDateTimeUTCTask.insertOsonoTask(loadUserTask)
         loadUserTask.insertOsonoTask(loadRunTask)
         loadRunTask.insertOsonoTask(saveAssetSoftwareInfoTask)
+        saveAssetSoftwareInfoTask.insertOsonoTask(oplynxErrorTask)
         
         // Run the Osono Task Chain
-        loadAssetSoftwareInfoTask.RunTask()
+        pingServerTask.RunTask()
     }
     
 }

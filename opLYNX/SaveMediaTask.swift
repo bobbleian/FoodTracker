@@ -12,46 +12,35 @@ import os.log
 
 class SaveMediaTask: OPLYNXUserServerTask {
     
+    //MARK: Properties
+    private let media: Media
+    
     //MARK: Initializer
     init(_ media: Media, viewController: UIViewController?) {
-        super.init(module: "media", method: "save", httpMethod: "POST")
+        self.media = media
+        super.init(module: "media", method: "save", httpMethod: "POST", viewController: viewController, taskTitle: "Data Sync", taskDescription: "Uploading Media")
         setDataPayload(dataPayload: media.convertToOsono())
-        taskDelegate = SaveMediaHandler(media, viewController: viewController)
     }
     
-    // Save SaveOperationalForm Handler
-    class SaveMediaHandler: OPLYNXServerTaskDelegate {
+    override func processData(data: Any) throws {
         
-        private let media: Media
-        
-        //MARK: Initializers
-        init(_ media: Media, viewController: UIViewController?) {
-            self.media = media
-            super.init(viewController: viewController, taskTitle: "Data Sync", taskDescription: "Uploading Media")
+        // Parse out the returned Media number
+        guard let data = data as? [String:Any], let NewMediaNumber = data["mn"] as? String, let NewUniqueMediaNumber = data["umn"] as? Int else {
+            // Unable to parse server data
+            throw OsonoError.Message("Error Saving Media To Server")
         }
         
-        //MARK: OsonoTaskDelegate Protocol
-        override func processData(data: Any) throws {
-            
-            // Parse out the returned Media number
-            guard let data = data as? [String:Any], let NewMediaNumber = data["mn"] as? String, let NewUniqueMediaNumber = data["umn"] as? Int else {
-                // Unable to parse server data
-                throw OsonoError.Message("Error Saving Media To Server")
-            }
-                
-            // After a successul upload to the server, delete the Media record from the local database
-            do {
-                let db = try Database.DB()
-                try media.updateMediaNumber(db: db, NewMediaNumber: NewMediaNumber, NewUniqueMediaNumber: NewUniqueMediaNumber, NewDirty: false)
-                try media.deleteMediaFromDB(db: db)
-            }
-            catch {
-                // Unable to save the Asset Token to the database
-                throw OsonoError.Message("Error Saving Media Data")
-            }
-            
+        // After a successul upload to the server, delete the Media record from the local database
+        do {
+            let db = try Database.DB()
+            try media.updateMediaNumber(db: db, NewMediaNumber: NewMediaNumber, NewUniqueMediaNumber: NewUniqueMediaNumber, NewDirty: false)
+            try media.deleteMediaFromDB(db: db)
         }
-
+        catch {
+            // Unable to save the Asset Token to the database
+            throw OsonoError.Message("Error Saving Media Data")
+        }
+        
     }
     
 }

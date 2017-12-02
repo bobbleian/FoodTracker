@@ -12,14 +12,6 @@ import os.log
 
 class DeleteCleanMediaTask: OPLYNXGenericTask {
     
-    let viewController: UIViewController?
-    
-    //MARK: Initializer
-    init(viewController: UIViewController?) {
-        self.viewController = viewController
-        super.init()
-    }
-    
     // Subclasses provide their own RunTask implementation
     override func RunTask() {
         try? Media.deleteCleanMediaFromDB(db: Database.DB())

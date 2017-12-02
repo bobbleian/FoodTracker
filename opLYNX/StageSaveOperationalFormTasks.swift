@@ -12,14 +12,6 @@ import os.log
 
 class StageSaveOperationalFormTasks: OPLYNXGenericTask {
     
-    let viewController: UIViewController?
-    
-    //MARK: Initializer
-    init(viewController: UIViewController?) {
-        self.viewController = viewController
-        super.init()
-    }
-    
     // Subclasses provide their own RunTask implementation
     override func RunTask() {
         

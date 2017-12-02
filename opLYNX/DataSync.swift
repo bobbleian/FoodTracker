@@ -16,7 +16,7 @@ class DataSync {
     public static var DATA_SYNC_SERVER_TIME_UTC: Date?
     
     // Run Data Sync
-    static func RunDataSync(selectedRun: Run, viewController: UIViewController?, finalTask: OsonoServerTask?) {
+    static func RunDataSync(selectedRun: Run, viewController: UIViewController?, successTask: OsonoServerTask?, errorTask: OsonoErrorTask?) {
 
         // Check first we can hit the server
         let pingServerTask = PingServerTask(viewController: viewController)
@@ -41,7 +41,7 @@ class DataSync {
         }
         
         // Delete all Media that exists on the server
-        let deleteCleanMediaTask = DeleteCleanMediaTask(viewController: viewController)
+        let deleteCleanMediaTask = DeleteCleanMediaTask()
         
         // Save Dirty Operational Forms
         let stageSaveOperationalFormsTask = StageSaveOperationalFormTasks(viewController: viewController)
@@ -78,8 +78,14 @@ class DataSync {
         loadFormsByLastSync.insertOsonoTask(saveAssetSoftwareInfoTask)
         
         // Add the final task, if necessary
-        if let finalTask = finalTask {
-            saveAssetSoftwareInfoTask.insertOsonoTask(finalTask)
+        if let successTask = successTask {
+            saveAssetSoftwareInfoTask.insertOsonoTask(successTask)
+            if let errorTask = errorTask {
+                successTask.insertOsonoTask(errorTask)
+            }
+        }
+        else if let errorTask = errorTask {
+            saveAssetSoftwareInfoTask.insertOsonoTask(errorTask)
         }
         
         // TESTING ONLY
@@ -90,3 +96,4 @@ class DataSync {
     }
     
 }
+

@@ -16,7 +16,15 @@ class OPLYNXServerTask : OsonoServerTask {
     private static let SERVER_METHOD = "http"
     private static let SERVER_APPLICATION = "opLYNXJSON"
     
-    init(module: String?, method: String, httpMethod: String) {
+    //MARK: Properties
+    let taskTitle: String?
+    let taskDescription: String?
+    let viewController: UIViewController?
+    
+    init(module: String?, method: String, httpMethod: String, viewController: UIViewController?, taskTitle: String?, taskDescription: String?) {
+        self.taskTitle = taskTitle
+        self.taskDescription = taskDescription
+        self.viewController = viewController
         super.init(serverIP: OPLYNXServerTask.SERVER_IP,
                    serverPort: OPLYNXServerTask.SERVER_PORT,
                    serverMethod: OPLYNXServerTask.SERVER_METHOD,
@@ -26,9 +34,10 @@ class OPLYNXServerTask : OsonoServerTask {
                    httpMethod: httpMethod)
     }
     
+    
     override func RunTask() {
         // Display task title, if it exists
-        if let oplynxServerTaskDelegate = taskDelegate as? OPLYNXServerTaskDelegate, let viewController = oplynxServerTaskDelegate.viewController, let header = oplynxServerTaskDelegate.taskTitle, let footer = oplynxServerTaskDelegate.taskDescription {
+        if let viewController = viewController, let header = taskTitle, let footer = taskDescription {
             DispatchQueue.main.async {
                 JustHUD.shared.showInView(view: viewController.view, withHeader: header, andFooter: footer)
             }
@@ -36,42 +45,14 @@ class OPLYNXServerTask : OsonoServerTask {
         
         // Run the task
         super.RunTask()
-    }
-}
-
-class OPLYNXServerTaskDelegate : OsonoTaskDelegate {
-    
-    //MARK: Properties
-    let taskTitle: String?
-    let taskDescription: String?
-    let viewController: UIViewController?
-    
-    //MARK: Initializers
-    init(viewController: UIViewController?, taskTitle: String?, taskDescription: String?) {
-        self.viewController = viewController
-        self.taskTitle = taskTitle
-        self.taskDescription = taskDescription
-    }
-    
-    //MARK: OsonoTaskDelegate Protocol
-    func success() {
-        DispatchQueue.main.async {
-            JustHUD.shared.hide()
-        }
-    }
-    
-    func error(message: String) {
-        DispatchQueue.main.async {
-            JustHUD.shared.hide()
-        }
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        viewController?.present(alert, animated: true, completion: nil)
-    }
-    
-    func processData(data: Any) throws {
         
     }
+    
+    //MARK: Overrides
+    override func success() {
+        DispatchQueue.main.async {
+            JustHUD.shared.hide()
+        }
+    }
+    
 }
-
-
