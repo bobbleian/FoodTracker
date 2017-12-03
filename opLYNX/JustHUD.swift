@@ -62,36 +62,38 @@ class JustHUD: UIView {
     /// Show the loader added to the mentioned view with the provided title and footer texts
     func showInView(view: UIView, withHeader: String?, andFooter: String?) {
         self.hide()
-        self.frame = view.bounds
-        setIndicator()
         
-        if let title = withHeader, !isCleanedStringEmpty(string: title) {
-            setTitleLabel(text: title)
-            titleLabel!.frame = CGRect(x: 0, y: 0, width: getLabelSize().width, height: getLabelSize().height)
-        }
-        
-        if let footer = andFooter, !isCleanedStringEmpty(string: footer) {
-            setFooterLabel(text: footer)
-            footerLabel!.frame = CGRect(x: 0, y: 0, width: getLabelSize().width, height: getLabelSize().height)
-        }
-        
-        setBackGround(view: self)
-        
-        if let title = withHeader, !isCleanedStringEmpty(string: title) {
-            titleLabel!.frame.origin = getHeaderOrigin(view: backView!)
-            titleLabel?.adjustsFontSizeToFitWidth = true
-            backView?.addSubview(titleLabel!)
-        }
-        
-        if let footer = andFooter, !isCleanedStringEmpty(string: footer) {
-            footerLabel!.frame.origin = getFooterOrigin(view: backView!)
-            footerLabel?.adjustsFontSizeToFitWidth = true
-            backView?.addSubview(footerLabel!)
-        }
-        
-        progressIndicator?.frame.origin = getIndicatorOrigin(view: backView!, activityIndicatorView: progressIndicator!)
-        backView?.addSubview(progressIndicator!)
         DispatchQueue.main.async {
+            self.frame = view.bounds
+            self.setIndicator()
+            
+            if let title = withHeader, !self.isCleanedStringEmpty(string: title) {
+                self.setTitleLabel(text: title)
+                self.titleLabel!.frame = CGRect(x: 0, y: 0, width: self.getLabelSize().width, height: self.getLabelSize().height)
+            }
+            
+            if let footer = andFooter, !self.isCleanedStringEmpty(string: footer) {
+                self.setFooterLabel(text: footer)
+                self.footerLabel!.frame = CGRect(x: 0, y: 0, width: self.getLabelSize().width, height: self.getLabelSize().height)
+            }
+            
+            self.setBackGround(view: self)
+            
+            if let title = withHeader, !self.isCleanedStringEmpty(string: title) {
+                self.titleLabel!.frame.origin = self.getHeaderOrigin(view: self.backView!)
+                self.titleLabel?.adjustsFontSizeToFitWidth = true
+                self.backView?.addSubview(self.titleLabel!)
+            }
+            
+            if let footer = andFooter, !self.isCleanedStringEmpty(string: footer) {
+                self.footerLabel!.frame.origin = self.getFooterOrigin(view: self.backView!)
+                self.footerLabel?.adjustsFontSizeToFitWidth = true
+                self.backView?.addSubview(self.footerLabel!)
+            }
+            
+            self.progressIndicator?.frame.origin = self.getIndicatorOrigin(view: self.backView!, activityIndicatorView: self.progressIndicator!)
+            self.backView?.addSubview(self.progressIndicator!)
+        //DispatchQueue.main.async {
             view.addSubview(self)
         }
     }
@@ -113,11 +115,19 @@ class JustHUD: UIView {
     
     /// Removes the loader from its superview to hide
     func hide() {
+        /*
         if self.superview != nil {
             DispatchQueue.main.async {
                 self.removeFromSuperview()
             }
             progressIndicator?.stopAnimating()
+        }
+        */
+        
+        DispatchQueue.main.async {
+            if self.superview != nil {
+                self.removeFromSuperview()
+            }
         }
     }
     

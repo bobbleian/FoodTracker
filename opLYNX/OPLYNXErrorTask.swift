@@ -27,7 +27,9 @@ class OPLYNXErrorTask: OsonoErrorTask {
     
     override func RunTask() {
         // Hide any progress dialogs
-        JustHUD.shared.hide()
+        DispatchQueue.main.async {
+            JustHUD.shared.hide()
+        }
     }
     
 }

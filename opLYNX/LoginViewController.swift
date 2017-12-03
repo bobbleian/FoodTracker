@@ -140,7 +140,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         Authorize.CURRENT_USER = olUser
         
         // Run Data Sync.  If it completes successfully, navigate to Operational Form List view
-        DataSync.RunDataSync(selectedRun: selectedRun, viewController: self, successTask: ShowOperationalFormListTask(self), errorTask: WorkOfflineErrorTask(viewController: self))
+        DataSync.RunDataSync(selectedRun: selectedRun, viewController: self, successTask: ShowOperationalFormListTask(self), errorTask: WorkOfflineErrorTask(viewController: self, selectedRun: selectedRun))
         
     }
     
@@ -260,14 +260,60 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
     
     class WorkOfflineErrorTask: OPLYNXErrorTask {
+        //MARK: Properties
+        private let selectedRun: Run
+        
+        //MARK: Initializers
+        init(viewController: UIViewController?, selectedRun: Run) {
+            self.selectedRun = selectedRun
+            super.init(viewController: viewController)
+        }
+        
+        //MARK: Overrides
         override func RunTask() {
             super.RunTask()
-            // Prompt user to naviate to work on current run in "Offline" mode
-            DispatchQueue.main.async {
-                let alert = UIAlertController(title: "Data Sync Error", message: "Unable to switch runs.  Work Offline to work on previous run, or try again later", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
-                alert.addAction(UIAlertAction(title: "Work Offline", style: .default, handler: nil))
-                self.viewController?.present(alert, animated: true, completion: nil)
+            
+            if let previousRun = Authorize.CURRENT_RUN {
+                // Prompt user to navigate to work on current run in "Offline" mode
+                if previousRun.Name == selectedRun.Name {
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Data Sync Error", message: "Unable to contact server.  Work Offline to continue working on forms, or try again later.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+                        alert.addAction(UIAlertAction(title: "Work Offline", style: .default, handler: { (UIAlertAction) in
+                            DispatchQueue.main.async {
+                                // Navigate to the OF list screen
+                                self.viewController?.performSegue(withIdentifier: "ShowOperationalFormList", sender: self.viewController)
+                            }
+                        }))
+                        self.viewController?.present(alert, animated: true, completion: nil)
+                    }
+                }
+                else {
+                    DispatchQueue.main.async {
+                        let alert = UIAlertController(title: "Data Sync Error", message: "Unable to change runs.  Work Offline to contiue on previous run '" + previousRun.Name + "', or try again later.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+                        alert.addAction(UIAlertAction(title: "Work Offline", style: .default, handler: { (UIAlertAction) in
+                            DispatchQueue.main.async {
+                                // Reset the current selected run on the Login UI
+                                if let loginViewController = self.viewController as? LoginViewController {
+                                    loginViewController.runTextField.text = Authorize.CURRENT_RUN?.Name
+                                    loginViewController.selectedRun = Authorize.CURRENT_RUN
+                                }
+                                // Navigate to the OF list screen
+                                self.viewController?.performSegue(withIdentifier: "ShowOperationalFormList", sender: self.viewController)
+                            }
+                        }))
+                        self.viewController?.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+            else {
+                // No previous run to log into
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Data Sync Error", message: "Unable to load run '" + self.selectedRun.Name + "'.  Ensure good internet connection and try again.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.viewController?.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }

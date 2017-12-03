@@ -38,9 +38,7 @@ class OPLYNXServerTask : OsonoServerTask {
     override func RunTask() {
         // Display task title, if it exists
         if let viewController = viewController, let header = taskTitle, let footer = taskDescription {
-            DispatchQueue.main.async {
-                JustHUD.shared.showInView(view: viewController.view, withHeader: header, andFooter: footer)
-            }
+            JustHUD.shared.showInView(view: viewController.view, withHeader: header, andFooter: footer)
         }
         
         // Run the task
