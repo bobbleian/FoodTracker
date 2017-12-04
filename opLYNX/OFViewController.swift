@@ -21,7 +21,8 @@ class OFViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var containerViewD: UIView!
     @IBOutlet weak var containerViewE: UIView!
     
-
+    @IBOutlet weak var ofSegmentedControl: UISegmentedControl!
+    
 	// This value is set by the OFTableViewController in the prepare function
     var operationalForm: OperationalForm?
     
@@ -44,6 +45,16 @@ class OFViewController: UIViewController, UINavigationControllerDelegate {
                 }
             }
         }
+        
+        // Swipe gestures
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeLeft.direction = .left
+        self.view.addGestureRecognizer(swipeLeft)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
+        
     }
     
     // Get all EntryControl controls by traversing the view hierarchy
@@ -145,6 +156,31 @@ class OFViewController: UIViewController, UINavigationControllerDelegate {
             })
         }
     }
+    
+    
+    @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+        if gesture.direction == UISwipeGestureRecognizerDirection.right {
+            if ofSegmentedControl.selectedSegmentIndex > 0 {
+                ofSegmentedControl.selectedSegmentIndex -= 1
+                showContainerView(ofSegmentedControl)
+            }
+            print("Swipe Right")
+        }
+        else if gesture.direction == UISwipeGestureRecognizerDirection.left {
+            if ofSegmentedControl.selectedSegmentIndex < ofSegmentedControl.numberOfSegments - 1 {
+                ofSegmentedControl.selectedSegmentIndex += 1
+                showContainerView(ofSegmentedControl)
+            }
+            print("Swipe Left")
+        }
+        else if gesture.direction == UISwipeGestureRecognizerDirection.up {
+            print("Swipe Up")
+        }
+        else if gesture.direction == UISwipeGestureRecognizerDirection.down {
+            print("Swipe Down")
+        }
+    }
+    
     
     @IBAction func saveOperationalForm(_ sender: UIBarButtonItem) {
             

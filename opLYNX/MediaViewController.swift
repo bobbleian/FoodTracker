@@ -23,6 +23,8 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = EntryControl.EC_NONMANDATORY_COLOR
+        
         // Set up views
         if let media = media {
             mediaCommentsTextView.text = media.Description
@@ -62,7 +64,7 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
         
         // Set the photoImageView to display the selected image
-        mediaImageView.image = selectedImage.resizeImage(scale: 0.1)
+        mediaImageView.image = selectedImage.resizeImage(newWidth: 400.0)
         
         // Dismiss the picker
         dismiss(animated: true, completion: nil)
@@ -81,9 +83,9 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
 }
 
 extension UIImage {
-    func resizeImage(scale: CGFloat) -> UIImage {
+    func resizeImage(newWidth: CGFloat) -> UIImage {
+        let scale = newWidth/self.size.width
         let newHeight = self.size.height * scale
-        let newWidth = self.size.width * scale
         UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
         self.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()

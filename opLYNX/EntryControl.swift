@@ -11,10 +11,10 @@ import UIKit
 @IBDesignable class EntryControl: UIStackView, UIPickerViewDataSource, UIPickerViewDelegate {
 
     //MARK: Properties
-    private static let EC_NONMANDATORY_COLOR = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
-    private static let EC_READONLY_COLOR = UIColor(red: 175/255, green: 175/255, blue: 175/255, alpha: 1.0)
-    private static let EC_MANDATORY_EMPTY_COLOR = UIColor.orange
-    private static let EC_MANDATORY_COMPLETE_COLOR = UIColor.green
+    public static let EC_NONMANDATORY_COLOR = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+    public static let EC_READONLY_COLOR = UIColor(red: 175/255, green: 175/255, blue: 175/255, alpha: 1.0)
+    public static let EC_MANDATORY_EMPTY_COLOR = UIColor.orange
+    public static let EC_MANDATORY_COMPLETE_COLOR = UIColor.green
     
     private let backGroundView = UIControl()
     private let entryTitle = UILabel()

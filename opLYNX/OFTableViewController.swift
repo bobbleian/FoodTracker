@@ -309,7 +309,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         
         override func RunTask() {
             DispatchQueue.main.async {
-                let alert = UIAlertController(title: "Data Sync Success", message: "All forms have been uploaded.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Data Sync Success", message: "All forms have been synced.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.viewController?.present(alert, animated: true, completion: nil)
             }

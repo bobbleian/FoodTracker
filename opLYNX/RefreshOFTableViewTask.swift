@@ -10,33 +10,28 @@ import Foundation
 
 class RefreshOFTableViewTask : OPLYNXGenericTask {
     
-    private let ofTableViewController: OFTableViewController
-    
-    init(ofTableViewController: OFTableViewController) {
-        self.ofTableViewController = ofTableViewController
-        super.init()
-    }
-    
     // Refresh the OF Table View UI
+    // TODO: Implement progress spinner
     override func RunTask() {
-        // Refresh the Operational Form List
-        ofTableViewController.loadAllOperationalForms()
-        DispatchQueue.main.async {
+        if let ofTableViewController = self.viewController as? OFTableViewController {
             
-            JustHUD.shared.showInView(view: self.ofTableViewController.view, withHeader: "Updating UI", andFooter: nil)
-        }
-        
-        DispatchQueue.main.async {
-            if let ofTableViewController = self.viewController as? OFTableViewController {
-                self.ofTableViewController.tableView?.reloadData()
+            // Refresh the Operational Form List
+            ofTableViewController.loadAllOperationalForms()
+            DispatchQueue.main.async {
+                
+                JustHUD.shared.showInView(view: ofTableViewController.view, withHeader: "Updating UI", andFooter: nil)
             }
             
-            // Run success  TODO: Check
-            //self.taskDelegate?.success()
-            
-            // Run the next Osono Task, if necessary
-            self.runNextTask()
-            
+            DispatchQueue.main.async {
+                ofTableViewController.tableView?.reloadData()
+                
+                // Run success  TODO: Check
+                //self.taskDelegate?.success()
+                
+                // Run the next Osono Task, if necessary
+                self.runNextTask()
+                
+            }
         }
     }
 }
