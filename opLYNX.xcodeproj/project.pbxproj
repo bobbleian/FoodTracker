@@ -22,6 +22,7 @@
 		3D5454B51FB8E62300212209 /* ConfigSyncServerTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454B41FB8E62300212209 /* ConfigSyncServerTask.swift */; };
 		3D5454B71FB8EB2A00212209 /* DataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454B61FB8EB2A00212209 /* DataSync.swift */; };
 		3D5F4B181FC7790A000BEFE3 /* AssetRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5F4B171FC7790A000BEFE3 /* AssetRegistrationViewController.swift */; };
+		3D5F9DB61FD611E500C328B0 /* ScaleAspectFitImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5F9DB51FD611E500C328B0 /* ScaleAspectFitImageView.swift */; };
 		3D8656171FD076180038E403 /* PingServerTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8656161FD076180038E403 /* PingServerTask.swift */; };
 		3D8656201FD0CCF50038E403 /* OsonoErrorTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D86561F1FD0CCF50038E403 /* OsonoErrorTask.swift */; };
 		3D8656221FD1B62C0038E403 /* OPLYNXGenericTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8656211FD1B62C0038E403 /* OPLYNXGenericTask.swift */; };
@@ -195,6 +196,7 @@
 		3D5454B41FB8E62300212209 /* ConfigSyncServerTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigSyncServerTask.swift; sourceTree = "<group>"; };
 		3D5454B61FB8EB2A00212209 /* DataSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSync.swift; sourceTree = "<group>"; };
 		3D5F4B171FC7790A000BEFE3 /* AssetRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetRegistrationViewController.swift; sourceTree = "<group>"; };
+		3D5F9DB51FD611E500C328B0 /* ScaleAspectFitImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleAspectFitImageView.swift; sourceTree = "<group>"; };
 		3D8656161FD076180038E403 /* PingServerTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PingServerTask.swift; sourceTree = "<group>"; };
 		3D86561F1FD0CCF50038E403 /* OsonoErrorTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OsonoErrorTask.swift; sourceTree = "<group>"; };
 		3D8656211FD1B62C0038E403 /* OPLYNXGenericTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OPLYNXGenericTask.swift; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 			children = (
 				483B20D41FABA4AF003A411F /* JustHUD.swift */,
 				489D08BD1F54A18500A93A56 /* EntryControl.swift */,
+				3D5F9DB51FD611E500C328B0 /* ScaleAspectFitImageView.swift */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -666,6 +669,7 @@
 				489D08BE1F54A18500A93A56 /* EntryControl.swift in Sources */,
 				3D8656241FD1B6E90038E403 /* OPLYNXErrorTask.swift in Sources */,
 				485C9A901F3E0E0400BA6CBD /* AppDelegate.swift in Sources */,
+				3D5F9DB61FD611E500C328B0 /* ScaleAspectFitImageView.swift in Sources */,
 				48CED76A1FAA1DD700A56C43 /* ConfigSync.swift in Sources */,
 				48B457A01F4B69B4006D9DBF /* OFTableViewController.swift in Sources */,
 				3D5F4B181FC7790A000BEFE3 /* AssetRegistrationViewController.swift in Sources */,

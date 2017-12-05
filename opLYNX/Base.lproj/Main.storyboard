@@ -142,18 +142,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="NW4-3K-Op9">
-                                <rect key="frame" x="25" y="64" width="325" height="477"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3v-hF-3ff">
+                                <rect key="frame" x="10" y="74" width="355" height="583"/>
                                 <subviews>
-                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noimage" translatesAutoresizingMaskIntoConstraints="NO" id="FrO-2q-KWd">
-                                        <rect key="frame" x="0.0" y="0.0" width="325" height="367"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpC-YD-pW3">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="24"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noimage" translatesAutoresizingMaskIntoConstraints="NO" id="FrO-2q-KWd" customClass="ScaleAspectFitImageView" customModule="opLYNX" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="34" width="355" height="62"/>
                                         <gestureRecognizers/>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="bPy-YB-jP5" appends="YES" id="hqQ-hr-7CM"/>
                                         </connections>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEc-9a-cRj">
+                                        <rect key="frame" x="0.0" y="106" width="355" height="24"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Comments..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eZ5-iv-x22">
-                                        <rect key="frame" x="0.0" y="377" width="325" height="100"/>
+                                        <rect key="frame" x="0.0" y="140" width="355" height="100"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="7i3-VQ-6ze"/>
@@ -163,17 +175,27 @@
                                     </textView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="FrO-2q-KWd" firstAttribute="width" secondItem="NW4-3K-Op9" secondAttribute="width" id="Qf0-bi-bPw"/>
-                                    <constraint firstItem="eZ5-iv-x22" firstAttribute="width" secondItem="NW4-3K-Op9" secondAttribute="width" id="il5-uu-tUh"/>
+                                    <constraint firstItem="vpC-YD-pW3" firstAttribute="width" secondItem="j3v-hF-3ff" secondAttribute="width" id="411-Um-167"/>
+                                    <constraint firstItem="OEc-9a-cRj" firstAttribute="centerX" secondItem="j3v-hF-3ff" secondAttribute="centerX" id="4vD-T4-Bq0"/>
+                                    <constraint firstItem="vpC-YD-pW3" firstAttribute="centerX" secondItem="j3v-hF-3ff" secondAttribute="centerX" id="G5J-jX-Mdp"/>
+                                    <constraint firstItem="FrO-2q-KWd" firstAttribute="centerX" secondItem="j3v-hF-3ff" secondAttribute="centerX" id="TDX-sV-C4h"/>
+                                    <constraint firstItem="OEc-9a-cRj" firstAttribute="top" secondItem="FrO-2q-KWd" secondAttribute="bottom" constant="10" id="TX6-FX-UIF"/>
+                                    <constraint firstItem="eZ5-iv-x22" firstAttribute="centerX" secondItem="j3v-hF-3ff" secondAttribute="centerX" id="W7m-1K-EUv"/>
+                                    <constraint firstItem="FrO-2q-KWd" firstAttribute="top" secondItem="vpC-YD-pW3" secondAttribute="bottom" constant="10" id="WBA-UP-Lu8"/>
+                                    <constraint firstItem="eZ5-iv-x22" firstAttribute="top" secondItem="OEc-9a-cRj" secondAttribute="bottom" constant="10" id="aeM-g9-KKl"/>
+                                    <constraint firstItem="vpC-YD-pW3" firstAttribute="top" secondItem="j3v-hF-3ff" secondAttribute="top" id="gw6-gO-9FL"/>
+                                    <constraint firstItem="eZ5-iv-x22" firstAttribute="width" secondItem="j3v-hF-3ff" secondAttribute="width" id="qgg-uB-CtJ"/>
+                                    <constraint firstItem="OEc-9a-cRj" firstAttribute="width" secondItem="j3v-hF-3ff" secondAttribute="width" id="vNv-d8-0R7"/>
+                                    <constraint firstItem="FrO-2q-KWd" firstAttribute="width" secondItem="j3v-hF-3ff" secondAttribute="width" id="zA3-bn-cCP"/>
                                 </constraints>
-                            </stackView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="NW4-3K-Op9" firstAttribute="centerX" secondItem="Hgh-rQ-CfZ" secondAttribute="centerX" id="ImE-5K-EMi"/>
-                            <constraint firstItem="FrO-2q-KWd" firstAttribute="height" secondItem="Hgh-rQ-CfZ" secondAttribute="height" constant="-300" id="YCI-FF-MTs"/>
-                            <constraint firstItem="NW4-3K-Op9" firstAttribute="top" secondItem="gaB-Rd-5Nc" secondAttribute="bottom" id="jBs-R6-Z1c"/>
-                            <constraint firstItem="NW4-3K-Op9" firstAttribute="width" secondItem="Hgh-rQ-CfZ" secondAttribute="width" constant="-50" id="jIy-p0-c9R"/>
+                            <constraint firstItem="smN-wM-ACS" firstAttribute="top" secondItem="j3v-hF-3ff" secondAttribute="bottom" constant="10" id="0t0-Bk-Beg"/>
+                            <constraint firstItem="j3v-hF-3ff" firstAttribute="centerX" secondItem="Hgh-rQ-CfZ" secondAttribute="centerX" id="VIE-yK-Uhp"/>
+                            <constraint firstItem="j3v-hF-3ff" firstAttribute="top" secondItem="gaB-Rd-5Nc" secondAttribute="bottom" constant="10" id="Yos-yk-RxG"/>
+                            <constraint firstItem="j3v-hF-3ff" firstAttribute="width" secondItem="Hgh-rQ-CfZ" secondAttribute="width" constant="-20" id="eXf-e4-v57"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Edit Image" id="aM7-hD-fcs">
@@ -190,7 +212,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mediaCommentsTextView" destination="eZ5-iv-x22" id="h3E-2K-h4Z"/>
-                        <outlet property="mediaImageView" destination="FrO-2q-KWd" id="ClR-Eo-zz8"/>
+                        <outlet property="mediaImageView" destination="FrO-2q-KWd" id="sNk-bz-53W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ih5-72-E47" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -201,7 +223,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3537" y="985"/>
+            <point key="canvasLocation" x="3536.8000000000002" y="984.55772113943033"/>
         </scene>
         <!--Operational Forms-->
         <scene sceneID="ZGI-g4-Sea">

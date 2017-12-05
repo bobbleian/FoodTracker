@@ -12,9 +12,11 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
 
     //MARK: Outlets
     @IBOutlet weak var mediaCommentsTextView: UITextView!
-    @IBOutlet weak var mediaImageView: UIImageView!
+    @IBOutlet weak var mediaStackView: UIStackView!
+    @IBOutlet weak var mediaImageView: ScaleAspectFitImageView!
     
     /*
+     @IBOutlet weak var mediaStackView: UIStackView!
      This value is either passed by MediaTableViewController in prepare(for:sender:)
      or constructed as part of adding a new image/media item
      */
@@ -29,7 +31,17 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
         if let media = media {
             mediaCommentsTextView.text = media.Description
             mediaImageView.image = media.Content
+            
         }
+        
+        // Borders
+        mediaCommentsTextView?.layer.cornerRadius = 5
+        mediaCommentsTextView?.layer.masksToBounds = true
+        mediaCommentsTextView?.layer.borderWidth = 1.0
+        mediaImageView?.layer.cornerRadius = 5
+        mediaImageView?.layer.masksToBounds = true
+        mediaImageView?.layer.borderWidth = 1.0
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,6 +50,8 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     @IBAction func selectImage(_ sender: UITapGestureRecognizer) {
+        
+        
         // Hide keyboard
         //nameTextField.resignFirstResponder()
         
@@ -48,6 +62,7 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
         // make sure the viewcontroller is notified when the user picks an image
         imagePickerController.delegate = self
         present(imagePickerController, animated: true, completion: nil)
+        
     }
     
     //MARK: UIImagePickerControllerDelegate
