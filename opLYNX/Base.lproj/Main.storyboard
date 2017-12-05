@@ -142,60 +142,73 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3v-hF-3ff">
-                                <rect key="frame" x="10" y="74" width="355" height="583"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nhY-FD-hEg">
+                                <rect key="frame" x="20" y="84" width="335" height="563"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpC-YD-pW3">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="24"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noimage" translatesAutoresizingMaskIntoConstraints="NO" id="FrO-2q-KWd" customClass="ScaleAspectFitImageView" customModule="opLYNX" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="34" width="355" height="62"/>
-                                        <gestureRecognizers/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="bPy-YB-jP5" appends="YES" id="hqQ-hr-7CM"/>
-                                        </connections>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEc-9a-cRj">
-                                        <rect key="frame" x="0.0" y="106" width="355" height="24"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Comments..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eZ5-iv-x22">
-                                        <rect key="frame" x="0.0" y="140" width="355" height="100"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3v-hF-3ff" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="627"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpC-YD-pW3">
+                                                <rect key="frame" x="0.5" y="0.0" width="335" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noimage" translatesAutoresizingMaskIntoConstraints="NO" id="FrO-2q-KWd" customClass="ScaleAspectFitImageView" customModule="opLYNX" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="34" width="335" height="62"/>
+                                                <gestureRecognizers/>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="bPy-YB-jP5" appends="YES" id="hqQ-hr-7CM"/>
+                                                </connections>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEc-9a-cRj">
+                                                <rect key="frame" x="0.5" y="106" width="335" height="24"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Comments..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="eZ5-iv-x22">
+                                                <rect key="frame" x="0.0" y="140" width="335" height="100"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="7i3-VQ-6ze"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="7i3-VQ-6ze"/>
+                                            <constraint firstItem="FrO-2q-KWd" firstAttribute="top" secondItem="vpC-YD-pW3" secondAttribute="bottom" constant="10" id="1Nl-c7-j2y"/>
+                                            <constraint firstItem="OEc-9a-cRj" firstAttribute="centerX" secondItem="j3v-hF-3ff" secondAttribute="centerX" id="1gH-1I-f2f"/>
+                                            <constraint firstItem="vpC-YD-pW3" firstAttribute="centerX" secondItem="j3v-hF-3ff" secondAttribute="centerX" id="7jJ-IN-tyB"/>
+                                            <constraint firstItem="vpC-YD-pW3" firstAttribute="width" secondItem="j3v-hF-3ff" secondAttribute="width" id="AHt-cB-jis"/>
+                                            <constraint firstItem="eZ5-iv-x22" firstAttribute="width" secondItem="j3v-hF-3ff" secondAttribute="width" id="E8L-It-rgi"/>
+                                            <constraint firstItem="FrO-2q-KWd" firstAttribute="centerX" secondItem="j3v-hF-3ff" secondAttribute="centerX" id="IEA-3T-VSV"/>
+                                            <constraint firstItem="eZ5-iv-x22" firstAttribute="top" secondItem="OEc-9a-cRj" secondAttribute="bottom" constant="10" id="Nrk-xV-9Z3"/>
+                                            <constraint firstItem="OEc-9a-cRj" firstAttribute="top" secondItem="FrO-2q-KWd" secondAttribute="bottom" constant="10" id="b9i-Bq-qki"/>
+                                            <constraint firstItem="FrO-2q-KWd" firstAttribute="width" secondItem="j3v-hF-3ff" secondAttribute="width" id="dRf-6e-5zr"/>
+                                            <constraint firstItem="vpC-YD-pW3" firstAttribute="top" secondItem="j3v-hF-3ff" secondAttribute="top" id="h0l-rU-Ozv"/>
+                                            <constraint firstItem="eZ5-iv-x22" firstAttribute="centerX" secondItem="j3v-hF-3ff" secondAttribute="centerX" id="mTs-OW-Pqk"/>
+                                            <constraint firstItem="OEc-9a-cRj" firstAttribute="width" secondItem="j3v-hF-3ff" secondAttribute="width" id="wdF-MW-GP5"/>
+                                            <constraint firstAttribute="bottom" secondItem="eZ5-iv-x22" secondAttribute="bottom" constant="387" id="x6x-4O-HDq"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
+                                    </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="vpC-YD-pW3" firstAttribute="width" secondItem="j3v-hF-3ff" secondAttribute="width" id="411-Um-167"/>
-                                    <constraint firstItem="OEc-9a-cRj" firstAttribute="centerX" secondItem="j3v-hF-3ff" secondAttribute="centerX" id="4vD-T4-Bq0"/>
-                                    <constraint firstItem="vpC-YD-pW3" firstAttribute="centerX" secondItem="j3v-hF-3ff" secondAttribute="centerX" id="G5J-jX-Mdp"/>
-                                    <constraint firstItem="FrO-2q-KWd" firstAttribute="centerX" secondItem="j3v-hF-3ff" secondAttribute="centerX" id="TDX-sV-C4h"/>
-                                    <constraint firstItem="OEc-9a-cRj" firstAttribute="top" secondItem="FrO-2q-KWd" secondAttribute="bottom" constant="10" id="TX6-FX-UIF"/>
-                                    <constraint firstItem="eZ5-iv-x22" firstAttribute="centerX" secondItem="j3v-hF-3ff" secondAttribute="centerX" id="W7m-1K-EUv"/>
-                                    <constraint firstItem="FrO-2q-KWd" firstAttribute="top" secondItem="vpC-YD-pW3" secondAttribute="bottom" constant="10" id="WBA-UP-Lu8"/>
-                                    <constraint firstItem="eZ5-iv-x22" firstAttribute="top" secondItem="OEc-9a-cRj" secondAttribute="bottom" constant="10" id="aeM-g9-KKl"/>
-                                    <constraint firstItem="vpC-YD-pW3" firstAttribute="top" secondItem="j3v-hF-3ff" secondAttribute="top" id="gw6-gO-9FL"/>
-                                    <constraint firstItem="eZ5-iv-x22" firstAttribute="width" secondItem="j3v-hF-3ff" secondAttribute="width" id="qgg-uB-CtJ"/>
-                                    <constraint firstItem="OEc-9a-cRj" firstAttribute="width" secondItem="j3v-hF-3ff" secondAttribute="width" id="vNv-d8-0R7"/>
-                                    <constraint firstItem="FrO-2q-KWd" firstAttribute="width" secondItem="j3v-hF-3ff" secondAttribute="width" id="zA3-bn-cCP"/>
+                                    <constraint firstItem="j3v-hF-3ff" firstAttribute="leading" secondItem="nhY-FD-hEg" secondAttribute="leading" id="0Wy-DC-ydk"/>
+                                    <constraint firstAttribute="bottom" secondItem="j3v-hF-3ff" secondAttribute="bottom" id="GfG-Cj-ZZD"/>
+                                    <constraint firstItem="j3v-hF-3ff" firstAttribute="top" secondItem="nhY-FD-hEg" secondAttribute="top" id="IVG-hG-V2A"/>
+                                    <constraint firstAttribute="trailing" secondItem="j3v-hF-3ff" secondAttribute="trailing" id="eFz-Fo-l9G"/>
                                 </constraints>
-                            </view>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="smN-wM-ACS" firstAttribute="top" secondItem="j3v-hF-3ff" secondAttribute="bottom" constant="10" id="0t0-Bk-Beg"/>
-                            <constraint firstItem="j3v-hF-3ff" firstAttribute="centerX" secondItem="Hgh-rQ-CfZ" secondAttribute="centerX" id="VIE-yK-Uhp"/>
-                            <constraint firstItem="j3v-hF-3ff" firstAttribute="top" secondItem="gaB-Rd-5Nc" secondAttribute="bottom" constant="10" id="Yos-yk-RxG"/>
-                            <constraint firstItem="j3v-hF-3ff" firstAttribute="width" secondItem="Hgh-rQ-CfZ" secondAttribute="width" constant="-20" id="eXf-e4-v57"/>
+                            <constraint firstItem="j3v-hF-3ff" firstAttribute="width" secondItem="Hgh-rQ-CfZ" secondAttribute="width" constant="-40" id="EKb-xl-QCm"/>
+                            <constraint firstAttribute="trailing" secondItem="nhY-FD-hEg" secondAttribute="trailing" constant="20" id="H9j-a6-u59"/>
+                            <constraint firstItem="nhY-FD-hEg" firstAttribute="top" secondItem="gaB-Rd-5Nc" secondAttribute="bottom" constant="20" id="bdZ-QI-M4n"/>
+                            <constraint firstItem="nhY-FD-hEg" firstAttribute="leading" secondItem="Hgh-rQ-CfZ" secondAttribute="leading" constant="20" id="kpY-eb-Mcj"/>
+                            <constraint firstItem="smN-wM-ACS" firstAttribute="top" secondItem="nhY-FD-hEg" secondAttribute="bottom" constant="20" id="xHR-aF-2Z5"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Edit Image" id="aM7-hD-fcs">
@@ -762,16 +775,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3n-uF-xpN">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3n-uF-xpN">
                                 <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mqE-1F-Cvb">
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mqE-1F-Cvb">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="733"/>
                                         <subviews>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HSz-pk-Jvk" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HSz-pk-Jvk" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="355" height="115"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TC4-TA-7Ml" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TC4-TA-7Ml" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="172.5" height="115"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -787,7 +800,7 @@
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="readonly" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qHr-8p-zPJ" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qHr-8p-zPJ" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="182.5" y="0.0" width="172.5" height="115"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -806,10 +819,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Lxd-Ni-qeO" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Lxd-Ni-qeO" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="123" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JXJ-BK-Qif" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JXJ-BK-Qif" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -825,7 +838,7 @@
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="readonly" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XrK-gw-xmS" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XrK-gw-xmS" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="182.5" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -844,10 +857,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rcv-06-jQa" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rcv-06-jQa" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="226" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pyB-mS-a5o" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pyB-mS-a5o" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -862,7 +875,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nTQ-HG-pc6" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nTQ-HG-pc6" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="121.5" y="0.0" width="112" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -877,7 +890,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i47-P0-9ys" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i47-P0-9ys" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="243.5" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -895,10 +908,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="v2m-OK-Fqt" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="v2m-OK-Fqt" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="329" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0vs-8Y-Nb4" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0vs-8Y-Nb4" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -914,7 +927,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="Decimal"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MQ0-Ef-eSl" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MQ0-Ef-eSl" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="121.5" y="0.0" width="112" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -930,7 +943,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="Decimal"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8S3-bu-umX" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8S3-bu-umX" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="243.5" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -949,10 +962,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="As5-4M-yme" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="As5-4M-yme" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="432" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4J-kt-ZyB" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W4J-kt-ZyB" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -968,7 +981,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="OptionList"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jNT-pc-laX" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jNT-pc-laX" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="121.5" y="0.0" width="112" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -984,7 +997,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ssd-ku-zjb" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ssd-ku-zjb" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="243.5" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1001,10 +1014,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aEW-YM-yCQ" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aEW-YM-yCQ" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="535" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPN-wg-gvS" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UPN-wg-gvS" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1021,7 +1034,7 @@
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JaO-d7-UHu" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JaO-d7-UHu" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="121.5" y="0.0" width="112" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1038,7 +1051,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="Initial;Scheduled;Investigating Problem"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okO-ul-Akp" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="okO-ul-Akp" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="243.5" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1058,10 +1071,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yEh-Hx-0Vy" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yEh-Hx-0Vy" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="638" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v7b-vu-qR4" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v7b-vu-qR4" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="355" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1125,16 +1138,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QkH-hK-vlf">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QkH-hK-vlf">
                                 <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FeK-wO-hV0">
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FeK-wO-hV0">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="527"/>
                                         <subviews>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="XLk-9y-i8m" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="XLk-9y-i8m" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="355" height="115"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Meh-fV-rAf" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Meh-fV-rAf" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="111.5" height="115"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1151,7 +1164,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LLo-7c-YVl" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LLo-7c-YVl" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="121.5" y="0.0" width="112" height="115"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1168,7 +1181,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awV-eT-apn" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="awV-eT-apn" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="243.5" y="0.0" width="111.5" height="115"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1188,10 +1201,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lrC-Ez-OYK" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lrC-Ez-OYK" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="123" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ety-1e-fcm" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ety-1e-fcm" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1207,7 +1220,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="Decimal"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byf-7p-JoP" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="byf-7p-JoP" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="121.5" y="0.0" width="112" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1224,7 +1237,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="OptionList"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hjB-SN-gM3" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hjB-SN-gM3" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="243.5" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1244,10 +1257,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jTC-a1-YVf" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jTC-a1-YVf" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="226" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sjh-M1-tCH" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sjh-M1-tCH" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1263,7 +1276,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="Decimal"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jtx-md-K2d" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jtx-md-K2d" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="121.5" y="0.0" width="112" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1280,7 +1293,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="OptionList"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="532-7U-nQX" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="532-7U-nQX" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="243.5" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1300,10 +1313,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1lZ-uw-Cqv" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="1lZ-uw-Cqv" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="329" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEH-7o-IBm" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BEH-7o-IBm" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1320,7 +1333,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="OptionList"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P4E-L4-Cy4" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P4E-L4-Cy4" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="121.5" y="0.0" width="112" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1337,7 +1350,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="OptionList"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zad-um-3Yv" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zad-um-3Yv" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="243.5" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1357,10 +1370,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="new-gP-tkO" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="new-gP-tkO" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="432" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Pr-y0-kAf" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Pr-y0-kAf" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="355" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1424,16 +1437,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EK-v5-Fil">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EK-v5-Fil">
                                 <rect key="frame" x="0.0" y="20" width="355" height="535"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2OZ-Ku-JD1">
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2OZ-Ku-JD1">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="507"/>
                                         <subviews>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="U0X-st-jBY" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="U0X-st-jBY" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zwl-oU-Mks" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zwl-oU-Mks" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1450,7 +1463,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="OptionList"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Es-et-Wk5" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Es-et-Wk5" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="182.5" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1469,10 +1482,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aZW-DY-EPO" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aZW-DY-EPO" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="103" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Kq-vc-AMg" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Kq-vc-AMg" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1489,7 +1502,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="No Bubbles;Bubbles"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOe-XO-5e7" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nOe-XO-5e7" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="182.5" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1508,10 +1521,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Hju-Nh-XEh" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Hju-Nh-XEh" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="206" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vJw-vf-I2o" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vJw-vf-I2o" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1528,7 +1541,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="Yes;No"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qOz-P6-Wlp" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qOz-P6-Wlp" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="182.5" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1548,10 +1561,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="M85-eT-ycR" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="M85-eT-ycR" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="309" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2mv-St-bN3" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2mv-St-bN3" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1568,7 +1581,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="Yes;No"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxO-hm-9Ew" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oxO-hm-9Ew" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="182.5" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1588,10 +1601,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Kv8-5m-uz1" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Kv8-5m-uz1" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="412" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1c7-MS-lql" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1c7-MS-lql" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1608,7 +1621,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="OptionList"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IO1-Qx-cL3" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IO1-Qx-cL3" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="182.5" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1672,16 +1685,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBm-AI-SzB">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBm-AI-SzB">
                                 <rect key="frame" x="0.0" y="20" width="355" height="535"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vWS-CJ-ayA">
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vWS-CJ-ayA">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="507"/>
                                         <subviews>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zzE-5h-U3T" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zzE-5h-U3T" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tUV-xo-tob" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tUV-xo-tob" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="355" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1701,10 +1714,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oP8-fJ-dss" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="oP8-fJ-dss" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="103" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vn2-Z4-K5U" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vn2-Z4-K5U" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="355" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1724,10 +1737,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wwI-JG-hIz" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wwI-JG-hIz" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="206" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zTM-HX-usu" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zTM-HX-usu" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="355" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1747,10 +1760,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="d7e-5h-vbb" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="d7e-5h-vbb" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="309" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="38P-GJ-2jY" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="38P-GJ-2jY" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="355" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1770,10 +1783,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WZ7-xZ-eZg" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WZ7-xZ-eZg" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="412" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="weC-3E-BBu" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="weC-3E-BBu" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="355" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1837,16 +1850,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="355" height="555"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xP3-Z8-E6z">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xP3-Z8-E6z">
                                 <rect key="frame" x="0.0" y="20" width="355" height="535"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ceg-gu-HyE">
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ceg-gu-HyE">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="507"/>
                                         <subviews>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wh0-9x-iJ5" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wh0-9x-iJ5" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XOV-Dg-TMy" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XOV-Dg-TMy" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1863,7 +1876,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="14 mPa;21 mPa"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0S-8u-1Fy" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d0S-8u-1Fy" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="182.5" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1883,10 +1896,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yRl-Op-ir2" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yRl-Op-ir2" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="103" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xNl-9M-J1K" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xNl-9M-J1K" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="355" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1906,10 +1919,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Rxv-Dh-src" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Rxv-Dh-src" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="206" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bfA-kK-cgy" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bfA-kK-cgy" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="355" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1929,10 +1942,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ILg-7z-ZVk" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ILg-7z-ZVk" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="309" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6P5-SU-zTh" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6P5-SU-zTh" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1948,7 +1961,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="Decimal"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ewn-wx-WeZ" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ewn-wx-WeZ" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="182.5" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1967,10 +1980,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.52318971160000005" blue="0.91118036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </stackView>
-                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qCb-b8-MaV" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
+                                            <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qCb-b8-MaV" customClass="CustomHorizontalStackView" customModule="opLYNX" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="412" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gxb-ac-yla" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gxb-ac-yla" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
@@ -1986,7 +1999,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="Decimal"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gv7-Ue-9Na" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gv7-Ue-9Na" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="182.5" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
