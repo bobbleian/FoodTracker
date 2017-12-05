@@ -12,6 +12,9 @@ class MediaTableViewCell: UITableViewCell {
 
     @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var mediaCommentsTextView: UITextView!
+    @IBOutlet weak var cellContentView: UIView!
+    @IBOutlet weak var loadingLabel: UILabel!
+    @IBOutlet weak var loadingAvtivityIndicator: UIActivityIndicatorView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

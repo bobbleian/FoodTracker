@@ -10,7 +10,7 @@ import UIKit
 import os.log
 import SQLite
 
-class MediaTableViewController: UITableViewController {
+class MediaTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     //MARK: Properties
     private var media = [Media]()
@@ -92,16 +92,32 @@ class MediaTableViewController: UITableViewController {
             fatalError("Dequeued cell is not MediaTableViewCell")
         }
         
+        cell.mediaCommentsTextView.layer.cornerRadius = 5
+        cell.mediaCommentsTextView.layer.masksToBounds = true
+        cell.mediaCommentsTextView.layer.borderWidth = 1.0
+        
         let ofLinkMediaItem = ofLinkMedia[indexPath.row]
         let mediaItem = media.first(where: { $0.MediaNumber == ofLinkMediaItem.MediaNumber } )
         
         if let mediaItem = mediaItem {
+            cell.loadingLabel.isHidden = true
+            cell.loadingAvtivityIndicator.isHidden = true
+            cell.loadingAvtivityIndicator.stopAnimating()
+            cell.mediaCommentsTextView.isHidden = false
+            cell.mediaImageView.isHidden = false
             cell.mediaCommentsTextView.text = mediaItem.Description
             cell.mediaImageView.image = mediaItem.Content
+            cell.cellContentView.backgroundColor = EntryControl.EC_NONMANDATORY_COLOR
         }
         else {
-            cell.mediaCommentsTextView.text = "Unable to download image..."
+            cell.loadingLabel.isHidden = false
+            cell.loadingAvtivityIndicator.isHidden = false
+            cell.loadingAvtivityIndicator.startAnimating()
+            cell.mediaCommentsTextView.isHidden = true
+            cell.mediaImageView.isHidden = true
+            cell.mediaCommentsTextView.text = ""
             cell.mediaImageView.image = UIImage(named: "noimage")
+            cell.cellContentView.backgroundColor = EntryControl.EC_NONMANDATORY_COLOR
         }
 
         // Configure the cell...
@@ -192,6 +208,9 @@ class MediaTableViewController: UITableViewController {
             let selectedMedia = media.first(where: { $0.MediaNumber == ofLinkMediaItem.MediaNumber } )
             mediaDetailViewController.media = selectedMedia
  
+        case "ShowAddImage":
+            os_log("Adding a new image", log: OSLog.default, type: .error)
+            
         default:
             os_log("unknown segue identifier", log: OSLog.default, type: .error)
         }
@@ -251,6 +270,43 @@ class MediaTableViewController: UITableViewController {
         default:
             os_log("Unknown segue identifier", log: OSLog.default, type: .error)
         }
+    }
+    @IBAction func addImage(_ sender: UIBarButtonItem) {
+        
+        
+        // UIImagePickerController is a view controller that lets a user pick media from their photo library
+        let imagePickerController = UIImagePickerController()
+        // Only allow photos to be selected, not taken
+        imagePickerController.sourceType = .photoLibrary
+        // make sure the viewcontroller is notified when the user picks an image
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true, completion: nil)
+        
+        
+        //
+    }
+    
+    
+    //MARK: UIImagePickerControllerDelegate
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        // Dismiss the picker
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        // use original image
+        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else
+        {
+            fatalError("Expected a dictionary containing an image but was provided the following: \(info)")
+        }
+        
+        // Dismiss the picker
+        dismiss(animated: true, completion: nil)
+        
+        // Navigate to the MediaViewController
+        performSegue(withIdentifier: "ShowAddImage", sender: self)
+        
+        
     }
     
 }

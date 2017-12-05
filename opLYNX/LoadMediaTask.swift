@@ -14,7 +14,7 @@ class LoadMediaTask: OPLYNXUserServerTask {
     
     //MARK: Initializer
     init(_ mediaNumber: String, mediaTableViewController: MediaTableViewController?) {
-        super.init(module: "media", method: "get", httpMethod: "GET", viewController: mediaTableViewController, taskTitle: "Data Sync", taskDescription: "Loading Media Info")
+        super.init(module: "media", method: "get", httpMethod: "GET", viewController: mediaTableViewController, taskTitle: nil, taskDescription: nil)
         addParameter(name: "media_number", value: mediaNumber)
     }
     
