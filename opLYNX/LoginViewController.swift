@@ -44,6 +44,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         registerForKeyboardNotifications()
         userNameTextField.delegate = self
         passwordTextField.delegate = self
+        passwordTextField.delegate = self
         
         // Handle run picker view selection
         runPickerView.showsSelectionIndicator = true
