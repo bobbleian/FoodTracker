@@ -335,6 +335,10 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         
         override func RunTask() {
             DispatchQueue.main.async {
+                if let ofTableViewController = self.viewController as? OFTableViewController {
+                    ofTableViewController.loadAllOperationalForms()
+                    ofTableViewController.tableView.reloadData()
+                }
                 let alert = UIAlertController(title: "Data Sync Success", message: "All forms have been synced.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.viewController?.present(alert, animated: true, completion: nil)
@@ -351,6 +355,10 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         
         override func RunTask() {
             DispatchQueue.main.async {
+                if let ofTableViewController = self.viewController as? OFTableViewController {
+                    ofTableViewController.loadAllOperationalForms()
+                    ofTableViewController.tableView.reloadData()
+                }
                 let alert = UIAlertController(title: "Data Sync Error", message: "Try again later.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.viewController?.present(alert, animated: true, completion: nil)

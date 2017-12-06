@@ -285,7 +285,6 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
     }
     @IBAction func addImage(_ sender: UIBarButtonItem) {
         
-        
         let alert = UIAlertController(title: "Add Image", message: "Choose an image source", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {alert in
             // UIImagePickerController is a view controller that lets a user pick media from their photo library
