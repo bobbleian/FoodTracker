@@ -418,8 +418,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZeD-kR-8Cg">
-                                <rect key="frame" x="48.5" y="74" width="278" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZeD-kR-8Cg">
+                                <rect key="frame" x="10" y="74" width="355" height="29"/>
                                 <segments>
                                     <segment title="General"/>
                                     <segment title="Site"/>
@@ -468,9 +468,11 @@
                             <constraint firstItem="Vje-L4-DnI" firstAttribute="centerY" secondItem="9cl-gO-fz1" secondAttribute="centerY" id="0MZ-xP-FHf"/>
                             <constraint firstItem="kyi-XU-2g2" firstAttribute="centerY" secondItem="9cl-gO-fz1" secondAttribute="centerY" id="13U-hh-8lC"/>
                             <constraint firstItem="Lzc-5x-6sw" firstAttribute="centerY" secondItem="9cl-gO-fz1" secondAttribute="centerY" id="6Lh-MS-4u4"/>
+                            <constraint firstAttribute="trailing" secondItem="ZeD-kR-8Cg" secondAttribute="trailing" constant="10" id="6h9-uM-vgX"/>
                             <constraint firstItem="Vje-L4-DnI" firstAttribute="height" secondItem="9cl-gO-fz1" secondAttribute="height" id="82H-0T-8aa"/>
                             <constraint firstItem="kyi-XU-2g2" firstAttribute="height" secondItem="9cl-gO-fz1" secondAttribute="height" id="8Jx-31-285"/>
                             <constraint firstItem="1l3-QW-N29" firstAttribute="centerX" secondItem="9cl-gO-fz1" secondAttribute="centerX" id="8zK-sg-EZ8"/>
+                            <constraint firstItem="ZeD-kR-8Cg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="CAv-HM-1T6"/>
                             <constraint firstItem="9cl-gO-fz1" firstAttribute="top" secondItem="ZeD-kR-8Cg" secondAttribute="bottom" constant="10" id="CHu-tW-7wO"/>
                             <constraint firstItem="ZeD-kR-8Cg" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="GlS-yz-N5Z"/>
                             <constraint firstItem="Lzc-5x-6sw" firstAttribute="width" secondItem="9cl-gO-fz1" secondAttribute="width" id="KdH-wQ-B3E"/>
@@ -479,7 +481,6 @@
                             <constraint firstItem="9cl-gO-fz1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="PwN-E8-gwC"/>
                             <constraint firstItem="1l3-QW-N29" firstAttribute="height" secondItem="9cl-gO-fz1" secondAttribute="height" id="SbV-62-fdi"/>
                             <constraint firstItem="Vje-L4-DnI" firstAttribute="centerX" secondItem="9cl-gO-fz1" secondAttribute="centerX" id="YEW-FE-6Kh"/>
-                            <constraint firstItem="ZeD-kR-8Cg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Zij-rQ-JWg"/>
                             <constraint firstItem="Lzc-5x-6sw" firstAttribute="centerX" secondItem="9cl-gO-fz1" secondAttribute="centerX" id="agU-WF-1BF"/>
                             <constraint firstItem="9cl-gO-fz1" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" constant="-20" id="dA7-VG-Qcm"/>
                             <constraint firstItem="kyi-XU-2g2" firstAttribute="width" secondItem="9cl-gO-fz1" secondAttribute="width" id="dD7-W4-eYZ"/>
