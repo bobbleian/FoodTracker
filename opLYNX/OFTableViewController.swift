@@ -162,6 +162,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd, yyyy"
+        cell.dueDateLabel.adjustsFontSizeToFitWidth = true
         cell.dueDateLabel.text = dateFormatter.string(from: operationalForm.Due_Date)
         
         switch operationalForm.OFStatus_ID {

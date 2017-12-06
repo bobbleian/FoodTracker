@@ -26,6 +26,8 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = EntryControl.EC_NONMANDATORY_COLOR
 
         // Try to set user text field based on the previous user name
         if let lastUser = try? LocalSettings.loadSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_LAST_USER_KEY) {
@@ -41,7 +43,6 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         loadRunList()
         
         // Setup to scroll the view if the keyboard pops up
-        registerForKeyboardNotifications()
         userNameTextField.delegate = self
         passwordTextField.delegate = self
         passwordTextField.delegate = self
@@ -67,6 +68,13 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         super.viewWillDisappear(animated)
         deregisterFromKeyboardNotifications()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        deregisterFromKeyboardNotifications()
+        registerForKeyboardNotifications()
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
