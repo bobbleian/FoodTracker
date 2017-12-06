@@ -278,7 +278,7 @@ class OperationalForm: Hashable {
             operationalForm.key1 = key1Value
             let key2Value = try OFElementData.loadOFElementValue(db: db, OFNumber: operationalForm.OFNumber, OFElement_ID: 149)
             operationalForm.key2 = key2Value
-            let key3Value = try OFElementData.loadOFElementValue(db: db, OFNumber: operationalForm.OFNumber, OFElement_ID: 150)
+            let key3Value = try OFElementData.loadOFElementValue(db: db, OFNumber: operationalForm.OFNumber, OFElement_ID: 151)
             operationalForm.key3 = key3Value
             
             // Get the GSP location
