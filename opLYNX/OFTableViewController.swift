@@ -47,6 +47,14 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     }
     private var filterMode = FilterMode.All
     
+    enum SearchScope: String {
+        case all = "All"
+        case created = "Created"
+        case inprogress = "In Progress"
+        case completed = "Completed"
+    }
+    private var searchScope = SearchScope.all
+    
     // Location
     private let locationManager = CLLocationManager()
     
@@ -58,9 +66,15 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         // Seatup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         definesPresentationContext = true
-        tableView.tableHeaderView = searchController.searchBar
-        //searchController.searchBar.scopeButtonTitles = [FilterMode.All.rawValue, FilterMode.Nearby.rawValue]
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = searchController
+            navigationItem.hidesSearchBarWhenScrolling = false
+        } else {
+            tableView.tableHeaderView = searchController.searchBar
+        }
+        searchController.searchBar.scopeButtonTitles = [SearchScope.all.rawValue, SearchScope.created.rawValue, SearchScope.inprogress.rawValue, SearchScope.completed.rawValue]
         searchController.searchBar.delegate = self
         searchController.searchBar.setValue("Done", forKey: "_cancelButtonText")
         
@@ -267,12 +281,12 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     //MARK: UISearchBarDelegate interface
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int)
     {
-        filterMode = FilterMode(rawValue: searchBar.scopeButtonTitles![selectedScope])!
+        searchScope = SearchScope(rawValue: searchBar.scopeButtonTitles![selectedScope])!
         filterContentForSearch(searchText: searchController.searchBar.text!)
     }
     
     private func isFiltering() -> Bool {
-        return searchController.isActive && !searchBarIsEmpty()
+        return searchController.isActive && (!searchBarIsEmpty() || searchScope != .all)
     }
     
     private func searchBarIsEmpty() -> Bool {
@@ -288,14 +302,25 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMM dd, yyyy"
             filteredOperationalForms = operationalForms.filter({( operationalForm: OperationalForm) -> Bool in
-                return OFType.GetDisplayNameFromID(OLType_ID: operationalForm.OFType_ID).lowercased().contains(searchText.lowercased()) ||
+                
+                // Filter on status first
+                if searchScope == .completed && operationalForm.OFStatus_ID != OperationalForm.OF_STATUS_COMPLETE {
+                    return false
+                }
+                if searchScope == .inprogress && operationalForm.OFStatus_ID != OperationalForm.OF_STATUS_INPROGRESS {
+                    return false
+                }
+                if searchScope == .created && operationalForm.OFStatus_ID != OperationalForm.OF_STATUS_CREATED {
+                    return false
+                }
+                
+                // If we got this far, status is OK, now filter on search text
+                return searchBarIsEmpty() ||
+                    OFType.GetDisplayNameFromID(OLType_ID: operationalForm.OFType_ID).lowercased().contains(searchText.lowercased()) ||
                     operationalForm.key1.lowercased().contains(searchText.lowercased()) ||
                     operationalForm.key2.lowercased().contains(searchText.lowercased()) ||
                     operationalForm.key3.lowercased().contains(searchText.lowercased()) ||
-                    dateFormatter.string(from: operationalForm.Due_Date).lowercased().contains(searchText.lowercased()) ||
-                    ("completed".starts(with: searchText.lowercased()) && operationalForm.OFStatus_ID == 2) ||
-                    ("inprogress".starts(with: searchText.lowercased()) && operationalForm.OFStatus_ID == 6) ||
-                    ("created".starts(with: searchText.lowercased()) && operationalForm.OFStatus_ID == 1)
+                    dateFormatter.string(from: operationalForm.Due_Date).lowercased().contains(searchText.lowercased())
             })
         }
         tableView.reloadData()
