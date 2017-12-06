@@ -18,6 +18,8 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
     
     var ofElement: OFElementData?
     
+    private var selectedImage: UIImage?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -96,6 +98,10 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
         cell.mediaCommentsTextView.layer.masksToBounds = true
         cell.mediaCommentsTextView.layer.borderWidth = 1.0
         
+        cell.mediaImageView.layer.cornerRadius = 5
+        cell.mediaImageView.layer.masksToBounds = true
+        cell.mediaImageView.layer.borderWidth = 1.0
+        
         let ofLinkMediaItem = ofLinkMedia[indexPath.row]
         let mediaItem = media.first(where: { $0.MediaNumber == ofLinkMediaItem.MediaNumber } )
         
@@ -158,6 +164,15 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
                 // Delete the row from the data source
                 ofLinkMedia.remove(at: indexPath.row)
                 
+                // Update the sort order for all remaining OFLinkMedia items
+                var currentSortOrder = indexPath.row
+                for currentOFLinkMediaItem in ofLinkMedia[indexPath.row...] {
+                    currentOFLinkMediaItem.SortOrder = currentSortOrder
+                    currentSortOrder += 1
+                    try currentOFLinkMediaItem.deleteFromDB(db: Database.DB())
+                    try currentOFLinkMediaItem.insertMediaToDB(db: Database.DB())
+                }
+                
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
             catch {
@@ -195,22 +210,19 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
         switch (segue.identifier ?? "") {
         case "ShowEditImage":
             os_log("Editing an existing image", log: OSLog.default, type: .debug)
-            guard let mediaDetailViewController = segue.destination as? MediaViewController else {
-                fatalError("Unexpected destination \(segue.destination)")
+            if let mediaDetailViewController = segue.destination as? MediaViewController, let selectedMediaTableViewCell = sender as? MediaTableViewCell, let indexPath = tableView.indexPath(for: selectedMediaTableViewCell) {
+                // Set the media on the Media View Controller
+                let ofLinkMediaItem = ofLinkMedia[indexPath.row]
+                let selectedMedia = media.first(where: { $0.MediaNumber == ofLinkMediaItem.MediaNumber } )
+                mediaDetailViewController.media = selectedMedia
             }
-            guard let selectedMediaTableViewCell = sender as? MediaTableViewCell else {
-                fatalError("Unexpected sender \(sender ?? "")")
-            }
-            guard let indexPath = tableView.indexPath(for: selectedMediaTableViewCell) else {
-                fatalError("The selected cell is not being displayed by the table")
-            }
-            let ofLinkMediaItem = ofLinkMedia[indexPath.row]
-            let selectedMedia = media.first(where: { $0.MediaNumber == ofLinkMediaItem.MediaNumber } )
-            mediaDetailViewController.media = selectedMedia
  
         case "ShowAddImage":
             os_log("Adding a new image", log: OSLog.default, type: .error)
-            
+            if let mediaDetailViewController = segue.destination as? MediaViewController, let selectedImage = selectedImage {
+                // Set the Image on the Media View Controller
+                mediaDetailViewController.selectedImage = selectedImage.resizeImage(newWidth: 400.0)
+            }
         default:
             os_log("unknown segue identifier", log: OSLog.default, type: .error)
         }
@@ -295,18 +307,13 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         // use original image
-        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else
-        {
-            fatalError("Expected a dictionary containing an image but was provided the following: \(info)")
-        }
+        selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         
         // Dismiss the picker
         dismiss(animated: true, completion: nil)
         
         // Navigate to the MediaViewController
         performSegue(withIdentifier: "ShowAddImage", sender: self)
-        
-        
     }
     
 }

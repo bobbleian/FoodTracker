@@ -15,12 +15,8 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
     @IBOutlet weak var mediaStackView: UIStackView!
     @IBOutlet weak var mediaImageView: ScaleAspectFitImageView!
     
-    /*
-     @IBOutlet weak var mediaStackView: UIStackView!
-     This value is either passed by MediaTableViewController in prepare(for:sender:)
-     or constructed as part of adding a new image/media item
-     */
     var media: Media?
+    var selectedImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +27,9 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
         if let media = media {
             mediaCommentsTextView.text = media.Description
             mediaImageView.image = media.Content
-            
+        }
+        else if let selectedImage = selectedImage {
+            mediaImageView.image = selectedImage
         }
         
         // Borders
