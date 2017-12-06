@@ -91,7 +91,8 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MediaTableViewCell", for: indexPath) as? MediaTableViewCell else {
-            fatalError("Dequeued cell is not MediaTableViewCell")
+            os_log("Dequeued cell is not MediaTableViewCell", log: OSLog.default, type: .error)
+            return tableView.dequeueReusableCell(withIdentifier: "MediaTableViewCell", for: indexPath)
         }
         
         cell.mediaCommentsTextView.layer.cornerRadius = 5
@@ -176,12 +177,11 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
             catch {
-                fatalError("Unable to save media to the database")
+                os_log("Unable to save media to the database", log: OSLog.default, type: .error)
             }
             
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
+        
     }
  
 
@@ -258,7 +258,7 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
                         tableView.reloadRows(at: [selectedIndexPath], with: .none)
                     }
                     catch {
-                        fatalError("Unable to update media to the database")
+                        os_log("Unable to update media to the database", log: OSLog.default, type: .error)
                     }
                 }
                 else if let ofLinkMediaItem = OFLinkMedia(OFNumber: ofElement.OFNumber, MediaNumber: UUID().uuidString, OFElement_ID: ofElement.OFElement_ID, SortOrder: ofLinkMedia.count) {
@@ -273,7 +273,7 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
                         tableView.insertRows(at: [newIndexPath], with: .automatic)
                     }
                     catch {
-                        fatalError("Unable to save media to the database")
+                        os_log("Unable to save media to the database", log: OSLog.default, type: .error)
                     }
                 }
             }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -85,7 +86,9 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
         // use original image
         guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else
         {
-            fatalError("Expected a dictionary containing an image but was provided the following: \(info)")
+            os_log("Expected a dictionary containing an image", log: OSLog.default, type: .error)
+            dismiss(animated: true, completion: nil)
+            return
         }
         
         // Set the photoImageView to display the selected image

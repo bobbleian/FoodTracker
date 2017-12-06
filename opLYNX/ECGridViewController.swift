@@ -47,7 +47,7 @@ class ECGridViewController: UIViewController {
             }
             ecDataEntryViewController.entryControl = entryControl
         default:
-            fatalError("Unexpected segue identifier; \(segue.identifier ?? "")")
+            os_log("Unexpected segue identifier", log: OSLog.default, type: .error)
         }
         
     }

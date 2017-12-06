@@ -135,11 +135,9 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        // Table view cells are reused and should be dequeued using a cell identifier
-        let cellIdentifier = "OFTableViewCell"
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? OFTableViewCell else {
-            fatalError("The dequeued cell is not an instance of OFTableViewCell.")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "OFTableViewCell", for: indexPath) as? OFTableViewCell else {
+            os_log("Dequeued cell is not OFTableViewCell", log: OSLog.default, type: .error)
+            return tableView.dequeueReusableCell(withIdentifier: "OFTableViewCell", for: indexPath)
         }
 
         // Fetch the Operational Form for the data source layout
@@ -210,13 +208,16 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         switch (segue.identifier ?? "") {
         case "ShowDetail":
             guard let ofViewController = segue.destination as? OFViewController else {
-                fatalError("Unexpected destination \(segue.destination)")
+                os_log("Unexpected destination", log: OSLog.default, type: .error)
+                return
             }
             guard let selectedOFTableViewCell = sender as? OFTableViewCell else {
-                fatalError("Unexpected sender \(sender ?? "")")
+                os_log("Unexpected sender", log: OSLog.default, type: .error)
+                return
             }
             guard let indexPath = tableView.indexPath(for: selectedOFTableViewCell) else {
-                fatalError("The selected cell is not being displayed by the table")
+                os_log("The selected cell is not being displayed by the table", log: OSLog.default, type: .error)
+                return
             }
             let selectedOperationalForm = isFiltering() ? filteredOperationalForms[indexPath.section] : operationalForms[indexPath.section]
             ofViewController.operationalForm = selectedOperationalForm

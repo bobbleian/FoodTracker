@@ -8,6 +8,7 @@
 
 import Foundation
 import SQLite
+import os.log
 
 class Run {
     
@@ -60,7 +61,8 @@ class Run {
                 Active: true,
                 LastUpdate: runRecord[LastUpdateExp])
             else {
-                fatalError("Unable to load run from database")
+                os_log("Unable to load run from database", log: OSLog.default, type: .error)
+                throw OsonoError.Message("Unable to load run from database")
             }
             runs += [run]
         }

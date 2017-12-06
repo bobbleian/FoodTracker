@@ -8,6 +8,7 @@
 
 import Foundation
 import SQLite
+import os.log
 
 class Database {
     
@@ -22,7 +23,8 @@ class Database {
     public class func makeWritableCopy(named destFileName: String, ofResourceFile originalFileName: String) throws -> URL {
         // Get Documents directory in app bundle
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
-            fatalError("No document directory found in application bundle.")
+            os_log("No document directory found in application bundle.", log: OSLog.default, type: .error)
+            throw OsonoError.Message("No document directory found in application bundle")
         }
         
         // Get URL for dest file (in Documents directory)
@@ -32,7 +34,8 @@ class Database {
         if (try? writableFileURL.checkResourceIsReachable()) == nil {
             // Get original (unwritable) file’s URL
             guard let originalFileURL = Bundle.main.url(forResource: originalFileName, withExtension: nil) else {
-                fatalError("Cannot find original file “\(originalFileName)” in application bundle’s resources.")
+                os_log("Cannot find original file %s in application bundle’s resources.", log: OSLog.default, type: .error, originalFileName)
+                throw OsonoError.Message("No document directory found in application bundle")
             }
             
             // Get original file’s contents
