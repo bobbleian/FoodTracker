@@ -286,16 +286,28 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
     @IBAction func addImage(_ sender: UIBarButtonItem) {
         
         
-        // UIImagePickerController is a view controller that lets a user pick media from their photo library
-        let imagePickerController = UIImagePickerController()
-        // Only allow photos to be selected, not taken
-        imagePickerController.sourceType = .photoLibrary
-        // make sure the viewcontroller is notified when the user picks an image
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true, completion: nil)
+        let alert = UIAlertController(title: "Add Image", message: "Choose an image source", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: {alert in
+            // UIImagePickerController is a view controller that lets a user pick media from their photo library
+            let imagePickerController = UIImagePickerController()
+            // Only allow photos to be selected, not taken
+            imagePickerController.sourceType = .camera
+            // make sure the viewcontroller is notified when the user picks an image
+            imagePickerController.delegate = self
+            self.present(imagePickerController, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: {alert in
+            // UIImagePickerController is a view controller that lets a user pick media from their photo library
+            let imagePickerController = UIImagePickerController()
+            // Only allow photos to be selected, not taken
+            imagePickerController.sourceType = .photoLibrary
+            // make sure the viewcontroller is notified when the user picks an image
+            imagePickerController.delegate = self
+            self.present(imagePickerController, animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
         
-        
-        //
     }
     
     
