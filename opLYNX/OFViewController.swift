@@ -112,7 +112,7 @@ class OFViewController: UIViewController, UINavigationControllerDelegate {
                 os_log("No MediaTableViewController found", log: OSLog.default, type: .debug)
                 return
             }
-            mediaTableViewController.ofElement = OFElementData(OFNumber: operationalForm?.OFNumber ?? "", OFElement_ID: entryControl.elementID, Value: "")
+            mediaTableViewController.entryControl = entryControl
             let backItem = UIBarButtonItem()
             backItem.title = entryControl.title
             navigationItem.backBarButtonItem = backItem

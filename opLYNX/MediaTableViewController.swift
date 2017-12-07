@@ -16,7 +16,7 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
     private var media = [Media]()
     private var ofLinkMedia = [OFLinkMedia]()
     
-    var ofElement: OFElementData?
+    var entryControl: EntryControl?
     
     private var selectedImage: UIImage?
     
@@ -63,10 +63,10 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
         ofLinkMedia.removeAll()
         
         // Load the media items to display
-        if let ofElement = ofElement {
+        if let entryControl = entryControl {
             do {
-                ofLinkMedia = try OFLinkMedia.loadOFLinkMedia(db: Database.DB(), OFNumber: ofElement.OFNumber, OFElement_ID: ofElement.OFElement_ID)
-                media = try Media.loadMediaFromDB(db: Database.DB(), OFNumber: ofElement.OFNumber, OFElement_ID: ofElement.OFElement_ID)
+                ofLinkMedia = try OFLinkMedia.loadOFLinkMedia(db: Database.DB(), OFNumber: entryControl.ofNumber, OFElement_ID: entryControl.elementID)
+                media = try Media.loadMediaFromDB(db: Database.DB(), OFNumber: entryControl.ofNumber, OFElement_ID: entryControl.elementID)
             }
             catch {
                 os_log("Unable to load media from database", log: OSLog.default, type: .error)
@@ -175,6 +175,7 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
                 }
                 
                 tableView.deleteRows(at: [indexPath], with: .fade)
+                entryControl?.hasMedia = ofLinkMedia.count > 0
             }
             catch {
                 os_log("Unable to save media to the database", log: OSLog.default, type: .error)
@@ -232,7 +233,7 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
     @IBAction func unwindToMediaTableView(sender: UIStoryboardSegue) {
         
         // At this point we need to have an OFElement.  If not, return
-        guard let ofElement = ofElement else {
+        guard let entryControl = entryControl else {
             // TODO: Log error
             return
         }
@@ -240,8 +241,6 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
         switch (sender.identifier ?? "") {
         case "Save":
             if let sourceViewController = sender.source as? MediaViewController, let image = sourceViewController.mediaImageView.image, let description = sourceViewController.mediaCommentsTextView.text {
-                
-                // TODO: Save GPS location
                 
                 if let selectedIndexPath = tableView.indexPathForSelectedRow, let sourceMedia = sourceViewController.media {
                     // Update the source media description & image
@@ -261,7 +260,7 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
                         os_log("Unable to update media to the database", log: OSLog.default, type: .error)
                     }
                 }
-                else if let ofLinkMediaItem = OFLinkMedia(OFNumber: ofElement.OFNumber, MediaNumber: UUID().uuidString, OFElement_ID: ofElement.OFElement_ID, SortOrder: ofLinkMedia.count) {
+                else if let ofLinkMediaItem = OFLinkMedia(OFNumber: entryControl.ofNumber, MediaNumber: UUID().uuidString, OFElement_ID: entryControl.elementID, SortOrder: ofLinkMedia.count) {
                     let sourceMedia = Media(MediaNumber: ofLinkMediaItem.MediaNumber, Media_Date: Date(), Asset_ID: Authorize.ASSET?.Asset_ID ?? 0, UniqueMediaNumber: 0, MediaType_ID: Media.MEDIA_TYPE_ID_PNG, Url: "", Description: description, Create_Date: Date(), CreateUser_ID: Authorize.CURRENT_USER?.OLUser_ID ?? 0, GPSLocation: sourceViewController.gpsLocation ?? "", LastUpdate: Date(), Dirty: true, Content: image)
                     do {
                         // Add a new media image
@@ -271,6 +270,7 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
                         ofLinkMedia.append(ofLinkMediaItem)
                         media.append(sourceMedia)
                         tableView.insertRows(at: [newIndexPath], with: .automatic)
+                        entryControl.hasMedia = true
                     }
                     catch {
                         os_log("Unable to save media to the database", log: OSLog.default, type: .error)

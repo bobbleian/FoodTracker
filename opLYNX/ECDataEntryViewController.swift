@@ -108,10 +108,10 @@ class ECDataEntryViewController: UIViewController, UITextViewDelegate {
                 os_log("No MediaTableViewController found", log: OSLog.default, type: .debug)
                 return
             }
-            mediaTableViewController.ofElement = OFElementData(OFNumber: OFNumber, OFElement_ID: OFElement_ID, Value: "")
+            mediaTableViewController.entryControl = entryControl
         default:
             //os_log("Unexpected segue identifier; \(segue.identifier ?? "")", log: OSLog.default, type: .error)
-            os_log("Unexpected segue identifier", log: OSLog.default, type: .error)
+            os_log("ECDataEntryViewController: Unexpected segue identifier", log: OSLog.default, type: .error)
         }
         
     }
