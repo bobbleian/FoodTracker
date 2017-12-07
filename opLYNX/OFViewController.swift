@@ -35,14 +35,21 @@ class OFViewController: UIViewController, UINavigationControllerDelegate {
         
             // Load Entry Control values from the database
             let entryControls = getEntryControlSubviews(v: view)
-            for entryControl in entryControls {
-                do {
-                    entryControl.value = try OFElementData.loadOFElementValue(db: Database.DB(), OFNumber: operationalForm.OFNumber, OFElement_ID: entryControl.elementID)
-                    entryControl.ofNumber = operationalForm.OFNumber
+            do {
+                let db = try Database.DB()
+                for entryControl in entryControls {
+                    do {
+                        entryControl.value = try OFElementData.loadOFElementValue(db: db, OFNumber: operationalForm.OFNumber, OFElement_ID: entryControl.elementID)
+                        entryControl.hasMedia = try OFLinkMedia.existsOFLinkMedia(db: db, OFNumber: operationalForm.OFNumber, OFElement_ID: entryControl.elementID)
+                        entryControl.ofNumber = operationalForm.OFNumber
+                    }
+                    catch {
+                        os_log("Unable to load OFDataValues from database", log: OSLog.default, type: .error)
+                    }
                 }
-                catch {
-                    os_log("Unable to load OFDataValues from database", log: OSLog.default, type: .error)
-                }
+            }
+            catch {
+                os_log("Unable to establish database connection", log: OSLog.default, type: .error)
             }
         }
         

@@ -74,7 +74,7 @@ class OFLinkMedia {
                                            SortOrderExp <- Int64(SortOrder)))
     }
     
-    // Load all OF Link Runs for a Form
+    // Load all OF Link Media for a Form
     public static func loadOFLinkMedia(db: Connection, OFNumber: String) throws -> [OFLinkMedia] {
         var result = [OFLinkMedia]()
         let OFLinkMediaTable = Table("OFLinkMedia")
@@ -91,7 +91,7 @@ class OFLinkMedia {
         return result
     }
     
-    // Load all OF Link Runs for an Element
+    // Load all OF Link Media for an Element
     public static func loadOFLinkMedia(db: Connection, OFNumber: String, OFElement_ID: Int) throws -> [OFLinkMedia] {
         var result = [OFLinkMedia]()
         let OFLinkMediaTable = Table("OFLinkMedia")
@@ -106,6 +106,18 @@ class OFLinkMedia {
             }
         }
         return result
+    }
+    
+    // Load all OF Link Media for an Element
+    public static func existsOFLinkMedia(db: Connection, OFNumber: String, OFElement_ID: Int) throws -> Bool {
+        let OFLinkMediaTable = Table("OFLinkMedia")
+        let OFNumberExp = Expression<String>("OFNumber")
+        let OFElement_IDExp = Expression<Int>("OFElement_ID")
+        
+        if let row = try db.pluck(OFLinkMediaTable.filter(OFNumberExp == OFNumber && OFElement_IDExp == OFElement_ID)) {
+            return true
+        }
+        return false
     }
     
     // Delete OFLinkMedia record

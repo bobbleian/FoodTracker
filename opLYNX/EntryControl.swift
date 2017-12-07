@@ -20,6 +20,9 @@ import UIKit
     private let entryTitle = UILabel()
     private let entryValue = UILabel()
     
+    private let mediaFlagImageView = UIImageView()
+    private let mediaFlagImage = UIImage(named: "mediaindicator")
+    
     var globalList:[String] = []
     @IBInspectable var pickerDataString: String = "" {
         didSet {
@@ -63,6 +66,11 @@ import UIKit
     @IBInspectable var dataEntryTypeName: String = "Text" {
         didSet {
             
+        }
+    }
+    @IBInspectable var hasMedia: Bool = false {
+        didSet {
+            refreshControl()
         }
     }
     
@@ -112,29 +120,35 @@ import UIKit
         backGroundView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         backGroundView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         
+        // Set up the media indicator
+        mediaFlagImageView.image = UIImage()
+        mediaFlagImageView.translatesAutoresizingMaskIntoConstraints = false
+        mediaFlagImageView.widthAnchor.constraint(equalToConstant: 16.0).isActive = true
+        mediaFlagImageView.heightAnchor.constraint(equalToConstant: 16.0).isActive = true
+        
+        let blankView = UIView()
+        blankView.widthAnchor.constraint(equalToConstant: 16.0).isActive = true
+        blankView.heightAnchor.constraint(equalToConstant: 16.0).isActive = true
+        
         entryTitle.textAlignment = .center
         entryTitle.translatesAutoresizingMaskIntoConstraints = false
         entryTitle.adjustsFontSizeToFitWidth = true
         entryTitle.font = UIFont.boldSystemFont(ofSize: 16.0)
-        //entryTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        //entryTitle.layer.borderWidth = 1.0
-        //entryTitle.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        //entryTitle.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        addArrangedSubview(entryTitle)
+
+        let titleStackView = UIStackView()
+        titleStackView.axis = .horizontal
+        titleStackView.isUserInteractionEnabled = false
+        titleStackView.addArrangedSubview(mediaFlagImageView)
+        titleStackView.addArrangedSubview(entryTitle)
+        titleStackView.addArrangedSubview(blankView)
+        addArrangedSubview(titleStackView)
         
         entryValue.textAlignment = .center
         entryValue.translatesAutoresizingMaskIntoConstraints = false
-        //entryValue.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        //entryValue.backgroundColor = .white
-        //entryValue.layer.borderWidth = 1.0
-        //entryValue.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        //entryValue.widthAnchor.constraint(equalToConstant: 20).isActive = true
         addArrangedSubview(entryValue)
         
         // Setup the Tap action
-        //backGroundView.addTarget(self, action: #selector(EntryControl.ecTapped(entryControl:)), for: .touchUpInside)
-        
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(EntryControl.ecTapped(entryControl:)))
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(EntryControl.ecTapped(recognizer:)))
         let longTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(EntryControl.ecLongTapped(recognizer:)))
         backGroundView.addGestureRecognizer(tapRecognizer)
         backGroundView.addGestureRecognizer(longTapRecognizer)
@@ -161,9 +175,16 @@ import UIKit
         else {
             backGroundView.backgroundColor = EntryControl.EC_NONMANDATORY_COLOR
         }
+        
+        if hasMedia {
+            mediaFlagImageView.image = mediaFlagImage
+        }
+        else {
+            mediaFlagImageView.image = UIImage()
+        }
     }
     
-    @objc func ecTapped(entryControl: EntryControl) {
+    @objc func ecTapped(recognizer: UIGestureRecognizer) {
         if !readonly {
             viewController?.performSegue(withIdentifier: "EditECData", sender: self)
         }
