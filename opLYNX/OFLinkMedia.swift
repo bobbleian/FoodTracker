@@ -114,10 +114,8 @@ class OFLinkMedia {
         let OFNumberExp = Expression<String>("OFNumber")
         let OFElement_IDExp = Expression<Int>("OFElement_ID")
         
-        if let row = try db.pluck(OFLinkMediaTable.filter(OFNumberExp == OFNumber && OFElement_IDExp == OFElement_ID)) {
-            return true
-        }
-        return false
+        return try db.pluck(OFLinkMediaTable.filter(OFNumberExp == OFNumber && OFElement_IDExp == OFElement_ID)) != nil
+        
     }
     
     // Delete OFLinkMedia record
