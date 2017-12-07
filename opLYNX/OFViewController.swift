@@ -81,7 +81,7 @@ class OFViewController: UIViewController, UINavigationControllerDelegate {
         super.prepare(for: segue, sender: sender)
         
         switch (segue.identifier ?? "") {
-        case "editData":
+        case "EditECData":
             guard let entryControl = sender as? EntryControl else {
                 os_log("No EntryControl object passed as sender", log: OSLog.default, type: .debug)
                 return
@@ -96,6 +96,19 @@ class OFViewController: UIViewController, UINavigationControllerDelegate {
             }
             ecDataEntryViewController.entryControl = entryControl
             ecDataEntryViewController.OFNumber = (operationalForm?.OFNumber)!
+        case "EditECMedia":
+            guard let entryControl = sender as? EntryControl else {
+                os_log("No EntryControl object passed as sender", log: OSLog.default, type: .debug)
+                return
+            }
+            guard let mediaTableViewController = segue.destination as? MediaTableViewController else {
+                os_log("No MediaTableViewController found", log: OSLog.default, type: .debug)
+                return
+            }
+            mediaTableViewController.ofElement = OFElementData(OFNumber: operationalForm?.OFNumber ?? "", OFElement_ID: entryControl.elementID, Value: "")
+            let backItem = UIBarButtonItem()
+            backItem.title = entryControl.title
+            navigationItem.backBarButtonItem = backItem
         default:
             //os_log("Unexpected segue identifier; \(segue.identifier ?? "")", log: OSLog.default, type: .error)
             os_log("Unexpected segue identifier", log: OSLog.default, type: .error)

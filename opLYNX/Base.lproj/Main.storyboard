@@ -522,8 +522,9 @@
                         <outlet property="containerViewE" destination="1l3-QW-N29" id="aN9-2a-YYg"/>
                         <outlet property="ofSegmentedControl" destination="ZeD-kR-8Cg" id="jDW-y3-rrd"/>
                         <outlet property="saveButton" destination="dMd-tH-gAN" id="3Gg-7e-UEJ"/>
-                        <segue destination="l2R-SG-xQj" kind="show" identifier="editData" id="vih-Qf-pFM"/>
+                        <segue destination="l2R-SG-xQj" kind="show" identifier="EditECData" id="vih-Qf-pFM"/>
                         <segue destination="AFT-Cy-GRl" kind="unwind" identifier="Save" unwindAction="unwindToOFTableViewWithSender:" id="cD1-ez-0ZR"/>
+                        <segue destination="AKX-ad-tv3" kind="show" identifier="EditECMedia" id="gs5-4f-4Sp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -2160,6 +2161,6 @@
         <segue reference="5Lk-8V-dW5"/>
         <segue reference="1nZ-5k-vem"/>
         <segue reference="UZu-Di-MSw"/>
-        <segue reference="juk-KN-9fH"/>
+        <segue reference="gs5-4f-4Sp"/>
     </inferredMetricsTieBreakers>
 </document>

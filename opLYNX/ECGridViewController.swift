@@ -36,7 +36,7 @@ class ECGridViewController: UIViewController {
         }
         
         switch (segue.identifier ?? "") {
-        case "editData":
+        case "EditECData":
             guard let ecDataEntryNavigationController = segue.destination as? ECDataEntryNavigationController else {
                 os_log("No ECDataEntryNavigationController found", log: OSLog.default, type: .debug)
                 return

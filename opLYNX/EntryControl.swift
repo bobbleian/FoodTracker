@@ -132,7 +132,12 @@ import UIKit
         addArrangedSubview(entryValue)
         
         // Setup the Tap action
-        backGroundView.addTarget(self, action: #selector(EntryControl.ecTapped(entryControl:)), for: .touchUpInside)
+        //backGroundView.addTarget(self, action: #selector(EntryControl.ecTapped(entryControl:)), for: .touchUpInside)
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(EntryControl.ecTapped(entryControl:)))
+        let longTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(EntryControl.ecLongTapped(recognizer:)))
+        backGroundView.addGestureRecognizer(tapRecognizer)
+        backGroundView.addGestureRecognizer(longTapRecognizer)
         
         refreshControl()
         
@@ -160,7 +165,15 @@ import UIKit
     
     @objc func ecTapped(entryControl: EntryControl) {
         if !readonly {
-            viewController?.performSegue(withIdentifier: "editData", sender: self)
+            viewController?.performSegue(withIdentifier: "EditECData", sender: self)
+        }
+    }
+    
+    @objc func ecLongTapped(recognizer: UIGestureRecognizer) {
+        if recognizer.state == .began {
+            if !readonly {
+                viewController?.performSegue(withIdentifier: "EditECMedia", sender: self)
+            }
         }
     }
     
