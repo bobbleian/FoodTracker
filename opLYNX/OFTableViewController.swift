@@ -19,11 +19,6 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     static let OF_STATUS_CREATED_COLOR = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
     static let OF_STATUS_INPROGRESS_COLOR = UIColor.orange
     
-    // Classic Poopy colours
-//    static let OF_STATUS_CREATED_COLOR = UIColor(red: 0.82, green: 0.65, blue: 0.47, alpha: 1.0)
-//    static let OF_STATUS_CREATED_COLOR = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
-//    static let OF_STATUS_INPROGRESS_COLOR = UIColor(red: 0.49, green: 0.67, blue: 0.96, alpha: 1.0)
-    
     // Proximity threshold for nearby mode
     static let NEARBY_DISTANCE_THRESHOLD = 250.0
     

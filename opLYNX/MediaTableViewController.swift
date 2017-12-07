@@ -262,7 +262,7 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
                     }
                 }
                 else if let ofLinkMediaItem = OFLinkMedia(OFNumber: ofElement.OFNumber, MediaNumber: UUID().uuidString, OFElement_ID: ofElement.OFElement_ID, SortOrder: ofLinkMedia.count) {
-                    let sourceMedia = Media(MediaNumber: ofLinkMediaItem.MediaNumber, Media_Date: Date(), Asset_ID: Authorize.ASSET?.Asset_ID ?? 0, UniqueMediaNumber: 0, MediaType_ID: Media.MEDIA_TYPE_ID_PNG, Url: "", Description: description, Create_Date: Date(), CreateUser_ID: Authorize.CURRENT_USER?.OLUser_ID ?? 0, GPSLocation: "", LastUpdate: Date(), Dirty: true, Content: image)
+                    let sourceMedia = Media(MediaNumber: ofLinkMediaItem.MediaNumber, Media_Date: Date(), Asset_ID: Authorize.ASSET?.Asset_ID ?? 0, UniqueMediaNumber: 0, MediaType_ID: Media.MEDIA_TYPE_ID_PNG, Url: "", Description: description, Create_Date: Date(), CreateUser_ID: Authorize.CURRENT_USER?.OLUser_ID ?? 0, GPSLocation: sourceViewController.gpsLocation ?? "", LastUpdate: Date(), Dirty: true, Content: image)
                     do {
                         // Add a new media image
                         try sourceMedia.insertMediaToDB(db: Database.DB())

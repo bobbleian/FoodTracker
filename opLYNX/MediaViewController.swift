@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import CoreLocation
 import os.log
 
-class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
 
     //MARK: Outlets
     @IBOutlet weak var mediaCommentsTextView: UITextView!
@@ -18,6 +19,10 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     var media: Media?
     var selectedImage: UIImage?
+    var gpsLocation: String?
+    
+    // Location
+    private let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +45,16 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
         mediaImageView?.layer.cornerRadius = 5
         mediaImageView?.layer.masksToBounds = true
         mediaImageView?.layer.borderWidth = 1.0
+        
+        // Location
+        locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.distanceFilter = 10
+            locationManager.requestLocation()
+        }
         
     }
 
@@ -98,6 +113,18 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
         dismiss(animated: true, completion: nil)
     }
     
+    //MARK: CLLocationManagerDelegate Delegate
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let locValue:CLLocationCoordinate2D = manager.location?.coordinate {
+            print("locations=\(locValue.latitude) \(locValue.longitude)")
+            gpsLocation = String(locValue.latitude) + ";" + String(locValue.longitude)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -109,6 +136,7 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
     */
 
 }
+
 
 extension UIImage {
     func resizeImage(newWidth: CGFloat) -> UIImage {
