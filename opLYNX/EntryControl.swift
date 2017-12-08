@@ -19,7 +19,7 @@ import UIKit
     public static let EC_MANDATORY_COMPLETE_COLOR = UIColor.green
     
     //MARK: Properties
-    private let backGroundView = UIControl()
+    private let backGroundView = BackgroundControl()
     private let entryTitle = UILabel()
     private let entryValue = UILabel()
     
@@ -53,6 +53,7 @@ import UIKit
     }
     @IBInspectable var readonly: Bool = false {
         didSet {
+            backGroundView.readOnly = readonly
             refreshControl()
         }
     }
@@ -112,7 +113,7 @@ import UIKit
         spacing = 5.0
         
         // set up the background
-        backGroundView.backgroundColor = .blue
+        backGroundView.readOnly = readonly
         backGroundView.translatesAutoresizingMaskIntoConstraints = false
         backGroundView.layer.cornerRadius = 5
         backGroundView.layer.masksToBounds = true
@@ -166,17 +167,17 @@ import UIKit
         entryValue.alpha = value.isEmpty ? 0.5 : 1.0
         if mandatory {
             if value.isEmpty {
-                backGroundView.backgroundColor = EntryControl.EC_MANDATORY_EMPTY_COLOR
+                backGroundView.setBackGroundColor(EntryControl.EC_MANDATORY_EMPTY_COLOR)
             }
             else {
-                backGroundView.backgroundColor = EntryControl.EC_MANDATORY_COMPLETE_COLOR
+                backGroundView.setBackGroundColor(EntryControl.EC_MANDATORY_COMPLETE_COLOR)
             }
         }
         else if readonly {
-            backGroundView.backgroundColor = EntryControl.EC_READONLY_COLOR
+            backGroundView.setBackGroundColor(EntryControl.EC_READONLY_COLOR)
         }
         else {
-            backGroundView.backgroundColor = EntryControl.EC_NONMANDATORY_COLOR
+            backGroundView.setBackGroundColor(EntryControl.EC_NONMANDATORY_COLOR)
         }
         
         if hasMedia {
@@ -217,6 +218,40 @@ import UIKit
             return ""
         }
         return globalList[row]
+    }
+    
+}
+
+class BackgroundControl: UIControl {
+    var originalBackgroundColor: UIColor!
+    var readOnly: Bool = false
+    
+    func setBackGroundColor(_ color: UIColor) {
+        originalBackgroundColor = color
+        backgroundColor = color
+    }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            guard let originalBackgroundColor = originalBackgroundColor, !readOnly else {
+                return
+            }
+            backgroundColor = isHighlighted ? darkenColor(color: originalBackgroundColor) : originalBackgroundColor
+        }
+    }
+    
+    // Darken a color
+    func darkenColor(color: UIColor) -> UIColor {
+        
+        var red = CGFloat(), green = CGFloat(), blue = CGFloat(), alpha = CGFloat()
+        
+        color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        
+        red = max(red - 0.5, 0.0)
+        green = max(green - 0.5, 0.0)
+        blue = max(blue - 0.5, 0.0)
+        
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
     
 }
