@@ -9,13 +9,16 @@
 import UIKit
 
 @IBDesignable class EntryControl: UIStackView, UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    //MARK: Static Properties
+    private static let nilValue = "~"
 
-    //MARK: Properties
     public static let EC_NONMANDATORY_COLOR = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
     public static let EC_READONLY_COLOR = UIColor(red: 175/255, green: 175/255, blue: 175/255, alpha: 1.0)
     public static let EC_MANDATORY_EMPTY_COLOR = UIColor.orange
     public static let EC_MANDATORY_COMPLETE_COLOR = UIColor.green
     
+    //MARK: Properties
     private let backGroundView = UIControl()
     private let entryTitle = UILabel()
     private let entryValue = UILabel()
@@ -38,7 +41,7 @@ import UIKit
             refreshControl()
         }
     }
-    @IBInspectable var value: String = "empty" {
+    @IBInspectable var value: String = nilValue {
         didSet {
             refreshControl()
         }
@@ -159,7 +162,7 @@ import UIKit
     
     private func refreshControl() {
         entryTitle.text = title
-        entryValue.text = value.isEmpty ? "empty" : value
+        entryValue.text = value.isEmpty ? EntryControl.nilValue : value
         entryValue.alpha = value.isEmpty ? 0.5 : 1.0
         if mandatory {
             if value.isEmpty {
