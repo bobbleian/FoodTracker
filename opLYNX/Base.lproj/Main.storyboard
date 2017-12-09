@@ -504,7 +504,7 @@
                     <navigationItem key="navigationItem" title="D13 Form" id="orb-et-VT6">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="1hO-ZQ-qyy">
                             <connections>
-                                <segue destination="AFT-Cy-GRl" kind="unwind" identifier="Cancel" unwindAction="unwindToOFTableViewWithSender:" id="jXL-lX-27t"/>
+                                <action selector="performCancel:" destination="BYZ-38-t0r" id="YVk-LM-Zhf"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="dMd-tH-gAN">
@@ -525,6 +525,7 @@
                         <segue destination="l2R-SG-xQj" kind="show" identifier="EditECData" id="vih-Qf-pFM"/>
                         <segue destination="AFT-Cy-GRl" kind="unwind" identifier="Save" unwindAction="unwindToOFTableViewWithSender:" id="cD1-ez-0ZR"/>
                         <segue destination="AKX-ad-tv3" kind="show" identifier="EditECMedia" id="gs5-4f-4Sp"/>
+                        <segue destination="AFT-Cy-GRl" kind="unwind" identifier="Cancel" unwindAction="unwindToOFTableViewWithSender:" id="7fH-6g-N7h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

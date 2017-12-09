@@ -177,6 +177,14 @@ class OFViewController: UIViewController, UINavigationControllerDelegate {
         }
     }
     
+    @IBAction func performCancel(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Cancel Form Edit", message: "Confirm you want to discard all changes to this form.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Discard Changes", style: .default, handler: { action -> Void in
+            self.performSegue(withIdentifier: "Cancel", sender: self)
+        }))
+        alert.addAction(UIAlertAction(title: "Continue Editing", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
     
     @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
         if gesture.direction == UISwipeGestureRecognizerDirection.right {
