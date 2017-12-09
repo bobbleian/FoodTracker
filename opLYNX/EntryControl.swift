@@ -154,6 +154,7 @@ import UIKit
         // Setup the Tap action
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(EntryControl.ecTapped(recognizer:)))
         let longTapRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(EntryControl.ecLongTapped(recognizer:)))
+        longTapRecognizer.minimumPressDuration = 0.75
         backGroundView.addGestureRecognizer(tapRecognizer)
         backGroundView.addGestureRecognizer(longTapRecognizer)
         
