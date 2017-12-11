@@ -25,9 +25,6 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     //MARK: Outlets
     @IBOutlet weak var nearbyButton: UIBarButtonItem!
     
-    //MARK: Properties
-    private static let mercury = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1.0)
-    
     // Operatrional Form data
     var operationalForms: [OperationalForm] {
         get {
@@ -47,6 +44,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         case created = "Created"
         case inprogress = "In Progress"
         case completed = "Completed"
+        case modified = "Modified"
     }
     private var searchScope = SearchScope.all
     
@@ -69,7 +67,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         } else {
             tableView.tableHeaderView = searchController.searchBar
         }
-        searchController.searchBar.scopeButtonTitles = [SearchScope.all.rawValue, SearchScope.created.rawValue, SearchScope.inprogress.rawValue, SearchScope.completed.rawValue]
+        searchController.searchBar.scopeButtonTitles = [SearchScope.all.rawValue, SearchScope.inprogress.rawValue, SearchScope.completed.rawValue, SearchScope.modified.rawValue]
         searchController.searchBar.delegate = self
         searchController.searchBar.setValue("Done", forKey: "_cancelButtonText")
         
@@ -308,6 +306,9 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
                     return false
                 }
                 if searchScope == .created && operationalForm.OFStatus_ID != OperationalForm.OF_STATUS_CREATED {
+                    return false
+                }
+                if searchScope == .modified && !operationalForm.Dirty {
                     return false
                 }
                 
