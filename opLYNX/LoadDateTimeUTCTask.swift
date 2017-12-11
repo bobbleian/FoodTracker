@@ -20,7 +20,7 @@ class LoadDateTimeUTCTask: OPLYNXAssetServerTask {
     init(viewController: UIViewController?, updateConfigSync: Bool, updateDataSync: Bool) {
         self.updateConfigSync = updateConfigSync
         self.updateDataSync = updateDataSync
-        super.init(module: "common", method: "serverdatetimenowutc", httpMethod: "GET", viewController: viewController, taskTitle: "Config Sync", taskDescription: "Getting Server Time")
+        super.init(module: "common", method: "serverdatetimenowutc", httpMethod: "GET", viewController: viewController, taskTitle: updateConfigSync ? "Config Sync" : "Data Sync", taskDescription: "Getting Server Time")
     }
     
     override func processData(data: Any) throws {

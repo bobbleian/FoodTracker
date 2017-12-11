@@ -1,4 +1,4 @@
-//
+ //
 //  LoginViewController.swift
 //  opLYNX
 //
@@ -9,7 +9,7 @@
 import UIKit
 import CryptoSwift
 
-class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, OPLYNXProgressView {
 
     //MARK: Properties
     @IBOutlet weak var userNameTextField: UITextField!
@@ -327,5 +327,17 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         }
     }
     
-
+    //MARK: OPLYNXProgressView protocol
+    func updateProgress(title: String?, description: String?) {
+        DispatchQueue.main.async {
+            JustHUD.shared.showInView(view: self.view, withHeader: title, andFooter: description)
+        }
+    }
+    
+    func endProgress() {
+        DispatchQueue.main.async {
+            JustHUD.shared.hide()
+        }
+    }
+    
 }

@@ -40,7 +40,10 @@ class SaveAssetSoftwareInfoTask: OPLYNXAssetServerTask {
     // On Success, we save the AssetSoftwareInfo object to the database
     override func success() {
         try? Authorize.ASSET_SOFTWARE_INFO?.updateDB(db: Database.DB())
-        super.success()
+        DispatchQueue.main.async {
+            JustHUD.shared.hide()
+            super.success()
+        }
     }
     
 }

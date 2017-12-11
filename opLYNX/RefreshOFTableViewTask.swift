@@ -17,9 +17,8 @@ class RefreshOFTableViewTask : OPLYNXGenericTask {
             
             // Refresh the Operational Form List
             ofTableViewController.loadAllOperationalForms()
-            DispatchQueue.main.async {
-                
-                JustHUD.shared.showInView(view: ofTableViewController.view, withHeader: "Updating UI", andFooter: nil)
+            if let oplynxProgressView = viewController as? OPLYNXProgressView {
+                oplynxProgressView.updateProgress(title: "Updating UI", description: nil)
             }
             
             DispatchQueue.main.async {

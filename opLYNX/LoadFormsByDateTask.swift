@@ -48,13 +48,11 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
         
         // Extract the Date -> OFNumber Dictionary
         for jsonListEntry in jsonList {
-            if let viewController = viewController {
-                DispatchQueue.main.async {
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "MMM dd, yyyy"
-                    JustHUD.shared.showInView(view: viewController.view, withHeader: "Data Sync", andFooter: "Loading Forms [" + String(self.currentCount) + "/" + String(self.totalCount) + "]")
-                    self.currentCount += 1
-                }
+            if let oplynxProgressView = viewController as? OPLYNXProgressView {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MMM dd, yyyy"
+                oplynxProgressView.updateProgress(title: "Data Sync", description: "Loading Forms [" + String(self.currentCount) + "/" + String(self.totalCount) + "]")
+                self.currentCount += 1
             }
             guard let data = jsonListEntry as? [String:Any],
                 let OFNumber = data["ofn"] as? String,
@@ -105,13 +103,11 @@ class LoadFormsByDateTask: OPLYNXUserServerTask {
         currentCount = 1
         try db.transaction {
             for operationalForm in operationalForms {
-                if let viewController = viewController {
-                    DispatchQueue.main.async {
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "MMM dd, yyyy"
-                        JustHUD.shared.showInView(view: viewController.view, withHeader: "Data Sync", andFooter: "Saving Forms [" + String(self.currentCount) + "/" + String(self.totalCount) + "]")
-                        self.currentCount += 1
-                    }
+                if let oplynxProgressView = viewController as? OPLYNXProgressView {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "MMM dd, yyyy"
+                    oplynxProgressView.updateProgress(title: "Data Sync", description: "Saving Forms [" + String(self.currentCount) + "/" + String(self.totalCount) + "]")
+                    self.currentCount += 1
                 }
                 
                 // Save the Operational Form

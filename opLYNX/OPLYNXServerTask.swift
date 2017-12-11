@@ -37,8 +37,8 @@ class OPLYNXServerTask : OsonoServerTask {
     
     override func RunTask() {
         // Display task title, if it exists
-        if let viewController = viewController, let header = taskTitle, let footer = taskDescription {
-            JustHUD.shared.showInView(view: viewController.view, withHeader: header, andFooter: footer)
+        if let oplynxProgressView = viewController as? OPLYNXProgressView, let header = taskTitle, let footer = taskDescription {
+            oplynxProgressView.updateProgress(title: header, description: footer)
         }
         
         // Run the task
@@ -47,18 +47,10 @@ class OPLYNXServerTask : OsonoServerTask {
     }
     
     override public func runError(errorMessage: String) {
-        DispatchQueue.main.async {
-            JustHUD.shared.hide()
+        if let oplynxProgressView = viewController as? OPLYNXProgressView {
+            oplynxProgressView.endProgress()
         }
         super.runError(errorMessage: errorMessage)
-    }
-    
-    //MARK: Overrides
-    override func success() {
-        DispatchQueue.main.async {
-            JustHUD.shared.hide()
-        }
-        super.success()
     }
     
 }

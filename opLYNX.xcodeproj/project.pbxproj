@@ -32,6 +32,7 @@
 		3DB3D2F11FC4CD09004EDA09 /* SaveOperationalFormTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3D2F01FC4CD09004EDA09 /* SaveOperationalFormTask.swift */; };
 		3DB3D2F31FC64481004EDA09 /* LoadFormsByLastSyncTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3D2F21FC64481004EDA09 /* LoadFormsByLastSyncTask.swift */; };
 		3DB3E8D31FCD2B9800738A22 /* LoadMediaTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3E8D21FCD2B9800738A22 /* LoadMediaTask.swift */; };
+		3DBF23131FDF29DE00081F9E /* OPLYNXProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBF23121FDF29DE00081F9E /* OPLYNXProgressView.swift */; };
 		3DC503421FC345D9000FE350 /* RefreshOFTableViewTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC503411FC345D9000FE350 /* RefreshOFTableViewTask.swift */; };
 		3DF205EA1FBA022A00217CF8 /* LoadFormListTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF205E91FBA022A00217CF8 /* LoadFormListTask.swift */; };
 		482BFD3D1F5706320075B758 /* OFTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482BFD3C1F5706320075B758 /* OFTableViewCell.swift */; };
@@ -208,6 +209,7 @@
 		3DBD55341FC3537500EE86D8 /* CryptoSwift-master */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "CryptoSwift-master"; path = "../CryptoSwift-master"; sourceTree = "<group>"; };
 		3DBD55361FC3539300EE86D8 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = "../CryptoSwift-master/Package.swift"; sourceTree = "<group>"; };
 		3DBD55391FC3541100EE86D8 /* CryptoSwift.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; name = CryptoSwift.xcworkspace; path = "../CryptoSwift-master/CryptoSwift.xcworkspace"; sourceTree = "<group>"; };
+		3DBF23121FDF29DE00081F9E /* OPLYNXProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPLYNXProgressView.swift; sourceTree = "<group>"; };
 		3DC503411FC345D9000FE350 /* RefreshOFTableViewTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshOFTableViewTask.swift; sourceTree = "<group>"; };
 		3DF205E91FBA022A00217CF8 /* LoadFormListTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFormListTask.swift; sourceTree = "<group>"; };
 		482BFD3C1F5706320075B758 /* OFTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFTableViewCell.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 				483B20D41FABA4AF003A411F /* JustHUD.swift */,
 				489D08BD1F54A18500A93A56 /* EntryControl.swift */,
 				3D5F9DB51FD611E500C328B0 /* ScaleAspectFitImageView.swift */,
+				3DBF23121FDF29DE00081F9E /* OPLYNXProgressView.swift */,
 			);
 			name = Controls;
 			sourceTree = "<group>";
@@ -695,6 +698,7 @@
 				482BFD3D1F5706320075B758 /* OFTableViewCell.swift in Sources */,
 				486186781F855772001C8E4F /* Asset.swift in Sources */,
 				3D5454AA1FB7C05000212209 /* LoadAssetTask.swift in Sources */,
+				3DBF23131FDF29DE00081F9E /* OPLYNXProgressView.swift in Sources */,
 				3DB3D2F11FC4CD09004EDA09 /* SaveOperationalFormTask.swift in Sources */,
 				3DB3D2F31FC64481004EDA09 /* LoadFormsByLastSyncTask.swift in Sources */,
 				3D8656171FD076180038E403 /* PingServerTask.swift in Sources */,

@@ -12,7 +12,7 @@ import SQLite
 import Foundation
 import CoreLocation
 
-class OFTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate, CLLocationManagerDelegate {
+class OFTableViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate, CLLocationManagerDelegate, OPLYNXProgressView {
     
     //MARK: Static Properties
     static let OF_STATUS_COMPLETE_COLOR = UIColor.green
@@ -363,6 +363,18 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         
     }
     
+    //MARK: OPLYNXProgressView protocol
+    func updateProgress(title: String?, description: String?) {
+        DispatchQueue.main.async {
+            JustHUD.shared.showInView(view: self.view, withHeader: title, andFooter: description)
+        }
+    }
+    
+    func endProgress() {
+        DispatchQueue.main.async {
+            JustHUD.shared.hide()
+        }
+    }
     
     
 }
