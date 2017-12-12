@@ -9,16 +9,24 @@
 import Foundation
 
 class OPLYNXSettings {
+    
     class func NearbyThreshold() -> Double {
         let threshold = UserDefaults.standard.double(forKey: "nearbyRange")
         return threshold <= 0 ? 250 : threshold
     }
+    
     class func ServerIP() -> String {
-        let result = UserDefaults.standard.string(forKey: "serverIP")
-        return result ?? "199.180.29.38"
+        if let result = UserDefaults.standard.string(forKey: "serverIP"), !result.isEmpty {
+            return result
+        }
+        return "199.180.29.38"
     }
+    
     class func ServerPort() -> String {
-        return UserDefaults.standard.string(forKey: "serverPort") ?? "13616"
+        if let result = UserDefaults.standard.string(forKey: "serverPort"), !result.isEmpty {
+            return result
+        }
+        return "13616"
     }
     
 }
