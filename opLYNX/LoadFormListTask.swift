@@ -13,10 +13,11 @@ import os.log
 class LoadFormListTask: OPLYNXUserServerTask {
     
     //MARK: Static Properties
-    static var ServerOFList = [Date: [String]]()
+    public static var ServerOFList = [Date: [String]]()
+    public static let START_DATE_OFFSET = 365
     
     //MARK: Properties
-    let run: Run
+    private let run: Run
     
     //MARK: Initializer
     init(viewController: UIViewController?, run: Run) {
@@ -26,8 +27,10 @@ class LoadFormListTask: OPLYNXUserServerTask {
         if let currentUser = Authorize.CURRENT_USER {
             addParameter(name: "user_id", value: String(currentUser.OLUser_ID))
         }
-        // TODO: Fix start date Jan 1, 2000
-        addParameter(name: "start_date", value: "\"/Date(946710000000)/\"")
+        if let fromDate = Calendar.current.date(byAdding: .day, value: -LoadFormListTask.START_DATE_OFFSET, to: Date()) {
+            print ("Start date=\(fromDate)")
+            addParameter(name: "start_date", value: "\"" + fromDate.formatJsonDate() + "\"")
+        }
         addParameter(name: "oftype_ids", value: String(OperationalForm.OF_TYPE_ID_D13))
     }
     

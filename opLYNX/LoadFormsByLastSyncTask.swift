@@ -25,8 +25,9 @@ class LoadFormsByLastSyncTask: OPLYNXUserServerTask {
         if let currentUser = Authorize.CURRENT_USER {
             addParameter(name: "user_id", value: String(currentUser.OLUser_ID))
         }
-        // TODO: Fix start date Jan 1, 2000
-        addParameter(name: "operational_date", value: "\"/Date(946710000000)/\"")
+        if let fromDate = Calendar.current.date(byAdding: .day, value: -LoadFormListTask.START_DATE_OFFSET, to: Date()) {
+            addParameter(name: "operational_date", value: "\"" + fromDate.formatJsonDate() + "\"")
+        }
         // TODO: Fix hardcoded OF Type ID of 6
         addParameter(name: "oftype_ids", value: "6")
     }
