@@ -444,31 +444,31 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cl-gO-fz1">
                                 <rect key="frame" x="10" y="136" width="355" height="642"/>
                                 <connections>
-                                    <segue destination="fRK-EK-CNl" kind="embed" id="EMQ-aW-xDW"/>
+                                    <segue destination="fRK-EK-CNl" kind="embed" identifier="EmbedContainerA" id="EMQ-aW-xDW"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vje-L4-DnI">
                                 <rect key="frame" x="10" y="136" width="355" height="642"/>
                                 <connections>
-                                    <segue destination="3Mu-0d-rEo" kind="embed" id="ZmT-Ol-SBf"/>
+                                    <segue destination="3Mu-0d-rEo" kind="embed" identifier="EmbedContainerB" id="ZmT-Ol-SBf"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lzc-5x-6sw">
                                 <rect key="frame" x="10" y="136" width="355" height="642"/>
                                 <connections>
-                                    <segue destination="NDv-EH-W8L" kind="embed" id="FWH-82-0z4"/>
+                                    <segue destination="NDv-EH-W8L" kind="embed" identifier="EmbedContainerC" id="FWH-82-0z4"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kyi-XU-2g2">
                                 <rect key="frame" x="10" y="136" width="355" height="642"/>
                                 <connections>
-                                    <segue destination="6jF-jx-Rup" kind="embed" id="OiE-f3-Ppj"/>
+                                    <segue destination="6jF-jx-Rup" kind="embed" identifier="EmbedContainerE" id="OiE-f3-Ppj"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1l3-QW-N29">
                                 <rect key="frame" x="10" y="136" width="355" height="642"/>
                                 <connections>
-                                    <segue destination="saQ-pv-PRm" kind="embed" id="yBy-12-19n"/>
+                                    <segue destination="saQ-pv-PRm" kind="embed" identifier="EmbedContainerD" id="yBy-12-19n"/>
                                 </connections>
                             </containerView>
                         </subviews>

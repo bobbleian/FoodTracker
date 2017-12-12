@@ -116,9 +116,10 @@ class OFViewController: UIViewController, UINavigationControllerDelegate {
             let backItem = UIBarButtonItem()
             backItem.title = entryControl.title
             navigationItem.backBarButtonItem = backItem
+        case "Cancel","EmbedContainerA","EmbedContainerB","EmbedContainerC","EmbedContainerD","EmbedContainerE":
+            break
         default:
-            //os_log("Unexpected segue identifier; \(segue.identifier ?? "")", log: OSLog.default, type: .error)
-            os_log("Unexpected segue identifier", log: OSLog.default, type: .error)
+            os_log("Unknown segue identifier: %@", log: OSLog.default, type: .error, segue.identifier ?? "")
         }
         
     }

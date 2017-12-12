@@ -225,7 +225,7 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
                 mediaDetailViewController.selectedImage = selectedImage.resizeImage(newWidth: 400.0)
             }
         default:
-            os_log("unknown segue identifier", log: OSLog.default, type: .error)
+            os_log("Unknown segue identifier: %@", log: OSLog.default, type: .error, segue.identifier ?? "")
         }
     }
     
@@ -278,7 +278,7 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
                 }
             }
         case "Cancel":
-            os_log("Cancel segue - nothing to do", log: OSLog.default, type: .info)
+            break
         default:
             os_log("Unknown segue identifier", log: OSLog.default, type: .error)
         }
@@ -311,12 +311,12 @@ class MediaTableViewController: UITableViewController, UIImagePickerControllerDe
     
     
     //MARK: UIImagePickerControllerDelegate
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    @objc func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // Dismiss the picker
         dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         // use original image
         selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
         

@@ -214,7 +214,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
             let selectedOperationalForm = isFiltering() ? filteredOperationalForms[indexPath.section] : operationalForms[indexPath.section]
             ofViewController.operationalForm = selectedOperationalForm
         default:
-            os_log("Unknown segue identifier", log: OSLog.default, type: .error)
+            os_log("Unknown segue identifier: %@", log: OSLog.default, type: .error, segue.identifier ?? "")
         }
     }
     
@@ -261,9 +261,9 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
             }
         case "Cancel":
-            os_log("Cancel segue - nothing to do", log: OSLog.default, type: .info)
+            break
         default:
-            os_log("OFTableViewController: Unknown segue identifier", log: OSLog.default, type: .error)
+            os_log("Unknown sender identifier: %@", log: OSLog.default, type: .error, sender.identifier ?? "")
         }
     }
     

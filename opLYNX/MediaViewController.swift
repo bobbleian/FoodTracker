@@ -92,12 +92,12 @@ class MediaViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     //MARK: UIImagePickerControllerDelegate
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    @objc func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // Dismiss the picker
         dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         // use original image
         guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else
         {
