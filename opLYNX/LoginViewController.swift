@@ -332,15 +332,11 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     
     //MARK: OPLYNXProgressView protocol
     func updateProgress(title: String?, description: String?) {
-        DispatchQueue.main.async {
-            self.myHUD.showInView(view: self.view, withHeader: title, andFooter: description)
-        }
+        self.myHUD.showInView(view: self.view, withHeader: title, andFooter: description)
     }
     
     func endProgress() {
-        DispatchQueue.main.async {
-            self.myHUD.hide()
-        }
+        self.myHUD.hide()
     }
     
 }

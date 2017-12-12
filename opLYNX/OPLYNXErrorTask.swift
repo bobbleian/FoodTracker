@@ -25,11 +25,4 @@ class OPLYNXErrorTask: OsonoErrorTask {
         super.init(serverIP: "", serverPort: nil, serverMethod: "", application: "", module: nil, method: "", httpMethod: "")
     }
     
-    override func RunTask() {
-        // Hide any progress dialogs
-        DispatchQueue.main.async {
-            JustHUD.shared.hide()
-        }
-    }
-    
 }
