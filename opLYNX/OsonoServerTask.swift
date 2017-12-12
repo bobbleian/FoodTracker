@@ -166,14 +166,12 @@ class OsonoServerTask {
             var request = URLRequest(url: url)
             request.httpMethod = httpMethod
             request.allHTTPHeaderFields = headers
-            print(headers)
             
             // Format the Data Payload in Osono Format
             //if let dataPayload = dataPayload, let jsonData = try? JSONSerialization.data(withJSONObject: dataPayload) {
             if let dataPayload = dataPayload {
                 var osonoDataPayload = [String:Any]()
                 osonoDataPayload["data"] = dataPayload
-                
                 if let jsonData = try? JSONSerialization.data(withJSONObject: osonoDataPayload) {
                     request.httpBody = jsonData
                 }
@@ -190,9 +188,6 @@ class OsonoServerTask {
                         if let httpResponse = response as? HTTPURLResponse {
                             if httpResponse.statusCode == 200 {                                
                                 if let parsedData = try JSONSerialization.jsonObject(with: data!) as? [String:Any] {
-                                    for (key, value) in parsedData {
-                                        print("\(key): \(value)")
-                                    }
                                     // Check Osono error package
                                     if let error = parsedData["error"] as? [String:Any] {
                                         // See if there is an error message

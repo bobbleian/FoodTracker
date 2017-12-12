@@ -323,6 +323,17 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         tableView.reloadData()
     }
     
+    //MARK: OPLYNXProgressView protocol
+    func updateProgress(title: String?, description: String?) {
+        if let view = self.navigationController?.view {
+            self.myHUD.showInView(view: view, withHeader: title, andFooter: description)
+        }
+    }
+    
+    func endProgress() {
+        self.myHUD.hide()
+    }
+    
     class ShowDataSyncSuccessTask: OPLYNXGenericTask {
         
         init(_ viewController: UIViewController) {
@@ -363,15 +374,5 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         }
         
     }
-    
-    //MARK: OPLYNXProgressView protocol
-    func updateProgress(title: String?, description: String?) {
-        self.myHUD.showInView(view: self.view, withHeader: title, andFooter: description)
-    }
-    
-    func endProgress() {
-        self.myHUD.hide()
-    }
-    
     
 }
