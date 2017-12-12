@@ -53,4 +53,12 @@ class OPLYNXServerTask : OsonoServerTask {
         super.runError(errorMessage: errorMessage)
     }
     
+    
+    override func success() {
+        if isLastServerTask(), let oplynxProgressView = viewController as? OPLYNXProgressView {
+            oplynxProgressView.endProgress()
+        }
+        super.success()
+    }
+    
 }

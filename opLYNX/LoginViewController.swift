@@ -24,6 +24,8 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     
     private var selectedRun: Run?
     
+    private let myHUD = JustHUD()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -261,6 +263,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
             super.init(viewController: viewController)
         }
         override func RunTask() {
+            success()
             DispatchQueue.main.async {
                 // Navigate to the OF list screen
                 self.viewController?.performSegue(withIdentifier: "ShowOperationalFormList", sender: self.viewController)
@@ -330,13 +333,13 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     //MARK: OPLYNXProgressView protocol
     func updateProgress(title: String?, description: String?) {
         DispatchQueue.main.async {
-            JustHUD.shared.showInView(view: self.view, withHeader: title, andFooter: description)
+            self.myHUD.showInView(view: self.view, withHeader: title, andFooter: description)
         }
     }
     
     func endProgress() {
         DispatchQueue.main.async {
-            JustHUD.shared.hide()
+            self.myHUD.hide()
         }
     }
     

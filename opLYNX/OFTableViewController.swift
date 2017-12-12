@@ -331,6 +331,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         }
         
         override func RunTask() {
+            success()
             DispatchQueue.main.async {
                 if let ofTableViewController = self.viewController as? OFTableViewController {
                     ofTableViewController.loadAllOperationalForms()

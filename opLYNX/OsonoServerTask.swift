@@ -264,13 +264,20 @@ class OsonoServerTask {
     
     // Run the next task, skip any OsonoErrorTasks
     public func runNextTask() {
+        getNextOsonoTask()?.RunTask()
+    }
+    
+    private func getNextOsonoTask() -> OsonoServerTask? {
         var nextTask = nextOsonoTask
         while nextTask as? OsonoErrorTask != nil {
             nextTask = nextTask?.nextOsonoTask
         }
-        nextTask?.RunTask()
+        return nextTask
     }
     
+    public func isLastServerTask() -> Bool {
+        return getNextOsonoTask() == nil
+    }
     
     //MARK: OsonoTaskDelegate Protocol
     func success() {
