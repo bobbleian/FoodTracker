@@ -19,9 +19,6 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     static let OF_STATUS_CREATED_COLOR = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
     static let OF_STATUS_INPROGRESS_COLOR = UIColor.orange
     
-    // Proximity threshold for nearby mode
-    static let NEARBY_DISTANCE_THRESHOLD = 250.0
-    
     //MARK: Outlets
     @IBOutlet weak var nearbyButton: UIBarButtonItem!
     
@@ -186,7 +183,7 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
                 guard let formLocation = operationalForm.formLocation else {
                     return false
                 }
-                return formLocation.distance(from: manager.location!) <= OFTableViewController.NEARBY_DISTANCE_THRESHOLD
+                return formLocation.distance(from: manager.location!) <= OPLYNXSettings.NearbyThreshold()
             })
             
             // Update the UI

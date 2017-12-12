@@ -12,23 +12,43 @@
 			<key>Titles</key>
 			<array>
 				<string>100 Metres</string>
-				<string>200 Metres</string>
+				<string>250 Metres</string>
 				<string>500 Metres</string>
-				<string>Infinity and Beyond</string>
 			</array>
 			<key>Title</key>
-			<string>GPS Range</string>
+			<string>Nearby Range</string>
 			<key>Values</key>
 			<array>
 				<integer>100</integer>
-				<integer>200</integer>
+				<integer>250</integer>
 				<integer>500</integer>
-				<integer>100000</integer>
 			</array>
 			<key>Key</key>
-			<string>gpsRange</string>
+			<string>nearbyRange</string>
 			<key>DefaultValue</key>
-			<integer>100</integer>
+			<integer>250</integer>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Admin Only</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Server IP</string>
+			<key>Key</key>
+			<string>serverIP</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Server Port</string>
+			<key>Key</key>
+			<string>serverPort</string>
 		</dict>
 	</array>
 </dict>

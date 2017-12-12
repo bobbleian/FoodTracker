@@ -13,6 +13,7 @@
 		3D2E200A1FC8BB7100AE3BF1 /* SaveMediaTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E20091FC8BB7100AE3BF1 /* SaveMediaTask.swift */; };
 		3D2E20131FCCAF0900AE3BF1 /* StageSaveOperationalFormTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E20121FCCAF0900AE3BF1 /* StageSaveOperationalFormTasks.swift */; };
 		3D2E20171FCDE1A300AE3BF1 /* DeleteCleanMediaTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E20161FCDE1A300AE3BF1 /* DeleteCleanMediaTask.swift */; };
+		3D3714511FE07F4A00A15CBA /* OPLYNXSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3714501FE07F4A00A15CBA /* OPLYNXSettings.swift */; };
 		3D5454A11FB7BF6A00212209 /* RegisterAssetTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */; };
 		3D5454AA1FB7C05000212209 /* LoadAssetTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454A91FB7C05000212209 /* LoadAssetTask.swift */; };
 		3D5454AD1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5454AC1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift */; };
@@ -188,6 +189,7 @@
 		3D2E20091FC8BB7100AE3BF1 /* SaveMediaTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMediaTask.swift; sourceTree = "<group>"; };
 		3D2E20121FCCAF0900AE3BF1 /* StageSaveOperationalFormTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StageSaveOperationalFormTasks.swift; sourceTree = "<group>"; };
 		3D2E20161FCDE1A300AE3BF1 /* DeleteCleanMediaTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCleanMediaTask.swift; sourceTree = "<group>"; };
+		3D3714501FE07F4A00A15CBA /* OPLYNXSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPLYNXSettings.swift; sourceTree = "<group>"; };
 		3D5454A01FB7BF6A00212209 /* RegisterAssetTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAssetTask.swift; sourceTree = "<group>"; };
 		3D5454A91FB7C05000212209 /* LoadAssetTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAssetTask.swift; sourceTree = "<group>"; };
 		3D5454AC1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAssetSoftwareInfoTask.swift; sourceTree = "<group>"; };
@@ -279,6 +281,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D3714481FE07F3700A15CBA /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				3D3714501FE07F4A00A15CBA /* OPLYNXSettings.swift */,
+			);
+			name = Global;
+			sourceTree = "<group>";
+		};
 		3DB3D2DE1FC354A3004EDA09 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -319,6 +329,7 @@
 		485C9A8E1F3E0E0400BA6CBD /* opLYNX */ = {
 			isa = PBXGroup;
 			children = (
+				3D3714481FE07F3700A15CBA /* Global */,
 				48BC40FB1FA27F5800929617 /* Synchronization */,
 				486138101F9E85DE00567409 /* Encryption */,
 				4870B9B41F965F4D00C1F31F /* Database */,
@@ -662,6 +673,7 @@
 				3D5454AD1FB8017200212209 /* LoadAssetSoftwareInfoTask.swift in Sources */,
 				484002861FA11ADA00F8BEAD /* Run.swift in Sources */,
 				486186821F857275001C8E4F /* OFLinkUser.swift in Sources */,
+				3D3714511FE07F4A00A15CBA /* OPLYNXSettings.swift in Sources */,
 				482C096A1F61E2B000E64A5A /* ECDataEntryNavigationController.swift in Sources */,
 				485C9A921F3E0E0400BA6CBD /* OFViewController.swift in Sources */,
 				483B20D71FABC28F003A411F /* OsonoServerTask.swift in Sources */,
