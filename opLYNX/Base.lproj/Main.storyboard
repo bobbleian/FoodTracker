@@ -926,7 +926,7 @@
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Last Gas Rate (m3)"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Last Gas Rate"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
                                                                 <integer key="value" value="153"/>
@@ -939,7 +939,7 @@
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Last Oil Rate (m3)"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Last Oil Rate"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
                                                                 <integer key="value" value="154"/>
@@ -952,7 +952,7 @@
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Last H2O Rate (m3)"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Last H2O Rate"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
                                                                 <integer key="value" value="155"/>

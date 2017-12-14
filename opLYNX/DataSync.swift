@@ -77,7 +77,7 @@ class DataSync {
         loadDateTimeUTCTask.insertOsonoTask(loadFormsByLastSync)
         loadFormsByLastSync.insertOsonoTask(saveAssetSoftwareInfoTask)
         
-        // Add the final task, if necessary
+        // Add the final tasks, if necessary
         if let successTask = successTask {
             saveAssetSoftwareInfoTask.insertOsonoTask(successTask)
             if let errorTask = errorTask {
@@ -87,9 +87,6 @@ class DataSync {
         else if let errorTask = errorTask {
             saveAssetSoftwareInfoTask.insertOsonoTask(errorTask)
         }
-        
-        // TESTING ONLY
-        //currentOsonoTask.insertOsonoTask(saveAssetSoftwareInfoTask)
         
         // Run the Osono Task Chain
         pingServerTask.RunTask()

@@ -38,7 +38,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         
         // TESTING ONLY TODO: Remove
         if userNameTextField.text == "admin" {
-            passwordTextField.text = "admin"
+            passwordTextField.text = "admin1"
         }
         
         // Try to set the last run that was logged into by the previous user
@@ -61,7 +61,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         
         // Run Config Sync
         DispatchQueue.main.async {
-            ConfigSync.RunConfigSync(viewController: self)
+            ConfigSync.RunConfigSync(viewController: self, successTask: nil, errorTask: nil)
         }
         
     }
@@ -150,8 +150,8 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         // Set the current user
         Authorize.CURRENT_USER = olUser
         
-        // Run Data Sync.  If it completes successfully, navigate to Operational Form List view
-        DataSync.RunDataSync(selectedRun: selectedRun, viewController: self, successTask: ShowOperationalFormListTask(self), errorTask: WorkOfflineErrorTask(viewController: self, selectedRun: selectedRun))
+        // Run Config & Data Sync.  If it completes successfully, navigate to Operational Form List view
+        ConfigSync.RunConfigSync(viewController: self, successTask: RunDataSyncTask(viewController: self, selectedRun: selectedRun), errorTask: RunDataSyncErrorTask(viewController: self, selectedRun: selectedRun))
         
     }
     
@@ -160,16 +160,6 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         let alert = UIAlertController(title: "User name and password do not match", message: "Try logging in again.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    @IBAction func EndRun(_ sender: UIButton) {
-        ConfigSync.RunConfigSync(viewController: self)
-        
-        
-        // TEMP ONLY DELETE ALL MEDIA
-        //try? Database.DB().execute("DELETE FROM Media")
-        //try? Database.DB().execute("DELETE FROM OFLinkMedia")
-        
     }
     
     //MARK: UITextFieldDelegate
@@ -257,11 +247,41 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         return true
     }
     
-    class ShowOperationalFormListTask: OPLYNXGenericTask {
+    class RunDataSyncTask: OPLYNXGenericTask {
         
-        init(_ viewController: UIViewController) {
+        //MARK: Properties
+        private let selectedRun: Run
+        
+        //MARK: Initializers
+        init(viewController: UIViewController?, selectedRun: Run) {
+            self.selectedRun = selectedRun
             super.init(viewController: viewController)
         }
+        
+        override func RunTask() {
+            success()
+            DataSync.RunDataSync(selectedRun: selectedRun, viewController: viewController, successTask: ShowOperationalFormListTask(viewController: viewController), errorTask: WorkOfflineErrorTask(viewController: viewController, selectedRun: selectedRun))
+        }
+    }
+    
+    class RunDataSyncErrorTask: OPLYNXErrorTask {
+        //MARK: Properties
+        private let selectedRun: Run
+        
+        //MARK: Initializers
+        init(viewController: UIViewController?, selectedRun: Run) {
+            self.selectedRun = selectedRun
+            super.init(viewController: viewController)
+        }
+        
+        //MARK: Overrides
+        override func RunTask() {
+            super.RunTask()
+            DataSync.RunDataSync(selectedRun: selectedRun, viewController: viewController, successTask: ShowOperationalFormListTask(viewController: viewController), errorTask: WorkOfflineErrorTask(viewController: viewController, selectedRun: selectedRun))
+        }
+    }
+    
+    class ShowOperationalFormListTask: OPLYNXGenericTask {
         override func RunTask() {
             success()
             DispatchQueue.main.async {

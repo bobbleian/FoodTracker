@@ -19,14 +19,14 @@ class OPLYNXSettings {
         if let result = UserDefaults.standard.string(forKey: "serverIP"), !result.isEmpty {
             return result
         }
-        return "199.180.29.38"
+        return "192.131.139.89"
     }
     
     class func ServerPort() -> String {
         if let result = UserDefaults.standard.string(forKey: "serverPort"), !result.isEmpty {
             return result
         }
-        return "13616"
+        return "13615"
     }
     
 }

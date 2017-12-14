@@ -17,7 +17,7 @@ class ConfigSync {
     public static var CONFIG_SYNC_SERVER_TIME_UTC: Date?
     
     // Run Config Sync
-    static func RunConfigSync(viewController: UIViewController?) {
+    static func RunConfigSync(viewController: UIViewController?, successTask: OsonoServerTask?, errorTask: OsonoErrorTask?) {
         
         // Check first we can hit the server
         let pingServerTask = PingServerTask(viewController: viewController)
@@ -40,16 +40,23 @@ class ConfigSync {
         // Create a task for saving AssetSoftwareInfo
         let saveAssetSoftwareInfoTask = SaveAssetSoftwareInfoTask("Config Sync", viewController: viewController)
         
-        // Error handler task
-        let oplynxErrorTask = OPLYNXErrorTask()
-        
         // Chain the Config Sync tasks together
         pingServerTask.insertOsonoTask(loadAssetSoftwareInfoTask)
         loadAssetSoftwareInfoTask.insertOsonoTask(loadDateTimeUTCTask)
         loadDateTimeUTCTask.insertOsonoTask(loadUserTask)
         loadUserTask.insertOsonoTask(loadRunTask)
         loadRunTask.insertOsonoTask(saveAssetSoftwareInfoTask)
-        saveAssetSoftwareInfoTask.insertOsonoTask(oplynxErrorTask)
+        
+        // Add the final tasks, if necessary
+        if let successTask = successTask {
+            saveAssetSoftwareInfoTask.insertOsonoTask(successTask)
+            if let errorTask = errorTask {
+                successTask.insertOsonoTask(errorTask)
+            }
+        }
+        else if let errorTask = errorTask {
+            saveAssetSoftwareInfoTask.insertOsonoTask(errorTask)
+        }
         
         // Run the Osono Task Chain
         pingServerTask.RunTask()
