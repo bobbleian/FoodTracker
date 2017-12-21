@@ -132,6 +132,16 @@ class ECDataEntryViewController: UIViewController, UITextViewDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func clearButtonTapped(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Clear Entry Control", message: "Please confirm you want to clear this entry control.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Clear Entry Control", style: .default, handler: { action -> Void in
+            self.entryControl?.value = ""
+            self.dismiss(animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Continue Editing", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     //MARK: UITextViewDelegate
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
