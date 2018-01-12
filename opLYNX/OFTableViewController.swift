@@ -148,7 +148,8 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
         
         cell.typeLabel.text = OFType.GetDisplayNameFromID(OLType_ID: operationalForm.OFType_ID)
         
-        cell.dirtyLabel.isHidden = !operationalForm.Dirty
+        cell.dirtyLabel.isHidden = true
+        cell.dirtyImage.isHidden = !operationalForm.Dirty
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd, yyyy"

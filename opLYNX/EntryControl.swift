@@ -127,11 +127,12 @@ import UIKit
         // Set up the media indicator
         mediaFlagImageView.image = UIImage()
         mediaFlagImageView.translatesAutoresizingMaskIntoConstraints = false
-        mediaFlagImageView.widthAnchor.constraint(equalToConstant: 16.0).isActive = true
+        mediaFlagImageView.contentMode = .scaleAspectFit
+        mediaFlagImageView.widthAnchor.constraint(equalToConstant: 12.0).isActive = true
         mediaFlagImageView.heightAnchor.constraint(equalToConstant: 16.0).isActive = true
         
         let blankView = UIView()
-        blankView.widthAnchor.constraint(equalToConstant: 16.0).isActive = true
+        blankView.widthAnchor.constraint(equalToConstant: 12.0).isActive = true
         blankView.heightAnchor.constraint(equalToConstant: 16.0).isActive = true
         
         entryTitle.textAlignment = .center

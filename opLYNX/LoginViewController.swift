@@ -28,8 +28,6 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = EntryControl.EC_NONMANDATORY_COLOR
 
         // Try to set user text field based on the previous user name
         if let lastUser = try? LocalSettings.loadSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_LAST_USER_KEY) {

@@ -20,6 +20,7 @@ class OFTableViewCell: UITableViewCell {
     @IBOutlet weak var key3Label: UILabel!
     @IBOutlet weak var labelContainerView: UIView!
     @IBOutlet weak var dirtyLabel: UILabel!
+    @IBOutlet weak var dirtyImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
