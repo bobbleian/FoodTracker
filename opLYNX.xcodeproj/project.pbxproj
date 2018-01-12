@@ -336,6 +336,7 @@
 				4872F2B91F9FA1C100B1388E /* Controls */,
 				486186701F8542D9001C8E4F /* DataElements */,
 				485C9A8F1F3E0E0400BA6CBD /* AppDelegate.swift */,
+				485C9A981F3E0E0400BA6CBD /* LaunchScreen.storyboard */,
 				485C9A931F3E0E0400BA6CBD /* Main.storyboard */,
 				3D5F4B171FC7790A000BEFE3 /* AssetRegistrationViewController.swift */,
 				482BFD441F5743DE0075B758 /* LoginViewController.swift */,
@@ -350,7 +351,6 @@
 				48A871091F9122A700896352 /* MediaViewController.swift */,
 				485C9A961F3E0E0400BA6CBD /* Assets.xcassets */,
 				482BFD461F575C0E0075B758 /* Settings.bundle */,
-				485C9A981F3E0E0400BA6CBD /* LaunchScreen.storyboard */,
 				485C9A9B1F3E0E0400BA6CBD /* Info.plist */,
 				488A09C91F4E182A00ADD2D1 /* oplynx.db */,
 			);
