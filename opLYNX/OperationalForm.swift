@@ -16,9 +16,17 @@ class OperationalForm: Hashable {
     static let OF_STATUS_COMPLETE = 2
     static let OF_STATUS_INPROGRESS = 6
     
-    static let OF_D13_MANDATORY_ELEMENT_IDS = [
+    static let OF_D13_MANDATORY_ELEMENT_IDSOLD = [
         150, 160, 156, 157, 161, 162, 163, 187, 188, 172, 173, 174, 175, 177, 178, 189, 190, 191, 192, 165,
         166, 167, 168, 179, 170, 164, 171, 183, 184, 185
+    ]
+    
+    static let OF_D13_MANDATORY_ELEMENT_IDS = [
+        156, 157, 169,                                   // General
+        161, 182, 162, 163, 181,195, 193,                // Site
+        172, 173, 174, 177, 178, 189, 190, 191, 192,     // Equip
+        165, 166, 167, 168,                              // Valves
+        179, 170, 164, 171, 183, 184, 185                // Pressure
     ]
     public static let OF_D13_GPS_LOCATION_ELEMENT_ID = 201
     
@@ -333,7 +341,14 @@ class OperationalForm: Hashable {
         let OperationalFormTable = Table("OperationalForm")
         let OFNumberExp = Expression<String>("OFNumber")
         let OFStatus_IDExp = Expression<Int>("OFStatus_ID")
-        try db.run(OperationalFormTable.filter(OFNumberExp == OFNumber).update(OFStatus_IDExp <- OFStatus_ID))
+        let Complete_DateExp = Expression<Date>("Complete_Date")
+        let CompleteUser_IDExp = Expression<Int>("CompleteUser_ID")
+        
+        let Complete_Date = OFStatus_ID == OperationalForm.OF_STATUS_COMPLETE ? Date() : Date(timeIntervalSinceReferenceDate: -31557600)
+        let CompleteUser_ID = OFStatus_ID == OperationalForm.OF_STATUS_COMPLETE ? Authorize.CURRENT_USER!.OLUser_ID : 0
+        
+        try db.run(OperationalFormTable.filter(OFNumberExp == OFNumber).update(OFStatus_IDExp <- OFStatus_ID, Complete_DateExp <- Complete_Date, CompleteUser_IDExp <- CompleteUser_ID))
+        
     }
     
     //MARK: Hashable protocal
