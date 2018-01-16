@@ -877,15 +877,15 @@
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="readonly" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XrK-gw-xmS" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pyB-mS-a5o" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="182.5" y="0.0" width="172.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Frequency"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="UWI"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
-                                                                <integer key="value" value="200"/>
+                                                                <integer key="value" value="150"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="readonly" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
@@ -930,15 +930,15 @@
                                             <stackView opaque="NO" alpha="0.94999998807907104" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rcv-06-jQa">
                                                 <rect key="frame" x="0.0" y="329" width="355" height="95"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pyB-mS-a5o" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XrK-gw-xmS" customClass="EntryControl" customModule="opLYNX" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="111.5" height="95"/>
                                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         <gestureRecognizers/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="UWI"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Frequency"/>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="mandatory" value="NO"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
-                                                                <integer key="value" value="150"/>
+                                                                <integer key="value" value="200"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="readonly" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
@@ -1579,7 +1579,7 @@
                                                             <userDefinedRuntimeAttribute type="number" keyPath="elementID">
                                                                 <integer key="value" value="192"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="Yes;No"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="pickerDataString" value="Yes;No;Not Present"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="dataEntryTypeName" value="OptionList"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
@@ -2036,6 +2036,6 @@
         <segue reference="5Lk-8V-dW5"/>
         <segue reference="1nZ-5k-vem"/>
         <segue reference="UZu-Di-MSw"/>
-        <segue reference="1Lh-ZM-H8Y"/>
+        <segue reference="gs5-4f-4Sp"/>
     </inferredMetricsTieBreakers>
 </document>
