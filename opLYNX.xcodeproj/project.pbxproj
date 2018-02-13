@@ -28,6 +28,8 @@
 		3D8656201FD0CCF50038E403 /* OsonoErrorTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D86561F1FD0CCF50038E403 /* OsonoErrorTask.swift */; };
 		3D8656221FD1B62C0038E403 /* OPLYNXGenericTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8656211FD1B62C0038E403 /* OPLYNXGenericTask.swift */; };
 		3D8656241FD1B6E90038E403 /* OPLYNXErrorTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8656231FD1B6E90038E403 /* OPLYNXErrorTask.swift */; };
+		3D9E122A202A582C00D14DA1 /* RunTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9E1229202A582C00D14DA1 /* RunTableViewController.swift */; };
+		3D9E12322033476600D14DA1 /* OFTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B4579F1F4B69B4006D9DBF /* OFTableViewController.swift */; };
 		3DB3D2EC1FC354B8004EDA09 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DB3D2E31FC354A4004EDA09 /* CryptoSwift.framework */; };
 		3DB3D2ED1FC354B8004EDA09 /* CryptoSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DB3D2E31FC354A4004EDA09 /* CryptoSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3DB3D2F11FC4CD09004EDA09 /* SaveOperationalFormTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3D2F01FC4CD09004EDA09 /* SaveOperationalFormTask.swift */; };
@@ -74,7 +76,6 @@
 		48A871061F8FFD4300896352 /* MediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A871051F8FFD4300896352 /* MediaTableViewCell.swift */; };
 		48A871081F900DE400896352 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A871071F900DE400896352 /* Media.swift */; };
 		48A8710A1F9122A700896352 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A871091F9122A700896352 /* MediaViewController.swift */; };
-		48B457A01F4B69B4006D9DBF /* OFTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B4579F1F4B69B4006D9DBF /* OFTableViewController.swift */; };
 		48CED76A1FAA1DD700A56C43 /* ConfigSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CED7691FAA1DD700A56C43 /* ConfigSync.swift */; };
 		48D12A971FB25C12008AE93E /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D12A7C1FB25BE5008AE93E /* SQLite.framework */; };
 		48D12A981FB25C12008AE93E /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 48D12A7C1FB25BE5008AE93E /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -204,6 +205,7 @@
 		3D86561F1FD0CCF50038E403 /* OsonoErrorTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OsonoErrorTask.swift; sourceTree = "<group>"; };
 		3D8656211FD1B62C0038E403 /* OPLYNXGenericTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OPLYNXGenericTask.swift; sourceTree = "<group>"; };
 		3D8656231FD1B6E90038E403 /* OPLYNXErrorTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPLYNXErrorTask.swift; sourceTree = "<group>"; };
+		3D9E1229202A582C00D14DA1 /* RunTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunTableViewController.swift; sourceTree = "<group>"; };
 		3DB3D2DD1FC354A3004EDA09 /* CryptoSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoSwift.xcodeproj; path = "../CryptoSwift-master/CryptoSwift.xcodeproj"; sourceTree = "<group>"; };
 		3DB3D2F01FC4CD09004EDA09 /* SaveOperationalFormTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveOperationalFormTask.swift; sourceTree = "<group>"; };
 		3DB3D2F21FC64481004EDA09 /* LoadFormsByLastSyncTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFormsByLastSyncTask.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 				485C9A8F1F3E0E0400BA6CBD /* AppDelegate.swift */,
 				485C9A981F3E0E0400BA6CBD /* LaunchScreen.storyboard */,
 				485C9A931F3E0E0400BA6CBD /* Main.storyboard */,
+				3D9E1229202A582C00D14DA1 /* RunTableViewController.swift */,
 				3D5F4B171FC7790A000BEFE3 /* AssetRegistrationViewController.swift */,
 				482BFD441F5743DE0075B758 /* LoginViewController.swift */,
 				48B4579F1F4B69B4006D9DBF /* OFTableViewController.swift */,
@@ -686,7 +689,6 @@
 				485C9A901F3E0E0400BA6CBD /* AppDelegate.swift in Sources */,
 				3D5F9DB61FD611E500C328B0 /* ScaleAspectFitImageView.swift in Sources */,
 				48CED76A1FAA1DD700A56C43 /* ConfigSync.swift in Sources */,
-				48B457A01F4B69B4006D9DBF /* OFTableViewController.swift in Sources */,
 				3D5F4B181FC7790A000BEFE3 /* AssetRegistrationViewController.swift in Sources */,
 				3D5454B71FB8EB2A00212209 /* DataSync.swift in Sources */,
 				3D5454B51FB8E62300212209 /* ConfigSyncServerTask.swift in Sources */,
@@ -715,6 +717,8 @@
 				3DB3D2F31FC64481004EDA09 /* LoadFormsByLastSyncTask.swift in Sources */,
 				3D8656171FD076180038E403 /* PingServerTask.swift in Sources */,
 				486138121F9E865000567409 /* PasswordHasher.swift in Sources */,
+				3D9E12322033476600D14DA1 /* OFTableViewController.swift in Sources */,
+				3D9E122A202A582C00D14DA1 /* RunTableViewController.swift in Sources */,
 				4830CAEB1F5F102A008DDDDA /* ECDataEntryViewController.swift in Sources */,
 				3D0390131FBAA4AD00310B64 /* OPLYNXUserServerTask.swift in Sources */,
 				4870B9BD1F965F9800C1F31F /* Database.swift in Sources */,

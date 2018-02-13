@@ -7,20 +7,18 @@
 //
 
 import UIKit
+import os.log
 import CryptoSwift
 
-class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, OPLYNXProgressView {
+class LoginViewController: UIViewController, UITextFieldDelegate, OPLYNXProgressView {
 
     //MARK: Properties
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var runTextField: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var runButton: UIButton!
     
     var activeField: UITextField?
-    
-    let runPickerView = UIPickerView()
-    var runs = [Run]()
     
     private var selectedRun: Run?
     
@@ -46,16 +44,6 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         userNameTextField.delegate = self
         passwordTextField.delegate = self
         passwordTextField.delegate = self
-        
-        // Handle run picker view selection
-        runPickerView.showsSelectionIndicator = true
-        runPickerView.dataSource = self
-        runPickerView.delegate = self
-        if let i = runs.index(where: { $0.Name == runTextField.text }) {
-            runPickerView.selectRow(i, inComponent: 0, animated: false)
-        }
-        
-        runTextField.inputView = runPickerView
         
         // Run Config Sync
         DispatchQueue.main.async {
@@ -86,16 +74,16 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         
         // Try to set the last run that was logged into by the previous user
         do {
-            runs = try Run.loadActiveRuns(db: Database.DB())
+            let runs = try Run.loadActiveRuns(db: Database.DB())
             if let lastRun = try LocalSettings.loadSettingsValue(db: Database.DB(), Key: LocalSettings.LOGIN_CURRENT_RUN_KEY) {
                 Authorize.CURRENT_RUN = runs.first(where: {$0.Name == lastRun})
                 if Authorize.CURRENT_RUN != nil {
-                    runTextField.text = lastRun
+                    runButton.setTitle(lastRun, for: .normal)
                     selectedRun = Authorize.CURRENT_RUN
                 }
                 else {
-                    runTextField.text = ""
                     selectedRun = nil
+                    runButton.setTitle("None Selected", for: .normal)
                 }
             }
         }
@@ -103,18 +91,40 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         }
     }
     
-
-    /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        switch (segue.identifier ?? "") {
+        case "ShowRunList":
+            os_log("Show Run List", log: OSLog.default, type: .debug)
+            if let runTableViewController = segue.destination as? RunTableViewController {
+                // Set the selected run on the RunTableViewController
+                runTableViewController.selectedRun = selectedRun
+            }
+        default:
+            os_log("Unknown segue identifier: %@", log: OSLog.default, type: .error, segue.identifier ?? "")
+        }
     }
-    */
     
     //MARK: Actions
+    @IBAction func unwindLoginView(sender: UIStoryboardSegue) {
+        
+        switch (sender.identifier ?? "") {
+        case "SelectRun":
+            if let runTableViewController = sender.source as? RunTableViewController {
+                selectedRun = runTableViewController.selectedRun
+                runButton.setTitle(selectedRun?.Name ?? "None Selected", for: .normal)
+            }
+        case "Cancel":
+            break
+        default:
+            os_log("Unknown segue identifier", log: OSLog.default, type: .error)
+        }
+    }
+    
     @IBAction func StartRun(_ sender: UIButton) {
         
         // Clear the current user
@@ -168,25 +178,6 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
         return true
     }
     
-    //MARK: UIPickerViewDataSource interface
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return runs.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return runs[row].Name        
-    }
-    
-    //MARK: UIPickerViewDelegate interface
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        runTextField.text = runs[row].Name
-        selectedRun = runs[row]
-        runTextField.resignFirstResponder()
-    }
     
     //MARK: Keyboard/ScrollView managing
     func registerForKeyboardNotifications(){
@@ -326,7 +317,7 @@ class LoginViewController: UIViewController, UIPickerViewDataSource, UIPickerVie
                             DispatchQueue.main.async {
                                 // Reset the current selected run on the Login UI
                                 if let loginViewController = self.viewController as? LoginViewController {
-                                    loginViewController.runTextField.text = Authorize.CURRENT_RUN?.Name
+                                    loginViewController.runButton.setTitle(Authorize.CURRENT_RUN?.Name ?? "None Selected", for: .normal)
                                     loginViewController.selectedRun = Authorize.CURRENT_RUN
                                 }
                                 // Navigate to the OF list screen
