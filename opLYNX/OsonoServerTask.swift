@@ -309,7 +309,7 @@ extension Date {
     func formatJsonDate() -> String {
         let prefix = "/Date("
         let suffix = ")/"
-        let millisecondsSince1970 = Int(timeIntervalSince1970 * 1000)
+        let millisecondsSince1970 = Int64(timeIntervalSince1970 * 1000)
         return prefix + String(millisecondsSince1970) + suffix
     }
 }
