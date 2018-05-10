@@ -19,8 +19,8 @@ class OPLYNXSettings {
         if let result = UserDefaults.standard.string(forKey: "serverIP"), !result.isEmpty {
             return result
         }
-        //return "oplynxconvprod.cnrl.com"
-        return "192.131.138.57"
+        return "oplynxconvprod.cnrl.com"
+        //return "192.131.138.57"
     }
     
     class func ServerPort() -> String {

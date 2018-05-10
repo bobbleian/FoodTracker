@@ -102,6 +102,10 @@ class OFTableViewController: UITableViewController, UISearchResultsUpdating, UIS
     public func loadAllOperationalForms() {
         do {
             try allOperationalForms = OperationalForm.loadOperationalFormsWithKeysFromDB(db: Database.DB())
+            
+            // Sort on Due Date first, then Location Name
+            allOperationalForms = allOperationalForms.sorted(by: { $0.Due_Date < $1.Due_Date ||
+                ($0.Due_Date == $1.Due_Date && $0.key2 < $1.key2) })
         }
         catch {
             os_log("Unable to load Operational Forms from database", log: OSLog.default, type: .error)
